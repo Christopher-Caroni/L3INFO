@@ -21,7 +21,7 @@ grille([[_,_,_,_,_,_,_,_,_],
 
 /* Question 4 */
 
-use_module(library(clpfd)).
+?- use_module(library(clpfd)).
 
 /* Question 5 */
 
