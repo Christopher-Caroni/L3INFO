@@ -5,7 +5,17 @@ package fil.coo.generics;
  * only one T object can be carried at a time
  */
 
-public class Collector {
+public class Collector<T> {
+
+    /**
+     * The name of this instance
+     */
+    private String name;
+
+    /**
+     * The object carried of type T
+     */
+    private T carriedObject = null;
 
     /**
      * Default constructor
@@ -16,11 +26,6 @@ public class Collector {
         this.name = name;
     }
 
-    /**
-     * The name of this instance
-     */
-    private String name;
-
 
     /**
      * @return the name of this {@link Collector}
@@ -30,20 +35,53 @@ public class Collector {
     }
 
 
-    // ATTRIBUTS carriedObject à DEFINIR
-
     /**
-     * @return the name and the carried object
+     * @return the name of this collector and the carried object
      */
     public String description() {
         return this.name + " carries " + this.carriedObject;
     }
-    // METHODES a DEFINIR
-    // take : pour prendre un objet de type T (si aucun de "tenu")
-    // getCarriedObject : pour connaitre l'objet "porte" (null si saucun)
-    // giveTo : donne l'objet porte a un autre ramasseur compatible 
-    // drop : depose l'objet "tenu"
 
+    /**
+     * Takes an object of type T if not already carrying one else throw {@link AlreadyCarryingException}
+     *
+     * @param object the object to carry
+     */
+    private void take(T object) {
+        if (carriedObject == null) {
+            carriedObject = object;
+        } else {
+            throw new AlreadyCarryingException();
+        }
+    }
+
+    /**
+     * @return the carried object
+     */
+    private T getCarriedObject() {
+        return carriedObject;
+    }
+
+    /**
+     * Gives the carried object to otherCollector and sets this instance's to null.
+     *
+     * @param otherCollector the other collector that must be a super class of T
+     */
+    private void giveTo(Collector<? super T> otherCollector) {
+        otherCollector.take(carriedObject);
+        carriedObject = null;
+    }
+
+    private void collect(T object) {
+        take(object);
+    }
+
+    /**
+     * Drops the carried object.
+     */
+    private void drop() {
+        carriedObject = null;
+    }
 
     public static void main(String[] args) {
 
