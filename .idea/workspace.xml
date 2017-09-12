@@ -2,20 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e9f1fb9c-7657-4de8-af0d-3b139ae6b072" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TP1.iml" afterPath="$PROJECT_DIR$/TP1.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pom.xml" afterPath="$PROJECT_DIR$/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/fil/coo/generics/Apple.java" afterPath="$PROJECT_DIR$/src/main/java/fil/coo/generics/Apple.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/fil/coo/generics/Carrot.java" afterPath="$PROJECT_DIR$/src/main/java/fil/coo/generics/Carrot.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/fil/coo/generics/Cauliflower.java" afterPath="$PROJECT_DIR$/src/main/java/fil/coo/generics/Cauliflower.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/fil/coo/generics/ClonableVegetableListChoser.java" afterPath="$PROJECT_DIR$/src/main/java/fil/coo/generics/ClonableVegetableListChoser.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/fil/coo/generics/Collector.java" afterPath="$PROJECT_DIR$/src/main/java/fil/coo/generics/Collector.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/fil/coo/generics/Fruit.java" afterPath="$PROJECT_DIR$/src/main/java/fil/coo/generics/Fruit.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/fil/coo/generics/ListChoser.java" afterPath="$PROJECT_DIR$/src/main/java/fil/coo/generics/ListChoser.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/fil/coo/generics/Rutabaga.java" afterPath="$PROJECT_DIR$/src/main/java/fil/coo/generics/Rutabaga.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/fil/coo/generics/Vegetable.java" afterPath="$PROJECT_DIR$/src/main/java/fil/coo/generics/Vegetable.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/fil/coo/generics/VegetableListChoser.java" afterPath="$PROJECT_DIR$/src/main/java/fil/coo/generics/VegetableListChoser.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/fil/coo/scanner/ScannerInt.java" afterPath="$PROJECT_DIR$/src/main/java/fil/coo/scanner/ScannerInt.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -28,45 +15,26 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="ListChoser.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/fil/coo/generics/ListChoser.java">
+      <file leaf-file-name="AlreadyCarryingException.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/fil/coo/generics/AlreadyCarryingException.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="696">
-              <caret line="50" column="0" lean-forward="true" selection-start-line="50" selection-start-column="0" selection-end-line="50" selection-end-column="0" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#675#683#0" expanded="true" />
-                <element signature="e#842#849#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="72">
+              <caret line="4" column="0" lean-forward="false" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="VegetableListChoser.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/fil/coo/generics/VegetableListChoser.java">
+      <file leaf-file-name="Collector.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/fil/coo/generics/Collector.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="394">
-              <caret line="33" column="0" lean-forward="true" selection-start-line="33" selection-start-column="0" selection-end-line="36" selection-end-column="5" />
+            <state relative-caret-position="408">
+              <caret line="36" column="7" lean-forward="false" selection-start-line="36" selection-start-column="7" selection-end-line="36" selection-end-column="7" />
               <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#438#446#0" expanded="true" />
-                <element signature="e#581#588#0" expanded="true" />
-                <element signature="e#1014#1015#0" expanded="true" />
-                <element signature="e#1065#1066#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ClonableVegetableListChoser.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/fil/coo/generics/ClonableVegetableListChoser.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="491">
-              <caret line="48" column="44" lean-forward="false" selection-start-line="48" selection-start-column="44" selection-end-line="48" selection-end-column="44" />
-              <folding>
-                <element signature="e#489#497#0" expanded="true" />
-                <element signature="e#1177#1187#0" expanded="true" />
-                <element signature="e#1431#1438#0" expanded="true" />
+                <element signature="e#1316#1324#0" expanded="true" />
+                <element signature="e#1406#1414#0" expanded="true" />
+                <element signature="e#1494#1501#0" expanded="true" />
+                <element signature="e#1652#1663#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -102,12 +70,13 @@
         <option value="$PROJECT_DIR$/src/main/java/fil/coo/generics/Cauliflower.java" />
         <option value="$PROJECT_DIR$/src/test/java/fil/coo/scanner/ScannerIntTest.java" />
         <option value="$PROJECT_DIR$/src/main/java/fil/coo/generics/ListChoserLegume.java" />
-        <option value="$PROJECT_DIR$/src/main/java/fil/coo/generics/Collector.java" />
         <option value="$PROJECT_DIR$/src/test/java/fil/coo/scanner/ListChoserTest.java" />
         <option value="$PROJECT_DIR$/src/main/java/fil/coo/generics/ListChoser.java" />
         <option value="$PROJECT_DIR$/src/main/java/fil/coo/generics/VegetableListChoser.java" />
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/src/main/java/fil/coo/generics/ClonableVegetableListChoser.java" />
+        <option value="$PROJECT_DIR$/src/main/java/fil/coo/generics/AlreadyCarryingException.java" />
+        <option value="$PROJECT_DIR$/src/main/java/fil/coo/generics/Collector.java" />
       </list>
     </option>
   </component>
@@ -463,7 +432,7 @@
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.30504835" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.30504835" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -613,21 +582,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/fil/coo/generics/Collector.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="197">
-          <caret line="69" column="25" lean-forward="false" selection-start-line="69" selection-start-column="25" selection-end-line="69" selection-end-column="25" />
-          <folding>
-            <element signature="e#424#425#0" expanded="true" />
-            <element signature="e#484#485#0" expanded="true" />
-            <element signature="e#1000#1008#0" expanded="true" />
-            <element signature="e#1084#1092#0" expanded="true" />
-            <element signature="e#1166#1173#0" expanded="true" />
-            <element signature="e#1314#1325#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/fil/coo/generics/VegetableListChoser.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="394">
@@ -650,6 +604,27 @@
             <element signature="e#489#497#0" expanded="true" />
             <element signature="e#1177#1187#0" expanded="true" />
             <element signature="e#1431#1438#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/fil/coo/generics/AlreadyCarryingException.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="72">
+          <caret line="4" column="0" lean-forward="false" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/fil/coo/generics/Collector.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="408">
+          <caret line="36" column="7" lean-forward="false" selection-start-line="36" selection-start-column="7" selection-end-line="36" selection-end-column="7" />
+          <folding>
+            <element signature="e#1316#1324#0" expanded="true" />
+            <element signature="e#1406#1414#0" expanded="true" />
+            <element signature="e#1494#1501#0" expanded="true" />
+            <element signature="e#1652#1663#0" expanded="true" />
           </folding>
         </state>
       </provider>
