@@ -1,4 +1,4 @@
-package generics;
+package fil.coo.generics;
 
 public class Rutabaga implements Vegetable {
     private String name;

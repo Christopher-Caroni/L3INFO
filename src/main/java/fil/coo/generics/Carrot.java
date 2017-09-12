@@ -1,4 +1,4 @@
-package generics;
+package fil.coo.generics;
 
 public class Carrot implements Vegetable, Cloneable {
     private String name;

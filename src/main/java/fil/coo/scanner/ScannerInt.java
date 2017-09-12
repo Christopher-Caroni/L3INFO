@@ -1,4 +1,4 @@
-package scanner;
+package fil.coo.scanner;
 
 import java.util.*;
 import java.util.regex.*;

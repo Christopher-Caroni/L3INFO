@@ -1,7 +1,7 @@
-package generics;
+package fil.coo.generics;
 
-import scanner.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class VegetableListChoser {
 
@@ -27,8 +27,12 @@ public class VegetableListChoser {
 		System.out.println("You have chosen : " + chosenCarrot);
 
 		// NE COMPILE PAS
-		// Apple chosenApple = lcl.chose("which apple ? ",lApples);
+//		 Apple chosenApple = lcl.chose("which apple ? ",lApples);
 
 
     }
+
+	private <T extends Vegetable> T chose(String s, List<T> list) {
+        return new ListChoser().chose(s, list);
+	}
 }

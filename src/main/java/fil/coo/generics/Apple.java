@@ -1,4 +1,4 @@
-package generics;
+package fil.coo.generics;
 
 public class Apple implements Fruit {
 	private String name;

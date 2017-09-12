@@ -1,6 +1,5 @@
-package generics;
+package fil.coo.generics;
 
-import scanner.*;
 import java.util.*;
 
 public class ClonableVegetableListChoser {
@@ -45,4 +44,9 @@ public class ClonableVegetableListChoser {
 		// Apple chosenApple = lclc.chose("which apple ? ",lApples);
 
 	}
+
+
+    private <T extends Vegetable & Cloneable> T chose(String s, List<T> list) {
+        return new ListChoser().chose(s, list);
+    }
 }

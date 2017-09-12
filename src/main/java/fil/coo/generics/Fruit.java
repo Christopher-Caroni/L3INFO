@@ -1,3 +1,3 @@
-package generics;
+package fil.coo.generics;
 
 public interface Fruit {}

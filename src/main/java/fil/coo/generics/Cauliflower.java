@@ -1,4 +1,4 @@
-package generics;
+package fil.coo.generics;
 
 public class Cauliflower implements Vegetable, Cloneable {
 	private String name;

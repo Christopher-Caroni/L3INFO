@@ -1,11 +1,11 @@
-package generics;
+package fil.coo.generics;
 import java.util.*;
 
 /** define collectors able to collect (and carry) one specific type T of objects
  * only one T object can be carried at a time
  */
 
-CLASSE PARAMETREE Collector A DECLARER {
+public class Collector {
 
     public Collector(String name) {
 	this.name = name;
