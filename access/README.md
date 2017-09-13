@@ -15,3 +15,14 @@ illustrer l’utilisation de `getopt` et ainsi vous aider à démarrer.
 Vous éditerez ce fichier pour qu’il contienne un compte-rendu du
 travail effectué (qu’est-ce qui marche, qu’est-ce qui ne marche pas,
 etc.).
+
+# Ce que nous avons fait :
+
+Durant ce tp nous avons:
+- créer la fonction prlimit() qui affiche les valeurs de NAME_MAX et PATH_MAX
+- permis à la commande macces de tester les droits d'accès d'un ou plusieurs fichiers
+- créer un programme bash test_access afin de tester et de prouver les différentes possibilités de la commande maccess tout en montrant les différentes erreurs
+
+Ainsi la commande maccess peux :
+- tester la lecture/l'écriture/l'acces d'un fichier et de montrer une erreur si -v est passé en argument
+- ce test de droit s'effectue sur un ou plusieurs fichier
