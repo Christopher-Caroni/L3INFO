@@ -1,5 +1,7 @@
-#
-include < unistd.h > #include < stdio.h > #include < limits.h > #include < errno.h >
+#include <unistd.h>
+#include <stdio.h>
+#include <limits.h>
+#include <errno.h>
 
   int vflag, rflag, wflag, xflag;
 
@@ -24,11 +26,18 @@ int maccess(int argc, char * * argv) {
     return 1;
   }
 
-  printf("OPTIONS verbose:%i, read:%i, write:%i, exec:%i\n", vflag, rflag, wflag, xflag);
-  printf("REMAINING %i ARGS:\n", argc);
+  if (vflag)
+  {
+    printf("OPTIONS verbose:%i, read:%i, write:%i, exec:%i\n", vflag, rflag, wflag, xflag);
+    printf("REMAINING %i ARGS:\n", argc);
+  }
+
   for (i = 0; i < argc; i++)
   {
-    printf("\t%s\n", argv[i]);
+    if (vflag)
+    {
+      printf("\t%s\n", argv[i]);
+    }
 
     mode = 0;
     if (rflag)
@@ -52,7 +61,10 @@ int maccess(int argc, char * * argv) {
       }
       return 1;
     } else {
-      printf("%s\n", "acces confirmé");
+      if (vflag)
+      {
+        printf("%s\n", "acces confirmé");
+      }
     }
   }
   return result; /* last result is the global result for all the files */

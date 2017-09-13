@@ -1,0 +1,44 @@
+#/bin/bash
+
+
+mkdir test
+
+cd ./test
+touch read_only
+
+chmod 400 read_only
+
+# 3
+touch fake_dir
+
+# 4
+mkdir dir_no_access
+touch ./dir_no_access/random_file
+chmod 700 ./dir_no_access/random_file
+chmod 600 ./dir_no_access
+
+
+# start testing
+cd ..
+tree test
+
+# 1 - EACCESS - permission denied
+./maccess -wv ./test/read_only
+echo $?
+
+# 2 - ENOENT -  no such file
+./maccess -rv ./test/fake_file
+echo $?
+
+# 3 - ENOTDIR - un element du chemin d'access n'est pas un repertoire
+./maccess -rv ./test/fake_dir/fake_file
+echo $?
+
+# 4 pas permis de traverser un dir de pathname
+./maccess -rv ./test/dir_no_access/random_file
+echo $?
+# erreur pas assez détaillé?
+
+
+chmod 700 test/dir_no_access
+rm -rf test
