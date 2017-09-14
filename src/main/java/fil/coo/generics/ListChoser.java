@@ -1,5 +1,7 @@
 package fil.coo.generics;
 
+import fil.coo.scanner.ScannerInt;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,6 +51,8 @@ public class ListChoser {
             System.out.println((i + 1) + " - " + list.get(i).toString());
         }
 
-        return choice == 0 ? null : list.get(choice);
+        choice = ScannerInt.readInt(list.size() + 1);
+
+        return choice == 0 ? null : list.get(choice-1);
     }
 }

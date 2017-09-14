@@ -51,7 +51,7 @@ public class Collector<T> {
         if (carriedObject == null) {
             carriedObject = object;
         } else {
-            throw new AlreadyCarryingException();
+            throw new AlreadyCarryingException(this.description());
         }
     }
 
