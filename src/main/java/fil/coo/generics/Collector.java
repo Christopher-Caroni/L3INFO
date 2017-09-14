@@ -47,7 +47,7 @@ public class Collector<T> {
      *
      * @param object the object to carry
      */
-    private void take(T object) {
+    public void take(T object) {
         if (carriedObject == null) {
             carriedObject = object;
         } else {
@@ -58,7 +58,7 @@ public class Collector<T> {
     /**
      * @return the carried object
      */
-    private T getCarriedObject() {
+    public T getCarriedObject() {
         return carriedObject;
     }
 
@@ -67,11 +67,16 @@ public class Collector<T> {
      *
      * @param otherCollector the other collector that must be a super class of T
      */
-    private void giveTo(Collector<? super T> otherCollector) {
+    public void giveTo(Collector<? super T> otherCollector) {
         otherCollector.take(carriedObject);
         carriedObject = null;
     }
 
+    /**
+     * Same as {@link #take(Object)} but used in main()
+     *
+     * @param object the object to carry
+     */
     private void collect(T object) {
         take(object);
     }
@@ -79,7 +84,7 @@ public class Collector<T> {
     /**
      * Drops the carried object.
      */
-    private void drop() {
+    public void drop() {
         carriedObject = null;
     }
 
