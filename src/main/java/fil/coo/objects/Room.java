@@ -1,6 +1,6 @@
 package fil.coo.objects;
 
-import fil.coo.alive.Monster;
+import fil.coo.beings.Monster;
 import fil.coo.other.Direction;
 
 import java.util.List;
@@ -15,6 +15,7 @@ public class Room {
     private Map<Direction, Room> neighbours;
 
     private boolean isExit;
+    private int gold;
 
     public Room getNeighbour(Direction direction) {
         // TODO
@@ -46,4 +47,5 @@ public class Room {
         // TODO
         return null;
     }
+
 }

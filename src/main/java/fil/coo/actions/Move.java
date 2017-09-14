@@ -1,6 +1,6 @@
 package fil.coo.actions;
 
-import fil.coo.alive.Player;
+import fil.coo.beings.Player;
 import fil.coo.other.Direction;
 import fil.coo.util.Menu;
 

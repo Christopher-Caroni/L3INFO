@@ -1,6 +1,6 @@
 package fil.coo.actions;
 
-import fil.coo.alive.Player;
+import fil.coo.beings.Player;
 
 public class Rest extends Action {
 

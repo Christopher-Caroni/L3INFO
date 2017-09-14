@@ -1,4 +1,4 @@
-package fil.coo.alive;
+package fil.coo.beings;
 
 import fil.coo.objects.Room;
 

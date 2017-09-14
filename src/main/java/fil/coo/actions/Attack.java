@@ -1,7 +1,7 @@
 package fil.coo.actions;
 
-import fil.coo.alive.Monster;
-import fil.coo.alive.Player;
+import fil.coo.beings.Monster;
+import fil.coo.beings.Player;
 import fil.coo.util.Menu;
 
 import java.util.List;
