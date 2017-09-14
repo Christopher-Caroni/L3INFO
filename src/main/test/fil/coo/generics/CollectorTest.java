@@ -7,8 +7,11 @@ import static org.junit.Assert.*;
 public class CollectorTest {
 
 
+    /**
+     * Tests that {@link Collector#description()} returns a proper string with and without an object.
+     */
     @Test
-    public void description() {
+    public void testDescription() {
         String name = "carrotCollector 1";
         Collector<Carrot> carrotCollector = new Collector<>(name);
 
@@ -21,6 +24,9 @@ public class CollectorTest {
 
     }
 
+    /**
+     * Tests {@link Collector#take(Object)} and {@link Collector#getCarriedObject()} with and without objects.
+     */
     @Test
     public void testTakeAndGetCarriedObject() {
         Collector<Carrot> carrotCollector = new Collector<>("carrotCollector 1");
@@ -32,7 +38,23 @@ public class CollectorTest {
         assertNotNull(carrotCollector.getCarriedObject());
     }
 
+    /**
+     * Tests that {@link Collector#take(Object)} throws {@link AlreadyCarryingException}.
+     */
+    @Test(expected = AlreadyCarryingException.class)
+    public void testTakeAlreadyCarrying() {
+        Collector<Carrot> carrotCollector = new Collector<>("carrotCollector 1");
 
+        Carrot carrot = new Carrot(0);
+        carrotCollector.take(carrot);
+
+        carrotCollector.take(carrot);
+    }
+
+
+    /**
+     * Tests that {@link Collector#giveTo(Collector)} correctly transfers the object by comparing the reference of the object.
+     */
     @Test
     public void testGiveTo() {
         Collector<Carrot> carrotCollector = new Collector<>("carrotCollector 1");
@@ -46,7 +68,10 @@ public class CollectorTest {
         assertSame(carrot, vegetableCollector.getCarriedObject());
     }
 
-    @Test(expected=AlreadyCarryingException.class)
+    /**
+     * Tests that {@link Collector#giveTo(Collector)} throws {@link AlreadyCarryingException} if the receiving object already has one.
+     */
+    @Test(expected = AlreadyCarryingException.class)
     public void testGiveToAlreadyCarrying() {
         Collector<Carrot> carrotCollector = new Collector<>("carrotCollector 1");
         Carrot carrot = new Carrot(0);
@@ -61,8 +86,11 @@ public class CollectorTest {
     }
 
 
+    /**
+     * Tests that {@link Collector#drop()} correctly removes a carried object.
+     */
     @Test
-    public void drop() throws Exception {
+    public void drop() {
         Collector<Carrot> carrotCollector = new Collector<>("carrotCollector 1");
         assertNull(carrotCollector.getCarriedObject());
 
