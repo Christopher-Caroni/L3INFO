@@ -1,6 +1,6 @@
-package fil.coo.beings;
+package fil.coo.spawnables.beings;
 
-import fil.coo.objects.Room;
+import fil.coo.structures.Room;
 
 public abstract class Character {
 

@@ -1,4 +1,4 @@
-package fil.coo.beings;
+package fil.coo.spawnables.beings;
 
 import fil.coo.actions.Action;
 import fil.coo.other.Direction;

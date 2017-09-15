@@ -1,8 +1,8 @@
 package fil.coo.factory;
 
-import fil.coo.objects.GoldItem;
-import fil.coo.objects.Room;
-import fil.coo.other.Spawnable;
+import fil.coo.spawnables.beings.Monster;
+import fil.coo.spawnables.items.GoldPurse;
+import fil.coo.structures.Room;
 
 import java.util.List;
 
@@ -17,12 +17,7 @@ public class RoomFactory {
     public Room generateRoom() {
         Room room = new Room();
 
-        // generate items
-        generateItemsForRoom(room);
-
-        generateMonstersForRoom(room);
-
-        // generate monsters
+        addSpawnables(room);
 
         // generate neighbours
         // TODO >> delegate to AdventureGame which has the full view
@@ -31,27 +26,40 @@ public class RoomFactory {
     }
 
     /**
-     * Adds all spawnable items to the room
-     * @param room
+     * Spawns all spawnables and adds them to the room.
+     *
+     * @param room the room to add them to.
      */
-    private void generateItemsForRoom(Room room) {
-        // GOLD
-        spawnGold(room);
+    private void addSpawnables(Room room) {
+        // generate items
+        spawnItemsForRoom(room);
 
-        // OTHER ITEMS
+        // generate beings
+        spawnBeingsForRoom(room);
     }
 
     /**
-     * Adds only gold to the room
+     * Adds all spawnable items to the room
+     *
      * @param room
      */
-    private void spawnGold(Room room) {
-//        List<GoldItem> gold = Spawnable.generateRandomSpawn(Spawnable.Types.GOLD);
-        List<? extends Spawnable> randomSpawn = new GoldItem().getRandomSpawn();
+    private void spawnItemsForRoom(Room room) {
+        // GOLD
+        GoldPurse goldPurse = new GoldPurse().getRandomSpawn();
+        room.addSingleItem(goldPurse);
+
+        // OTHER FUTURE ITEMS
+        // TODO POTIONS
     }
 
-    private void generateMonstersForRoom(Room room) {
-        // TODO
+    /**
+     * Generates all living beings and adds them to the room.
+     *
+     * @param room the room to add them to.
+     */
+    private void spawnBeingsForRoom(Room room) {
+        List<Monster> monsters = new Monster().getRandomSpawn();
+        room.addMonsters(monsters);
     }
 
 }

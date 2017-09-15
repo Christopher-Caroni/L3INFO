@@ -1,9 +1,9 @@
 package fil.coo;
 
-import fil.coo.beings.Monster;
-import fil.coo.beings.Player;
-import fil.coo.objects.Item;
-import fil.coo.objects.Room;
+import fil.coo.spawnables.beings.Monster;
+import fil.coo.spawnables.beings.Player;
+import fil.coo.spawnables.items.interfaces.Item;
+import fil.coo.structures.Room;
 import fil.coo.other.Direction;
 
 /**

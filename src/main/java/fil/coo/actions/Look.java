@@ -1,6 +1,6 @@
 package fil.coo.actions;
 
-import fil.coo.beings.Player;
+import fil.coo.spawnables.beings.Player;
 
 public class Look extends Action {
 

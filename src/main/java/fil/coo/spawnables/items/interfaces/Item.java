@@ -1,4 +1,4 @@
-package fil.coo.objects;
+package fil.coo.spawnables.items.interfaces;
 
 public interface Item {
 

@@ -1,6 +1,7 @@
-package fil.coo.objects;
+package fil.coo.structures;
 
-import fil.coo.beings.Monster;
+import fil.coo.spawnables.beings.Monster;
+import fil.coo.spawnables.items.interfaces.Item;
 import fil.coo.other.Direction;
 
 import java.util.List;
@@ -8,9 +9,9 @@ import java.util.Map;
 
 public class Room {
 
-    private List items;
+    private List<? super Item> items;
 
-    private List monsters;
+    private List<Monster> monsters;
 
     private Map<Direction, Room> neighbours;
 
@@ -29,7 +30,7 @@ public class Room {
 
     public boolean hasMonsters() {
         // TODO
-         return false;
+        return false;
     }
 
 
@@ -48,4 +49,15 @@ public class Room {
         return null;
     }
 
+    public void addItems(List<? extends Item> itemsList) {
+        items.addAll(itemsList);
+    }
+
+    public void addSingleItem(Item item) {
+        items.add(item);
+    }
+
+    public void addMonsters(List<Monster> monstersToAdd) {
+        this.monsters.addAll(monstersToAdd);
+    }
 }
