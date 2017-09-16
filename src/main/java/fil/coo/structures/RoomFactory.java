@@ -1,8 +1,7 @@
-package fil.coo.factory;
+package fil.coo.structures;
 
 import fil.coo.spawnables.beings.Monster;
 import fil.coo.spawnables.items.GoldPurse;
-import fil.coo.structures.Room;
 
 import java.util.List;
 
@@ -60,6 +59,8 @@ public class RoomFactory {
     private void spawnBeingsForRoom(Room room) {
         List<Monster> monsters = new Monster().getRandomSpawn();
         room.addMonsters(monsters);
+
+        // OTHER FUTURE ITEMS
     }
 
 }
