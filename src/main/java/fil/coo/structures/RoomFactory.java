@@ -13,8 +13,8 @@ public class RoomFactory {
     public RoomFactory() {
     }
 
-    public Room generateRoom() {
-        Room room = new Room();
+    public Room generateRoom(int column, int row) {
+        Room room = new Room(column, row);
 
         addSpawnables(room);
 

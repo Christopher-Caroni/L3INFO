@@ -26,4 +26,10 @@ public class Attack extends Action {
             player.changeHP(-target.getStrength());
         }
     }
+
+    @Override
+    public String getMenuDescription() {
+//        TODO
+        return null;
+    }
 }

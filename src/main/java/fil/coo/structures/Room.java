@@ -5,13 +5,10 @@ import fil.coo.other.Direction;
 import fil.coo.spawnables.beings.Monster;
 import fil.coo.spawnables.items.interfaces.Item;
 
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Room {
 
-    protected Room() {
-    }
 
     private int x;
     private int y;
@@ -21,10 +18,20 @@ public class Room {
 
     private List<Monster> monsters;
 
-    private Map<Direction, Room> neighbours;
+    private Map<Direction, Room> linkedNeighbour;
 
     private boolean isExit;
     private int gold;
+
+    protected Room(int column, int row) {
+        x = column;
+        y = row;
+
+
+        items = new ArrayList<>();
+        monsters = new ArrayList<>();
+        linkedNeighbour = new HashMap<>();
+    }
 
     public Room getNeighbour(Direction direction) {
         // TODO
@@ -38,7 +45,7 @@ public class Room {
      * @param direction
      */
     private void addNeighbourForDirection(Room room, Direction direction) {
-        neighbours.put(direction, room);
+        linkedNeighbour.put(direction, room);
     }
 
 
@@ -100,15 +107,15 @@ public class Room {
      */
     public static Direction getDirectionFromRoomToOtherRoom(Room currentRoom, Room neighbour) {
         if (currentRoom.getX() == neighbour.getX()) {
-            if (currentRoom.getY() == (neighbour.getY() - 1)) {
+            if (currentRoom.getY() == (neighbour.getY() + 1)) {
                 return Direction.NORTH;
-            } else if (currentRoom.getY() == (neighbour.getY() + 1)) {
+            } else if (currentRoom.getY() == (neighbour.getY() - 1)) {
                 return Direction.SOUTH;
             }
         } else if (currentRoom.getY() == neighbour.getY()) {
-            if (currentRoom.getX() == (neighbour.getX() - 1)) {
+            if (currentRoom.getX() == (neighbour.getX() + 1)) {
                 return Direction.WEST;
-            } else if (currentRoom.getX() == (neighbour.getX() + 1)) {
+            } else if (currentRoom.getX() == (neighbour.getX() - 1)) {
                 return Direction.EAST;
             }
         }
@@ -116,7 +123,7 @@ public class Room {
     }
 
     /**
-     * Sets these two rooms to have each other as neighbours. Order has no importance.
+     * Sets these two rooms to have each other as linkedNeighbour. Order has no importance.
      *
      * @param firstRoom
      * @param secondRoom
@@ -131,5 +138,23 @@ public class Room {
         } else {
             throw new RoomsAreNotNeighboursException("These rooms are not neighbours");
         }
+    }
+
+    public boolean hasLinkedNeighbourForDirection(Direction direction) {
+        return linkedNeighbour.get(direction) != null;
+    }
+
+    public String coordsToString() {
+        return "x=[" + x + "], y=[" + y + "]";
+    }
+
+    public String neighboursToString() {
+        StringBuilder stringBuilder = new StringBuilder("Neighbours= [\n");
+        Iterator it = linkedNeighbour.entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry<Direction, Room> pair = (Map.Entry<Direction, Room>) it.next();
+            stringBuilder.append(pair.getKey() + ",\n");
+        }
+        return stringBuilder.toString();
     }
 }

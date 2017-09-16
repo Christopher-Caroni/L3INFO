@@ -1,6 +1,7 @@
 package fil.coo;
 
 import fil.coo.exception.RoomsAreNotNeighboursException;
+import fil.coo.gui.DungeonFrame;
 import fil.coo.other.Direction;
 import fil.coo.spawnables.beings.Monster;
 import fil.coo.spawnables.beings.Player;
@@ -28,6 +29,7 @@ public class AdventureGame {
      * The 2D array of rooms that compose the dungeon.
      */
     private Room[][] dungeon;
+    private DungeonFrame dungeonFrame;
 
     private AdventureGame() {
     }
@@ -66,7 +68,9 @@ public class AdventureGame {
      * Starts a game
      */
     public void startGame() {
-        // TODO
+        generateDungeon();
+//        uncomment to show the dungeon in a JFrame
+        dungeonFrame = new DungeonFrame(dungeon);
     }
 
     /**
@@ -91,7 +95,7 @@ public class AdventureGame {
 
         for (int row = 0; row < HEIGHT_DUNGEON; row++) {
             for (int column = 0; column < WIDTH_DUNGEON; column++) {
-                dungeon[row][column] = roomFactory.generateRoom();
+                dungeon[row][column] = roomFactory.generateRoom(column, row);
                 visitedRooms[row][column] = false;
             }
         }

@@ -1,7 +1,9 @@
 package fil.coo.util;
 
 import fil.coo.other.Selectable;
+import fil.coo.structures.Room;
 
+import javax.swing.*;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
@@ -58,5 +60,13 @@ public class Menu {
             }
         }
         return choice;
+    }
+
+    public void displayDungeon(Room[][] dungeon) {
+
+        JFrame frame = new JFrame("Dungeon");
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        frame.pack();
+        frame.setVisible(true);
     }
 }

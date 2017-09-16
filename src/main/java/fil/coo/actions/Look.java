@@ -12,4 +12,10 @@ public class Look extends Action {
     public void execute(Player player) {
         // TODO
     }
+
+    @Override
+    public String getMenuDescription() {
+//        TODO
+        return null;
+    }
 }

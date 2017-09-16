@@ -19,4 +19,10 @@ public class Move extends Action {
 
         player.moveToDirection(direction);
     }
+
+    @Override
+    public String getMenuDescription() {
+//        TODO
+        return null;
+    }
 }
