@@ -59,6 +59,8 @@ public class DungeonFrame extends JFrame {
                     int startX = borderWidth + (roomWidth * x);
                     int startY = borderHeight + (roomHeight * y);
 
+                    g.drawString(x + ", " + y, startX+5, startY+15);
+
                     if (!dungeon[y][x].hasLinkedNeighbourForDirection(Direction.NORTH)) {
                         g.drawLine(startX, startY, startX + roomWidth, startY);
                     }

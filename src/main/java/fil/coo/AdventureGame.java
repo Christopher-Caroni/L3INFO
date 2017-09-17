@@ -1,5 +1,6 @@
 package fil.coo;
 
+import com.google.devtools.common.options.OptionsParser;
 import fil.coo.exception.RoomsAreNotNeighboursException;
 import fil.coo.gui.DungeonFrame;
 import fil.coo.other.Direction;
@@ -8,6 +9,8 @@ import fil.coo.spawnables.beings.Player;
 import fil.coo.spawnables.items.interfaces.Item;
 import fil.coo.structures.Room;
 import fil.coo.structures.RoomFactory;
+import fil.coo.util.AdventureGameOptions;
+import fil.coo.util.Menu;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,13 +33,23 @@ public class AdventureGame {
      */
     private Room[][] dungeon;
     private DungeonFrame dungeonFrame;
+    private AdventureGameOptions options;
 
-    private AdventureGame() {
+    private AdventureGame(AdventureGameOptions options) {
+        this.options = options;
     }
 
     public static void main(String[] args) {
-        AdventureGame adventureGame = new AdventureGame();
+        AdventureGameOptions options = parseOptions(args);
+
+        AdventureGame adventureGame = new AdventureGame(options);
         adventureGame.startGame();
+    }
+
+    private static AdventureGameOptions parseOptions(String[] args) {
+        OptionsParser parser = OptionsParser.newOptionsParser(AdventureGameOptions.class);
+        parser.parseAndExitUponError(args);
+        return parser.getOptions(AdventureGameOptions.class);
     }
 
     /**
@@ -69,8 +82,11 @@ public class AdventureGame {
      */
     public void startGame() {
         generateDungeon();
-//        uncomment to show the dungeon in a JFrame
-        dungeonFrame = new DungeonFrame(dungeon);
+
+        if (options.debug) {
+            dungeonFrame = new DungeonFrame(dungeon);
+            Menu.getInstance().printRoom(dungeon[4][4], options.debug);
+        }
     }
 
     /**

@@ -149,12 +149,13 @@ public class Room {
     }
 
     public String neighboursToString() {
-        StringBuilder stringBuilder = new StringBuilder("Neighbours= [\n");
+        StringBuilder stringBuilder = new StringBuilder("Neighbours=[\n");
         Iterator it = linkedNeighbour.entrySet().iterator();
         while (it.hasNext()) {
             Map.Entry<Direction, Room> pair = (Map.Entry<Direction, Room>) it.next();
-            stringBuilder.append(pair.getKey() + ",\n");
+            stringBuilder.append("\t" + pair.getKey() + ",\n");
         }
+        stringBuilder.append("]\n");
         return stringBuilder.toString();
     }
 }
