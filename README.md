@@ -1,7 +1,8 @@
 # COO TP1
 
 ## Intro
-TP1 de COO sur les generics en java.
+TP1 de COO sur les generics en java. Les classes pertinentes sont dans le package "generics" et l'uml de ces classes est dans la racine du projet "uml.png".
+
 
 ## How to
 ### Exercice 2
