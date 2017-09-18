@@ -36,6 +36,7 @@ public class CollectorTest {
         carrotCollector.take(carrot);
 
         assertNotNull(carrotCollector.getCarriedObject());
+        assertSame(carrot, carrotCollector.getCarriedObject());
     }
 
     /**
