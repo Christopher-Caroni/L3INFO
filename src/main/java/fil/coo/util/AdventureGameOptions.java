@@ -19,6 +19,14 @@ public class AdventureGameOptions extends OptionsBase {
     public boolean displayGeneration;
 
     @Option(
+            name = "display-generation-wait-time",
+            abbrev = 'w',
+            help = "The time between each refresh when the dungeon generates the neighbours",
+            defaultValue = "50"
+    )
+    public int generationWaitTime;
+
+    @Option(
             name = "debug-room-x-coord",
             abbrev = 'x',
             help = "prints the state of one room specified by its coordinates x",
