@@ -1,41 +1,51 @@
 package fil.coo.spawnables.items;
 
+import fil.coo.spawnables.beings.Player;
 import fil.coo.spawnables.interfaces.ISingleSpawnable;
 import fil.coo.spawnables.items.interfaces.Potion;
 
-public class StrengthPotion implements Potion, ISingleSpawnable<StrengthPotion> {
+import java.util.Random;
+
+public class StrengthPotion extends Potion implements ISingleSpawnable<StrengthPotion> {
+
+    private int strengthBoost;
+
     @Override
-    public void use() {
-//        TODO
+    protected void applySpecificEffect(Player player) {
+        player.changeStrength(strengthBoost);
     }
 
     @Override
     public String getMenuDescription() {
-        // TODO
-        return null;
+        return "Strength potion: +" + strengthBoost + " strength";
     }
 
     @Override
     public StrengthPotion getRandomSpawn() {
-        // TODO
+        if (willSpawn()) {
+            return new StrengthPotion()
+                    .withStrengthBoost(getUpperSpawnBoundForAmountHeld());
+        }
         return null;
+    }
+
+    private StrengthPotion withStrengthBoost(int strengthBoost) {
+        this.strengthBoost = strengthBoost;
+        return this;
     }
 
     @Override
     public int getUpperSpawnBoundForAmountHeld() {
-        // TODO
-        return 0;
+        return 21;
     }
 
     @Override
     public double getSpawnRate() {
-        // TODO
-        return 0;
+        return 0.2;
     }
 
     @Override
     public boolean willSpawn() {
-        // TODO
-        return false;
+        return new Random().nextDouble() <= getSpawnRate();
     }
 }

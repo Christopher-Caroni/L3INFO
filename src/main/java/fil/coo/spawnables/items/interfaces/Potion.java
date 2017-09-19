@@ -1,5 +1,5 @@
 package fil.coo.spawnables.items.interfaces;
 
-public interface Potion extends Item {
+public abstract class Potion extends Item {
 
 }

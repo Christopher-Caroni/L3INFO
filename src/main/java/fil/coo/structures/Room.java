@@ -158,4 +158,12 @@ public class Room {
         stringBuilder.append("]\n");
         return stringBuilder.toString();
     }
+
+    /**
+     * Removes <b>item</b> from the room
+     * @param item
+     */
+    public void removeItem(Item item) {
+        items.remove(item);
+    }
 }

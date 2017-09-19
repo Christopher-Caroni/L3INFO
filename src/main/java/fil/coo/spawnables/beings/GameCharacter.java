@@ -1,17 +1,19 @@
 package fil.coo.spawnables.beings;
 
+import fil.coo.exception.NegativeGoldException;
 import fil.coo.other.Selectable;
+import fil.coo.spawnables.items.interfaces.Item;
 import fil.coo.structures.Room;
 
-public abstract class Character implements Selectable {
+public abstract class GameCharacter implements Selectable {
 
     private int hp;
 
     private int strength;
 
-    private int gold;
+    protected int gold;
 
-    private Room currentRoom;
+    protected Room currentRoom;
 
     public boolean isAlive() {
         // TODO
@@ -23,7 +25,11 @@ public abstract class Character implements Selectable {
     }
 
     public void changeGold(int change) {
-        // TODO
+        if (gold + change < 0) {
+            throw new NegativeGoldException(this + " does not have enough gold for this operation");
+        } else {
+            gold += change;
+        }
     }
 
     public void changeStrength(int strength) {

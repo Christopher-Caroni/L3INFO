@@ -1,12 +1,12 @@
 package fil.coo.spawnables.items;
 
-import fil.coo.other.Selectable;
+import fil.coo.spawnables.beings.Player;
 import fil.coo.spawnables.interfaces.ISingleSpawnable;
 import fil.coo.spawnables.items.interfaces.Item;
 
 import java.util.Random;
 
-public class GoldPurse implements Item, ISingleSpawnable<GoldPurse> {
+public class GoldPurse extends Item implements ISingleSpawnable<GoldPurse> {
 
     /**
      * The amount of gold this purse contains.
@@ -14,13 +14,13 @@ public class GoldPurse implements Item, ISingleSpawnable<GoldPurse> {
     private int goldAmount;
 
     @Override
-    public void use() {
-        // TODO
+    protected void applySpecificEffect(Player player) {
+        player.changeGold(goldAmount);
     }
 
     @Override
     public String getMenuDescription() {
-        return "Gold purse: " + goldAmount + " gold.";
+        return "Gold purse: +" + goldAmount + " gold.";
     }
 
 

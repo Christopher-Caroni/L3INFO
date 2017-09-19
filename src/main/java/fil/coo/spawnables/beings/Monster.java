@@ -1,13 +1,12 @@
 package fil.coo.spawnables.beings;
 
-import fil.coo.other.Selectable;
 import fil.coo.spawnables.interfaces.IMultipleSpawnable;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class Monster extends Character implements IMultipleSpawnable {
+public class Monster extends GameCharacter implements IMultipleSpawnable {
 
     @Override
     public String getMenuDescription() {
