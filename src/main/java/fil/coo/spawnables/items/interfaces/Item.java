@@ -1,6 +1,8 @@
 package fil.coo.spawnables.items.interfaces;
 
-public interface Item {
+import fil.coo.other.Selectable;
+
+public interface Item extends Selectable {
 
     void use();
 

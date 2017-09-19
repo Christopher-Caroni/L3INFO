@@ -1,8 +1,9 @@
 package fil.coo.spawnables.beings;
 
+import fil.coo.other.Selectable;
 import fil.coo.structures.Room;
 
-public abstract class Character {
+public abstract class Character implements Selectable {
 
     private int hp;
 

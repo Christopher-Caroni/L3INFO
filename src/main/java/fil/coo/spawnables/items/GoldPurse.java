@@ -1,11 +1,12 @@
 package fil.coo.spawnables.items;
 
-import fil.coo.spawnables.items.interfaces.Item;
 import fil.coo.other.Selectable;
 import fil.coo.spawnables.interfaces.ISingleSpawnable;
-import fil.coo.spawnables.Spawner;
+import fil.coo.spawnables.items.interfaces.Item;
 
-public class GoldPurse implements Item, Selectable, ISingleSpawnable<GoldPurse> {
+import java.util.Random;
+
+public class GoldPurse implements Item, ISingleSpawnable<GoldPurse> {
 
     /**
      * The amount of gold this purse contains.
@@ -24,15 +25,18 @@ public class GoldPurse implements Item, Selectable, ISingleSpawnable<GoldPurse> 
 
 
     /**
-     * @return a random spawn of {@link GoldPurse} with a random amount of gold inside specified by {@link Spawner#getSpawnAmount(Spawner.Types)}.
+     * @return a random spawn of {@link GoldPurse} with a random amount of gold inside specified by {@link #getSpawnRate()}
      */
     @Override
     public GoldPurse getRandomSpawn() {
-        int spawnAmount = Spawner.getSpawnAmount(Spawner.Types.GOLD);
+        if (willSpawn()) {
 
-        return new GoldPurse()
-                .withGoldAmount(spawnAmount);
+            return new GoldPurse()
+                    .withGoldAmount(getUpperSpawnBoundForAmountHeld());
+        }
+        return null;
     }
+
 
     public void setGoldAmount(int goldAmount) {
         this.goldAmount = goldAmount;
@@ -46,4 +50,20 @@ public class GoldPurse implements Item, Selectable, ISingleSpawnable<GoldPurse> 
         this.setGoldAmount(goldAmount);
         return this;
     }
+
+    @Override
+    public int getUpperSpawnBoundForAmountHeld() {
+        return 21;
+    }
+
+    @Override
+    public double getSpawnRate() {
+        return 0.2;
+    }
+
+    @Override
+    public boolean willSpawn() {
+        return new Random().nextDouble() <= getSpawnRate();
+    }
+
 }

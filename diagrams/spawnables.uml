@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>fil.coo.spawnables</OriginalElement>
+  <nodes>
+    <node x="11.0" y="103.0">fil.coo.spawnables.items.HealthPotion</node>
+    <node x="-137.0" y="103.0">fil.coo.spawnables.items.StrengthPotion</node>
+    <node x="149.0" y="103.0">fil.coo.spawnables.items.OneArmedBandit</node>
+    <node x="47.0" y="24.0">fil.coo.spawnables.interfaces.ISingleSpawnable</node>
+    <node x="-416.75" y="24.0">fil.coo.spawnables.beings.Character</node>
+    <node x="-297.75" y="24.0">fil.coo.spawnables.interfaces.IMultipleSpawnable</node>
+    <node x="218.0" y="-55.0">fil.coo.spawnables.items.interfaces.Item</node>
+    <node x="-97.49107142857144" y="-55.0">fil.coo.spawnables.interfaces.Spawnable</node>
+    <node x="-432.0" y="103.0">fil.coo.spawnables.beings.Player</node>
+    <node x="-290.75" y="103.0">fil.coo.spawnables.beings.Monster</node>
+    <node x="-125.75" y="24.0">fil.coo.spawnables.items.interfaces.Potion</node>
+    <node x="309.0" y="103.0">fil.coo.spawnables.items.GoldPurse</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="fil.coo.spawnables.beings.Monster" target="fil.coo.spawnables.interfaces.IMultipleSpawnable">
+      <point x="23.0" y="-14.5" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="fil.coo.spawnables.items.GoldPurse" target="fil.coo.spawnables.interfaces.ISingleSpawnable">
+      <point x="-25.5" y="-14.5" />
+      <point x="334.5" y="73.0" />
+      <point x="169.5" y="73.0" />
+      <point x="52.5" y="14.5" />
+    </edge>
+    <edge source="fil.coo.spawnables.items.interfaces.Potion" target="fil.coo.spawnables.items.interfaces.Item">
+      <point x="0.0" y="-14.5" />
+      <point x="-84.25" y="4.0" />
+      <point x="230.0" y="4.0" />
+      <point x="-24.0" y="14.5" />
+    </edge>
+    <edge source="fil.coo.spawnables.items.GoldPurse" target="fil.coo.spawnables.items.interfaces.Item">
+      <point x="25.5" y="-14.5" />
+      <point x="385.5" y="4.0" />
+      <point x="278.0" y="4.0" />
+      <point x="24.0" y="14.5" />
+    </edge>
+    <edge source="fil.coo.spawnables.items.StrengthPotion" target="fil.coo.spawnables.interfaces.ISingleSpawnable">
+      <point x="32.0" y="-14.5" />
+      <point x="-41.0" y="83.0" />
+      <point x="64.5" y="83.0" />
+      <point x="-52.5" y="14.5" />
+    </edge>
+    <edge source="fil.coo.spawnables.items.HealthPotion" target="fil.coo.spawnables.items.interfaces.Potion">
+      <point x="-29.5" y="-14.5" />
+      <point x="40.5" y="73.0" />
+      <point x="-63.5" y="73.0" />
+      <point x="20.75" y="14.5" />
+    </edge>
+    <edge source="fil.coo.spawnables.items.HealthPotion" target="fil.coo.spawnables.interfaces.ISingleSpawnable">
+      <point x="29.5" y="-14.5" />
+      <point x="-17.5" y="14.5" />
+    </edge>
+    <edge source="fil.coo.spawnables.items.StrengthPotion" target="fil.coo.spawnables.items.interfaces.Potion">
+      <point x="-32.0" y="-14.5" />
+      <point x="-20.75" y="14.5" />
+    </edge>
+    <edge source="fil.coo.spawnables.beings.Monster" target="fil.coo.spawnables.beings.Character">
+      <point x="-23.0" y="-14.5" />
+      <point x="-267.75" y="83.0" />
+      <point x="-342.5" y="83.0" />
+      <point x="24.75" y="14.5" />
+    </edge>
+    <edge source="fil.coo.spawnables.beings.Player" target="fil.coo.spawnables.beings.Character">
+      <point x="0.0" y="-14.5" />
+      <point x="-24.75" y="14.5" />
+    </edge>
+    <edge source="fil.coo.spawnables.items.OneArmedBandit" target="fil.coo.spawnables.items.interfaces.Item">
+      <point x="35.0" y="-14.5" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="fil.coo.spawnables.interfaces.IMultipleSpawnable" target="fil.coo.spawnables.interfaces.Spawnable">
+      <point x="0.0" y="-14.5" />
+      <point x="-221.75" y="-6.0" />
+      <point x="-71.24107142857144" y="-6.0" />
+      <point x="-26.25" y="14.5" />
+    </edge>
+    <edge source="fil.coo.spawnables.items.OneArmedBandit" target="fil.coo.spawnables.interfaces.ISingleSpawnable">
+      <point x="-35.0" y="-14.5" />
+      <point x="184.0" y="83.0" />
+      <point x="134.5" y="83.0" />
+      <point x="17.5" y="14.5" />
+    </edge>
+    <edge source="fil.coo.spawnables.interfaces.ISingleSpawnable" target="fil.coo.spawnables.interfaces.Spawnable">
+      <point x="0.0" y="-14.5" />
+      <point x="117.0" y="-6.0" />
+      <point x="-18.741071428571445" y="-6.0" />
+      <point x="26.25" y="14.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="121.0" y="54.0" />
+  <SelectedNodes />
+  <Categories />
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

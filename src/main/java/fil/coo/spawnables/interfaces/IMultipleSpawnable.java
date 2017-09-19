@@ -1,14 +1,21 @@
 package fil.coo.spawnables.interfaces;
 
-import fil.coo.spawnables.Spawner;
-
 import java.util.List;
 
-public interface IMultipleSpawnable extends ISpawnable {
+/**
+ * Interface that specifies methods necessary to spawn <b>multiple</b> spawnables
+ */
+public interface IMultipleSpawnable extends Spawnable {
 
     /**
-     * @return a list of {@link ISpawnable} with random chance from {@link Spawner#getSpawnAmount(Spawner.Types)}
+     * @return a list of {@link Spawnable} with random chance from {@link Spawnable#getSpawnRate()}
      */
-    List<? extends ISpawnable> getRandomSpawn();
+    List<? extends Spawnable> getRandomSpawn();
+
+    /**
+     *
+     * @return the upper bound of how many of this object should be spawned
+     */
+    int getUpperSpawnBoundForObject();
 
 }
