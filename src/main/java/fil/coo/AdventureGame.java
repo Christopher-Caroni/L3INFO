@@ -81,11 +81,11 @@ public class AdventureGame {
      * Starts a game
      */
     public void startGame() {
+
         generateDungeon();
 
-        if (options.debug) {
-            dungeonFrame = new DungeonFrame(dungeon);
-            Menu.getInstance().printRoom(dungeon[4][4], options.debug);
+        if (options.xCoord != -1 && options.xCoord != -1) {
+            Menu.getInstance().printRoom(dungeon[options.yCoord][options.xCoord], true);
         }
     }
 
@@ -95,6 +95,11 @@ public class AdventureGame {
     private void generateDungeon() {
         boolean[][] visitedRooms = new boolean[HEIGHT_DUNGEON][WIDTH_DUNGEON];
         generateRooms(visitedRooms);
+
+        if (options.displayGeneration) {
+            dungeonFrame = new DungeonFrame(dungeon);
+        }
+
         initializeNeighbours(visitedRooms);
     }
 
@@ -163,9 +168,25 @@ public class AdventureGame {
     private void scanNonVisitedRooms(Stack<Room> stack, boolean[][] visitedRooms, Random random) {
         if (!stack.isEmpty()) {
             // Step 2
+
+            tryDisplay();
             verifyUnlinkedNeighbours(stack, visitedRooms, random);
         }
         // END: we reached the the first room again and it didn't have any unlinked neighbours so all rooms have been visited and linked
+    }
+
+    /**
+     * Tries to refresh the dungeonFrame if it was already initialized and then calls wait so you can see the maze algorithm progression.
+     */
+    private void tryDisplay() {
+        if (options.displayGeneration && dungeonFrame != null) {
+            dungeonFrame.repaint();
+            try {
+                Thread.sleep(150);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     /**
