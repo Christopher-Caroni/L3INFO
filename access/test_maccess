@@ -5,8 +5,10 @@ mkdir test
 
 cd ./test
 touch read_only
+touch file
 
 chmod 400 read_only
+chmod 700 file
 
 # 3
 touch fake_dir
@@ -24,6 +26,24 @@ echo -e "displaying test files with permissions:\n"
 tree test
 
 echo -e "\ntesting will now start:\n"
+
+#1 - tous les droits
+./maccess -rwxv ./test/file
+echo $?
+
+#2 - read only
+./maccess -rv ./test/file
+echo $?
+
+#3 - write only
+./maccess -vw ./test/file
+echo $?
+
+#4 - execute only
+./maccess -xv ./test/file
+echo $?
+
+echo -e "\ntesting errors will now start:\n"
 
 # 1 - EACCESS - permission denied
 ./maccess -wv ./test/read_only
