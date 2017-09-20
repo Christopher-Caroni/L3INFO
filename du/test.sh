@@ -17,6 +17,7 @@ cd ./dir1
 
 touch fileC.txt
 echo "j ecris dans le fichierC encore, encore ..\n Toujours et toujour..\n Encore plus" > fileC.txt
+ln -s dir2 lien
 
 mkdir dir2
 
@@ -32,16 +33,31 @@ tree test
 
 echo -e "\n testing will now start: \n"
 
+
+#test with blocks
 echo -e "\n du -B 512 test:\n"
 du -B 512 test
 
 echo -e "\n mdu test :\n"
-#mdu test
+./mdu test
 
+echo -e "\n du -B -L 512 test:\n"
+du -B 512 -L test
+
+echo -e "\n mdu -L test :\n"
+./mdu -L test
+
+#test with real
 echo -e "\n du -b test :\n"
 du -b ./test
 
 echo -e "\n mdu -b test:\n"
-#mdu -b test
+./mdu -b test
+
+echo -e "\n du -b -L test :\n"
+du -b -L ./test
+
+echo -e "\n mdu -b -L test:\n"
+./mdu -b -L test
 
 rm -r test
