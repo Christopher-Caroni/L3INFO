@@ -9,11 +9,36 @@
 #include <linux/limits.h>
 #include <stdlib.h>
 
-static int opt_apparent_size = 0;
-static int opt_follow_links = 0;
+#define MAX_INODES 1024
+
+typedef struct inodepair {
+  dev_t st_dev;
+  ino_t st_ino;
+} dev_inode;
+
+static int opt_apparent_size;
+static int opt_follow_links;
+static int verified_inodes;
+dev_inode inode_pairs[MAX_INODES];
 
 int is_valid(char* path) {
   return strncmp("..", path, strlen(path)) != 0 && strncmp(".", path, strlen(path)) != 0;
+}
+
+int already_found_inode(struct stat* stat)
+{
+  int i;
+  for (i=0;i<verified_inodes;i++)
+  {
+    if (stat->st_dev == inode_pairs[i].st_dev && stat->st_ino == inode_pairs[i].st_ino)
+    {
+      return 1;
+    }
+  }
+  verified_inodes++;
+  inode_pairs[verified_inodes].st_dev = stat->st_dev;
+  inode_pairs[verified_inodes].st_ino = stat->st_ino;
+  return 0;
 }
 
 int du_file(const char* pathname)
@@ -29,6 +54,10 @@ int du_file(const char* pathname)
       return 0;
   }
 
+  if (already_found_inode(&st))
+  {
+    return 0;
+  }
   if (S_ISREG(st.st_mode) || S_ISLNK(st.st_mode))
   {
     return opt_apparent_size ? st.st_size : st.st_blocks;
@@ -63,6 +92,7 @@ int main(int argc, char** argv)
   argc = argc;
   opt_follow_links = 0;
   opt_apparent_size = 0;
+  verified_inodes = 0;
 
   while ((ch = getopt(argc, argv, "Lb")) != -1)
   {
