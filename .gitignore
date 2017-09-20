@@ -3,6 +3,8 @@
 # Custom ignores:
 # du
 du/mdu
+*.Rhistory
+
 
 ### C ###
 # Prerequisites
