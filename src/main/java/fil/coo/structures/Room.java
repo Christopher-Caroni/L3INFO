@@ -19,10 +19,6 @@ public class Room {
 
     private Map<Direction, Room> linkedNeighbour;
 
-    private boolean itemsVisibility;
-    private boolean monstersVisibility;
-    private boolean neighboursVisibility;
-
     private boolean isExit;
     private int gold;
 
@@ -169,27 +165,6 @@ public class Room {
      */
     public void removeItem(Item item) {
         items.remove(item);
-    }
-
-    public void setItemsVisibility(boolean itemsVisibility) {
-        this.itemsVisibility = itemsVisibility;
-    }
-
-    public void setMonstersVisibility(boolean monstersVisibility) {
-        this.monstersVisibility = monstersVisibility;
-    }
-
-    public void setNeighboursVisibility(boolean neighboursVisibility) {
-        this.neighboursVisibility = neighboursVisibility;
-    }
-
-    /**
-     * Sets the visibilities for the rooms items, monsters and neighbours to true;
-     */
-    public void revealContents() {
-        setItemsVisibility(true);
-        setMonstersVisibility(true);
-        setNeighboursVisibility(true);
     }
 
     public int getNumberOfItems() {

@@ -6,7 +6,7 @@ import fil.coo.spawnables.beings.GamePlayer;
 public class ExitDungeon extends Action {
     @Override
     public boolean isPossible(GamePlayer currentPlayer) {
-        return currentPlayer.isInExitRoom() && !currentPlayer.getCurrentRoom().hasMonsters();
+        return currentPlayer.isInExitRoom() && !currentPlayer.getCurrentRoom().hasMonsters() && currentPlayer.hasRoomRevealed();
     }
 
     /**

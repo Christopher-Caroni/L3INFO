@@ -2,7 +2,6 @@ package fil.coo.spawnables.beings;
 
 import fil.coo.exception.NegativeGoldException;
 import fil.coo.other.Selectable;
-import fil.coo.spawnables.items.interfaces.Item;
 import fil.coo.structures.Room;
 
 import java.util.Random;
@@ -21,9 +20,11 @@ public abstract class GameCharacter implements Selectable {
         Random random = new Random();
 
         hp = 100;
-        strength = random.nextInt(11) + 10;
+        setRandomStrength(random);
         gold = random.nextInt(21) + 40;
     }
+
+    protected abstract void setRandomStrength(Random random);
 
     public boolean isAlive() {
         return hp > 0;

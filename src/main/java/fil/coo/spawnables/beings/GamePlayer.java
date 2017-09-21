@@ -6,6 +6,7 @@ import fil.coo.spawnables.items.interfaces.Item;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class GamePlayer extends GameCharacter {
 
@@ -13,11 +14,19 @@ public class GamePlayer extends GameCharacter {
     private String name;
     private boolean reachedExit;
 
+    private boolean roomRevealed;
+
     public GamePlayer() {
         super();
 
         name = "no_name";
+        roomRevealed = false;
         initActions();
+    }
+
+    @Override
+    protected void setRandomStrength(Random random) {
+        strength = random.nextInt(30) + 30;
     }
 
     private void initActions() {
@@ -37,6 +46,8 @@ public class GamePlayer extends GameCharacter {
      */
     public void moveToDirection(Direction direction) {
         this.currentRoom = this.currentRoom.getNeighbour(direction);
+        setRoomRevealed(false);
+        System.out.println("\nYou travel " + direction.getMenuDescription() + " and enter a new room.");
     }
 
     public List<? extends Action> getPossibleActions() {
@@ -73,7 +84,7 @@ public class GamePlayer extends GameCharacter {
     }
 
     public void revealRoom() {
-        currentRoom.revealContents();
+        setRoomRevealed(true);
     }
 
     public void setName(String name) {
@@ -107,5 +118,13 @@ public class GamePlayer extends GameCharacter {
 
     public int getGold() {
         return gold;
+    }
+
+    public void setRoomRevealed(boolean roomRevealed) {
+        this.roomRevealed = roomRevealed;
+    }
+
+    public boolean hasRoomRevealed() {
+        return roomRevealed;
     }
 }

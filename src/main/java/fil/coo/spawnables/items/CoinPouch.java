@@ -17,7 +17,7 @@ public class CoinPouch extends Item implements ISingleSpawnable<CoinPouch> {
     @Override
     protected void applySpecificEffect(GamePlayer player) {
         player.changeGold(goldAmount);
-        System.out.println("You now have " + player.getGold() + " gold in your pouch.");
+        System.out.println("You gained " + goldAmount + " gold and now have " + player.getGold() + " coins in your pouch.");
     }
 
     @Override

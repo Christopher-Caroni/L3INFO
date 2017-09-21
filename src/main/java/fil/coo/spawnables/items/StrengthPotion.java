@@ -14,6 +14,7 @@ public class StrengthPotion extends Potion implements ISingleSpawnable<StrengthP
     @Override
     protected void applySpecificEffect(GamePlayer player) {
         player.changeStrength(strengthBoost);
+        System.out.println("You gained " + strengthBoost + " strength and now have " + player.getStrength() + " strength.");
     }
 
     @Override
@@ -37,7 +38,7 @@ public class StrengthPotion extends Potion implements ISingleSpawnable<StrengthP
 
     @Override
     public int getRandomAmountHeld() {
-        return new Random().nextInt(21);
+        return new Random().nextInt(10);
     }
 
     @Override

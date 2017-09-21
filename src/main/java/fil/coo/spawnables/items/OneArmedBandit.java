@@ -21,8 +21,13 @@ public class OneArmedBandit extends Item implements ISingleSpawnable<OneArmedBan
     protected void applySpecificEffect(GamePlayer player) {
         if (player.hasEnoughGold(cost)) {
             Optional<? extends Item> randomItem = generateRandomItem();
-            randomItem.ifPresent(item -> item.use(player));
+            randomItem.ifPresent(item -> useNewItem(item, player));
         }
+    }
+
+    private void useNewItem(Item item, GamePlayer player) {
+        System.out.println("The one-armed bandit spawned " + item.getMenuDescription());
+        item.use(player);
     }
 
     /**

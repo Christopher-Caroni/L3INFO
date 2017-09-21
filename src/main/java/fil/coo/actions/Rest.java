@@ -3,13 +3,15 @@ package fil.coo.actions;
 import fil.coo.exception.ActionCannotBeExecutedException;
 import fil.coo.spawnables.beings.GamePlayer;
 
+import java.util.Random;
+
 public class Rest extends Action {
 
     private int cost = -1;
     private int hpRestoration = 10;
 
     public boolean isPossible(GamePlayer currentPlayer) {
-        return !currentPlayer.getCurrentRoom().hasMonsters() && currentPlayer.hasEnoughGold(1);
+        return !currentPlayer.getCurrentRoom().hasMonsters() && currentPlayer.hasEnoughGold(1) && currentPlayer.hasRoomRevealed();
     }
 
     /**
@@ -19,8 +21,10 @@ public class Rest extends Action {
      */
     public void execute(GamePlayer player) {
         if (player.hasEnoughGold(cost)) {
-            player.changeGold(cost);
+            player.changeStrength(cost);
             player.changeHP(hpRestoration);
+            System.out.println("You used " + Math.abs(cost) + " strength and restored " + hpRestoration + " HP");
+            System.out.println("You now have " + player.getStrength() + " strength and " + player.getHP() + " HP");
         } else {
             throw new ActionCannotBeExecutedException("Cannot execute " + this.getClass().getSimpleName());
         }

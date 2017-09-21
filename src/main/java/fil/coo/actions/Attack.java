@@ -10,7 +10,7 @@ import java.util.List;
 public class Attack extends Action {
 
     public boolean isPossible(GamePlayer currentPlayer) {
-        return currentPlayer.getCurrentRoom().hasMonsters();
+        return currentPlayer.getCurrentRoom().hasMonsters() && currentPlayer.hasRoomRevealed();
     }
 
     /**

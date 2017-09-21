@@ -14,6 +14,7 @@ public class HealthPotion extends Potion implements ISingleSpawnable<HealthPotio
     @Override
     protected void applySpecificEffect(GamePlayer player) {
         player.changeHP(healthBoost);
+        System.out.println("You gained " + healthBoost + " HP and now have " + player.getHP() + " HP.");
     }
 
     @Override

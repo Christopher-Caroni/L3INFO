@@ -10,8 +10,12 @@ public class Monster extends GameCharacter implements IMultipleSpawnable {
 
     public Monster() {
         super();
+    }
 
-        strength = new Random().nextInt(5);
+    @Override
+    protected void setRandomStrength(Random random) {
+        strength = random.nextInt(50) + 10;
+
     }
 
     @Override

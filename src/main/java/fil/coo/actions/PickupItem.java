@@ -10,13 +10,14 @@ import java.util.List;
 public class PickupItem extends Action {
     @Override
     public boolean isPossible(GamePlayer currentPlayer) {
-        return currentPlayer.hasItemsInCurrentRoom();
+        return currentPlayer.hasItemsInCurrentRoom() && currentPlayer.hasRoomRevealed();
     }
 
     @Override
     public void execute(GamePlayer player) {
         List<Item> itemInRoom = player.getItemsFromRoom();
-        if (itemInRoom.isEmpty()) {
+        if (!itemInRoom.isEmpty()) {
+            System.out.println("Choose an item from the room:");
             Item choice = Menu.getInstance().chooseElement(itemInRoom);
 
             choice.use(player);
