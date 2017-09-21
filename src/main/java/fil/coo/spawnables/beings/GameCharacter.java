@@ -5,6 +5,8 @@ import fil.coo.other.Selectable;
 import fil.coo.spawnables.items.interfaces.Item;
 import fil.coo.structures.Room;
 
+import java.util.Random;
+
 public abstract class GameCharacter implements Selectable {
 
     protected int hp;
@@ -14,6 +16,14 @@ public abstract class GameCharacter implements Selectable {
     protected int gold;
 
     protected Room currentRoom;
+
+    public GameCharacter() {
+        Random random = new Random();
+
+        hp = 100;
+        strength = random.nextInt(11) + 10;
+        gold = random.nextInt(21) + 40;
+    }
 
     public boolean isAlive() {
         return hp > 0;
@@ -45,5 +55,9 @@ public abstract class GameCharacter implements Selectable {
 
     protected int getHP() {
         return hp;
+    }
+
+    public void setCurrentRoom(Room currentRoom) {
+        this.currentRoom = currentRoom;
     }
 }

@@ -2,6 +2,7 @@ package fil.coo.util;
 
 import fil.coo.other.Direction;
 import fil.coo.other.Selectable;
+import fil.coo.spawnables.beings.GamePlayer;
 import fil.coo.structures.Room;
 
 import java.util.InputMismatchException;
@@ -12,6 +13,8 @@ public class Menu {
 
     private static Menu instance;
 
+    private Scanner scanner;
+
     private static final String CORNER = "+";
     private static final String VERTICAL_SEPARATOR = "|";
     private static final String HORIZONTAL_SEPARATOR = "=";
@@ -19,6 +22,7 @@ public class Menu {
     private static final String SPACE = " ";
 
     private Menu() {
+        scanner = new Scanner(System.in);
     }
 
     public static Menu getInstance() {
@@ -54,7 +58,6 @@ public class Menu {
      * @return the user's choice
      */
     private int readChoiceInt(int upperBound) {
-        Scanner scanner = new Scanner(System.in);
         int choice = -1;
         while (choice <= 0 || choice >= upperBound) {
             System.out.println("Enter a choice from 0 to " + (upperBound - 1));
@@ -149,12 +152,43 @@ public class Menu {
 
     public void printRoomDescription(Room currentRoom) {
         StringBuilder stringBuilder = new StringBuilder("This rooms contains:\n");
+        stringBuilder.append("\t");
         stringBuilder.append(currentRoom.getNumberOfItems());
         stringBuilder.append(" items, ");
         stringBuilder.append(currentRoom.getNumberOfMonsters());
-        stringBuilder.append(" monsters, and has");
+        stringBuilder.append(" monsters, and has ");
         stringBuilder.append(currentRoom.getNumberOfNeighbours());
-        stringBuilder.append(" neighbours");
+        stringBuilder.append(" neighbours.");
         System.out.println(stringBuilder.toString());
+    }
+
+    /**
+     * Prompts the user for a name and returns it once he confirms that he wants to use it.
+     *
+     * @return a name
+     */
+    public String chooseName() {
+        String playerName = "invalid";
+        boolean confirmed = false;
+
+        while (!confirmed) {
+            System.out.print("Enter your username: ");
+            playerName = scanner.nextLine().trim();
+            System.out.println("Your username is " + playerName);
+
+            System.out.println("Do you want to use this name? [Y]es/[N]o" );
+            String confirmationString = scanner.nextLine().trim();
+            if (confirmationString.equalsIgnoreCase("no") || confirmationString.equalsIgnoreCase("n")) {
+                confirmed = false;
+            } else if (confirmationString.equalsIgnoreCase("yes") || confirmationString.equalsIgnoreCase("y")) {
+                confirmed = true;
+            }
+        }
+
+        return playerName;
+    }
+
+    public void closeScanner() {
+        scanner.close();
     }
 }

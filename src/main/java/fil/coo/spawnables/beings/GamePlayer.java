@@ -1,32 +1,32 @@
 package fil.coo.spawnables.beings;
 
-import fil.coo.actions.Action;
+import fil.coo.actions.*;
 import fil.coo.other.Direction;
 import fil.coo.spawnables.items.interfaces.Item;
-import fil.coo.util.Menu;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class GamePlayer extends GameCharacter {
 
-    private List<? extends Action> actions;
+    private List<Action> actions;
     private String name;
+    private boolean reachedExit;
 
     public GamePlayer() {
+        super();
+
         name = "no name";
-        actions = new ArrayList<>();
+        initActions();
     }
 
-    public void act() {
-
-        List<Action> possibleActions = getPossibleActions();
-        Action action = Menu.getInstance().chooseElement(possibleActions);
-
-        action.execute(this);
-
-        // TODO
-
+    private void initActions() {
+        actions = new ArrayList<>();
+        actions.add(new Attack());
+        actions.add(new Look());
+        actions.add(new Move());
+        actions.add(new Rest());
+        actions.add(new ExitDungeon());
     }
 
     /**
@@ -38,9 +38,14 @@ public class GamePlayer extends GameCharacter {
         this.currentRoom = this.currentRoom.getNeighbour(direction);
     }
 
-    public List<Action> getPossibleActions() {
-        // TODO
-        return null;
+    public List<? extends Action> getPossibleActions() {
+        List<Action> possibleActions = new ArrayList<>();
+        for (Action checkAction : actions) {
+            if (checkAction.isPossible(this)) {
+                possibleActions.add(checkAction);
+            }
+        }
+        return possibleActions;
     }
 
 
@@ -68,5 +73,21 @@ public class GamePlayer extends GameCharacter {
 
     public void revealRoom() {
         currentRoom.revealContents();
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public boolean reachedExit() {
+        return reachedExit;
+    }
+
+    public boolean isInExitRoom() {
+        return currentRoom.isExit();
+    }
+
+    public void setReachedExit(boolean reachedExit) {
+        this.reachedExit = reachedExit;
     }
 }

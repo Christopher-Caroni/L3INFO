@@ -20,9 +20,9 @@ public class Attack extends Action {
      */
     public void execute(GamePlayer player) {
 
-        // get target
         List<Monster> possibleMonsters = player.getCurrentRoom().getMonsters();
         if (!possibleMonsters.isEmpty()) {
+            // get target
             Monster target = Menu.getInstance().chooseElement(possibleMonsters);
 
             // apply damage

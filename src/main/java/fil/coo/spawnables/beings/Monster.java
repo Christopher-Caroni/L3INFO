@@ -8,6 +8,11 @@ import java.util.Random;
 
 public class Monster extends GameCharacter implements IMultipleSpawnable {
 
+    public Monster() {
+        super();
+
+    }
+
     @Override
     public String getMenuDescription() {
         return "Monster: " + "";
