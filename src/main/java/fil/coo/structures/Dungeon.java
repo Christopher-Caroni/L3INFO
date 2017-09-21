@@ -23,6 +23,9 @@ public class Dungeon {
     private AdventureGameOptions options;
     private DungeonFrame dungeonFrame;
 
+    private Room startingRoom;
+    private Room exitRoom;
+
     public Dungeon(int HEIGHT_DUNGEON, int WIDTH_DUNGEON, AdventureGameOptions options) {
         this.HEIGHT_DUNGEON = HEIGHT_DUNGEON;
         this.WIDTH_DUNGEON = WIDTH_DUNGEON;
@@ -30,7 +33,7 @@ public class Dungeon {
     }
 
     /**
-     * Initializes the dungeon and links the rooms together.
+     * Initializes the dungeon and links the rooms together. Defines start and exit.
      */
     public void generate() {
         boolean[][] visitedRooms = new boolean[HEIGHT_DUNGEON][WIDTH_DUNGEON];
@@ -41,6 +44,7 @@ public class Dungeon {
         }
 
         initializeNeighbours(visitedRooms);
+        setStartAndExit();
     }
 
     /**
@@ -83,6 +87,17 @@ public class Dungeon {
         if (options.xCoord != -1 && options.yCoord != -1) {
             Menu.getInstance().printRoom(getRoom(options.xCoord, options.yCoord), true);
         }
+    }
+
+    private void setStartAndExit() {
+        Random random = new Random();
+        int x = random.nextInt(dungeon[0].length);
+        int y = random.nextInt(dungeon.length);
+        startingRoom = dungeon[y][x];
+
+        x = random.nextInt(dungeon[0].length);
+        y = random.nextInt(dungeon.length);
+        exitRoom = dungeon[y][x];
     }
 
     /**
@@ -239,5 +254,13 @@ public class Dungeon {
 
     public Room getRoom(int xCoord, int yCoord) {
         return dungeon[yCoord][xCoord];
+    }
+
+    public Room getStartingRoom() {
+        return startingRoom;
+    }
+
+    public Room getExitRoom() {
+        return exitRoom;
     }
 }

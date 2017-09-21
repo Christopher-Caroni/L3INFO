@@ -13,7 +13,6 @@ public class Room {
     private int x;
     private int y;
 
-
     private List<? super Item> items;
 
     private List<Monster> monsters;
@@ -38,8 +37,7 @@ public class Room {
     }
 
     public Room getNeighbour(Direction direction) {
-        // TODO
-        return null;
+        return linkedNeighbour.get(direction);
     }
 
     /**
@@ -59,8 +57,7 @@ public class Room {
 
 
     public boolean isExit() {
-        // TODO
-        return false;
+        return isExit;
     }
 
 
@@ -69,8 +66,11 @@ public class Room {
     }
 
     public List<Direction> getNeighboursDirections() {
-        // TODO
-        return null;
+        List<Direction> directionList = new ArrayList<>();
+        for (Map.Entry<Direction, Room> pair : linkedNeighbour.entrySet()) {
+            directionList.add(pair.getKey());
+        }
+        return directionList;
     }
 
     public void addItems(List<? extends Item> itemsList) {

@@ -5,11 +5,18 @@ import fil.coo.other.Direction;
 import fil.coo.spawnables.items.interfaces.Item;
 import fil.coo.util.Menu;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class GamePlayer extends GameCharacter {
 
-    private List actions;
+    private List<? extends Action> actions;
+    private String name;
+
+    public GamePlayer() {
+        name = "no name";
+        actions = new ArrayList<>();
+    }
 
     public void act() {
 
@@ -39,8 +46,7 @@ public class GamePlayer extends GameCharacter {
 
     @Override
     public String getMenuDescription() {
-        // TODO
-        return null;
+        return name + " - " + getHP() + " HP, " + getStrength() + " strength";
     }
 
     /**

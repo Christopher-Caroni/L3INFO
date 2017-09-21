@@ -15,12 +15,7 @@ public class RoomFactory {
 
     public Room generateRoom(int column, int row) {
         Room room = new Room(column, row);
-
         addSpawnables(room);
-
-        // generate neighbours
-        // TODO >> delegate to AdventureGame which has the full view
-
         return room;
     }
 

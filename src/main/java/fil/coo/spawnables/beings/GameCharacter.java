@@ -7,9 +7,9 @@ import fil.coo.structures.Room;
 
 public abstract class GameCharacter implements Selectable {
 
-    private int hp;
+    protected int hp;
 
-    private int strength;
+    protected int strength;
 
     protected int gold;
 
@@ -32,7 +32,7 @@ public abstract class GameCharacter implements Selectable {
     }
 
     public void changeStrength(int strength) {
-        // TODO
+        strength += strength;
     }
 
     public Room getCurrentRoom() {
@@ -41,5 +41,9 @@ public abstract class GameCharacter implements Selectable {
 
     public int getStrength() {
         return strength;
+    }
+
+    protected int getHP() {
+        return hp;
     }
 }
