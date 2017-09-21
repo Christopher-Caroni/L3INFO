@@ -1,0 +1,172 @@
+Exerice 1
+
+1. les mots composés de lettres (ASCII, donc non accentuées) majuscules ou minuscule, et commençant
+nécessairement par une majuscule.
+
+expression:
+[A-Z][a-zA-Z]*
+
+mots testés vérifiants l'expression:
+Test
+TeST
+
+mots testés ne vérifiants pas l'expression
+test
+teST
+
+
+2. les numéros de téléphone en France, au format international : 9 chiffres précédés de +33 Le
+premier des 9 chiffres est différent de 0.
+
+expression:
+\+33[1-9]([0-9]{8})
+
+mots testés vérifiants l'expression:
++33123456789
+
+mots testés ne vérifiants pas l'expression
++33012345678
+
+3. les identifiants de département français. Un identifiant est soit numéro compris entre 01 et 95 à
+l’exception de 20, soit un numéro compris entre 971 et 976, soit 2A, soit 2B.
+
+expression:
+(0[1-9])|(^1[0-9]$)|(^[3-8][0-9])|(2(?=[1-9]))|(9(?=[1-5]))|(2A)|(2B)|(97[1-6])
+
+mots testés vérifiants l'expression:
+01
+10
+15
+2A
+2B
+30
+95
+971
+976
+
+mots testés ne vérifiants pas l'expression
+0
+00
+20
+96
+100
+110
+970
+977
+
+4. les identificateurs commençant par une lettre, et pouvant comporter lettres, chiffres et underscore.
+Le signe ’underscore’ ne peut être utilisé que comme séparateur (donc ni en début, ni en
+fin, et on ne peut en mettre deux successifs).
+
+expression:
+^[a-zA-Z0-9](_?[a-zA-Z0-9])*[a-zA-Z0-9]*
+
+vérifiés:
+fd54siufilbf_d5_45sf
+fd54siufilbf_d545sf
+fd54s_iufilbf_d545sf
+
+pas vérifiés:
+fd54siufilbf_d5_45sf_
+_fd54siufilbf_d5_45sf
+_fd54siufilbf__d5_45sf
+fd54siufilbf__d5_45sf
+
+
+5. les nombres entiers en Java.
+Un entier peut commencer par un 0 non suivi d’un x : il est alors en octal et ne peut contenir ni 8
+ni 9. S’il commence par le préfixe 0x c’est qu’il est écrit en hexadécimal et peut donc comporter
+des chiffres ou des lettres entre a et f ou entre A et F. S’il commence par un autre chiffre que 0,
+il est en décimal. Dans tous les cas le «underscore» peut être utilisé comme séparateur, avec la
+même contrainte qu’à la question précédente
+
+expression:
+(0[0-7]*)|(0x[0-9A-Fa-f]*)|([1-9][0-9]*(_?[0-9]+)*[0-9]*)
+
+vérifiés:
+12_899_9
+0111
+011181
+0xAF9
+
+non vérifiés:
+12_899__9
+12_899_9_
+0xAJ9
+
+
+6. les listes d’identificateurs séparés par une virgule. Les espaces sont autorisés avant comme après
+la virgule ainsi qu’en début ou fin de liste.
+
+expression:
+(([a-zA-Z0-9](_?[a-zA-Z0-9])*[a-zA-Z0-9]*)\s*,\s*([a-zA-Z0-9](_?[a-zA-Z0-9])*[a-zA-Z0-9]*))*
+
+vérifié
+fd54s_iufilbf_d545sf,fd54s_iufilbf_d545sf,fd54s_iufilbf_d545sf
+fd54s_iufilbf_d545sf,fd54s_iufilbf_d545sf    ,fd54s_iufilbf_d545sf
+
+non vérifié:
+fd54s_iufilbf_d545sf,fd54s_iufilbf_d545sf,fd54s_iufilbf_d545sf,
+fd54s_iufilbf_d545sf,,fd54s_iufilbf_d545sf,fd54s_iufilbf_d545sf
+
+7. les littéraux chaînes de caractères (version 1) : ils commencent et terminent par ". Entre ces
+deux délimiteurs, on peut trouver tout caractère sauf le ". Par exemple, "a"b" n’est pas valide.
+
+expression:
+^"[a-zA-Z]*"$
+
+vérifié:
+"Abcfdsdsfaf"
+"abcfdsdsfaf"
+
+non vérifié:
+"Abcfdsd"sfaf"
+
+
+8. les littéraux chaînes de caractères (version 2) : ils commencent et terminent par ". Entre ces
+deux délimiteurs, le caractère " doit impérativement être doublé. Exemples de chaînes valides :
+"ab""c", """"
+Exemples de chaînes invalides : "a"b", """
+
+expression:
+^"([a-zA-Z]*("")*)*"$
+
+vérifié:
+"abc""abc"""
+
+non vérifié
+"abc""abc"
+
+9. les littéraux chaînes de caractères (version 3) : ils commencent et terminent par ". Entre ces
+deux délimiteurs, le caractère \ est une caractère spécial («d’échappement»). Il doit impérativement
+soit être doublé, soit suivi immédiatement du caractère " .
+Exemples de chaînes valides : "a\\b\"c", "\\\""
+Exemples de chaînes invalides : "a"b", "a\c", "a\", "\\\"
+
+expression:
+^"([a-zA-Z]*(\\\\|\\")*("")*)*"$
+
+vérifié:
+"a\\b\"c""a""bc"""
+"a\\bc""a""bc"""
+
+non vérifié:
+"a\\b\c""a""bc"""
+"a\b\"c""a""bc"""
+
+
+10. Noms XML. Un nom XML doit commencer par une lettre ou par «deux-points» ou par «underscore».
+Ensuite, il peut comporter ces mêmes caractères mais également des chiffres ou des points
+ou des tirets (signe «moins»).
+
+expression:
+^(\w|:)(\w|:|[0-9]|\.|-)*
+
+vérifié:
+abc_.-fdsfsdv_fd--f.
+_abc_.-fdsfsdv_fd--f.
+:abc_.-fdsfsdv_fd--f.
+
+non vérifié:
+.abc_.-fdsfsdv_fd--f.
+-abc_.-fdsfsdv_fd--f.
