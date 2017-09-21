@@ -16,10 +16,6 @@ import static fil.coo.util.AdventureGameOptions.DEFAULT_PLAYER_NAME;
  */
 public class AdventureGame {
 
-    private static final int WIDTH_DUNGEON = 5;
-    private static final int HEIGHT_DUNGEON = 5;
-
-
     private GamePlayer player;
 
     private Dungeon dungeon;
@@ -64,7 +60,7 @@ public class AdventureGame {
      * Creates the dungeon and the player.
      */
     private void initializeGame() {
-        dungeon = new Dungeon(HEIGHT_DUNGEON, WIDTH_DUNGEON, options);
+        dungeon = new Dungeon(options);
         dungeon.generate();
 
         player = new GamePlayer();

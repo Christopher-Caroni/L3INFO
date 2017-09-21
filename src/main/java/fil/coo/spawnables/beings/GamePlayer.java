@@ -27,6 +27,7 @@ public class GamePlayer extends GameCharacter {
         actions.add(new Move());
         actions.add(new Rest());
         actions.add(new ExitDungeon());
+        actions.add(new PickupItem());
     }
 
     /**
@@ -93,5 +94,18 @@ public class GamePlayer extends GameCharacter {
 
     public String getName() {
         return name;
+    }
+
+    public boolean hasItemsInCurrentRoom() {
+        return currentRoom.hasItems();
+    }
+
+    public List<Item> getItemsFromRoom() {
+        return currentRoom.getItems();
+
+    }
+
+    public int getGold() {
+        return gold;
     }
 }

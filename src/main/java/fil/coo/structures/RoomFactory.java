@@ -1,9 +1,13 @@
 package fil.coo.structures;
 
 import fil.coo.spawnables.beings.Monster;
-import fil.coo.spawnables.items.GoldPurse;
+import fil.coo.spawnables.items.CoinPouch;
+import fil.coo.spawnables.items.HealthPotion;
+import fil.coo.spawnables.items.OneArmedBandit;
+import fil.coo.spawnables.items.StrengthPotion;
 
 import java.util.List;
+import java.util.Optional;
 
 public class RoomFactory {
 
@@ -39,11 +43,23 @@ public class RoomFactory {
      */
     private void spawnItemsForRoom(Room room) {
         // GOLD
-        GoldPurse goldPurse = new GoldPurse().getRandomSpawn();
-        room.addSingleItem(goldPurse);
+        Optional<CoinPouch> coinPouch = new CoinPouch().getRandomSpawn();
+        coinPouch.ifPresent(room::addSingleItem);
+
+        // HealthPotion
+        Optional<HealthPotion> healthPotion = new HealthPotion().getRandomSpawn();
+        healthPotion.ifPresent(room::addSingleItem);
+
+        // StrengthPotion
+        Optional<StrengthPotion> strengthPotion = new StrengthPotion().getRandomSpawn();
+        strengthPotion.ifPresent(room::addSingleItem);
+
+        // OneArmedBandit
+        Optional<OneArmedBandit> oneArmedBandit = new OneArmedBandit().getRandomSpawn();
+        oneArmedBandit.ifPresent(room::addSingleItem);
+
 
         // OTHER FUTURE ITEMS
-        // TODO POTIONS
     }
 
     /**

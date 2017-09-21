@@ -4,9 +4,10 @@ import fil.coo.spawnables.beings.GamePlayer;
 import fil.coo.spawnables.interfaces.ISingleSpawnable;
 import fil.coo.spawnables.items.interfaces.Item;
 
+import java.util.Optional;
 import java.util.Random;
 
-public class GoldPurse extends Item implements ISingleSpawnable<GoldPurse> {
+public class CoinPouch extends Item implements ISingleSpawnable<CoinPouch> {
 
     /**
      * The amount of gold this purse contains.
@@ -16,6 +17,7 @@ public class GoldPurse extends Item implements ISingleSpawnable<GoldPurse> {
     @Override
     protected void applySpecificEffect(GamePlayer player) {
         player.changeGold(goldAmount);
+        System.out.println("You now have " + player.getGold() + " gold in your pouch.");
     }
 
     @Override
@@ -25,16 +27,16 @@ public class GoldPurse extends Item implements ISingleSpawnable<GoldPurse> {
 
 
     /**
-     * @return a random spawn of {@link GoldPurse} with a random amount of gold inside specified by {@link #getSpawnRate()}
+     * @return a random spawn of {@link CoinPouch} with a random amount of gold inside specified by {@link #getSpawnRate()}
      */
     @Override
-    public GoldPurse getRandomSpawn() {
+    public Optional<CoinPouch> getRandomSpawn() {
         if (willSpawn()) {
 
-            return new GoldPurse()
-                    .withGoldAmount(getRandomAmountHeld());
+            return Optional.of(new CoinPouch()
+            .withGoldAmount(getRandomAmountHeld()));
         }
-        return null;
+        return Optional.empty();
     }
 
 
@@ -46,7 +48,7 @@ public class GoldPurse extends Item implements ISingleSpawnable<GoldPurse> {
      * @param goldAmount the amount of gold this purse should hold.
      * @return this instance
      */
-    public GoldPurse withGoldAmount(int goldAmount) {
+    public CoinPouch withGoldAmount(int goldAmount) {
         this.setGoldAmount(goldAmount);
         return this;
     }

@@ -12,13 +12,16 @@ import java.util.Stack;
 
 public class Dungeon {
 
+    private static final int DEFUALT_WIDTH_DUNGEON = 5;
+    private static final int DEFUALT_HEIGHT_DUNGEON = 5;
+
     /**
      * The 2D array of rooms that compose the dungeon.
      */
     private Room[][] dungeon;
 
-    private final int HEIGHT_DUNGEON;
-    private final int WIDTH_DUNGEON;
+    private int dungeonHeight;
+    private int dungeonWidth;
 
     private AdventureGameOptions options;
     private DungeonFrame dungeonFrame;
@@ -26,17 +29,32 @@ public class Dungeon {
     private Room startingRoom;
     private Room exitRoom;
 
-    public Dungeon(int HEIGHT_DUNGEON, int WIDTH_DUNGEON, AdventureGameOptions options) {
-        this.HEIGHT_DUNGEON = HEIGHT_DUNGEON;
-        this.WIDTH_DUNGEON = WIDTH_DUNGEON;
+    public Dungeon(AdventureGameOptions options) {
         this.options = options;
+        setCustomSizes();
+    }
+
+    private void setCustomSizes() {
+        int customHeight = Integer.parseInt(options.heightString);
+        int customWidth = Integer.parseInt(options.widthString);
+
+        if (customHeight == DEFUALT_HEIGHT_DUNGEON) {
+            this.dungeonHeight = DEFUALT_HEIGHT_DUNGEON;
+        } else {
+            this.dungeonHeight = customHeight;
+        }
+        if (customWidth == DEFUALT_WIDTH_DUNGEON) {
+            this.dungeonWidth = DEFUALT_WIDTH_DUNGEON;
+        } else {
+            this.dungeonWidth = customWidth;
+        }
     }
 
     /**
      * Initializes the dungeon and links the rooms together. Defines start and exit.
      */
     public void generate() {
-        boolean[][] visitedRooms = new boolean[HEIGHT_DUNGEON][WIDTH_DUNGEON];
+        boolean[][] visitedRooms = new boolean[dungeonHeight][dungeonWidth];
         generateRooms(visitedRooms);
 
         if (options.displayGeneration) {
@@ -54,12 +72,12 @@ public class Dungeon {
      */
     private void generateRooms(boolean[][] visitedRooms) {
 //        [row][column] = [height][width]
-        dungeon = new Room[HEIGHT_DUNGEON][WIDTH_DUNGEON];
+        dungeon = new Room[dungeonHeight][dungeonWidth];
 
         RoomFactory roomFactory = new RoomFactory();
 
-        for (int row = 0; row < HEIGHT_DUNGEON; row++) {
-            for (int column = 0; column < WIDTH_DUNGEON; column++) {
+        for (int row = 0; row < dungeonHeight; row++) {
+            for (int column = 0; column < dungeonWidth; column++) {
                 dungeon[row][column] = roomFactory.generateRoom(column, row);
                 visitedRooms[row][column] = false;
             }
@@ -84,8 +102,8 @@ public class Dungeon {
         if (options.displayGeneration) {
             System.out.println("Finished generation");
         }
-        if (options.xCoord != -1 && options.yCoord != -1) {
-            Menu.getInstance().printRoom(getRoom(options.xCoord, options.yCoord), true);
+        if (options.debugRoomX != -1 && options.debugRoomY != -1) {
+            Menu.getInstance().printRoom(getRoom(options.debugRoomX, options.debugRoomY), true);
         }
     }
 
@@ -108,8 +126,8 @@ public class Dungeon {
      * @param random       our Random number generator
      */
     private void markStartingRoom(Stack<Room> stack, boolean[][] visitedRooms, Random random) {
-        int x = random.nextInt(WIDTH_DUNGEON);
-        int y = random.nextInt(HEIGHT_DUNGEON);
+        int x = random.nextInt(dungeonWidth);
+        int y = random.nextInt(dungeonHeight);
 
 //        [row][column] = [height][width]
         Room startingRoom = dungeon[y][x];
@@ -249,7 +267,7 @@ public class Dungeon {
      * @return if x and y are in the bounds of the dungeon
      */
     private boolean isInBounds(int x, int y) {
-        return x >= 0 && x < WIDTH_DUNGEON && y >= 0 && y < HEIGHT_DUNGEON;
+        return x >= 0 && x < dungeonWidth && y >= 0 && y < dungeonHeight;
     }
 
     public Room getRoom(int xCoord, int yCoord) {

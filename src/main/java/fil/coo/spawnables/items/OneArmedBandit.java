@@ -4,6 +4,7 @@ import fil.coo.spawnables.beings.GamePlayer;
 import fil.coo.spawnables.interfaces.ISingleSpawnable;
 import fil.coo.spawnables.items.interfaces.Item;
 
+import java.util.Optional;
 import java.util.Random;
 
 public class OneArmedBandit extends Item implements ISingleSpawnable<OneArmedBandit> {
@@ -12,28 +13,28 @@ public class OneArmedBandit extends Item implements ISingleSpawnable<OneArmedBan
     private int cost;
 
     /**
-     * The player must have enough money to use the {@link OneArmedBandit} otherwise he disappears. If he gives him the money, the oneArmedBandit gives him a random item which is used by the player immediately.
+     * The player must have enough money to use the {@link OneArmedBandit} otherwise he disappears. If he gives him the money, the oneArmedBandit attemps to spawn a random object. If an object is spawned, it will be used immediately.
      *
      * @param player
      */
     @Override
     protected void applySpecificEffect(GamePlayer player) {
         if (player.hasEnoughGold(cost)) {
-            Item randomItem = generateRandomItem();
-            randomItem.use(player);
+            Optional<? extends Item> randomItem = generateRandomItem();
+            randomItem.ifPresent(item -> item.use(player));
         }
     }
 
     /**
      * @return a random {@link Item}
      */
-    private Item generateRandomItem() {
+    private Optional<? extends Item> generateRandomItem() {
         int chance = new Random().nextInt(4);
-        Item item;
+        Optional<? extends Item> item;
 
         switch (chance) {
             case 1:
-                item = new GoldPurse().getRandomSpawn();
+                item = new CoinPouch().getRandomSpawn();
                 break;
             case 2:
                 item = new HealthPotion().getRandomSpawn();
@@ -42,7 +43,7 @@ public class OneArmedBandit extends Item implements ISingleSpawnable<OneArmedBan
                 item = new StrengthPotion().getRandomSpawn();
                 break;
             default:
-                item = new GoldPurse().getRandomSpawn();
+                item = new CoinPouch().getRandomSpawn();
                 break;
         }
         return item;
@@ -55,12 +56,12 @@ public class OneArmedBandit extends Item implements ISingleSpawnable<OneArmedBan
     }
 
     @Override
-    public OneArmedBandit getRandomSpawn() {
+    public Optional<OneArmedBandit> getRandomSpawn() {
         if (willSpawn()) {
-            return new OneArmedBandit()
-                    .withCost(getRandomAmountHeld());
+            return Optional.of(new OneArmedBandit()
+                    .withCost(getRandomAmountHeld()));
         }
-        return null;
+        return Optional.empty();
     }
 
     private OneArmedBandit withCost(int cost) {

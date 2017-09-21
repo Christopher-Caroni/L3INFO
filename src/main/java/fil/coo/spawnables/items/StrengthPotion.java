@@ -4,6 +4,7 @@ import fil.coo.spawnables.beings.GamePlayer;
 import fil.coo.spawnables.interfaces.ISingleSpawnable;
 import fil.coo.spawnables.items.interfaces.Potion;
 
+import java.util.Optional;
 import java.util.Random;
 
 public class StrengthPotion extends Potion implements ISingleSpawnable<StrengthPotion> {
@@ -21,12 +22,12 @@ public class StrengthPotion extends Potion implements ISingleSpawnable<StrengthP
     }
 
     @Override
-    public StrengthPotion getRandomSpawn() {
+    public Optional<StrengthPotion> getRandomSpawn() {
         if (willSpawn()) {
-            return new StrengthPotion()
-                    .withStrengthBoost(getRandomAmountHeld());
+            return Optional.of(new StrengthPotion()
+                    .withStrengthBoost(getRandomAmountHeld()));
         }
-        return null;
+        return Optional.empty();
     }
 
     private StrengthPotion withStrengthBoost(int strengthBoost) {

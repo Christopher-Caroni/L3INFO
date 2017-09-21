@@ -13,7 +13,7 @@ public class Room {
     private int x;
     private int y;
 
-    private List<? super Item> items;
+    private List<Item> items;
 
     private List<Monster> monsters;
 
@@ -73,12 +73,12 @@ public class Room {
         return directionList;
     }
 
-    public void addItems(List<? extends Item> itemsList) {
-        items.addAll(itemsList);
-    }
-
     public void addSingleItem(Item item) {
-        items.add(item);
+        if (item == null) {
+            throw new NullPointerException("Do not add a null object to the list of items");
+        } else {
+            items.add(item);
+        }
     }
 
     public void addMonsters(List<Monster> monstersToAdd) {
@@ -164,6 +164,7 @@ public class Room {
 
     /**
      * Removes <b>item</b> from the room
+     *
      * @param item
      */
     public void removeItem(Item item) {
@@ -201,5 +202,13 @@ public class Room {
 
     public int getNumberOfNeighbours() {
         return linkedNeighbour.size();
+    }
+
+    public boolean hasItems() {
+        return !items.isEmpty();
+    }
+
+    public List<Item> getItems() {
+        return items;
     }
 }

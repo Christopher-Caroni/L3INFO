@@ -1,5 +1,7 @@
 package fil.coo.spawnables.interfaces;
 
+import java.util.Optional;
+
 /**
  * Interface that holds methods necessary to spawn a single spawnable object
  *
@@ -10,7 +12,7 @@ public interface ISingleSpawnable<T extends ISingleSpawnable<T>> extends Spawnab
     /**
      * @return a single {@link ISingleSpawnable} with random chance from {@link Spawnable#getSpawnRate()}
      */
-    T getRandomSpawn();
+    Optional<T> getRandomSpawn();
 
     /**
      * @return the upper bound of how many things this object will hold

@@ -23,7 +23,7 @@ public class AdventureGameOptions extends OptionsBase {
 
     @Option(
             name = "display-generation-wait-time",
-            abbrev = 'w',
+            abbrev = 't',
             help = "The time between each refresh when the dungeon generates the neighbours",
             defaultValue = "50"
     )
@@ -35,7 +35,7 @@ public class AdventureGameOptions extends OptionsBase {
             help = "prints the state of one room specified by its coordinates x",
             defaultValue = "-1"
     )
-    public int xCoord;
+    public int debugRoomX;
 
     @Option(
             name = "debug-room-y-coord",
@@ -43,14 +43,30 @@ public class AdventureGameOptions extends OptionsBase {
             help = "prints the state of one room specified by its coordinates y",
             defaultValue = "-1"
     )
-    public int yCoord;
+    public int debugRoomY;
 
     @Option(
             name = "playername",
             abbrev = 'p',
-            help = "Choose a default playe rname",
+            help = "Choose a default player name",
             defaultValue = DEFAULT_PLAYER_NAME
     )
     public String playerName;
+
+    @Option(
+            name = "dungeon-height",
+            abbrev = 'h',
+            help = "the height for the dungeon",
+            defaultValue = "4"
+    )
+    public String heightString;
+
+    @Option(
+            name = "dungeon-width",
+            abbrev = 'w',
+            help = "the height for the dungeon",
+            defaultValue = "4"
+    )
+    public String widthString;
 
 }

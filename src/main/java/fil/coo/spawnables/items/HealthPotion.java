@@ -4,6 +4,7 @@ import fil.coo.spawnables.beings.GamePlayer;
 import fil.coo.spawnables.interfaces.ISingleSpawnable;
 import fil.coo.spawnables.items.interfaces.Potion;
 
+import java.util.Optional;
 import java.util.Random;
 
 public class HealthPotion extends Potion implements ISingleSpawnable<HealthPotion> {
@@ -21,12 +22,12 @@ public class HealthPotion extends Potion implements ISingleSpawnable<HealthPotio
     }
 
     @Override
-    public HealthPotion getRandomSpawn() {
+    public Optional<HealthPotion> getRandomSpawn() {
         if (willSpawn()) {
-            return new HealthPotion()
-                    .withHealthBoost(getRandomAmountHeld());
+            return Optional.of(new HealthPotion()
+                    .withHealthBoost(getRandomAmountHeld()));
         }
-        return null;
+        return Optional.empty();
     }
 
     private HealthPotion withHealthBoost(int healthBoost) {
