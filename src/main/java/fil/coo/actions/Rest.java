@@ -7,8 +7,14 @@ import java.util.Random;
 
 public class Rest extends Action {
 
-    private int cost = -1;
-    private int hpRestoration = 10;
+    private int cost;
+    private int hpRestoration;
+
+    public Rest() {
+        Random random = new Random();
+        cost = random.nextInt(10);
+        hpRestoration = random.nextInt(5) + 5;
+    }
 
     public boolean isPossible(GamePlayer currentPlayer) {
         return !currentPlayer.getCurrentRoom().hasMonsters() && currentPlayer.hasEnoughGold(1) && currentPlayer.hasRoomRevealed();

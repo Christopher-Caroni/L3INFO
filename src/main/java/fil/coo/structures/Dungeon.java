@@ -1,5 +1,6 @@
 package fil.coo.structures;
 
+import com.rits.cloning.Cloner;
 import fil.coo.exception.RoomsAreNotNeighboursException;
 import fil.coo.gui.DungeonFrame;
 import fil.coo.util.AdventureGameOptions;
@@ -12,8 +13,8 @@ import java.util.Stack;
 
 public class Dungeon {
 
-    private static final int DEFUALT_WIDTH_DUNGEON = 5;
-    private static final int DEFUALT_HEIGHT_DUNGEON = 5;
+    private static final int DEFAULT_WIDTH_DUNGEON = 5;
+    private static final int DEFAULT_HEIGHT_DUNGEON = 5;
 
     /**
      * The 2D array of rooms that compose the dungeon.
@@ -35,18 +36,15 @@ public class Dungeon {
     }
 
     private void setCustomSizes() {
-        int customHeight = Integer.parseInt(options.heightString);
-        int customWidth = Integer.parseInt(options.widthString);
-
-        if (customHeight == DEFUALT_HEIGHT_DUNGEON) {
-            this.dungeonHeight = DEFUALT_HEIGHT_DUNGEON;
+        if (options.customDungeonHeight == DEFAULT_HEIGHT_DUNGEON) {
+            this.dungeonHeight = DEFAULT_HEIGHT_DUNGEON;
         } else {
-            this.dungeonHeight = customHeight;
+            this.dungeonHeight = options.customDungeonHeight;
         }
-        if (customWidth == DEFUALT_WIDTH_DUNGEON) {
-            this.dungeonWidth = DEFUALT_WIDTH_DUNGEON;
+        if (options.customDungeonWidth == DEFAULT_WIDTH_DUNGEON) {
+            this.dungeonWidth = DEFAULT_WIDTH_DUNGEON;
         } else {
-            this.dungeonWidth = customWidth;
+            this.dungeonWidth = options.customDungeonWidth;
         }
     }
 
@@ -68,7 +66,7 @@ public class Dungeon {
     /**
      * Generates the individual {@link Room}s of the dungeon.
      *
-     * @param visitedRooms
+     * @param visitedRooms the array of rooms already linked as neighbours
      */
     private void generateRooms(boolean[][] visitedRooms) {
 //        [row][column] = [height][width]
@@ -87,8 +85,8 @@ public class Dungeon {
     /**
      * Trigger for the recursive algorithm that sets rooms as neighbours.
      *
-     * @param visitedRooms
-     * @see <a href>http://weblog.jamisbuck.org/2010/12/27/maze-generation-recursive-backtracking</a>
+     * @param visitedRooms the array of rooms already linked as neighbours
+     * @see <a href="http://weblog.jamisbuck.org/2010/12/27/maze-generation-recursive-backtracking">http://weblog.jamisbuck.org: The algorithm online</a>
      */
     private void initializeNeighbours(boolean[][] visitedRooms) {
         Random random = new Random();
@@ -135,6 +133,9 @@ public class Dungeon {
 
         // add it to the stack
         stack.push(startingRoom);
+        if (options.displayGeneration) {
+            dungeonFrame.addInitialRoom(startingRoom);
+        }
     }
 
     /**
@@ -159,7 +160,7 @@ public class Dungeon {
      */
     private void tryDisplay() {
         if (options.displayGeneration && dungeonFrame != null) {
-            dungeonFrame.repaint();
+            dungeonFrame.refresh();
             try {
                 Thread.sleep(options.generationWaitTime);
             } catch (InterruptedException e) {
@@ -191,6 +192,9 @@ public class Dungeon {
         } else {
             // Step 2c: no valid neighbour, backtrack by popping the stack and calling this method again
             stack.pop();
+            if (options.displayGeneration) {
+                dungeonFrame.pop();
+            }
         }
 
         scanNonVisitedRooms(stack, visitedRooms, random);
@@ -210,6 +214,9 @@ public class Dungeon {
 
             visitedRooms[randomNeighbour.getY()][randomNeighbour.getX()] = true;
             stack.push(randomNeighbour);
+            if (options.displayGeneration) {
+                dungeonFrame.push(new Cloner().deepClone(randomNeighbour)); // deep clone so we don't accidentally modify the instance
+            }
         } catch (RoomsAreNotNeighboursException e) {
             e.printStackTrace();
         }

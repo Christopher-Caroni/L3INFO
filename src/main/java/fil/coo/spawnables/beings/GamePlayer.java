@@ -15,12 +15,14 @@ public class GamePlayer extends GameCharacter {
     private boolean reachedExit;
 
     private boolean roomRevealed;
+    private int uniqueRoomCount;
 
     public GamePlayer() {
         super();
 
         name = "no_name";
         roomRevealed = false;
+        uniqueRoomCount = 1; // starting room
         initActions();
     }
 
@@ -37,6 +39,7 @@ public class GamePlayer extends GameCharacter {
         actions.add(new Rest());
         actions.add(new ExitDungeon());
         actions.add(new PickupItem());
+        actions.add(new DisplayStats());
     }
 
     /**
@@ -48,6 +51,7 @@ public class GamePlayer extends GameCharacter {
         this.currentRoom = this.currentRoom.getNeighbour(direction);
         setRoomRevealed(false);
         System.out.println("\nYou travel " + direction.getMenuDescription() + " and enter a new room.");
+        setUniqueRoomCount(uniqueRoomCount + 1);
     }
 
     public List<? extends Action> getPossibleActions() {
@@ -126,5 +130,13 @@ public class GamePlayer extends GameCharacter {
 
     public boolean hasRoomRevealed() {
         return roomRevealed;
+    }
+
+    public int getUniqueRoomCount() {
+        return uniqueRoomCount;
+    }
+
+    public void setUniqueRoomCount(int uniqueRoomCount) {
+        this.uniqueRoomCount = uniqueRoomCount;
     }
 }

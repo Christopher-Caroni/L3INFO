@@ -14,7 +14,7 @@ public class AdventureGameOptions extends OptionsBase {
 
 
     @Option(
-            name = "display-generation",
+            name = "display-dungeon-generation",
             abbrev = 'g',
             help = "Initializes a JFrame before the dungeon generation to show the creation of neighbours",
             defaultValue = "false"
@@ -22,7 +22,7 @@ public class AdventureGameOptions extends OptionsBase {
     public boolean displayGeneration;
 
     @Option(
-            name = "display-generation-wait-time",
+            name = "dungeon-generation-wait-time",
             abbrev = 't',
             help = "The time between each refresh when the dungeon generates the neighbours",
             defaultValue = "50"
@@ -59,7 +59,7 @@ public class AdventureGameOptions extends OptionsBase {
             help = "the height for the dungeon",
             defaultValue = "4"
     )
-    public String heightString;
+    public int customDungeonHeight;
 
     @Option(
             name = "dungeon-width",
@@ -67,6 +67,6 @@ public class AdventureGameOptions extends OptionsBase {
             help = "the height for the dungeon",
             defaultValue = "4"
     )
-    public String widthString;
+    public int customDungeonWidth;
 
 }

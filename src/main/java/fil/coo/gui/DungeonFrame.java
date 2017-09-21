@@ -5,6 +5,9 @@ import fil.coo.structures.Room;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Stack;
 
 public class DungeonFrame extends JFrame {
 
@@ -17,9 +20,13 @@ public class DungeonFrame extends JFrame {
     private final Dimension panelDim;
 
     private Room[][] dungeon;
+    private Stack<Room> stack;
+    private List<Room> visited;
 
     public DungeonFrame(Room[][] dungeon) {
         this.dungeon = dungeon;
+        this.stack = new Stack<>(); // clone to avoid modified the real stack
+        visited = new ArrayList<>();
 
         int panelHeight = (roomHeight * dungeon.length) + (2 * borderHeight);
         int panelWidth = (roomWidth * dungeon[0].length) + (2 * borderWidth);
@@ -39,6 +46,23 @@ public class DungeonFrame extends JFrame {
         setVisible(true);
     }
 
+    public void refresh() {
+        repaint();
+    }
+
+    public void addInitialRoom(Room startingRoom) {
+        stack.push(startingRoom);
+    }
+
+    public void push(Room room) {
+        stack.push(room);
+    }
+
+    public void pop() {
+        visited.add(stack.peek());
+        stack.pop();
+    }
+
     private class DrawPane extends JPanel {
         @Override
         public void paintComponent(Graphics gg) {
@@ -50,6 +74,7 @@ public class DungeonFrame extends JFrame {
 
             paintEdges(g);
             paintInside(g);
+            showAlgorithmProgress(g);
 
             g.setColor(Color.BLUE);
             g.setStroke(new BasicStroke(2));
@@ -59,7 +84,7 @@ public class DungeonFrame extends JFrame {
                     int startX = borderWidth + (roomWidth * x);
                     int startY = borderHeight + (roomHeight * y);
 
-                    g.drawString(x + ", " + y, startX+5, startY+15);
+                    g.drawString(x + ", " + y, startX + 5, startY + 15);
 
                     if (!dungeon[y][x].hasLinkedNeighbourForDirection(Direction.NORTH)) {
                         g.drawLine(startX, startY, startX + roomWidth, startY);
@@ -73,12 +98,35 @@ public class DungeonFrame extends JFrame {
                     if (!dungeon[y][x].hasLinkedNeighbourForDirection(Direction.WEST)) {
                         g.drawLine(startX, startY, startX, startY + roomHeight);
                     }
+
                 }
             }
         }
 
+        private void showAlgorithmProgress(Graphics2D g) {
+            for (int i = 0; i < stack.size() - 1; i++) {
+                Room room = stack.get(i);
+                fillRoom(g, room, Color.PINK);
+            }
+            if (!stack.isEmpty()) {
+                fillRoom(g, stack.peek(), Color.MAGENTA);
+            }
+            for (int i=0;i<visited.size();i++) {
+                fillRoom(g, visited.get(i), Color.LIGHT_GRAY);
+            }
+
+        }
+
+        private void fillRoom(Graphics2D g, Room room, Color color) {
+            int startX = borderWidth + (roomWidth * room.getX());
+            int startY = borderHeight + (roomHeight * room.getY());
+
+            g.setColor(color);
+            g.fillRect(startX, startY, roomWidth, roomHeight);
+        }
+
         private void paintInside(Graphics2D g) {
-            g.setColor(Color.LIGHT_GRAY);
+            g.setColor(Color.WHITE);
             g.fillRect(borderWidth, borderHeight, roomWidth * dungeon[0].length, roomHeight * dungeon.length);
         }
 
