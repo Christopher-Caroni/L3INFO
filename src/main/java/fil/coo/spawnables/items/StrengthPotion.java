@@ -1,6 +1,6 @@
 package fil.coo.spawnables.items;
 
-import fil.coo.spawnables.beings.Player;
+import fil.coo.spawnables.beings.GamePlayer;
 import fil.coo.spawnables.interfaces.ISingleSpawnable;
 import fil.coo.spawnables.items.interfaces.Potion;
 
@@ -11,7 +11,7 @@ public class StrengthPotion extends Potion implements ISingleSpawnable<StrengthP
     private int strengthBoost;
 
     @Override
-    protected void applySpecificEffect(Player player) {
+    protected void applySpecificEffect(GamePlayer player) {
         player.changeStrength(strengthBoost);
     }
 

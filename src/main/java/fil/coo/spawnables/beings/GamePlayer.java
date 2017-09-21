@@ -7,7 +7,7 @@ import fil.coo.util.Menu;
 
 import java.util.List;
 
-public class Player extends GameCharacter {
+public class GamePlayer extends GameCharacter {
 
     private List actions;
 
@@ -22,8 +22,13 @@ public class Player extends GameCharacter {
 
     }
 
+    /**
+     * Moves the player to the room in the <b>direction</b>
+     *
+     * @param direction the direction from the player's current room to the neighbour
+     */
     public void moveToDirection(Direction direction) {
-        // TODO
+        this.currentRoom = this.currentRoom.getNeighbour(direction);
     }
 
     public List<Action> getPossibleActions() {
@@ -39,7 +44,7 @@ public class Player extends GameCharacter {
     }
 
     /**
-     * The <b>item</b> used has finished its {@link Item#use(Player)} method and should now be removed from the game.
+     * The <b>item</b> used has finished its {@link Item#use(GamePlayer)} method and should now be removed from the game.
      *
      * @param item
      */
@@ -48,10 +53,14 @@ public class Player extends GameCharacter {
     }
 
     /**
-     * @param cost the cost of whatever needs to be evaluated
-     * @return whether the player has enough gold for the <b>cost</b>
+     * @param cost the cost of whatever needs to be evaluated. Can be either negative or positive
+     * @return whether the player has enough gold for the absolute value of <b>cost</b>
      */
     public boolean hasEnoughGold(int cost) {
-        return gold >= cost;
+        return gold >= Math.abs(cost);
+    }
+
+    public void revealRoom() {
+        currentRoom.revealContents();
     }
 }

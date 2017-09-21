@@ -1,35 +1,44 @@
 package fil.coo.actions;
 
+import fil.coo.exception.ActionCannotBeExecutedException;
 import fil.coo.spawnables.beings.Monster;
-import fil.coo.spawnables.beings.Player;
+import fil.coo.spawnables.beings.GamePlayer;
 import fil.coo.util.Menu;
 
 import java.util.List;
 
 public class Attack extends Action {
 
-    public boolean isPossible(Player currentPlayer) {
+    public boolean isPossible(GamePlayer currentPlayer) {
         return currentPlayer.getCurrentRoom().hasMonsters();
     }
 
-    public void execute(Player player) {
+    /**
+     * Asks the player to target a monster in his room and attacks it. If the monster is still alive, it attacks the player in return.
+     *
+     * @param player the player that will attack
+     */
+    public void execute(GamePlayer player) {
 
         // get target
         List<Monster> possibleMonsters = player.getCurrentRoom().getMonsters();
-        Monster target = Menu.getInstance().chooseElement(possibleMonsters);
+        if (!possibleMonsters.isEmpty()) {
+            Monster target = Menu.getInstance().chooseElement(possibleMonsters);
 
-        // apply damage
-        target.changeHP(player.getStrength());
+            // apply damage
+            target.changeHP(player.getStrength());
 
-        // counter
-        if (target.isAlive()) {
-            player.changeHP(-target.getStrength());
+            // counter
+            if (target.isAlive()) {
+                player.changeHP(-target.getStrength());
+            }
+        } else {
+            throw new ActionCannotBeExecutedException("Cannot execute " + this.getClass().getSimpleName());
         }
     }
 
     @Override
     public String getMenuDescription() {
-//        TODO
-        return null;
+        return "Attack a monster";
     }
 }

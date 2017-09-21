@@ -147,4 +147,14 @@ public class Menu {
         }
     }
 
+    public void printRoomDescription(Room currentRoom) {
+        StringBuilder stringBuilder = new StringBuilder("This rooms contains:\n");
+        stringBuilder.append(currentRoom.getNumberOfItems());
+        stringBuilder.append(" items, ");
+        stringBuilder.append(currentRoom.getNumberOfMonsters());
+        stringBuilder.append(" monsters, and has");
+        stringBuilder.append(currentRoom.getNumberOfNeighbours());
+        stringBuilder.append(" neighbours");
+        System.out.println(stringBuilder.toString());
+    }
 }

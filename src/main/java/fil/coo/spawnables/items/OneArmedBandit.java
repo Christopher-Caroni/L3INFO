@@ -1,8 +1,7 @@
 package fil.coo.spawnables.items;
 
-import fil.coo.spawnables.beings.Player;
+import fil.coo.spawnables.beings.GamePlayer;
 import fil.coo.spawnables.interfaces.ISingleSpawnable;
-import fil.coo.spawnables.interfaces.Spawnable;
 import fil.coo.spawnables.items.interfaces.Item;
 
 import java.util.Random;
@@ -18,7 +17,7 @@ public class OneArmedBandit extends Item implements ISingleSpawnable<OneArmedBan
      * @param player
      */
     @Override
-    protected void applySpecificEffect(Player player) {
+    protected void applySpecificEffect(GamePlayer player) {
         if (player.hasEnoughGold(cost)) {
             Item randomItem = generateRandomItem();
             randomItem.use(player);

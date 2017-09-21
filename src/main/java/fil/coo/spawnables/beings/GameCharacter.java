@@ -16,12 +16,11 @@ public abstract class GameCharacter implements Selectable {
     protected Room currentRoom;
 
     public boolean isAlive() {
-        // TODO
-        return false;
+        return hp > 0;
     }
 
     public void changeHP(int hp) {
-        // TODO
+        this.hp += hp;
     }
 
     public void changeGold(int change) {
