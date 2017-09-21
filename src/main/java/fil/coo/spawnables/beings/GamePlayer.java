@@ -37,7 +37,6 @@ public class GamePlayer extends GameCharacter {
         actions.add(new Look());
         actions.add(new Move());
         actions.add(new Rest());
-        actions.add(new ExitDungeon());
         actions.add(new PickupItem());
         actions.add(new DisplayStats());
     }
@@ -50,8 +49,15 @@ public class GamePlayer extends GameCharacter {
     public void moveToDirection(Direction direction) {
         this.currentRoom = this.currentRoom.getNeighbour(direction);
         setRoomRevealed(false);
-        System.out.println("\nYou travel " + direction.getMenuDescription() + " and enter a new room.");
         setUniqueRoomCount(uniqueRoomCount + 1);
+
+        System.out.println("\nYou travel " + direction.getMenuDescription() + " and enter a new room.");
+
+        verifyExit();
+    }
+
+    public void verifyExit() {
+        reachedExit = currentRoom.isExit() && !currentRoom.hasMonsters() && roomRevealed;
     }
 
     public List<? extends Action> getPossibleActions() {

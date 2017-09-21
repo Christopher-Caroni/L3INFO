@@ -186,4 +186,8 @@ public class Room {
     public List<Item> getItems() {
         return items;
     }
+
+    public void setIsExitRoom(boolean exitRoom) {
+        this.isExit = exitRoom;
+    }
 }

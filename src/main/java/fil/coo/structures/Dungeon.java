@@ -113,7 +113,7 @@ public class Dungeon {
 
         x = random.nextInt(dungeon[0].length);
         y = random.nextInt(dungeon.length);
-        exitRoom = dungeon[y][x];
+        dungeon[y][x].setIsExitRoom(true);
     }
 
     /**

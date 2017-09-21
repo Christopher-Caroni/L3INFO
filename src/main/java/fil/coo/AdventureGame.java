@@ -48,11 +48,19 @@ public class AdventureGame {
             List<? extends Action> actions = player.getPossibleActions();
             Action action = Menu.getInstance().chooseElement(actions);
             action.execute(player);
+            player.verifyExit();
 
 
             // TODO the game progression
 
         }
+
+        if (!player.isAlive()) {
+            System.out.println("You died!");
+        } else if (player.reachedExit()) {
+            System.out.println("You won!");
+        }
+
         Menu.getInstance().closeScanner();
     }
 
