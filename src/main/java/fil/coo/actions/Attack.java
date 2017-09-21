@@ -26,11 +26,14 @@ public class Attack extends Action {
             Monster target = Menu.getInstance().chooseElement(possibleMonsters);
 
             // apply damage
-            target.changeHP(player.getStrength());
+            target.changeHP(-player.getStrength());
+            System.out.println(target.getMenuDescription() + " took " + player.getStrength() + " damage!");
 
             // counter
             if (target.isAlive()) {
                 player.changeHP(-target.getStrength());
+                System.out.println(target.getMenuDescription() + " is still alive and hits back with " + target.getStrength() + " damage!");
+                System.out.println("You now have " + player.getHP() + " HP.");
             }
         } else {
             throw new ActionCannotBeExecutedException("Cannot execute " + this.getClass().getSimpleName());

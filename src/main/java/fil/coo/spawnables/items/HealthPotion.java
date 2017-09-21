@@ -24,7 +24,7 @@ public class HealthPotion extends Potion implements ISingleSpawnable<HealthPotio
     public HealthPotion getRandomSpawn() {
         if (willSpawn()) {
             return new HealthPotion()
-                    .withHealthBoost(getUpperSpawnBoundForAmountHeld());
+                    .withHealthBoost(getRandomAmountHeld());
         }
         return null;
     }
@@ -35,8 +35,8 @@ public class HealthPotion extends Potion implements ISingleSpawnable<HealthPotio
     }
 
     @Override
-    public int getUpperSpawnBoundForAmountHeld() {
-        return 21;
+    public int getRandomAmountHeld() {
+        return new Random().nextInt(21);
     }
 
     @Override

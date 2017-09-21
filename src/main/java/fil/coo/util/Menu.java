@@ -2,7 +2,6 @@ package fil.coo.util;
 
 import fil.coo.other.Direction;
 import fil.coo.other.Selectable;
-import fil.coo.spawnables.beings.GamePlayer;
 import fil.coo.structures.Room;
 
 import java.util.InputMismatchException;
@@ -37,35 +36,44 @@ public class Menu {
     }
 
     /**
-     * Prints the list of elements and asks the user to choose one with {@link #readChoiceInt(int)}
+     * Prints the list of elements and asks the user to choose one with {@link #readChoiceInt(int, List)}
      *
      * @param elementList the list of elements to choose from
      * @param <T>         must be a selectable type of class
      * @return the element the user chose
      */
     public <T extends Selectable> T chooseElement(List<T> elementList) {
-        System.out.println("Choose an element between 0 and " + (elementList.size() - 1));
         for (int i = 0; i < elementList.size(); i++) {
             System.out.println(i + " - " + elementList.get(i).getMenuDescription());
         }
 
-        int choice = readChoiceInt(elementList.size());
+        int choice = readChoiceInt(elementList.size(), elementList);
+        System.out.println("You chose \"" + elementList.get(choice).getMenuDescription() + "\"");
         return elementList.get(choice);
     }
 
     /**
-     * @param upperBound excluded
+     * @param upperBound  excluded
+     * @param elementList the list of the choices
      * @return the user's choice
      */
-    private int readChoiceInt(int upperBound) {
+    private int readChoiceInt(int upperBound, List<? extends Selectable> elementList) {
         int choice = -1;
-        while (choice <= 0 || choice >= upperBound) {
+        boolean invalidChoice = true;
+        while (invalidChoice) {
             System.out.println("Enter a choice from 0 to " + (upperBound - 1));
             try {
                 choice = scanner.nextInt();
             } catch (InputMismatchException e) {
                 // consume the input (that is not an integer)
                 scanner.skip(".*");
+            }
+            invalidChoice = choice < 0 || choice >= upperBound;
+            if (invalidChoice) {
+                System.out.println("Invalid choice.");
+                for (int i = 0; i < elementList.size(); i++) {
+                    System.out.println(i + " - " + elementList.get(i).getMenuDescription());
+                }
             }
         }
         return choice;
@@ -168,7 +176,7 @@ public class Menu {
      * @return a name
      */
     public String chooseName() {
-        String playerName = "invalid";
+        String playerName = "choose-name";
         boolean confirmed = false;
 
         while (!confirmed) {
@@ -176,7 +184,7 @@ public class Menu {
             playerName = scanner.nextLine().trim();
             System.out.println("Your username is " + playerName);
 
-            System.out.println("Do you want to use this name? [Y]es/[N]o" );
+            System.out.println("Do you want to use this name? [Y]es/[N]o");
             String confirmationString = scanner.nextLine().trim();
             if (confirmationString.equalsIgnoreCase("no") || confirmationString.equalsIgnoreCase("n")) {
                 confirmed = false;

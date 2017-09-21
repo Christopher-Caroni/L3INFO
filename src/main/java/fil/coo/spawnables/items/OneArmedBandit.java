@@ -58,7 +58,7 @@ public class OneArmedBandit extends Item implements ISingleSpawnable<OneArmedBan
     public OneArmedBandit getRandomSpawn() {
         if (willSpawn()) {
             return new OneArmedBandit()
-                    .withCost(getUpperSpawnBoundForAmountHeld());
+                    .withCost(getRandomAmountHeld());
         }
         return null;
     }
@@ -69,8 +69,8 @@ public class OneArmedBandit extends Item implements ISingleSpawnable<OneArmedBan
     }
 
     @Override
-    public int getUpperSpawnBoundForAmountHeld() {
-        return 21;
+    public int getRandomAmountHeld() {
+        return new Random().nextInt(21);
     }
 
     @Override

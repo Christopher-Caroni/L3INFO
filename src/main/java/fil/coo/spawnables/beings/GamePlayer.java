@@ -16,7 +16,7 @@ public class GamePlayer extends GameCharacter {
     public GamePlayer() {
         super();
 
-        name = "no name";
+        name = "no_name";
         initActions();
     }
 
@@ -89,5 +89,9 @@ public class GamePlayer extends GameCharacter {
 
     public void setReachedExit(boolean reachedExit) {
         this.reachedExit = reachedExit;
+    }
+
+    public String getName() {
+        return name;
     }
 }

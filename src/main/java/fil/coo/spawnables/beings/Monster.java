@@ -11,11 +11,12 @@ public class Monster extends GameCharacter implements IMultipleSpawnable {
     public Monster() {
         super();
 
+        strength = new Random().nextInt(5);
     }
 
     @Override
     public String getMenuDescription() {
-        return "Monster: " + "";
+        return "Monster: " + getHP() + " HP";
     }
 
     /**
@@ -26,7 +27,7 @@ public class Monster extends GameCharacter implements IMultipleSpawnable {
         List<Monster> monsters = new ArrayList<>();
 
         if (willSpawn()) {
-            int spawnAmount = getUpperSpawnBoundForObject();
+            int spawnAmount = getRandomAmount();
 
             if (spawnAmount > 0) {
                 for (int i = 0; i < spawnAmount; i++) {
@@ -40,8 +41,8 @@ public class Monster extends GameCharacter implements IMultipleSpawnable {
     }
 
     @Override
-    public int getUpperSpawnBoundForObject() {
-        return 3;
+    public int getRandomAmount() {
+        return new Random().nextInt(3);
     }
 
     @Override

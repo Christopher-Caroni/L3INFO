@@ -32,7 +32,7 @@ public class GoldPurse extends Item implements ISingleSpawnable<GoldPurse> {
         if (willSpawn()) {
 
             return new GoldPurse()
-                    .withGoldAmount(getUpperSpawnBoundForAmountHeld());
+                    .withGoldAmount(getRandomAmountHeld());
         }
         return null;
     }
@@ -52,8 +52,8 @@ public class GoldPurse extends Item implements ISingleSpawnable<GoldPurse> {
     }
 
     @Override
-    public int getUpperSpawnBoundForAmountHeld() {
-        return 21;
+    public int getRandomAmountHeld() {
+        return new Random().nextInt(21);
     }
 
     @Override

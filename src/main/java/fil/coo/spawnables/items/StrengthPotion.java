@@ -24,7 +24,7 @@ public class StrengthPotion extends Potion implements ISingleSpawnable<StrengthP
     public StrengthPotion getRandomSpawn() {
         if (willSpawn()) {
             return new StrengthPotion()
-                    .withStrengthBoost(getUpperSpawnBoundForAmountHeld());
+                    .withStrengthBoost(getRandomAmountHeld());
         }
         return null;
     }
@@ -35,8 +35,8 @@ public class StrengthPotion extends Potion implements ISingleSpawnable<StrengthP
     }
 
     @Override
-    public int getUpperSpawnBoundForAmountHeld() {
-        return 21;
+    public int getRandomAmountHeld() {
+        return new Random().nextInt(21);
     }
 
     @Override

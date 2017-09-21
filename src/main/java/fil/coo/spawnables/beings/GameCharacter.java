@@ -53,7 +53,7 @@ public abstract class GameCharacter implements Selectable {
         return strength;
     }
 
-    protected int getHP() {
+    public int getHP() {
         return hp;
     }
 

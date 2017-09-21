@@ -16,6 +16,6 @@ public interface IMultipleSpawnable extends Spawnable {
      *
      * @return the upper bound of how many of this object should be spawned
      */
-    int getUpperSpawnBoundForObject();
+    int getRandomAmount();
 
 }

@@ -2,24 +2,22 @@ package fil.coo;
 
 import com.google.devtools.common.options.OptionsParser;
 import fil.coo.actions.Action;
-import fil.coo.other.Direction;
 import fil.coo.spawnables.beings.GamePlayer;
-import fil.coo.spawnables.beings.Monster;
-import fil.coo.spawnables.items.interfaces.Item;
 import fil.coo.structures.Dungeon;
-import fil.coo.structures.Room;
 import fil.coo.util.AdventureGameOptions;
 import fil.coo.util.Menu;
 
 import java.util.List;
+
+import static fil.coo.util.AdventureGameOptions.DEFAULT_PLAYER_NAME;
 
 /**
  * Hello world!
  */
 public class AdventureGame {
 
-    private static final int WIDTH_DUNGEON = 10;
-    private static final int HEIGHT_DUNGEON = 10;
+    private static final int WIDTH_DUNGEON = 5;
+    private static final int HEIGHT_DUNGEON = 5;
 
 
     private GamePlayer player;
@@ -70,7 +68,12 @@ public class AdventureGame {
         dungeon.generate();
 
         player = new GamePlayer();
-        player.setName(Menu.getInstance().chooseName());
+        if (options.playerName.equalsIgnoreCase(DEFAULT_PLAYER_NAME)) {
+            player.setName(Menu.getInstance().chooseName());
+        } else {
+            player.setName(options.playerName);
+        }
+        System.out.println("Using \"" + player.getName() + "\" as name");
         player.setCurrentRoom(dungeon.getStartingRoom());
     }
 

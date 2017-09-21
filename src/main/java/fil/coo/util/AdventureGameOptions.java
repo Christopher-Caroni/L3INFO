@@ -10,6 +10,9 @@ import java.util.List;
  */
 public class AdventureGameOptions extends OptionsBase {
 
+    public static final String DEFAULT_PLAYER_NAME = "default";
+
+
     @Option(
             name = "display-generation",
             abbrev = 'g',
@@ -41,5 +44,13 @@ public class AdventureGameOptions extends OptionsBase {
             defaultValue = "-1"
     )
     public int yCoord;
+
+    @Option(
+            name = "playername",
+            abbrev = 'p',
+            help = "Choose a default playe rname",
+            defaultValue = DEFAULT_PLAYER_NAME
+    )
+    public String playerName;
 
 }

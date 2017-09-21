@@ -15,5 +15,5 @@ public interface ISingleSpawnable<T extends ISingleSpawnable<T>> extends Spawnab
     /**
      * @return the upper bound of how many things this object will hold
      */
-    int getUpperSpawnBoundForAmountHeld();
+    int getRandomAmountHeld();
 }
