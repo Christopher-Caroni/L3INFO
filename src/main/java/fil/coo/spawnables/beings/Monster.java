@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class Monster extends GameCharacter implements IMultipleSpawnable {
+public class Monster extends GameCharacter implements IMultipleSpawnable<Monster> {
 
     public Monster() {
         super();

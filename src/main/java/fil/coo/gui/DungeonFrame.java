@@ -11,11 +11,11 @@ import java.util.Stack;
 
 public class DungeonFrame extends JFrame {
 
-    private static final int roomHeight = 50;
-    private static final int roomWidth = 50;
+    private static final int ROOM_HEIGHT = 50;
+    private static final int ROOM_WIDTH = 50;
 
-    private static final int borderHeight = 50;
-    private static final int borderWidth = 50;
+    private static final int BORDER_HEIGHT = 50;
+    private static final int BORDER_WIDTH = 50;
 
     private final Dimension panelDim;
 
@@ -28,8 +28,8 @@ public class DungeonFrame extends JFrame {
         this.stack = new Stack<>(); // clone to avoid modified the real stack
         visited = new ArrayList<>();
 
-        int panelHeight = (roomHeight * dungeon.length) + (2 * borderHeight);
-        int panelWidth = (roomWidth * dungeon[0].length) + (2 * borderWidth);
+        int panelHeight = (ROOM_HEIGHT * dungeon.length) + (2 * BORDER_HEIGHT);
+        int panelWidth = (ROOM_WIDTH * dungeon[0].length) + (2 * BORDER_WIDTH);
         panelDim = new Dimension(panelWidth, panelHeight);
 
 //        DrawPane
@@ -81,22 +81,22 @@ public class DungeonFrame extends JFrame {
             for (int y = 0; y < dungeon.length; y++) {
                 for (int x = 0; x < dungeon[0].length; x++) {
 
-                    int startX = borderWidth + (roomWidth * x);
-                    int startY = borderHeight + (roomHeight * y);
+                    int startX = BORDER_WIDTH + (ROOM_WIDTH * x);
+                    int startY = BORDER_HEIGHT + (ROOM_HEIGHT * y);
 
                     g.drawString(x + ", " + y, startX + 5, startY + 15);
 
                     if (!dungeon[y][x].hasLinkedNeighbourForDirection(Direction.NORTH)) {
-                        g.drawLine(startX, startY, startX + roomWidth, startY);
+                        g.drawLine(startX, startY, startX + ROOM_WIDTH, startY);
                     }
                     if (!dungeon[y][x].hasLinkedNeighbourForDirection(Direction.EAST)) {
-                        g.drawLine(startX + roomWidth, startY, startX + roomWidth, startY + roomHeight);
+                        g.drawLine(startX + ROOM_WIDTH, startY, startX + ROOM_WIDTH, startY + ROOM_HEIGHT);
                     }
                     if (!dungeon[y][x].hasLinkedNeighbourForDirection(Direction.SOUTH)) {
-                        g.drawLine(startX, startY + roomHeight, startX + roomWidth, startY + roomHeight);
+                        g.drawLine(startX, startY + ROOM_HEIGHT, startX + ROOM_WIDTH, startY + ROOM_HEIGHT);
                     }
                     if (!dungeon[y][x].hasLinkedNeighbourForDirection(Direction.WEST)) {
-                        g.drawLine(startX, startY, startX, startY + roomHeight);
+                        g.drawLine(startX, startY, startX, startY + ROOM_HEIGHT);
                     }
 
                 }
@@ -118,16 +118,16 @@ public class DungeonFrame extends JFrame {
         }
 
         private void fillRoom(Graphics2D g, Room room, Color color) {
-            int startX = borderWidth + (roomWidth * room.getX());
-            int startY = borderHeight + (roomHeight * room.getY());
+            int startX = BORDER_WIDTH + (ROOM_WIDTH * room.getX());
+            int startY = BORDER_HEIGHT + (ROOM_HEIGHT * room.getY());
 
             g.setColor(color);
-            g.fillRect(startX, startY, roomWidth, roomHeight);
+            g.fillRect(startX, startY, ROOM_WIDTH, ROOM_HEIGHT);
         }
 
         private void paintInside(Graphics2D g) {
             g.setColor(Color.WHITE);
-            g.fillRect(borderWidth, borderHeight, roomWidth * dungeon[0].length, roomHeight * dungeon.length);
+            g.fillRect(BORDER_WIDTH, BORDER_HEIGHT, ROOM_WIDTH * dungeon[0].length, ROOM_HEIGHT * dungeon.length);
         }
 
         private void paintEdges(Graphics2D g) {

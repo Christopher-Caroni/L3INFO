@@ -1,13 +1,12 @@
 package fil.coo.spawnables.items;
 
 import fil.coo.spawnables.beings.GamePlayer;
-import fil.coo.spawnables.interfaces.ISingleSpawnable;
-import fil.coo.spawnables.items.interfaces.Potion;
+import fil.coo.spawnables.interfaces.Item;
 
 import java.util.Optional;
 import java.util.Random;
 
-public class HealthPotion extends Potion implements ISingleSpawnable<HealthPotion> {
+public class HealthPotion extends Item<HealthPotion> {
 
     private int healthBoost;
 

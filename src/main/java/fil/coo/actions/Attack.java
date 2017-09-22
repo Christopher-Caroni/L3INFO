@@ -7,7 +7,7 @@ import fil.coo.util.Menu;
 
 import java.util.List;
 
-public class Attack extends Action {
+public class Attack implements Action {
 
     public boolean isPossible(GamePlayer currentPlayer) {
         return currentPlayer.getCurrentRoom().hasMonsters() && currentPlayer.hasRoomRevealed();
@@ -18,7 +18,7 @@ public class Attack extends Action {
      *
      * @param player the player that will attack
      */
-    public void execute(GamePlayer player) {
+    public void execute(GamePlayer player) throws ActionCannotBeExecutedException {
 
         List<Monster> possibleMonsters = player.getCurrentRoom().getMonsters();
         if (!possibleMonsters.isEmpty()) {

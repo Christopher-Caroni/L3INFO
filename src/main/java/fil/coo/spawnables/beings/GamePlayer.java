@@ -2,7 +2,8 @@ package fil.coo.spawnables.beings;
 
 import fil.coo.actions.*;
 import fil.coo.other.Direction;
-import fil.coo.spawnables.items.interfaces.Item;
+import fil.coo.spawnables.interfaces.Item;
+import fil.coo.structures.Room;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,8 +61,13 @@ public class GamePlayer extends GameCharacter {
         reachedExit = currentRoom.isExit() && !currentRoom.hasMonsters() && roomRevealed;
     }
 
-    public List<? extends Action> getPossibleActions() {
-        List<Action> possibleActions = new ArrayList<>();
+    /**
+     * Goes through the player's actions, and returns only those that are possible in his current situation.
+     *
+     * @return a List of the only possible actions
+     */
+    public List<Action> getPossibleActions() {
+        List<Action> possibleActions = new ArrayList<>(actions.size());
         for (Action checkAction : actions) {
             if (checkAction.isPossible(this)) {
                 possibleActions.add(checkAction);
@@ -144,5 +150,16 @@ public class GamePlayer extends GameCharacter {
 
     public void setUniqueRoomCount(int uniqueRoomCount) {
         this.uniqueRoomCount = uniqueRoomCount;
+    }
+
+    /**
+     * @return a list of directions where the player can move, according to his current room's {@link Room#getNeighboursDirections()}
+     */
+    public List<Direction> getPossibleMoveDirections() {
+        return currentRoom.getNeighboursDirections();
+    }
+
+    public boolean canChangeRoom() {
+        return currentRoom.getNumberOfNeighbours() > 0;
     }
 }

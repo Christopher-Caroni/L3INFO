@@ -24,13 +24,9 @@ public class Menu {
         scanner = new Scanner(System.in);
     }
 
-    public static Menu getInstance() {
+    public static synchronized Menu getInstance() {
         if (instance == null) {
-            synchronized (Menu.class) {
-                if (instance == null) {
-                    instance = new Menu();
-                }
-            }
+            instance = new Menu();
         }
         return instance;
     }
@@ -92,7 +88,7 @@ public class Menu {
 
         if (debug) {
             System.out.println("Printing room at position: " + room.coordsToString());
-            System.out.println(room.neighboursToString());
+            System.out.println(room.neighbourDirectionsToString());
         }
 
         // TOP OF BOX

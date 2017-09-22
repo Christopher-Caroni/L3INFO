@@ -42,8 +42,8 @@ public abstract class GameCharacter implements Selectable {
         }
     }
 
-    public void changeStrength(int strength) {
-        strength += strength;
+    public void changeStrength(int strengthChange) {
+        this.strength += strengthChange;
     }
 
     public Room getCurrentRoom() {

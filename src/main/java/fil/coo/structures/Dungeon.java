@@ -19,7 +19,7 @@ public class Dungeon {
     /**
      * The 2D array of rooms that compose the dungeon.
      */
-    private Room[][] dungeon;
+    private Room[][] roomsArray;
 
     private int dungeonHeight;
     private int dungeonWidth;
@@ -49,14 +49,14 @@ public class Dungeon {
     }
 
     /**
-     * Initializes the dungeon and links the rooms together. Defines start and exit.
+     * Initializes the roomsArray and links the rooms together. Defines start and exit.
      */
     public void generate() {
         boolean[][] visitedRooms = new boolean[dungeonHeight][dungeonWidth];
         generateRooms(visitedRooms);
 
         if (options.displayGeneration) {
-            dungeonFrame = new DungeonFrame(dungeon);
+            dungeonFrame = new DungeonFrame(roomsArray);
         }
 
         initializeNeighbours(visitedRooms);
@@ -64,19 +64,19 @@ public class Dungeon {
     }
 
     /**
-     * Generates the individual {@link Room}s of the dungeon.
+     * Generates the individual {@link Room}s of the roomsArray.
      *
      * @param visitedRooms the array of rooms already linked as neighbours
      */
     private void generateRooms(boolean[][] visitedRooms) {
 //        [row][column] = [height][width]
-        dungeon = new Room[dungeonHeight][dungeonWidth];
+        roomsArray = new Room[dungeonHeight][dungeonWidth];
 
         RoomFactory roomFactory = new RoomFactory();
 
         for (int row = 0; row < dungeonHeight; row++) {
             for (int column = 0; column < dungeonWidth; column++) {
-                dungeon[row][column] = roomFactory.generateRoom(column, row);
+                roomsArray[row][column] = roomFactory.generateRoom(column, row);
                 visitedRooms[row][column] = false;
             }
         }
@@ -107,13 +107,13 @@ public class Dungeon {
 
     private void setStartAndExit() {
         Random random = new Random();
-        int x = random.nextInt(dungeon[0].length);
-        int y = random.nextInt(dungeon.length);
-        startingRoom = dungeon[y][x];
+        int x = random.nextInt(roomsArray[0].length);
+        int y = random.nextInt(roomsArray.length);
+        startingRoom = roomsArray[y][x];
 
-        x = random.nextInt(dungeon[0].length);
-        y = random.nextInt(dungeon.length);
-        dungeon[y][x].setIsExitRoom(true);
+        x = random.nextInt(roomsArray[0].length);
+        y = random.nextInt(roomsArray.length);
+        roomsArray[y][x].setIsExitRoom(true);
     }
 
     /**
@@ -128,13 +128,13 @@ public class Dungeon {
         int y = random.nextInt(dungeonHeight);
 
 //        [row][column] = [height][width]
-        Room startingRoom = dungeon[y][x];
+        Room startingRoomForGeneration = roomsArray[y][x];
         visitedRooms[y][x] = true;
 
         // add it to the stack
-        stack.push(startingRoom);
+        stack.push(startingRoomForGeneration);
         if (options.displayGeneration) {
-            dungeonFrame.addInitialRoom(startingRoom);
+            dungeonFrame.addInitialRoom(startingRoomForGeneration);
         }
     }
 
@@ -185,7 +185,7 @@ public class Dungeon {
         Room currentRoom = stack.peek();
         List<Room> neighbours = getNonVisitedNeighbours(currentRoom.getX(), currentRoom.getY(), visitedRooms);
 
-        if (neighbours.size() != 0) {
+        if (!neighbours.isEmpty()) {
             // Step 2b: choose random neighbour, link the rooms and repeat step 2a
             Room randomNeighbour = neighbours.get(random.nextInt(neighbours.size()));
             linkNeighbours(stack, visitedRooms, randomNeighbour);
@@ -234,34 +234,35 @@ public class Dungeon {
      */
     private List<Room> getNonVisitedNeighbours(int x, int y, boolean[][] visited) {
         List<Room> neighbours = new ArrayList<>();
-        int nextX, nextY;
+        int nextX;
+        int nextY;
 
         // above
         nextX = x;
         nextY = y - 1;
         if (isInBounds(nextX, nextY) && !visited[nextY][nextX]) {
-            neighbours.add(dungeon[nextY][nextX]);
+            neighbours.add(roomsArray[nextY][nextX]);
         }
 
         // below
         nextX = x;
         nextY = y + 1;
         if (isInBounds(nextX, nextY) && !visited[nextY][nextX]) {
-            neighbours.add(dungeon[nextY][nextX]);
+            neighbours.add(roomsArray[nextY][nextX]);
         }
 
         // left
         nextX = x - 1;
         nextY = y;
         if (isInBounds(nextX, nextY) && !visited[nextY][nextX]) {
-            neighbours.add(dungeon[nextY][nextX]);
+            neighbours.add(roomsArray[nextY][nextX]);
         }
 
         // right
         nextX = x + 1;
         nextY = y;
         if (isInBounds(nextX, nextY) && !visited[nextY][nextX]) {
-            neighbours.add(dungeon[nextY][nextX]);
+            neighbours.add(roomsArray[nextY][nextX]);
         }
 
         return neighbours;
@@ -271,14 +272,14 @@ public class Dungeon {
     /**
      * @param x the horizontal coordinate to check
      * @param y the vertical coordinate to check
-     * @return if x and y are in the bounds of the dungeon
+     * @return if x and y are in the bounds of the roomsArray
      */
     private boolean isInBounds(int x, int y) {
         return x >= 0 && x < dungeonWidth && y >= 0 && y < dungeonHeight;
     }
 
     public Room getRoom(int xCoord, int yCoord) {
-        return dungeon[yCoord][xCoord];
+        return roomsArray[yCoord][xCoord];
     }
 
     public Room getStartingRoom() {

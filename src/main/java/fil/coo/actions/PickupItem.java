@@ -2,19 +2,19 @@ package fil.coo.actions;
 
 import fil.coo.exception.ActionCannotBeExecutedException;
 import fil.coo.spawnables.beings.GamePlayer;
-import fil.coo.spawnables.items.interfaces.Item;
+import fil.coo.spawnables.interfaces.Item;
 import fil.coo.util.Menu;
 
 import java.util.List;
 
-public class PickupItem extends Action {
+public class PickupItem implements Action {
     @Override
     public boolean isPossible(GamePlayer currentPlayer) {
         return currentPlayer.hasItemsInCurrentRoom() && currentPlayer.hasRoomRevealed();
     }
 
     @Override
-    public void execute(GamePlayer player) {
+    public void execute(GamePlayer player) throws ActionCannotBeExecutedException {
         List<Item> itemInRoom = player.getItemsFromRoom();
         if (!itemInRoom.isEmpty()) {
             System.out.println("Choose an item from the room:");

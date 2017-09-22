@@ -4,7 +4,7 @@ import fil.coo.spawnables.beings.GamePlayer;
 import fil.coo.structures.Room;
 import fil.coo.util.Menu;
 
-public class Look extends Action {
+public class Look implements Action {
 
     public boolean isPossible(GamePlayer currentPlayer) {
         return true;

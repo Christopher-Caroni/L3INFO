@@ -11,11 +11,6 @@ import java.util.Optional;
 
 public class RoomFactory {
 
-    /**
-     * Default constructor
-     */
-    public RoomFactory() {
-    }
 
     public Room generateRoom(int column, int row) {
         Room room = new Room(column, row);

@@ -3,8 +3,6 @@ package fil.coo.util;
 import com.google.devtools.common.options.Option;
 import com.google.devtools.common.options.OptionsBase;
 
-import java.util.List;
-
 /**
  * Command line options definitions for {@link fil.coo.AdventureGame}
  */

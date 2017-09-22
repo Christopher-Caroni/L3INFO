@@ -1,13 +1,20 @@
 package fil.coo.actions;
 
-import fil.coo.spawnables.beings.GamePlayer;
+import fil.coo.exception.ActionCannotBeExecutedException;
 import fil.coo.other.Selectable;
+import fil.coo.spawnables.beings.GamePlayer;
 
-public abstract class Action implements Selectable {
+public interface Action extends Selectable {
 
-    public abstract boolean isPossible(GamePlayer currentPlayer);
+    boolean isPossible(GamePlayer currentPlayer);
 
-    public abstract void execute(GamePlayer player);
+    /**
+     * Execute this action
+     *
+     * @param player the player who is doing the action, which may affect him.
+     * @throws ActionCannotBeExecutedException if the action is not supposed to be executed according to the player's conditions
+     */
+    void execute(GamePlayer player) throws ActionCannotBeExecutedException;
 
 
 }

@@ -5,12 +5,12 @@ import java.util.List;
 /**
  * Interface that specifies methods necessary to spawn <b>multiple</b> spawnables
  */
-public interface IMultipleSpawnable extends Spawnable {
+public interface IMultipleSpawnable<T extends IMultipleSpawnable<T>> extends Spawnable {
 
     /**
      * @return a list of {@link Spawnable} with random chance from {@link Spawnable#getSpawnRate()}
      */
-    List<? extends Spawnable> getRandomSpawn();
+    List<T> getRandomSpawn();
 
     /**
      *

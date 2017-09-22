@@ -2,7 +2,7 @@ package fil.coo.actions;
 
 import fil.coo.spawnables.beings.GamePlayer;
 
-public class DisplayStats extends Action {
+public class DisplayStats implements Action {
     @Override
     public boolean isPossible(GamePlayer currentPlayer) {
         return true;

@@ -5,7 +5,7 @@ import fil.coo.spawnables.beings.GamePlayer;
 
 import java.util.Random;
 
-public class Rest extends Action {
+public class Rest implements Action {
 
     private int cost;
     private int hpRestoration;
@@ -25,7 +25,7 @@ public class Rest extends Action {
      *
      * @param player the player that will rest.
      */
-    public void execute(GamePlayer player) {
+    public void execute(GamePlayer player) throws ActionCannotBeExecutedException {
         if (player.hasEnoughGold(cost)) {
             player.changeStrength(cost);
             player.changeHP(hpRestoration);

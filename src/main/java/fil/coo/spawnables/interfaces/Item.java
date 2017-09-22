@@ -1,9 +1,9 @@
-package fil.coo.spawnables.items.interfaces;
+package fil.coo.spawnables.interfaces;
 
 import fil.coo.other.Selectable;
 import fil.coo.spawnables.beings.GamePlayer;
 
-public abstract class Item implements Selectable {
+public abstract class Item<T extends Item<T>> implements Selectable, ISingleSpawnable<T> {
 
     /**
      * Any item must be able to be used, but at the end, it disappears from the room.

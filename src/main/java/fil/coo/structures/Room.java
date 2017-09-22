@@ -3,7 +3,7 @@ package fil.coo.structures;
 import fil.coo.exception.RoomsAreNotNeighboursException;
 import fil.coo.other.Direction;
 import fil.coo.spawnables.beings.Monster;
-import fil.coo.spawnables.items.interfaces.Item;
+import fil.coo.spawnables.interfaces.Item;
 
 import java.util.*;
 
@@ -17,10 +17,9 @@ public class Room {
 
     private List<Monster> monsters;
 
-    private Map<Direction, Room> linkedNeighbour;
+    private EnumMap<Direction, Room> linkedNeighbour;
 
     private boolean isExit;
-    private int gold;
 
     protected Room(int column, int row) {
         x = column;
@@ -29,7 +28,7 @@ public class Room {
 
         items = new ArrayList<>();
         monsters = new ArrayList<>();
-        linkedNeighbour = new HashMap<>();
+        linkedNeighbour = new EnumMap<>(Direction.class);
     }
 
     public Room getNeighbour(Direction direction) {
@@ -48,7 +47,7 @@ public class Room {
 
 
     public boolean hasMonsters() {
-        return monsters.size() > 0;
+        return !monsters.isEmpty();
     }
 
 
@@ -61,6 +60,9 @@ public class Room {
         return monsters;
     }
 
+    /**
+     * @return a list of directions of this room's neighbours
+     */
     public List<Direction> getNeighboursDirections() {
         List<Direction> directionList = new ArrayList<>();
         for (Map.Entry<Direction, Room> pair : linkedNeighbour.entrySet()) {
@@ -124,9 +126,9 @@ public class Room {
     /**
      * Sets these two rooms to have each other as linkedNeighbour. Order has no importance.
      *
-     * @param firstRoom
-     * @param secondRoom
-     * @throws RoomsAreNotNeighboursException
+     * @param firstRoom  one of the rooms to link
+     * @param secondRoom the other room
+     * @throws RoomsAreNotNeighboursException if the two rooms are not next to each other, according to their coordinates
      */
     public static void setRoomsAsNeighbours(Room firstRoom, Room secondRoom) throws RoomsAreNotNeighboursException {
         Direction initialDirection = Room.getDirectionFromRoomToOtherRoom(firstRoom, secondRoom);
@@ -147,12 +149,16 @@ public class Room {
         return "x=[" + x + "], y=[" + y + "]";
     }
 
-    public String neighboursToString() {
+    /**
+     * @return the directions of this room's neighbours
+     */
+    public String neighbourDirectionsToString() {
         StringBuilder stringBuilder = new StringBuilder("Neighbours=[\n");
-        Iterator it = linkedNeighbour.entrySet().iterator();
-        while (it.hasNext()) {
-            Map.Entry<Direction, Room> pair = (Map.Entry<Direction, Room>) it.next();
-            stringBuilder.append("\t" + pair.getKey() + ",\n");
+        for (Map.Entry<Direction, Room> pair : linkedNeighbour.entrySet()) {
+            stringBuilder
+                    .append("\t")
+                    .append(pair.getKey())
+                    .append(",\n");
         }
         stringBuilder.append("]\n");
         return stringBuilder.toString();
@@ -161,7 +167,7 @@ public class Room {
     /**
      * Removes <b>item</b> from the room
      *
-     * @param item
+     * @param item the item to remove
      */
     public void removeItem(Item item) {
         items.remove(item);

@@ -1,13 +1,12 @@
 package fil.coo.spawnables.items;
 
 import fil.coo.spawnables.beings.GamePlayer;
-import fil.coo.spawnables.interfaces.ISingleSpawnable;
-import fil.coo.spawnables.items.interfaces.Item;
+import fil.coo.spawnables.interfaces.Item;
 
 import java.util.Optional;
 import java.util.Random;
 
-public class CoinPouch extends Item implements ISingleSpawnable<CoinPouch> {
+public class CoinPouch extends Item<CoinPouch> {
 
     /**
      * The amount of gold this purse contains.
