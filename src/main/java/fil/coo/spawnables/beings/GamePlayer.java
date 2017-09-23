@@ -162,4 +162,8 @@ public class GamePlayer extends GameCharacter {
     public boolean canChangeRoom() {
         return currentRoom.getNumberOfNeighbours() > 0;
     }
+
+    public void setGold(int gold) {
+        this.gold = gold;
+    }
 }

@@ -17,7 +17,7 @@ public class Rest implements Action {
     }
 
     public boolean isPossible(GamePlayer currentPlayer) {
-        return !currentPlayer.getCurrentRoom().hasMonsters() && currentPlayer.hasEnoughGold(1) && currentPlayer.hasRoomRevealed();
+        return !currentPlayer.getCurrentRoom().hasMonsters() && currentPlayer.hasEnoughGold(cost) && currentPlayer.hasRoomRevealed();
     }
 
     /**
@@ -26,7 +26,7 @@ public class Rest implements Action {
      * @param player the player that will rest.
      */
     public void execute(GamePlayer player) throws ActionCannotBeExecutedException {
-        if (player.hasEnoughGold(cost)) {
+        if (isPossible(player)) {
             player.changeStrength(cost);
             player.changeHP(hpRestoration);
             System.out.println("You used " + Math.abs(cost) + " strength and restored " + hpRestoration + " HP");

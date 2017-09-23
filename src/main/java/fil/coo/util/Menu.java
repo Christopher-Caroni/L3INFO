@@ -195,4 +195,8 @@ public class Menu {
     public void closeScanner() {
         scanner.close();
     }
+
+    public void initialize() {
+        scanner = new Scanner(System.in);
+    }
 }

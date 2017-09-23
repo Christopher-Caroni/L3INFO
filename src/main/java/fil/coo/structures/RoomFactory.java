@@ -12,8 +12,13 @@ import java.util.Optional;
 public class RoomFactory {
 
 
-    public Room generateRoom(int column, int row) {
+    public Room generateSimpleRoom(int column, int row) {
         Room room = new Room(column, row);
+        return room;
+    }
+
+    public Room generateRoom(int column, int row) {
+        Room room = generateSimpleRoom(column, row);
         addSpawnables(room);
         return room;
     }
@@ -68,5 +73,4 @@ public class RoomFactory {
 
         // OTHER FUTURE ITEMS
     }
-
 }

@@ -21,7 +21,7 @@ public class Move implements Action {
     public void execute(GamePlayer player) throws ActionCannotBeExecutedException {
 
         List<Direction> possibleDirections = player.getPossibleMoveDirections();
-        if (!possibleDirections.isEmpty()) {
+        if (isPossible(player)) {
             Direction direction = Menu.getInstance().chooseElement(possibleDirections);
 
             player.moveToDirection(direction);

@@ -21,7 +21,7 @@ public class Attack implements Action {
     public void execute(GamePlayer player) throws ActionCannotBeExecutedException {
 
         List<Monster> possibleMonsters = player.getCurrentRoom().getMonsters();
-        if (!possibleMonsters.isEmpty()) {
+        if (isPossible(player)) {
             // get target
             Monster target = Menu.getInstance().chooseElement(possibleMonsters);
 
