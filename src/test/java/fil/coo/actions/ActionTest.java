@@ -52,7 +52,7 @@ public abstract class ActionTest {
     }
 
     /**
-     * @return a simple {@link GamePlayer} object with only a currentRoom initialized.
+     * @return a simple {@link GamePlayer} object with only a currentRoom initialized at coords x[0], y[0].
      */
     protected GamePlayer getSimplePlayer() {
         Room currentRoom = new RoomFactory().generateSimpleRoom(0, 0);
