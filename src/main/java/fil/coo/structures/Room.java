@@ -196,4 +196,28 @@ public class Room {
     public void setIsExitRoom(boolean exitRoom) {
         this.isExit = exitRoom;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Room room = (Room) o;
+
+        if (x != room.x) return false;
+        if (y != room.y) return false;
+        if (isExit != room.isExit) return false;
+        if (!items.equals(room.items)) return false;
+        return monsters.equals(room.monsters);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = x;
+        result = 31 * result + y;
+        result = 31 * result + items.hashCode();
+        result = 31 * result + monsters.hashCode();
+        result = 31 * result + (isExit ? 1 : 0);
+        return result;
+    }
 }
