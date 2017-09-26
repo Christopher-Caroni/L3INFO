@@ -100,7 +100,7 @@ public class Dungeon {
         if (options.displayGeneration) {
             System.out.println("Finished generation");
         }
-        if (options.debugRoomX != -1 && options.debugRoomY != -1) {
+        if (isInBounds(options.debugRoomX, options.debugRoomY)) {
             Menu.getInstance().printRoom(getRoom(options.debugRoomX, options.debugRoomY), true);
         }
     }
