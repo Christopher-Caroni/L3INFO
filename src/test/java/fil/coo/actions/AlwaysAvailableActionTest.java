@@ -33,7 +33,7 @@ public abstract class AlwaysAvailableActionTest extends ActionTest {
      * Tests that the subclass of {@link Action}'s {@link Action#execute(GamePlayer)} does not throw {@link ActionCannotBeExecutedException} with a normal player.
      */
     @Test
-    public void testExecuteWhenOK() {
+    public void testExecuteWithoutMonsters() {
         GamePlayer player = getSimplePlayer();
 
         setManualChoice(0);
@@ -63,7 +63,7 @@ public abstract class AlwaysAvailableActionTest extends ActionTest {
      * Tests that the subclass of {@link Action}'s {@link Action#execute(GamePlayer)} does not throw {@link ActionCannotBeExecutedException} with a normal player and 0 gold.
      */
     @Test
-    public void testExecuteWithNoGold() {
+    public void testExecuteWithoutGold() {
         GamePlayer player = getPlayerWithMonsterInRoom();
         player.setGold(0);
 
