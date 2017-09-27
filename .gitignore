@@ -4,6 +4,8 @@
 # du
 du/mdu
 *.Rhistory
+performances/bigfile
+performances/mcat-tm.dat
 
 
 ### C ###
