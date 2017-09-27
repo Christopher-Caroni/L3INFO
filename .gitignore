@@ -6,6 +6,7 @@ du/mdu
 *.Rhistory
 performances/bigfile
 performances/mcat-tm.dat
+performances/TIME_FILE
 
 
 ### C ###
