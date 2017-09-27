@@ -6,10 +6,10 @@ Ce répertoire correspond aux exercices de la section
 # Ce que nous avons fait :
 
 Durant ce tp nous avons:
-- créer la commande `mcat-scd`
-- créer la commande `mcat-scs`
-- créer la commande `mcat-lib`
-- créer la commande `mcat-fsync`
+- crée la commande `mcat-scd`
+- crée la commande `mcat-scs`
+- crée la commande `mcat-lib`
+- crée la commande `mcat-fsync`
 - pour toutes les commandes nous avons testé leurs performances par le biais d'un shell
 
 Ainsi ici vous pouvez voir les différents graphique que nous produis gnuplot:
