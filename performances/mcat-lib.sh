@@ -4,11 +4,11 @@
 # Exemple de script shell, à compléter pour vos tests
 
 # La commande à tester
-MCAT=./mcat-scd
+MCAT=./mcat-lib
 # le fichier à lui mettre en entrée
 MCAT_INPUT=100mo
 # Le fichier de temps à générer
-TIME_FILE=mcat-tm.dat
+TIME_FILE=mcat-tm-lib.dat
 
 # la commande gnu time
 TIME_CMD="/usr/bin/time"
@@ -29,6 +29,4 @@ for size in `awk 'BEGIN { for( i=1; i<=8388608; i*=2 ) print i }'`; do
 done
 
 rm 100mo
-
-gnuplot run.gnu &
 

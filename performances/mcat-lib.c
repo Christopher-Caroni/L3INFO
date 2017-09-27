@@ -9,23 +9,14 @@
 
 void mcat_scd(char *pathname)
 {
-  int fdRead;
-  int nbLu;
-  int nbOctets;
-  char *contenu;
+  FILE *file;
+  int ch;
 
-  nbOctets = 8;
-  contenu = (char*) malloc(nbOctets * sizeof(char));
-
-  fdRead = open(pathname, O_RDONLY);
-  assert(fdRead != -1);
-
-  while ( (nbLu = read(fdRead, contenu, nbOctets)) > 0 )
+  file = fopen(pathname, "r");
+  while ((ch = fgetc(file)) != EOF)
   {
-    write(STDOUT_FILENO, contenu, nbLu);
+    fputc(ch, stdout);
   }
-  close(fdRead);
-  free(contenu);
 }
 
 
