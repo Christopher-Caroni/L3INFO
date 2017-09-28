@@ -30,6 +30,7 @@ public abstract class ActionTest {
      */
     @Before
     public void setupActionToTest() {
+
         this.action = getAction();
     }
 

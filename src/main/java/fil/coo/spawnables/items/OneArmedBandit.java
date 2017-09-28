@@ -2,11 +2,14 @@ package fil.coo.spawnables.items;
 
 import fil.coo.spawnables.beings.GamePlayer;
 import fil.coo.spawnables.interfaces.Item;
+import org.apache.log4j.Logger;
 
 import java.util.Optional;
 import java.util.Random;
 
 public class OneArmedBandit extends Item<OneArmedBandit> {
+
+    final static Logger logger = Logger.getLogger(OneArmedBandit.class);
 
 
     private int cost;
@@ -25,7 +28,7 @@ public class OneArmedBandit extends Item<OneArmedBandit> {
     }
 
     private void useNewItem(Item item, GamePlayer player) {
-        System.out.println("The one-armed bandit spawned " + item.getMenuDescription());
+        logger.info("The one-armed bandit spawned " + item.getMenuDescription());
         item.use(player);
     }
 

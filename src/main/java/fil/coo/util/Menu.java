@@ -3,12 +3,15 @@ package fil.coo.util;
 import fil.coo.other.Direction;
 import fil.coo.other.Selectable;
 import fil.coo.structures.Room;
+import org.apache.log4j.Logger;
 
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
 public class Menu {
+
+    final static Logger logger = Logger.getLogger(Menu.class);
 
     private static Menu instance;
 
@@ -39,12 +42,13 @@ public class Menu {
      * @return the element the user chose
      */
     public <T extends Selectable> T chooseElement(List<T> elementList) {
+        informChoice(elementList.size());
         for (int i = 0; i < elementList.size(); i++) {
-            System.out.println(i + " - " + elementList.get(i).getMenuDescription());
+            logger.info(i + " - " + elementList.get(i).getMenuDescription());
         }
 
         int choice = readChoiceInt(elementList.size(), elementList);
-        System.out.println("You chose \"" + elementList.get(choice).getMenuDescription() + "\"");
+        logger.info("You chose \"" + elementList.get(choice).getMenuDescription() + "\"");
         return elementList.get(choice);
     }
 
@@ -57,7 +61,6 @@ public class Menu {
         int choice = -1;
         boolean invalidChoice = true;
         while (invalidChoice) {
-            System.out.println("Enter a choice from 0 to " + (upperBound - 1));
             try {
                 choice = scanner.nextInt();
             } catch (InputMismatchException e) {
@@ -66,13 +69,18 @@ public class Menu {
             }
             invalidChoice = choice < 0 || choice >= upperBound;
             if (invalidChoice) {
-                System.out.println("Invalid choice.");
+                logger.info("Invalid choice.");
+                informChoice(elementList.size());
                 for (int i = 0; i < elementList.size(); i++) {
-                    System.out.println(i + " - " + elementList.get(i).getMenuDescription());
+                    logger.info(i + " - " + elementList.get(i).getMenuDescription());
                 }
             }
         }
         return choice;
+    }
+
+    private void informChoice(int upperBound) {
+        logger.info("\nPlease enter a choice from 0 to " + (upperBound - 1));
     }
 
     /**
@@ -87,8 +95,8 @@ public class Menu {
         int horizontalCenter = roomWidth / 2;
 
         if (debug) {
-            System.out.println("Printing room at position: " + room.coordsToString());
-            System.out.println(room.neighbourDirectionsToString());
+            logger.info("Printing room at position: " + room.coordsToString());
+            logger.info(room.neighbourDirectionsToString());
         }
 
         // TOP OF BOX
@@ -104,7 +112,7 @@ public class Menu {
             } else {
                 printInside(roomWidth, false, false);
             }
-            System.out.println("");
+            logger.info("");
         }
 
         // BOTTOM
@@ -139,7 +147,7 @@ public class Menu {
 
         printMultipleString(HORIZONTAL_SEPARATOR, horizontalCenter);
         System.out.print(CORNER);
-        System.out.println("");
+        logger.info("");
     }
 
     /**
@@ -163,7 +171,7 @@ public class Menu {
         stringBuilder.append(" monsters, and has ");
         stringBuilder.append(currentRoom.getNumberOfNeighbours());
         stringBuilder.append(" neighbours.");
-        System.out.println(stringBuilder.toString());
+        logger.info(stringBuilder.toString());
     }
 
     /**
@@ -178,9 +186,9 @@ public class Menu {
         while (!confirmed) {
             System.out.print("Enter your username: ");
             playerName = scanner.nextLine().trim();
-            System.out.println("Your username is " + playerName);
+            logger.info("Your username is " + playerName);
 
-            System.out.println("Do you want to use this name? [Y]es/[N]o");
+            logger.info("Do you want to use this name? [Y]es/[N]o");
             String confirmationString = scanner.nextLine().trim();
             if (confirmationString.equalsIgnoreCase("no") || confirmationString.equalsIgnoreCase("n")) {
                 confirmed = false;

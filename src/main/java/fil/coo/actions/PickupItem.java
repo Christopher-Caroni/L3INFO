@@ -4,10 +4,14 @@ import fil.coo.exception.ActionCannotBeExecutedException;
 import fil.coo.spawnables.beings.GamePlayer;
 import fil.coo.spawnables.interfaces.Item;
 import fil.coo.util.Menu;
+import org.apache.log4j.Logger;
 
 import java.util.List;
 
 public class PickupItem implements Action {
+
+    final static Logger logger = Logger.getLogger(PickupItem.class);
+
     @Override
     public boolean isPossible(GamePlayer currentPlayer) {
         return currentPlayer.hasItemsInCurrentRoom() && currentPlayer.hasRoomRevealed();
@@ -17,7 +21,7 @@ public class PickupItem implements Action {
     public void execute(GamePlayer player) throws ActionCannotBeExecutedException {
         List<Item> itemInRoom = player.getItemsFromRoom();
         if (isPossible(player)) {
-            System.out.println("Choose an item from the room:");
+            logger.info("Choose an item from the room:");
             Item choice = Menu.getInstance().chooseElement(itemInRoom);
 
             choice.use(player);

@@ -7,12 +7,15 @@ import fil.coo.spawnables.beings.GamePlayer;
 import fil.coo.structures.Dungeon;
 import fil.coo.util.AdventureGameOptions;
 import fil.coo.util.Menu;
+import org.apache.log4j.Logger;
 
 import java.util.List;
 
 import static fil.coo.util.AdventureGameOptions.DEFAULT_PLAYER_NAME;
 
 public class AdventureGame {
+
+    final static Logger logger = Logger.getLogger(AdventureGame.class);
 
     private GamePlayer player;
 
@@ -55,7 +58,7 @@ public class AdventureGame {
         } else {
             player.setName(options.playerName);
         }
-        System.out.println("Using \"" + player.getName() + "\" as your player name");
+        logger.info("Using \"" + player.getName() + "\" as your player name");
         player.setCurrentRoom(dungeon.getStartingRoom());
     }
 
@@ -81,7 +84,7 @@ public class AdventureGame {
         } catch (ActionCannotBeExecutedException e) {
 //            TODO log this instead
 //            e.printStackTrace();
-            System.out.println("This action cannot be executed. Please choose another action.");
+            logger.info("This action cannot be executed. Please choose another action.");
         }
     }
 
@@ -90,9 +93,9 @@ public class AdventureGame {
      */
     private void printEndgame() {
         if (!player.isAlive()) {
-            System.out.println("You died!");
+            logger.info("You died!");
         } else if (player.reachedExit()) {
-            System.out.println("You won!");
+            logger.info("You won!");
         }
     }
 

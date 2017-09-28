@@ -24,35 +24,35 @@ public class RestTest extends ActionTest {
     }
 
     @Test
-    public void testNotPossibleWithNotEnoughGold() {
+    public void testNotPossibleWithNotEnoughStrength() {
         GamePlayer player = this.getSimplePlayer();
-        player.setGold(0);
+        player.setStrength(0);
 
         assertFalse(action.isPossible(player));
     }
 
     @Test
-    public void testNotPossibleWithEnoughGoldButRoomNotRevealed() {
+    public void testNotPossibleWithEnoughStrengthButRoomNotRevealed() {
         GamePlayer player = this.getSimplePlayer();
-        player.setGold(100);
+        player.setStrength(100);
         player.setRoomRevealed(false);
 
         assertFalse(action.isPossible(player));
     }
 
     @Test
-    public void testNotPossibleWithNotEnoughGoldAndRoomRevealed() {
+    public void testNotPossibleWithNotEnoughStrengthAndRoomRevealed() {
         GamePlayer player = this.getSimplePlayer();
-        player.setGold(0);
+        player.setStrength(0);
         player.setRoomRevealed(true);
 
         assertFalse(action.isPossible(player));
     }
 
     @Test
-    public void testNotPossibleWithMonstersAndNotEnoughGold() {
+    public void testNotPossibleWithMonstersAndNotEnoughStrength() {
         GamePlayer player = this.getPlayerWithMonsterInRoom();
-        player.setGold(0);
+        player.setStrength(0);
 
         assertFalse(action.isPossible(player));
     }
@@ -66,18 +66,18 @@ public class RestTest extends ActionTest {
     }
 
     @Test
-    public void testNotPossibleWithMonstersButEnoughGoldAndRoomRevealed() {
+    public void testNotPossibleWithMonstersButEnoughStrengthAndRoomRevealed() {
         GamePlayer player = this.getPlayerWithMonsterInRoom();
-        player.setGold(100);
+        player.setStrength(100);
         player.setRoomRevealed(true);
 
         assertFalse(action.isPossible(player));
     }
 
     @Test
-    public void testIsPossibleWithNoMonstersAndEnoughGoldAndRoomRevealed() {
+    public void testIsPossibleWithNoMonstersAndEnoughStrengthAndRoomRevealed() {
         GamePlayer player = this.getSimplePlayer();
-        player.setGold(100);
+        player.setStrength(100);
         player.setRoomRevealed(true);
 
         assertTrue(action.isPossible(player));
@@ -95,18 +95,18 @@ public class RestTest extends ActionTest {
     }
 
     @Test(expected = ActionCannotBeExecutedException.class)
-    public void testExecuteWithNotEnoughGold() throws ActionCannotBeExecutedException {
+    public void testExecuteWithNotEnoughStrength() throws ActionCannotBeExecutedException {
         GamePlayer player = this.getSimplePlayer();
-        player.setGold(0);
+        player.setStrength(0);
 
         setManualChoice(0);
         action.execute(player);
     }
 
     @Test(expected = ActionCannotBeExecutedException.class)
-    public void testExecuteWithEnoughGoldButRoomNotRevealed() throws ActionCannotBeExecutedException {
+    public void testExecuteWithEnoughStrengthButRoomNotRevealed() throws ActionCannotBeExecutedException {
         GamePlayer player = this.getSimplePlayer();
-        player.setGold(100);
+        player.setStrength(100);
         player.setRoomRevealed(false);
 
         setManualChoice(0);
@@ -114,9 +114,9 @@ public class RestTest extends ActionTest {
     }
 
     @Test(expected = ActionCannotBeExecutedException.class)
-    public void testExecuteWithNotEnoughGoldAndRoomRevealed() throws ActionCannotBeExecutedException {
+    public void testExecuteWithNotEnoughStrengthAndRoomRevealed() throws ActionCannotBeExecutedException {
         GamePlayer player = this.getSimplePlayer();
-        player.setGold(0);
+        player.setStrength(0);
         player.setRoomRevealed(true);
 
         setManualChoice(0);
@@ -124,9 +124,9 @@ public class RestTest extends ActionTest {
     }
 
     @Test(expected = ActionCannotBeExecutedException.class)
-    public void testExecuteWithMonstersAndNotEnoughGold() throws ActionCannotBeExecutedException {
+    public void testExecuteWithMonstersAndNotEnoughStrength() throws ActionCannotBeExecutedException {
         GamePlayer player = this.getPlayerWithMonsterInRoom();
-        player.setGold(0);
+        player.setStrength(0);
 
         setManualChoice(0);
         action.execute(player);
@@ -142,9 +142,9 @@ public class RestTest extends ActionTest {
     }
 
     @Test(expected = ActionCannotBeExecutedException.class)
-    public void testExecuteWithMonstersButEnoughGoldAndRoomRevealed() throws ActionCannotBeExecutedException {
+    public void testExecuteWithMonstersButEnoughStrengthAndRoomRevealed() throws ActionCannotBeExecutedException {
         GamePlayer player = this.getPlayerWithMonsterInRoom();
-        player.setGold(100);
+        player.setStrength(100);
         player.setRoomRevealed(true);
 
         setManualChoice(0);
@@ -152,9 +152,9 @@ public class RestTest extends ActionTest {
     }
 
     @Test
-    public void testExecuteWithNoMonstersAndEnoughGoldAndRoomRevealed() {
+    public void testExecuteWithNoMonstersAndEnoughStrengthAndRoomRevealed() {
         GamePlayer player = this.getSimplePlayer();
-        player.setGold(100);
+        player.setStrength(100);
         player.setRoomRevealed(true);
 
         setManualChoice(0);

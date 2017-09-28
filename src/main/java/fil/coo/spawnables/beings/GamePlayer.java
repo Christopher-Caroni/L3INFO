@@ -4,12 +4,15 @@ import fil.coo.actions.*;
 import fil.coo.other.Direction;
 import fil.coo.spawnables.interfaces.Item;
 import fil.coo.structures.Room;
+import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 public class GamePlayer extends GameCharacter {
+
+    final static Logger logger = Logger.getLogger(GameCharacter.class);
 
     private List<Action> actions;
     private String name;
@@ -52,7 +55,7 @@ public class GamePlayer extends GameCharacter {
         setRoomRevealed(false);
         setUniqueRoomCount(uniqueRoomCount + 1);
 
-        System.out.println("\nYou travel " + direction.getMenuDescription() + " and enter a new room.");
+        logger.info("You travel " + direction.getMenuDescription() + " and enter a new room.");
 
         verifyExit();
     }
@@ -165,5 +168,9 @@ public class GamePlayer extends GameCharacter {
 
     public void setGold(int gold) {
         this.gold = gold;
+    }
+
+    public boolean hasEnoughStrength(int cost) {
+        return strength >= Math.abs(cost);
     }
 }

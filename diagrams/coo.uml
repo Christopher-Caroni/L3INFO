@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>fil.coo</OriginalElement>
+  <nodes>
+    <node x="791.0" y="1142.0">fil.coo.actions.ActionTest</node>
+    <node x="2589.25" y="724.5">fil.coo.spawnables.items.HealthPotion</node>
+    <node x="922.0" y="2292.0">fil.coo.gui.DungeonFrame.DrawPane</node>
+    <node x="0.0" y="124.0">fil.coo.spawnables.interfaces.IMultipleSpawnable</node>
+    <node x="959.0" y="1925.0">fil.coo.gui.DungeonFrame</node>
+    <node x="305.0" y="2530.0">fil.coo.AdventureGameTest</node>
+    <node x="2875.25" y="725.0">fil.coo.spawnables.items.CoinPouch</node>
+    <node x="1503.1428571428573" y="0.0">fil.coo.spawnables.interfaces.Spawnable</node>
+    <node x="0.0" y="1829.0">fil.coo.actions.DisplayStatsTest</node>
+    <node x="988.5" y="135.0">fil.coo.other.Selectable</node>
+    <node x="716.5" y="1376.0">fil.coo.actions.RestTest</node>
+    <node x="2037.25" y="780.0">fil.coo.actions.PickupItem</node>
+    <node x="1780.25" y="780.0">fil.coo.actions.Move</node>
+    <node x="913.0" y="2530.0">fil.coo.exception.ActionCannotBeExecutedException</node>
+    <node x="1523.25" y="746.0">fil.coo.actions.Rest</node>
+    <node x="53.5" y="1508.0">fil.coo.actions.AlwaysAvailableActionTest</node>
+    <node x="569.0" y="2530.0">fil.coo.exception.RoomsAreNotNeighboursException</node>
+    <node x="0.0" y="2530.0">fil.coo.structures.RoomFactory</node>
+    <node x="1990.0" y="1925.0">fil.coo.util.AdventureGameOptions</node>
+    <node x="2732.25" y="336.5">fil.coo.spawnables.interfaces.Item</node>
+    <node x="2294.25" y="724.5">fil.coo.spawnables.items.StrengthPotion</node>
+    <node x="1254.0" y="2530.0">fil.coo.exception.NegativeGoldException</node>
+    <node x="0.0" y="1925.0">fil.coo.structures.Room</node>
+    <node x="1266.25" y="780.0">fil.coo.actions.Look</node>
+    <node x="320.5" y="1464.0">fil.coo.actions.PickupItemTest</node>
+    <node x="1656.5" y="1464.0">fil.coo.actions.AttackTest</node>
+    <node x="1188.5" y="1420.0">fil.coo.actions.MoveTest</node>
+    <node x="460.25" y="559.0">fil.coo.spawnables.beings.GamePlayer</node>
+    <node x="1257.0" y="1925.0">fil.coo.util.Menu</node>
+    <node x="1009.25" y="780.0">fil.coo.actions.DisplayStats</node>
+    <node x="444.0" y="1925.0">fil.coo.structures.Dungeon</node>
+    <node x="1394.75" y="336.5">fil.coo.actions.Action</node>
+    <node x="1628.0" y="1925.0">fil.coo.AdventureGame</node>
+    <node x="2830.75" y="124.0">fil.coo.spawnables.interfaces.ISingleSpawnable</node>
+    <node x="3161.25" y="702.5">fil.coo.spawnables.items.OneArmedBandit</node>
+    <node x="752.25" y="780.0">fil.coo.actions.Attack</node>
+    <node x="406.5" y="247.0">fil.coo.spawnables.beings.GameCharacter</node>
+    <node x="97.5" y="303.0">fil.coo.other.Direction</node>
+    <node x="23.75" y="735.5">fil.coo.spawnables.beings.Monster</node>
+    <node x="187.0" y="1829.0">fil.coo.actions.LookTest</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="fil.coo.actions.MoveTest" target="fil.coo.actions.ActionTest">
+      <point x="0.0" y="-157.5" />
+      <point x="1412.5" y="1356.0" />
+      <point x="1003.1" y="1356.0" />
+      <point x="60.60000000000002" y="92.0" />
+    </edge>
+    <edge source="fil.coo.actions.Attack" target="fil.coo.actions.Action">
+      <point x="0.0" y="-48.0" />
+      <point x="870.75" y="519.0" />
+      <point x="1414.5" y="519.0" />
+      <point x="-98.75" y="36.5" />
+    </edge>
+    <edge source="fil.coo.actions.DisplayStatsTest" target="fil.coo.actions.AlwaysAvailableActionTest">
+      <point x="0.0" y="-25.5" />
+      <point x="83.5" y="1804.0" />
+      <point x="115.25" y="1804.0" />
+      <point x="-61.75" y="69.5" />
+    </edge>
+    <edge source="fil.coo.actions.AlwaysAvailableActionTest" target="fil.coo.actions.ActionTest">
+      <point x="0.0" y="-69.5" />
+      <point x="177.0" y="1346.0" />
+      <point x="821.3" y="1346.0" />
+      <point x="-121.20000000000005" y="92.0" />
+    </edge>
+    <edge source="fil.coo.actions.LookTest" target="fil.coo.actions.AlwaysAvailableActionTest">
+      <point x="0.0" y="-25.5" />
+      <point x="270.5" y="1804.0" />
+      <point x="238.75" y="1804.0" />
+      <point x="61.75" y="69.5" />
+    </edge>
+    <edge source="fil.coo.spawnables.interfaces.IMultipleSpawnable" target="fil.coo.spawnables.interfaces.Spawnable">
+      <point x="0.0" y="-36.5" />
+      <point x="87.0" y="99.0" />
+      <point x="1547.1428571428573" y="99.0" />
+      <point x="-44.0" y="37.0" />
+    </edge>
+    <edge source="fil.coo.actions.RestTest" target="fil.coo.actions.ActionTest">
+      <point x="0.0" y="-201.5" />
+      <point x="0.0" y="92.0" />
+    </edge>
+    <edge source="fil.coo.spawnables.interfaces.Item" target="fil.coo.spawnables.interfaces.ISingleSpawnable">
+      <point x="66.5" y="-36.5" />
+      <point x="0.0" y="36.5" />
+    </edge>
+    <edge source="fil.coo.actions.Move" target="fil.coo.actions.Action">
+      <point x="0.0" y="-48.0" />
+      <point x="1898.75" y="529.0" />
+      <point x="1572.5" y="529.0" />
+      <point x="59.25" y="36.5" />
+    </edge>
+    <edge source="fil.coo.spawnables.beings.GamePlayer" target="fil.coo.spawnables.beings.GameCharacter">
+      <point x="0.0" y="-269.0" />
+      <point x="63.25" y="126.0" />
+    </edge>
+    <edge source="fil.coo.gui.DungeonFrame.DrawPane" target="fil.coo.gui.DungeonFrame">
+      <point x="0.0" y="-69.5" />
+      <point x="0.0" y="158.5" />
+    </edge>
+    <edge source="fil.coo.spawnables.interfaces.ISingleSpawnable" target="fil.coo.spawnables.interfaces.Spawnable">
+      <point x="0.0" y="-36.5" />
+      <point x="2931.75" y="99.0" />
+      <point x="1635.1428571428573" y="99.0" />
+      <point x="44.0" y="37.0" />
+    </edge>
+    <edge source="fil.coo.actions.PickupItem" target="fil.coo.actions.Action">
+      <point x="0.0" y="-48.0" />
+      <point x="2155.75" y="519.0" />
+      <point x="1612.0" y="519.0" />
+      <point x="98.75" y="36.5" />
+    </edge>
+    <edge source="fil.coo.spawnables.beings.Monster" target="fil.coo.spawnables.interfaces.IMultipleSpawnable">
+      <point x="-63.25" y="-92.5" />
+      <point x="0.0" y="36.5" />
+    </edge>
+    <edge source="fil.coo.actions.Action" target="fil.coo.other.Selectable">
+      <point x="0.0" y="-36.5" />
+      <point x="1513.25" y="227.0" />
+      <point x="1099.75" y="227.0" />
+      <point x="22.25" y="25.5" />
+    </edge>
+    <edge source="fil.coo.actions.AttackTest" target="fil.coo.actions.ActionTest">
+      <point x="0.0" y="-113.5" />
+      <point x="1855.0" y="1346.0" />
+      <point x="1063.7" y="1346.0" />
+      <point x="121.20000000000005" y="92.0" />
+    </edge>
+    <edge source="fil.coo.spawnables.beings.Monster" target="fil.coo.spawnables.beings.GameCharacter">
+      <point x="63.25" y="-92.5" />
+      <point x="213.5" y="539.0" />
+      <point x="469.75" y="539.0" />
+      <point x="-63.25" y="126.0" />
+    </edge>
+    <edge source="fil.coo.spawnables.interfaces.Item" target="fil.coo.other.Selectable">
+      <point x="-66.5" y="-36.5" />
+      <point x="2798.75" y="217.0" />
+      <point x="1144.25" y="217.0" />
+      <point x="66.75" y="25.5" />
+    </edge>
+    <edge source="fil.coo.spawnables.items.HealthPotion" target="fil.coo.spawnables.interfaces.Item">
+      <point x="0.0" y="-103.5" />
+      <point x="2722.25" y="539.0" />
+      <point x="2832.0" y="539.0" />
+      <point x="-33.25" y="36.5" />
+    </edge>
+    <edge source="fil.coo.actions.PickupItemTest" target="fil.coo.actions.ActionTest">
+      <point x="0.0" y="-113.5" />
+      <point x="508.5" y="1356.0" />
+      <point x="881.9" y="1356.0" />
+      <point x="-60.60000000000002" y="92.0" />
+    </edge>
+    <edge source="fil.coo.spawnables.items.StrengthPotion" target="fil.coo.spawnables.interfaces.Item">
+      <point x="0.0" y="-103.5" />
+      <point x="2431.75" y="529.0" />
+      <point x="2765.5" y="529.0" />
+      <point x="-99.75" y="36.5" />
+    </edge>
+    <edge source="fil.coo.spawnables.items.CoinPouch" target="fil.coo.spawnables.interfaces.Item">
+      <point x="0.0" y="-103.0" />
+      <point x="3008.25" y="539.0" />
+      <point x="2898.5" y="539.0" />
+      <point x="33.25" y="36.5" />
+    </edge>
+    <edge source="fil.coo.spawnables.beings.GameCharacter" target="fil.coo.other.Selectable">
+      <point x="0.0" y="-126.0" />
+      <point x="533.0" y="227.0" />
+      <point x="1055.25" y="227.0" />
+      <point x="-22.25" y="25.5" />
+    </edge>
+    <edge source="fil.coo.actions.DisplayStats" target="fil.coo.actions.Action">
+      <point x="0.0" y="-48.0" />
+      <point x="1127.75" y="529.0" />
+      <point x="1454.0" y="529.0" />
+      <point x="-59.25" y="36.5" />
+    </edge>
+    <edge source="fil.coo.other.Direction" target="fil.coo.other.Selectable">
+      <point x="0.0" y="-70.0" />
+      <point x="242.0" y="217.0" />
+      <point x="1010.75" y="217.0" />
+      <point x="-66.75" y="25.5" />
+    </edge>
+    <edge source="fil.coo.actions.Look" target="fil.coo.actions.Action">
+      <point x="0.0" y="-48.0" />
+      <point x="1384.75" y="539.0" />
+      <point x="1493.5" y="539.0" />
+      <point x="-19.75" y="36.5" />
+    </edge>
+    <edge source="fil.coo.spawnables.items.OneArmedBandit" target="fil.coo.spawnables.interfaces.Item">
+      <point x="0.0" y="-125.5" />
+      <point x="3327.25" y="529.0" />
+      <point x="2965.0" y="529.0" />
+      <point x="99.75" y="36.5" />
+    </edge>
+    <edge source="fil.coo.actions.Rest" target="fil.coo.actions.Action">
+      <point x="0.0" y="-82.0" />
+      <point x="1641.75" y="539.0" />
+      <point x="1533.0" y="539.0" />
+      <point x="19.75" y="36.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.33767199702491635" x="1747.0" y="1334.5" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Inner Classes</Category>
+    <Category>Fields</Category>
+    <Category>Constructors</Category>
+    <Category>Methods</Category>
+    <Category>Properties</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

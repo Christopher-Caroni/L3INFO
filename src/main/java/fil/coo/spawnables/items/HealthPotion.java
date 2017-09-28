@@ -2,18 +2,21 @@ package fil.coo.spawnables.items;
 
 import fil.coo.spawnables.beings.GamePlayer;
 import fil.coo.spawnables.interfaces.Item;
+import org.apache.log4j.Logger;
 
 import java.util.Optional;
 import java.util.Random;
 
 public class HealthPotion extends Item<HealthPotion> {
 
+    final static Logger logger = Logger.getLogger(HealthPotion.class);
+
     private int healthBoost;
 
     @Override
     protected void applySpecificEffect(GamePlayer player) {
         player.changeHP(healthBoost);
-        System.out.println("You gained " + healthBoost + " HP and now have " + player.getHP() + " HP.");
+        logger.info("You gained " + healthBoost + " HP and now have " + player.getHP() + " HP.");
     }
 
     @Override

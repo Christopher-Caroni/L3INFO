@@ -5,6 +5,7 @@ import fil.coo.exception.RoomsAreNotNeighboursException;
 import fil.coo.gui.DungeonFrame;
 import fil.coo.util.AdventureGameOptions;
 import fil.coo.util.Menu;
+import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +13,8 @@ import java.util.Random;
 import java.util.Stack;
 
 public class Dungeon {
+
+    final static Logger logger = Logger.getLogger(Dungeon.class);
 
     private static final int DEFAULT_WIDTH_DUNGEON = 5;
     private static final int DEFAULT_HEIGHT_DUNGEON = 5;
@@ -98,7 +101,7 @@ public class Dungeon {
         // Step 1: get random neighbours and assign them
         scanNonVisitedRooms(stack, visitedRooms, random);
         if (options.displayGeneration) {
-            System.out.println("Finished generation");
+            logger.info("Finished generation");
         }
         if (isInBounds(options.debugRoomX, options.debugRoomY)) {
             Menu.getInstance().printRoom(getRoom(options.debugRoomX, options.debugRoomY), true);

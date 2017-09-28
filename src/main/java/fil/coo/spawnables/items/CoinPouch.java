@@ -2,11 +2,14 @@ package fil.coo.spawnables.items;
 
 import fil.coo.spawnables.beings.GamePlayer;
 import fil.coo.spawnables.interfaces.Item;
+import org.apache.log4j.Logger;
 
 import java.util.Optional;
 import java.util.Random;
 
 public class CoinPouch extends Item<CoinPouch> {
+
+    final static Logger logger = Logger.getLogger(CoinPouch.class);
 
     /**
      * The amount of gold this purse contains.
@@ -16,7 +19,7 @@ public class CoinPouch extends Item<CoinPouch> {
     @Override
     protected void applySpecificEffect(GamePlayer player) {
         player.changeGold(goldAmount);
-        System.out.println("You gained " + goldAmount + " gold and now have " + player.getGold() + " coins in your pouch.");
+        logger.info("You gained " + goldAmount + " gold and now have " + player.getGold() + " coins in your pouch.");
     }
 
     @Override
@@ -33,7 +36,7 @@ public class CoinPouch extends Item<CoinPouch> {
         if (willSpawn()) {
 
             return Optional.of(new CoinPouch()
-            .withGoldAmount(getRandomAmountHeld()));
+                    .withGoldAmount(getRandomAmountHeld()));
         }
         return Optional.empty();
     }

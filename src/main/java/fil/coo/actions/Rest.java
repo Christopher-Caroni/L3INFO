@@ -2,26 +2,29 @@ package fil.coo.actions;
 
 import fil.coo.exception.ActionCannotBeExecutedException;
 import fil.coo.spawnables.beings.GamePlayer;
+import org.apache.log4j.Logger;
 
 import java.util.Random;
 
 public class Rest implements Action {
+
+    final static Logger logger = Logger.getLogger(Rest.class);
 
     private int cost;
     private int hpRestoration;
 
     public Rest() {
         Random random = new Random();
-        cost = random.nextInt(10);
+        cost = random.nextInt(10) + 1;
         hpRestoration = random.nextInt(5) + 5;
     }
 
     public boolean isPossible(GamePlayer currentPlayer) {
-        return !currentPlayer.getCurrentRoom().hasMonsters() && currentPlayer.hasEnoughGold(cost) && currentPlayer.hasRoomRevealed();
+        return !currentPlayer.getCurrentRoom().hasMonsters() && currentPlayer.hasEnoughStrength(cost) && currentPlayer.hasRoomRevealed();
     }
 
     /**
-     * Restores {@link #hpRestoration} and makes the player use {@link #cost} gold.
+     * Restores {@link #hpRestoration} and makes the player use {@link #cost} strength.
      *
      * @param player the player that will rest.
      */
@@ -29,8 +32,8 @@ public class Rest implements Action {
         if (isPossible(player)) {
             player.changeStrength(cost);
             player.changeHP(hpRestoration);
-            System.out.println("You used " + Math.abs(cost) + " strength and restored " + hpRestoration + " HP");
-            System.out.println("You now have " + player.getStrength() + " strength and " + player.getHP() + " HP");
+            logger.info("You used " + Math.abs(cost) + " strength and restored " + hpRestoration + " HP");
+            logger.info("You now have " + player.getStrength() + " strength and " + player.getHP() + " HP");
         } else {
             throw new ActionCannotBeExecutedException("Cannot execute " + this.getClass().getSimpleName());
         }

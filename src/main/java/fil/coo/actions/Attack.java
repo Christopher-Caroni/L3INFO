@@ -4,10 +4,13 @@ import fil.coo.exception.ActionCannotBeExecutedException;
 import fil.coo.spawnables.beings.Monster;
 import fil.coo.spawnables.beings.GamePlayer;
 import fil.coo.util.Menu;
+import org.apache.log4j.Logger;
 
 import java.util.List;
 
 public class Attack implements Action {
+
+    final static Logger logger = Logger.getLogger(Action.class);
 
     public boolean isPossible(GamePlayer currentPlayer) {
         return currentPlayer.getCurrentRoom().hasMonsters() && currentPlayer.hasRoomRevealed();
@@ -27,13 +30,13 @@ public class Attack implements Action {
 
             // apply damage
             target.changeHP(-player.getStrength());
-            System.out.println(target.getMenuDescription() + " took " + player.getStrength() + " damage!");
+            logger.info(target.getMenuDescription() + " took " + player.getStrength() + " damage!");
 
             // counter
             if (target.isAlive()) {
                 player.changeHP(-target.getStrength());
-                System.out.println(target.getMenuDescription() + " is still alive and hits back with " + target.getStrength() + " damage!");
-                System.out.println("You now have " + player.getHP() + " HP.");
+                logger.info(target.getMenuDescription() + " is still alive and hits back with " + target.getStrength() + " damage!");
+                logger.info("You now have " + player.getHP() + " HP.");
             }
         } else {
             throw new ActionCannotBeExecutedException("Cannot execute " + this.getClass().getSimpleName());
