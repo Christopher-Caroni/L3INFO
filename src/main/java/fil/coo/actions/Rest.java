@@ -20,7 +20,7 @@ public class Rest implements Action {
     }
 
     public boolean isPossible(GamePlayer currentPlayer) {
-        return !currentPlayer.getCurrentRoom().hasMonsters() && currentPlayer.hasEnoughStrength(cost) && currentPlayer.hasRoomRevealed();
+        return !currentPlayer.getCurrentRoom().hasMonsters() && currentPlayer.hasEnoughStrength(cost) && currentPlayer.isCurrentRoomRevealed();
     }
 
     /**

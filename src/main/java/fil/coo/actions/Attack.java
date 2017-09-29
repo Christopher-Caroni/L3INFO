@@ -13,7 +13,7 @@ public class Attack implements Action {
     final static Logger logger = Logger.getLogger(Action.class);
 
     public boolean isPossible(GamePlayer currentPlayer) {
-        return currentPlayer.getCurrentRoom().hasMonsters() && currentPlayer.hasRoomRevealed();
+        return currentPlayer.getCurrentRoom().hasMonsters() && currentPlayer.isCurrentRoomRevealed();
     }
 
     /**
@@ -43,7 +43,6 @@ public class Attack implements Action {
                 player.changeGold(monsterGold);
                 target.setGold(0);
 
-                player.verifyExit();
                 logger.info("You killed the monster and gained " + monsterGold);
             }
         } else {

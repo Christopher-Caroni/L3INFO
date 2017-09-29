@@ -4,7 +4,6 @@ import fil.coo.actions.*;
 import fil.coo.other.Direction;
 import fil.coo.spawnables.interfaces.Item;
 import fil.coo.structures.Room;
-import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,20 +11,15 @@ import java.util.Random;
 
 public class GamePlayer extends GameCharacter {
 
-    final static Logger logger = Logger.getLogger(GameCharacter.class);
-
     private List<Action> actions;
     private String name;
-    private boolean reachedExit;
 
-    private boolean roomRevealed;
     private int uniqueRoomCount;
 
     public GamePlayer() {
         super();
 
         name = "no_name";
-        roomRevealed = false;
         uniqueRoomCount = 1; // starting room
         initActions();
     }
@@ -57,17 +51,16 @@ public class GamePlayer extends GameCharacter {
      */
     public void moveToDirection(Direction direction) {
         this.currentRoom = this.currentRoom.getNeighbour(direction);
-        setRoomRevealed(false);
+        revealCurrentRoom();
         incrementUniqueRoomCount();
-
-        logger.info("You travel " + direction.getMenuDescription() + " and enter a new room.");
     }
 
+
     /**
-     * Set {@link #reachedExit} to the appropriate condition of the room.
+     * @return if the player reached the exit: the room is revealed, contains no monsters and room is exit.
      */
-    public void verifyExit() {
-        reachedExit = currentRoom.isExit() && !currentRoom.hasMonsters() && roomRevealed;
+    public boolean reachedExit() {
+        return currentRoom.isExit() && !currentRoom.hasMonsters() && isCurrentRoomRevealed();
     }
 
     /**
@@ -108,20 +101,8 @@ public class GamePlayer extends GameCharacter {
         return gold >= Math.abs(cost);
     }
 
-    public void revealRoom() {
-        setRoomRevealed(true);
-    }
-
     public void setName(String name) {
         this.name = name;
-    }
-
-    /**
-     *
-     * @return if the player reached the exit: the room is revealed, contains no monsters and room is exit.
-     */
-    public boolean reachedExit() {
-        return reachedExit;
     }
 
     public String getName() {
@@ -137,12 +118,12 @@ public class GamePlayer extends GameCharacter {
 
     }
 
-    public void setRoomRevealed(boolean roomRevealed) {
-        this.roomRevealed = roomRevealed;
+    public void revealCurrentRoom() {
+        currentRoom.setRevealed(true);
     }
 
-    public boolean hasRoomRevealed() {
-        return roomRevealed;
+    public boolean isCurrentRoomRevealed() {
+        return currentRoom.isRevealed();
     }
 
     public int getUniqueRoomCount() {

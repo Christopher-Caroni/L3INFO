@@ -20,12 +20,14 @@ public class Room {
     private EnumMap<Direction, Room> linkedNeighbour;
 
     private boolean isExit;
+    private boolean revealed;
 
     protected Room(int column, int row) {
         x = column;
         y = row;
 
 
+        revealed = false;
         items = new ArrayList<>();
         monsters = new ArrayList<>();
         linkedNeighbour = new EnumMap<>(Direction.class);
@@ -223,5 +225,13 @@ public class Room {
 
     public void removeMonster(Monster target) {
         monsters.remove(target);
+    }
+
+    public boolean isRevealed() {
+        return revealed;
+    }
+
+    public void setRevealed(boolean revealed) {
+        this.revealed = revealed;
     }
 }

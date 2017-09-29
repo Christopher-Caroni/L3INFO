@@ -11,12 +11,12 @@ public class Look implements Action {
     }
 
     /**
-     * Calls {@link GamePlayer#revealRoom()} and {@link Menu#printRoomDescription(Room)} for the player's room.
+     * Calls {@link GamePlayer#revealCurrentRoom()} and {@link Menu#printRoomDescription(Room)} for the player's room.
      *
      * @param player the player that will look
      */
     public void execute(GamePlayer player) {
-        player.revealRoom();
+        player.revealCurrentRoom();
         Menu.getInstance().printRoomDescription(player.getCurrentRoom());
     }
 

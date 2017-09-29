@@ -43,7 +43,7 @@ public class AttackTest extends ActionTest {
     @Test
     public void testNotPossibleWithRoomRevealedButWithNoMonsters() {
         GamePlayer player = this.getSimplePlayer();
-        player.setRoomRevealed(true);
+        player.revealCurrentRoom();
 
         assertFalse(action.isPossible(player));
     }
@@ -55,7 +55,7 @@ public class AttackTest extends ActionTest {
     public void testIsPossibleWithMonstersAndRoomRevealed() {
         GamePlayer player = getPlayerWithMonsterInRoom();
 
-        player.setRoomRevealed(true);
+        player.revealCurrentRoom();
 
         assertTrue(action.isPossible(player));
     }
@@ -124,7 +124,7 @@ public class AttackTest extends ActionTest {
     @Test(expected = ActionCannotBeExecutedException.class)
     public void testExecuteWitRoomNotRevealedButNoMonster() throws ActionCannotBeExecutedException {
         GamePlayer player = this.getSimplePlayer();
-        player.setRoomRevealed(true);
+        player.revealCurrentRoom();
 
         int expectedInitialHealth = 100;
         assertEquals(expectedInitialHealth, player.getHP());
@@ -149,7 +149,7 @@ public class AttackTest extends ActionTest {
     public void testExecuteWithMonsterAndRoomNotRevealed() {
         GamePlayer player = this.getPlayerWithMonsterInRoom();
         Monster singleMonster = player.getCurrentRoom().getMonsters().get(0);
-        player.setRoomRevealed(true);
+        player.revealCurrentRoom();
 
         int expectedInitialHealth = 100;
         int initialMonsterStrength = singleMonster.getStrength();
@@ -178,7 +178,7 @@ public class AttackTest extends ActionTest {
         GamePlayer player = this.getPlayerWithMonsterInRoom();
         Monster singleMonster = player.getCurrentRoom().getMonsters().get(0);
         singleMonster.setHP(player.getStrength() - 1);
-        player.setRoomRevealed(true);
+        player.revealCurrentRoom();
 
         int initialPlayerGold = player.getGold();
         int initialMonsterGold = singleMonster.getGold();

@@ -14,7 +14,7 @@ public class PickupItem implements Action {
 
     @Override
     public boolean isPossible(GamePlayer currentPlayer) {
-        return currentPlayer.hasItemsInCurrentRoom() && currentPlayer.hasRoomRevealed();
+        return currentPlayer.hasItemsInCurrentRoom() && currentPlayer.isCurrentRoomRevealed();
     }
 
     @Override

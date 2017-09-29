@@ -26,7 +26,7 @@ public class PickupItemTest extends ActionTest {
     @Test
     public void testNotPossibleWithRoomRevealedButNoItems() {
         GamePlayer player = this.getSimplePlayer();
-        player.setRoomRevealed(true);
+        player.revealCurrentRoom();
 
         assertFalse(action.isPossible(player));
     }
@@ -43,7 +43,7 @@ public class PickupItemTest extends ActionTest {
     @Test
     public void testIsPossibleWithRoomRevealedAndItems() {
         GamePlayer player = this.getSimplePlayer();
-        player.setRoomRevealed(true);
+        player.revealCurrentRoom();
         CoinPouch coinPouch = new CoinPouch();
         player.getCurrentRoom().addSingleItem(coinPouch);
 
@@ -61,7 +61,7 @@ public class PickupItemTest extends ActionTest {
     @Test(expected = ActionCannotBeExecutedException.class)
     public void testExecuteWithRoomRevealedButNoItems() throws ActionCannotBeExecutedException {
         GamePlayer player = this.getSimplePlayer();
-        player.setRoomRevealed(true);
+        player.revealCurrentRoom();
 
         setManualChoice(0);
         action.execute(player);
@@ -80,7 +80,7 @@ public class PickupItemTest extends ActionTest {
     @Test
     public void testExecuteWithRoomRevealedAndItems() {
         GamePlayer player = this.getSimplePlayer();
-        player.setRoomRevealed(true);
+        player.revealCurrentRoom();
         CoinPouch coinPouch = new CoinPouch();
         player.getCurrentRoom().addSingleItem(coinPouch);
 

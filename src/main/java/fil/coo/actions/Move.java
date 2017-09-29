@@ -4,13 +4,16 @@ import fil.coo.exception.ActionCannotBeExecutedException;
 import fil.coo.other.Direction;
 import fil.coo.spawnables.beings.GamePlayer;
 import fil.coo.util.Menu;
+import org.apache.log4j.Logger;
 
 import java.util.List;
 
 public class Move implements Action {
 
+    final static Logger logger = org.apache.log4j.Logger.getLogger(Move.class);
+
     public boolean isPossible(GamePlayer currentPlayer) {
-        return !currentPlayer.getCurrentRoom().hasMonsters() && currentPlayer.hasRoomRevealed() && currentPlayer.currentRoomHasNeighbour();
+        return !currentPlayer.getCurrentRoom().hasMonsters() && currentPlayer.isCurrentRoomRevealed() && currentPlayer.currentRoomHasNeighbour();
     }
 
     /**
@@ -25,7 +28,7 @@ public class Move implements Action {
             Direction direction = Menu.getInstance().chooseElement(possibleDirections);
 
             player.moveToDirection(direction);
-            player.verifyExit();
+            logger.info("You travel " + direction.getMenuDescription() + " and enter a new room.");
         } else {
             throw new ActionCannotBeExecutedException("Cannot execute " + this.getClass().getSimpleName());
         }
