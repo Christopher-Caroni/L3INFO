@@ -20,6 +20,14 @@ public class AdventureGameOptions extends OptionsBase {
     public boolean displayGeneration;
 
     @Option(
+            name = "display-dungeon-progress",
+            abbrev = 'd',
+            help = "Shows the dungeon in a JFrame with the player's position",
+            defaultValue = "false"
+    )
+    public boolean displayDungeon;
+
+    @Option(
             name = "dungeon-generation-wait-time",
             abbrev = 't',
             help = "The time between each refresh when the dungeon generates the neighbours",

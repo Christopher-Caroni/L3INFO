@@ -2,7 +2,7 @@ package fil.coo.structures;
 
 import com.rits.cloning.Cloner;
 import fil.coo.exception.RoomsAreNotNeighboursException;
-import fil.coo.gui.DungeonFrame;
+import fil.coo.gui.GenerationFrame;
 import fil.coo.util.AdventureGameOptions;
 import fil.coo.util.Menu;
 import org.apache.log4j.Logger;
@@ -28,10 +28,7 @@ public class Dungeon {
     private int dungeonWidth;
 
     private AdventureGameOptions options;
-    private DungeonFrame dungeonFrame;
-
-    private Room startingRoom;
-    private Room exitRoom;
+    private GenerationFrame generationFrame;
 
     public Dungeon(AdventureGameOptions options) {
         this.options = options;
@@ -59,11 +56,11 @@ public class Dungeon {
         generateRooms(visitedRooms);
 
         if (options.displayGeneration) {
-            dungeonFrame = new DungeonFrame(roomsArray);
+            generationFrame = new GenerationFrame(roomsArray);
         }
 
         initializeNeighbours(visitedRooms);
-        setStartAndExit();
+        markExitRoom();
     }
 
     /**
@@ -108,14 +105,11 @@ public class Dungeon {
         }
     }
 
-    private void setStartAndExit() {
+    private void markExitRoom() {
         Random random = new Random();
+
         int x = random.nextInt(roomsArray[0].length);
         int y = random.nextInt(roomsArray.length);
-        startingRoom = roomsArray[y][x];
-
-        x = random.nextInt(roomsArray[0].length);
-        y = random.nextInt(roomsArray.length);
         roomsArray[y][x].setIsExitRoom(true);
     }
 
@@ -137,7 +131,7 @@ public class Dungeon {
         // add it to the stack
         stack.push(startingRoomForGeneration);
         if (options.displayGeneration) {
-            dungeonFrame.addInitialRoom(startingRoomForGeneration);
+            generationFrame.addInitialRoom(startingRoomForGeneration);
         }
     }
 
@@ -162,8 +156,8 @@ public class Dungeon {
      * Tries to refresh the dungeonFrame if it was already initialized and then calls wait so you can see the maze algorithm progression.
      */
     private void tryDisplay() {
-        if (options.displayGeneration && dungeonFrame != null) {
-            dungeonFrame.refresh();
+        if (options.displayGeneration && generationFrame != null) {
+            generationFrame.repaint();
             try {
                 Thread.sleep(options.generationWaitTime);
             } catch (InterruptedException e) {
@@ -196,7 +190,7 @@ public class Dungeon {
             // Step 2c: no valid neighbour, backtrack by popping the stack and calling this method again
             stack.pop();
             if (options.displayGeneration) {
-                dungeonFrame.pop();
+                generationFrame.pop();
             }
         }
 
@@ -218,7 +212,7 @@ public class Dungeon {
             visitedRooms[randomNeighbour.getY()][randomNeighbour.getX()] = true;
             stack.push(randomNeighbour);
             if (options.displayGeneration) {
-                dungeonFrame.push(new Cloner().deepClone(randomNeighbour)); // deep clone so we don't accidentally modify the instance
+                generationFrame.push(new Cloner().deepClone(randomNeighbour)); // deep clone so we don't accidentally modify the instance
             }
         } catch (RoomsAreNotNeighboursException e) {
             e.printStackTrace();
@@ -285,11 +279,31 @@ public class Dungeon {
         return roomsArray[yCoord][xCoord];
     }
 
-    public Room getStartingRoom() {
-        return startingRoom;
+    /**
+     * @return a random room in the dungeon
+     */
+    public Room getRandomRoom() {
+        Random random = new Random();
+        int x = random.nextInt(roomsArray[0].length);
+        int y = random.nextInt(roomsArray.length);
+        return roomsArray[y][x];
     }
 
-    public Room getExitRoom() {
-        return exitRoom;
+    /**
+     * @return the width of the dungeon (the array).
+     */
+    public int getWidth() {
+        return roomsArray[0].length;
+    }
+
+    /**
+     * @return the height of the dungeon (the array).
+     */
+    public int getHeight() {
+        return roomsArray.length;
+    }
+
+    public Room[][] getRoomsArray() {
+        return roomsArray;
     }
 }

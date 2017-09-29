@@ -1,15 +1,19 @@
 package fil.coo;
 
 import com.google.devtools.common.options.OptionsParser;
+import com.rits.cloning.Cloner;
 import fil.coo.actions.Action;
 import fil.coo.exception.ActionCannotBeExecutedException;
+import fil.coo.gui.ProgressFrame;
 import fil.coo.spawnables.beings.GamePlayer;
 import fil.coo.structures.Dungeon;
+import fil.coo.structures.Room;
 import fil.coo.util.AdventureGameOptions;
 import fil.coo.util.Menu;
 import org.apache.log4j.Logger;
 
 import java.util.List;
+import java.util.Random;
 
 import static fil.coo.util.AdventureGameOptions.DEFAULT_PLAYER_NAME;
 
@@ -59,15 +63,23 @@ public class AdventureGame {
             player.setName(options.playerName);
         }
         logger.info("Using \"" + player.getName() + "\" as your player name");
-        player.setCurrentRoom(dungeon.getStartingRoom());
+        player.setCurrentRoom(getStartingRoom());
     }
 
     /**
      * Starts a game.
      */
     private void startGame() {
+        ProgressFrame progressFrame = null;
+        if (options.displayDungeon) {
+            progressFrame = new ProgressFrame(new Cloner().shallowClone(dungeon.getRoomsArray()));
+            progressFrame.updateCurrentRoom(player.getCurrentRoom());
+        }
         while (player.isAlive() && !player.reachedExit()) {
-            runGame();
+            executeTurn();
+            if (options.displayDungeon && progressFrame != null) {
+                progressFrame.updateCurrentRoom(player.getCurrentRoom());
+            }
         }
         printEndgame();
         Menu.getInstance().closeScanner(); // the program ends here so close the scanner that the Menu was using.
@@ -76,7 +88,7 @@ public class AdventureGame {
     /**
      * Main game logic.
      */
-    private void runGame() {
+    private void executeTurn() {
         List<Action> actions = player.getPossibleActions();
         Action action = Menu.getInstance().chooseElement(actions);
         try {
@@ -99,4 +111,7 @@ public class AdventureGame {
         }
     }
 
+    public Room getStartingRoom() {
+        return dungeon.getRandomRoom();
+    }
 }

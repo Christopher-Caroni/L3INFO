@@ -5,77 +5,91 @@ import fil.coo.structures.Room;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Stack;
 
-public class DungeonFrame extends JFrame {
+public abstract class DungeonFrame extends JFrame {
 
-    private static final int ROOM_HEIGHT = 50;
-    private static final int ROOM_WIDTH = 50;
+    protected static final int ROOM_HEIGHT = 50;
+    protected static final int ROOM_WIDTH = 50;
 
-    private static final int BORDER_HEIGHT = 50;
-    private static final int BORDER_WIDTH = 50;
+    protected static final int BORDER_HEIGHT = 50;
+    protected static final int BORDER_WIDTH = 50;
 
-    private final Dimension panelDim;
+    protected Dimension panelDim;
 
-    private Room[][] dungeon;
-    private Stack<Room> stack;
-    private List<Room> visited;
+    protected Room[][] dungeon;
+
+    protected DungeonPanel panel;
 
     public DungeonFrame(Room[][] dungeon) {
         this.dungeon = dungeon;
-        this.stack = new Stack<>(); // clone to avoid modified the real stack
-        visited = new ArrayList<>();
 
-        int panelHeight = (ROOM_HEIGHT * dungeon.length) + (2 * BORDER_HEIGHT);
-        int panelWidth = (ROOM_WIDTH * dungeon[0].length) + (2 * BORDER_WIDTH);
-        panelDim = new Dimension(panelWidth, panelHeight);
+        setPanelDim();
 
 //        DrawPane
-        DrawPane panel = new DrawPane();
-        panel.setBackground(Color.WHITE);
-        panel.setPreferredSize(panelDim);
+        initDungeonPanel(panelDim);
 
 //        JFRAME
+        setupFrame();
+
+        setCustomName();
+    }
+
+    protected abstract void setCustomName();
+
+    private void setupFrame() {
         getContentPane().add(panel);
-        setTitle("Dungeon");
         setPreferredSize(panelDim);
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
         pack();
         setVisible(true);
     }
 
-    public void refresh() {
-        repaint();
+    private void setPanelDim() {
+        int panelHeight = (ROOM_HEIGHT * dungeon.length) + (2 * BORDER_HEIGHT);
+        int panelWidth = (ROOM_WIDTH * dungeon[0].length) + (2 * BORDER_WIDTH);
+        panelDim = new Dimension(panelWidth, panelHeight);
     }
 
-    public void addInitialRoom(Room startingRoom) {
-        stack.push(startingRoom);
+    private void initDungeonPanel(Dimension panelDim) {
+        panel = createSpecificPanel(panelDim);
+        panel.setBackground(Color.WHITE);
+        panel.setPreferredSize(this.panelDim);
     }
 
-    public void push(Room room) {
-        stack.push(room);
-    }
+    protected abstract DungeonPanel createSpecificPanel(Dimension panelDim);
 
-    public void pop() {
-        visited.add(stack.peek());
-        stack.pop();
-    }
+    public abstract class DungeonPanel extends JPanel {
 
-    private class DrawPane extends JPanel {
+        public DungeonPanel(Dimension panelDim) {
+            setPreferredSize(panelDim);
+        }
+
         @Override
         public void paintComponent(Graphics gg) {
             super.paintComponents(gg);
-
             Graphics2D g = (Graphics2D) gg.create();
-            g.setColor(Color.BLUE);
-            g.setStroke(new BasicStroke(2));
 
-            paintEdges(g);
-            paintInside(g);
-            showAlgorithmProgress(g);
+            paintEdges(g, Color.BLACK);
+            paintInside(g, Color.WHITE);
 
+            showProgress(g);
+
+            paintRoomBorders(g);
+        }
+
+        /**
+         * Draw the "progress" depending on the implementing class.
+         *
+         * @param g the graphics object that will draw the panel.
+         */
+        protected abstract void showProgress(Graphics2D g);
+
+        /**
+         * Paints the borders of the room by painting lines where a room doesn't have a neighbour.
+         *
+         * @param g the graphics object to draw with
+         */
+        private void paintRoomBorders(Graphics2D g) {
             g.setColor(Color.BLUE);
             g.setStroke(new BasicStroke(2));
             for (int y = 0; y < dungeon.length; y++) {
@@ -103,37 +117,45 @@ public class DungeonFrame extends JFrame {
             }
         }
 
-        private void showAlgorithmProgress(Graphics2D g) {
-            for (int i = 0; i < stack.size() - 1; i++) {
-                Room room = stack.get(i);
-                fillRoom(g, room, Color.PINK);
-            }
-            if (!stack.isEmpty()) {
-                fillRoom(g, stack.peek(), Color.MAGENTA);
-            }
-            for (int i=0;i<visited.size();i++) {
-                fillRoom(g, visited.get(i), Color.LIGHT_GRAY);
-            }
 
-        }
-
-        private void fillRoom(Graphics2D g, Room room, Color color) {
-            int startX = BORDER_WIDTH + (ROOM_WIDTH * room.getX());
-            int startY = BORDER_HEIGHT + (ROOM_HEIGHT * room.getY());
+        /**
+         * Fills a cell that corresponds to a room by its coordinates.
+         *
+         * @param g     the graphics object to draw with
+         * @param x     the x coordinate of the room
+         * @param y     the y coordinate of the room
+         * @param color the color to fill with
+         */
+        protected void fillRoom(Graphics2D g, int x, int y, Color color) {
+            int startX = BORDER_WIDTH + (ROOM_WIDTH * x);
+            int startY = BORDER_HEIGHT + (ROOM_HEIGHT * y);
 
             g.setColor(color);
             g.fillRect(startX, startY, ROOM_WIDTH, ROOM_HEIGHT);
         }
 
-        private void paintInside(Graphics2D g) {
-            g.setColor(Color.WHITE);
+        /**
+         * Paints the inside of the dungeon to the color specified.
+         *
+         * @param g     the graphics object to draw with
+         * @param color the color to paint with
+         */
+        private void paintInside(Graphics2D g, Color color) {
+            g.setColor(color);
             g.fillRect(BORDER_WIDTH, BORDER_HEIGHT, ROOM_WIDTH * dungeon[0].length, ROOM_HEIGHT * dungeon.length);
         }
 
-        private void paintEdges(Graphics2D g) {
-            g.setColor(Color.BLACK);
+        /**
+         * Paints the edges of the dungeon to the color specified since they cant have neighbours leading "outside".
+         *
+         * @param g     the graphics object to draw with
+         * @param color the color to paint with
+         */
+        private void paintEdges(Graphics2D g, Color color) {
+            g.setColor(color);
             g.setStroke(new BasicStroke(2));
             g.drawRect(0, 0, panelDim.width, panelDim.height);
         }
     }
+
 }
