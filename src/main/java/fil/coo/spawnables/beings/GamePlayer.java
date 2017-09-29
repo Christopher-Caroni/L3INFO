@@ -31,6 +31,11 @@ public class GamePlayer extends GameCharacter {
     }
 
     @Override
+    void setSpecificAttributes(Random random) {
+        setRandomStrength(random);
+    }
+
+    @Override
     protected void setRandomStrength(Random random) {
         strength = random.nextInt(30) + 30;
     }
@@ -53,13 +58,14 @@ public class GamePlayer extends GameCharacter {
     public void moveToDirection(Direction direction) {
         this.currentRoom = this.currentRoom.getNeighbour(direction);
         setRoomRevealed(false);
-        setUniqueRoomCount(uniqueRoomCount + 1);
+        incrementUniqueRoomCount();
 
         logger.info("You travel " + direction.getMenuDescription() + " and enter a new room.");
-
-        verifyExit();
     }
 
+    /**
+     * Set {@link #reachedExit} to the appropriate condition of the room.
+     */
     public void verifyExit() {
         reachedExit = currentRoom.isExit() && !currentRoom.hasMonsters() && roomRevealed;
     }
@@ -88,7 +94,7 @@ public class GamePlayer extends GameCharacter {
     /**
      * The <b>item</b> used has finished its {@link Item#use(GamePlayer)} method and should now be removed from the game.
      *
-     * @param item
+     * @param item the item used
      */
     public void confirmItemUseFromRoom(Item item) {
         currentRoom.removeItem(item);
@@ -110,16 +116,12 @@ public class GamePlayer extends GameCharacter {
         this.name = name;
     }
 
+    /**
+     *
+     * @return if the player reached the exit: the room is revealed, contains no monsters and room is exit.
+     */
     public boolean reachedExit() {
         return reachedExit;
-    }
-
-    public boolean isInExitRoom() {
-        return currentRoom.isExit();
-    }
-
-    public void setReachedExit(boolean reachedExit) {
-        this.reachedExit = reachedExit;
     }
 
     public String getName() {
@@ -135,10 +137,6 @@ public class GamePlayer extends GameCharacter {
 
     }
 
-    public int getGold() {
-        return gold;
-    }
-
     public void setRoomRevealed(boolean roomRevealed) {
         this.roomRevealed = roomRevealed;
     }
@@ -151,8 +149,8 @@ public class GamePlayer extends GameCharacter {
         return uniqueRoomCount;
     }
 
-    public void setUniqueRoomCount(int uniqueRoomCount) {
-        this.uniqueRoomCount = uniqueRoomCount;
+    private void incrementUniqueRoomCount() {
+        uniqueRoomCount++;
     }
 
     /**
@@ -162,12 +160,8 @@ public class GamePlayer extends GameCharacter {
         return currentRoom.getNeighboursDirections();
     }
 
-    public boolean canChangeRoom() {
+    public boolean currentRoomHasNeighbour() {
         return currentRoom.getNumberOfNeighbours() > 0;
-    }
-
-    public void setGold(int gold) {
-        this.gold = gold;
     }
 
     public boolean hasEnoughStrength(int cost) {

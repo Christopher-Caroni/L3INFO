@@ -153,7 +153,7 @@ public class AttackTest extends ActionTest {
 
         int expectedInitialHealth = 100;
         int initialMonsterStrength = singleMonster.getStrength();
-        int intialPlayerStrength = player.getStrength();
+        int initialPlayerStrength = player.getStrength();
 
         assertEquals(expectedInitialHealth, player.getHP());
         assertEquals(expectedInitialHealth, singleMonster.getHP());
@@ -166,6 +166,30 @@ public class AttackTest extends ActionTest {
         }
         // Verify that player's HP did not change
         assertEquals(expectedInitialHealth - initialMonsterStrength, player.getHP());
-        assertEquals(expectedInitialHealth - intialPlayerStrength, singleMonster.getHP());
+        assertEquals(expectedInitialHealth - initialPlayerStrength, singleMonster.getHP());
+    }
+
+    /**
+     * Execute {@link Attack} when there is a monster and the room has already been revealed. This should not throw {@link ActionCannotBeExecutedException}.
+     * Tests that the action executes properly, that the player receives the monster's gold and the monster's gold is set to 0.
+     */
+    @Test
+    public void testExecuteAndKillMonster() {
+        GamePlayer player = this.getPlayerWithMonsterInRoom();
+        Monster singleMonster = player.getCurrentRoom().getMonsters().get(0);
+        singleMonster.setHP(player.getStrength() - 1);
+        player.setRoomRevealed(true);
+
+        int initialPlayerGold = player.getGold();
+        int initialMonsterGold = singleMonster.getGold();
+
+        setManualChoice(0);
+        try {
+            action.execute(player);
+        } catch (ActionCannotBeExecutedException e) {
+            fail("This action should have been possible to execute");
+        }
+        assertEquals(initialPlayerGold + initialMonsterGold, player.getGold());
+        assertEquals(0, singleMonster.getGold());
     }
 }

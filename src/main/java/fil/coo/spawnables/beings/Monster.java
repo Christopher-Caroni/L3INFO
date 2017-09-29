@@ -13,9 +13,18 @@ public class Monster extends GameCharacter implements IMultipleSpawnable<Monster
     }
 
     @Override
+    void setSpecificAttributes(Random random) {
+        setRandomStrength(random);
+        setRandomGoldCarried(random);
+    }
+
+    @Override
     protected void setRandomStrength(Random random) {
         strength = random.nextInt(10) + 10;
+    }
 
+    private void setRandomGoldCarried(Random random) {
+        this.gold = random.nextInt(10) + 20;
     }
 
     @Override

@@ -10,7 +10,7 @@ import java.util.List;
 public class Move implements Action {
 
     public boolean isPossible(GamePlayer currentPlayer) {
-        return !currentPlayer.getCurrentRoom().hasMonsters() && currentPlayer.hasRoomRevealed() && currentPlayer.canChangeRoom();
+        return !currentPlayer.getCurrentRoom().hasMonsters() && currentPlayer.hasRoomRevealed() && currentPlayer.currentRoomHasNeighbour();
     }
 
     /**

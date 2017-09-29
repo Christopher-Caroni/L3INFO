@@ -20,9 +20,11 @@ public abstract class GameCharacter implements Selectable {
         Random random = new Random();
 
         hp = 100;
-        setRandomStrength(random);
-        gold = random.nextInt(21) + 40;
+        gold = 0;
+        setSpecificAttributes(random);
     }
+
+    abstract void setSpecificAttributes(Random random);
 
     protected abstract void setRandomStrength(Random random);
 
@@ -30,8 +32,8 @@ public abstract class GameCharacter implements Selectable {
         return hp > 0;
     }
 
-    public void changeHP(int hp) {
-        this.hp += hp;
+    public void changeHP(int changeHP) {
+        this.hp = Math.max(0, this.hp + changeHP);
     }
 
     public void changeGold(int change) {
@@ -64,5 +66,21 @@ public abstract class GameCharacter implements Selectable {
 
     public void setStrength(int strength) {
         this.strength = strength;
+    }
+
+    public int getGold() {
+        return gold;
+    }
+
+    public void setGold(int gold) {
+        this.gold = gold;
+    }
+
+    public void removeMonsterFromRoom(Monster target) {
+        currentRoom.removeMonster(target);
+    }
+
+    public void setHP(int HP) {
+        this.hp = HP;
     }
 }

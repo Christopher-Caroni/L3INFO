@@ -23,9 +23,9 @@ public class Attack implements Action {
      */
     public void execute(GamePlayer player) throws ActionCannotBeExecutedException {
 
-        List<Monster> possibleMonsters = player.getCurrentRoom().getMonsters();
         if (isPossible(player)) {
             // get target
+            List<Monster> possibleMonsters = player.getCurrentRoom().getMonsters();
             Monster target = Menu.getInstance().chooseElement(possibleMonsters);
 
             // apply damage
@@ -37,6 +37,14 @@ public class Attack implements Action {
                 player.changeHP(-target.getStrength());
                 logger.info(target.getMenuDescription() + " is still alive and hits back with " + target.getStrength() + " damage!");
                 logger.info("You now have " + player.getHP() + " HP.");
+            } else {
+                int monsterGold = target.getGold();
+                player.removeMonsterFromRoom(target);
+                player.changeGold(monsterGold);
+                target.setGold(0);
+
+                player.verifyExit();
+                logger.info("You killed the monster and gained " + monsterGold);
             }
         } else {
             throw new ActionCannotBeExecutedException("Cannot execute " + this.getClass().getSimpleName());

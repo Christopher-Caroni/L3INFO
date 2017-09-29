@@ -220,4 +220,8 @@ public class Room {
         result = 31 * result + (isExit ? 1 : 0);
         return result;
     }
+
+    public void removeMonster(Monster target) {
+        monsters.remove(target);
+    }
 }
