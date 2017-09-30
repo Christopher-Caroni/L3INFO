@@ -122,6 +122,10 @@ public class GamePlayer extends GameCharacter {
         currentRoom.setRevealed(true);
     }
 
+    public void hideCurrentRoom() {
+        currentRoom.setRevealed(false);
+    }
+
     public boolean isCurrentRoomRevealed() {
         return currentRoom.isRevealed();
     }

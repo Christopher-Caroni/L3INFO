@@ -1,5 +1,6 @@
 # custom
 logs/
+.idea/sonarlint/
 
 
 # Created by https://www.gitignore.io/api/maven,eclipse,intellij+iml

@@ -35,7 +35,7 @@ public class RestTest extends ActionTest {
     public void testNotPossibleWithEnoughStrengthButRoomNotRevealed() {
         GamePlayer player = this.getSimplePlayer();
         player.setStrength(100);
-        player.revealCurrentRoom();
+        player.hideCurrentRoom();
 
         assertFalse(action.isPossible(player));
     }
@@ -107,7 +107,7 @@ public class RestTest extends ActionTest {
     public void testExecuteWithEnoughStrengthButRoomNotRevealed() throws ActionCannotBeExecutedException {
         GamePlayer player = this.getSimplePlayer();
         player.setStrength(100);
-        player.revealCurrentRoom();
+        player.hideCurrentRoom();
 
         setManualChoice(0);
         action.execute(player);
