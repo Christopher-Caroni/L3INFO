@@ -96,10 +96,6 @@ public abstract class GameCharacter implements Selectable {
         this.gold = gold;
     }
 
-    public void removeMonsterFromRoom(Monster target) {
-        currentRoom.removeMonster(target);
-    }
-
     public void setHP(int HP) {
         this.hp = HP;
     }

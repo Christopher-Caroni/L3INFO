@@ -16,10 +16,13 @@ public class GamePlayer extends GameCharacter {
 
     private int uniqueRoomCount;
 
+    protected static final String MENU_DESC_FORMAT = "%s - %d HP, %d strength";
+    protected static final String DEFAULT_NAME = "no_name_chosen";
+
     public GamePlayer() {
         super();
 
-        name = "no_name";
+        name = DEFAULT_NAME;
         uniqueRoomCount = 1; // starting room
         initActions();
     }
@@ -59,7 +62,7 @@ public class GamePlayer extends GameCharacter {
     /**
      * @return if the player reached the exit: the room is revealed, contains no monsters and room is exit.
      */
-    public boolean reachedExit() {
+    public boolean reachedExit() throws NullPointerException {
         return currentRoom.isExit() && !currentRoom.hasMonsters() && isCurrentRoomRevealed();
     }
 
@@ -81,7 +84,7 @@ public class GamePlayer extends GameCharacter {
 
     @Override
     public String getMenuDescription() {
-        return name + " - " + getHP() + " HP, " + getStrength() + " strength";
+        return String.format(MENU_DESC_FORMAT, name, getHP(), getStrength());
     }
 
     /**
@@ -94,6 +97,8 @@ public class GamePlayer extends GameCharacter {
     }
 
     /**
+     * Whether the player has enough gold for something. If he has 0 gold, it is considered he has enough for something with a 0 cost.
+     *
      * @param cost the cost of whatever needs to be evaluated. Can be either negative or positive
      * @return whether the player has enough gold for the absolute value of <b>cost</b>
      */
@@ -151,5 +156,9 @@ public class GamePlayer extends GameCharacter {
 
     public boolean hasEnoughStrength(int cost) {
         return strength >= Math.abs(cost);
+    }
+
+    public void removeMonsterFromRoom(Monster target) {
+        currentRoom.removeMonster(target);
     }
 }
