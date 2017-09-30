@@ -1,6 +1,7 @@
 package fil.coo.spawnables.beings;
 
-import fil.coo.exception.NegativeGoldException;
+import fil.coo.exception.NotEnoughGoldException;
+import fil.coo.exception.NotEnoughStrengthException;
 import fil.coo.other.Selectable;
 import fil.coo.structures.Room;
 
@@ -32,20 +33,39 @@ public abstract class GameCharacter implements Selectable {
         return hp > 0;
     }
 
+    /**
+     * Adds <b>changeHP</b> to the {@link GameCharacter}'s HP. Will set to 0 if the change would induce negative HP.
+     *
+     * @param changeHP the change of hp, either positive or negative. Applied as an addition.
+     */
     public void changeHP(int changeHP) {
         this.hp = Math.max(0, this.hp + changeHP);
     }
 
+    /**
+     * Adds <b>change</b> if {@link GameCharacter} has enough gold.
+     *
+     * @param change the change of gold to apply. Can be either positive or negative.
+     */
     public void changeGold(int change) {
         if (gold + change < 0) {
-            throw new NegativeGoldException(this + " does not have enough gold for this operation");
+            throw new NotEnoughGoldException(this + " does not have enough gold for this operation");
         } else {
             gold += change;
         }
     }
 
+    /**
+     * Adds <b>change</b> if {@link GameCharacter} has enough strength.
+     *
+     * @param strengthChange the change of strength to apply. Can be either positive or negative.
+     */
     public void changeStrength(int strengthChange) {
-        this.strength += strengthChange;
+        if (this.strength + strengthChange < 0) {
+            throw new NotEnoughStrengthException(this + " does not have enough strength for this operation");
+        } else {
+            this.strength += strengthChange;
+        }
     }
 
     public Room getCurrentRoom() {
