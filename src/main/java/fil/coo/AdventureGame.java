@@ -13,7 +13,6 @@ import fil.coo.util.Menu;
 import org.apache.log4j.Logger;
 
 import java.util.List;
-import java.util.Random;
 
 import static fil.coo.util.AdventureGameOptions.DEFAULT_PLAYER_NAME;
 
@@ -54,7 +53,7 @@ public class AdventureGame {
      */
     private void initializeGame() {
         dungeon = new Dungeon(options);
-        dungeon.generate();
+        dungeon.generateLinks();
 
         player = new GamePlayer();
         if (options.playerName.equalsIgnoreCase(DEFAULT_PLAYER_NAME)) {

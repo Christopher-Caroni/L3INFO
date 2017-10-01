@@ -63,7 +63,7 @@ public class AdventureGameOptions extends OptionsBase {
             name = "dungeon-height",
             abbrev = 'h',
             help = "the height for the dungeon",
-            defaultValue = "4"
+            defaultValue = "5"
     )
     public int customDungeonHeight;
 
@@ -71,7 +71,7 @@ public class AdventureGameOptions extends OptionsBase {
             name = "dungeon-width",
             abbrev = 'w',
             help = "the height for the dungeon",
-            defaultValue = "4"
+            defaultValue = "5"
     )
     public int customDungeonWidth;
 

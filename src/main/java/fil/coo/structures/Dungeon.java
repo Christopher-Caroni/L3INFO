@@ -16,8 +16,8 @@ public class Dungeon {
 
     final static Logger logger = Logger.getLogger(Dungeon.class);
 
-    private static final int DEFAULT_WIDTH_DUNGEON = 5;
-    private static final int DEFAULT_HEIGHT_DUNGEON = 5;
+    protected static final int DEFAULT_WIDTH_DUNGEON = 5;
+    protected static final int DEFAULT_HEIGHT_DUNGEON = 5;
 
     /**
      * The 2D array of rooms that compose the dungeon.
@@ -30,45 +30,53 @@ public class Dungeon {
     private AdventureGameOptions options;
     private GenerationFrame generationFrame;
 
+    /**
+     * Applies the custom sizes if different from {@link #DEFAULT_HEIGHT_DUNGEON} & {@link #DEFAULT_WIDTH_DUNGEON}. Creates the array of rooms and defines exit.
+     *
+     * @param options the {@link AdventureGameOptions} containing the options for the custom sizes.
+     */
     public Dungeon(AdventureGameOptions options) {
         this.options = options;
         setCustomSizes();
+        generateRooms();
+        markExitRoom();
     }
 
     private void setCustomSizes() {
-        if (options.customDungeonHeight == DEFAULT_HEIGHT_DUNGEON) {
+        logger.debug("Custom sizes w,h=" + options.customDungeonWidth + "," + options.customDungeonHeight);
+        if (options.customDungeonHeight == 0 || options.customDungeonHeight == DEFAULT_HEIGHT_DUNGEON) {
+            logger.debug("using default height=" + DEFAULT_HEIGHT_DUNGEON);
             this.dungeonHeight = DEFAULT_HEIGHT_DUNGEON;
         } else {
+            logger.debug("using custom height=" + options.customDungeonHeight);
             this.dungeonHeight = options.customDungeonHeight;
         }
-        if (options.customDungeonWidth == DEFAULT_WIDTH_DUNGEON) {
+        if (options.customDungeonWidth == 0 || options.customDungeonWidth == DEFAULT_WIDTH_DUNGEON) {
+            logger.debug("using default width=" + DEFAULT_WIDTH_DUNGEON);
             this.dungeonWidth = DEFAULT_WIDTH_DUNGEON;
         } else {
+            logger.debug("using custom width=" + options.customDungeonWidth);
             this.dungeonWidth = options.customDungeonWidth;
         }
     }
 
     /**
-     * Initializes the roomsArray and links the rooms together. Defines start and exit.
+     * Starts the process to link the rooms together.
      */
-    public void generate() {
+    public void generateLinks() {
         boolean[][] visitedRooms = new boolean[dungeonHeight][dungeonWidth];
-        generateRooms(visitedRooms);
 
         if (options.displayGeneration) {
             generationFrame = new GenerationFrame(roomsArray);
         }
 
         initializeNeighbours(visitedRooms);
-        markExitRoom();
     }
 
     /**
      * Generates the individual {@link Room}s of the roomsArray.
-     *
-     * @param visitedRooms the array of rooms already linked as neighbours
      */
-    private void generateRooms(boolean[][] visitedRooms) {
+    private void generateRooms() {
 //        [row][column] = [height][width]
         roomsArray = new Room[dungeonHeight][dungeonWidth];
 
@@ -77,7 +85,6 @@ public class Dungeon {
         for (int row = 0; row < dungeonHeight; row++) {
             for (int column = 0; column < dungeonWidth; column++) {
                 roomsArray[row][column] = roomFactory.generateRoom(column, row);
-                visitedRooms[row][column] = false;
             }
         }
     }
@@ -96,7 +103,9 @@ public class Dungeon {
         markStartingRoom(stack, visitedRooms, random);
 
         // Step 1: get random neighbours and assign them
+        // further steps in scanNonVisitedRooms()
         scanNonVisitedRooms(stack, visitedRooms, random);
+
         if (options.displayGeneration) {
             logger.info("Finished generation");
         }
