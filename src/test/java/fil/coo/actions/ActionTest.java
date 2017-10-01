@@ -3,10 +3,10 @@ package fil.coo.actions;
 import fil.coo.spawnables.beings.GamePlayer;
 import fil.coo.spawnables.beings.Monster;
 import fil.coo.structures.Room;
-import fil.coo.structures.RoomFactory;
 import fil.coo.util.Menu;
 import org.junit.AfterClass;
 import org.junit.Before;
+import org.junit.BeforeClass;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
@@ -24,6 +24,12 @@ public abstract class ActionTest {
      * The action to test that will be instanciated by the implementing Test class.
      */
     protected Action action;
+    protected static Room.Builder roomBuilder;
+
+    @BeforeClass
+    public static void setupRoomBuilder() {
+        roomBuilder = new Room.Builder();
+    }
 
     /**
      * Before every test of the action, create the action instance using {@link #getAction()} which is specified by the implementing Test class.
@@ -56,7 +62,7 @@ public abstract class ActionTest {
      * @return a simple {@link GamePlayer} object with only a currentRoom initialized at coords x[0], y[0].
      */
     protected GamePlayer getSimplePlayerWithRoom() {
-        Room currentRoom = new RoomFactory().generateSimpleRoom(0, 0);
+        Room currentRoom = roomBuilder.createSimpleRoom(0, 0).build();
 
         GamePlayer player = new GamePlayer();
         player.setCurrentRoom(currentRoom);

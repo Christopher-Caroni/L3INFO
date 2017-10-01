@@ -4,8 +4,6 @@ import fil.coo.exception.RoomsAreNotNeighboursException;
 import fil.coo.other.Direction;
 import fil.coo.spawnables.items.CoinPouch;
 import fil.coo.structures.Room;
-import fil.coo.structures.RoomFactory;
-import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -16,20 +14,13 @@ import static org.junit.Assert.*;
 
 public class GamePlayerTest extends GameCharacterTest {
 
-    RoomFactory roomFactory;
-
-    @Before
-    public void setupRoomFactory() {
-        roomFactory = new RoomFactory();
-    }
-
     private GamePlayer getSimplePlayer() {
         return new GamePlayer();
     }
 
     private GamePlayer getPlayerWithRoom() {
         GamePlayer simplePlayer = getSimplePlayer();
-        simplePlayer.setCurrentRoom(roomFactory.generateSimpleRoom(0, 0));
+        simplePlayer.setCurrentRoom(roomBuilder.createSimpleRoom(0, 0).build());
         return simplePlayer;
     }
 
@@ -43,8 +34,8 @@ public class GamePlayerTest extends GameCharacterTest {
     public void testMoveToDirection() {
         GamePlayer simplePlayer = getSimplePlayer();
 
-        Room initialRoom = roomFactory.generateSimpleRoom(0, 0);
-        Room eastRoom = roomFactory.generateSimpleRoom(1, 0);
+        Room initialRoom = roomBuilder.createSimpleRoom(0, 0).build();
+        Room eastRoom = roomBuilder.createSimpleRoom(1, 0).build();
         try {
             Room.setRoomsAsNeighbours(initialRoom, eastRoom);
         } catch (RoomsAreNotNeighboursException e) {
@@ -201,7 +192,7 @@ public class GamePlayerTest extends GameCharacterTest {
         player = getPlayerWithRoom();
         assertEquals(1, player.getUniqueRoomCount());
 
-        Room eastNeighbour = roomFactory.generateSimpleRoom(1, 0);
+        Room eastNeighbour = roomBuilder.createSimpleRoom(1, 0).build();
         try {
             Room.setRoomsAsNeighbours(player.getCurrentRoom(), eastNeighbour);
         } catch (RoomsAreNotNeighboursException e) {
@@ -224,7 +215,7 @@ public class GamePlayerTest extends GameCharacterTest {
         assertTrue(player.getPossibleMoveDirections().isEmpty());
 
 
-        Room eastNeighbour = roomFactory.generateSimpleRoom(1, 0);
+        Room eastNeighbour = roomBuilder.createSimpleRoom(1, 0).build();
         try {
             Room.setRoomsAsNeighbours(player.getCurrentRoom(), eastNeighbour);
         } catch (RoomsAreNotNeighboursException e) {
@@ -234,7 +225,7 @@ public class GamePlayerTest extends GameCharacterTest {
         assertEquals(Direction.EAST, player.getPossibleMoveDirections().get(0));
 
 
-        Room southNeighbour = roomFactory.generateSimpleRoom(0, 1);
+        Room southNeighbour = roomBuilder.createSimpleRoom(0, 1).build();
         try {
             Room.setRoomsAsNeighbours(player.getCurrentRoom(), southNeighbour);
         } catch (RoomsAreNotNeighboursException e) {
@@ -257,7 +248,7 @@ public class GamePlayerTest extends GameCharacterTest {
         GamePlayer player = getPlayerWithRoom();
         assertFalse(player.currentRoomHasNeighbour());
 
-        Room eastNeighbour = roomFactory.generateSimpleRoom(1, 0);
+        Room eastNeighbour = roomBuilder.createSimpleRoom(1, 0).build();
         try {
             Room.setRoomsAsNeighbours(player.getCurrentRoom(), eastNeighbour);
         } catch (RoomsAreNotNeighboursException e) {
@@ -270,7 +261,7 @@ public class GamePlayerTest extends GameCharacterTest {
     public void removeMonsterFromRoom() {
         GamePlayer simplePlayer = getSimplePlayer();
 
-        Room room = new RoomFactory().generateSimpleRoom(0, 0);
+        Room room = roomBuilder.createSimpleRoom(0, 0).build();
         simplePlayer.setCurrentRoom(room);
         assertEquals(0, simplePlayer.getCurrentRoom().getNumberOfMonsters());
 

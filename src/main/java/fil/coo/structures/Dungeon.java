@@ -4,7 +4,6 @@ import com.rits.cloning.Cloner;
 import fil.coo.exception.RoomsAreNotNeighboursException;
 import fil.coo.gui.GenerationFrame;
 import fil.coo.util.AdventureGameOptions;
-import fil.coo.util.Menu;
 import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
@@ -80,11 +79,14 @@ public class Dungeon {
 //        [row][column] = [height][width]
         roomsArray = new Room[dungeonHeight][dungeonWidth];
 
-        RoomFactory roomFactory = new RoomFactory();
+        Room.Builder roomBuilder = new Room.Builder();
 
         for (int row = 0; row < dungeonHeight; row++) {
             for (int column = 0; column < dungeonWidth; column++) {
-                roomsArray[row][column] = roomFactory.generateRoom(column, row);
+                roomsArray[row][column] = roomBuilder.createSimpleRoom(column, row)
+                                                        .withItems()
+                                                        .withBeings()
+                                                        .build();
             }
         }
     }
@@ -221,7 +223,7 @@ public class Dungeon {
                 generationFrame.push(new Cloner().deepClone(randomNeighbour)); // deep clone so we don't accidentally modify the instance
             }
         } catch (RoomsAreNotNeighboursException e) {
-            e.printStackTrace();
+            logger.debug(e);
         }
     }
 

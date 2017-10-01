@@ -4,6 +4,10 @@ import fil.coo.exception.RoomsAreNotNeighboursException;
 import fil.coo.other.Direction;
 import fil.coo.spawnables.beings.Monster;
 import fil.coo.spawnables.interfaces.Item;
+import fil.coo.spawnables.items.CoinPouch;
+import fil.coo.spawnables.items.HealthPotion;
+import fil.coo.spawnables.items.OneArmedBandit;
+import fil.coo.spawnables.items.StrengthPotion;
 
 import java.util.*;
 
@@ -22,7 +26,7 @@ public class Room {
     private boolean isExit;
     private boolean revealed;
 
-    protected Room(int column, int row) {
+    private Room(int column, int row) {
         x = column;
         y = row;
 
@@ -40,8 +44,8 @@ public class Room {
     /**
      * Adds the room as a neighbour for the direction
      *
-     * @param room
-     * @param direction
+     * @param room      the new neighbour
+     * @param direction the direction from this room to the new neighbour
      */
     private void addNeighbourForDirection(Room room, Direction direction) {
         linkedNeighbour.put(direction, room);
@@ -75,7 +79,7 @@ public class Room {
 
     public void addSingleItem(Item item) {
         if (item == null) {
-            throw new NullPointerException("Do not add a null object to the list of items");
+            throw new IllegalArgumentException("Do not add a null object to the list of items");
         } else {
             items.add(item);
         }
@@ -99,71 +103,6 @@ public class Room {
 
     public void setY(int y) {
         this.y = y;
-    }
-
-    /**
-     * Gets direction from one room to another.
-     *
-     * @param currentRoom
-     * @param neighbour
-     * @return
-     */
-    public static Direction getDirectionFromRoomToOtherRoom(Room currentRoom, Room neighbour) {
-        if (currentRoom.getX() == neighbour.getX()) {
-            if (currentRoom.getY() == (neighbour.getY() + 1)) {
-                return Direction.NORTH;
-            } else if (currentRoom.getY() == (neighbour.getY() - 1)) {
-                return Direction.SOUTH;
-            }
-        } else if (currentRoom.getY() == neighbour.getY()) {
-            if (currentRoom.getX() == (neighbour.getX() + 1)) {
-                return Direction.WEST;
-            } else if (currentRoom.getX() == (neighbour.getX() - 1)) {
-                return Direction.EAST;
-            }
-        }
-        return null;
-    }
-
-    /**
-     * Sets these two rooms to have each other as linkedNeighbour. Order has no importance.
-     *
-     * @param firstRoom  one of the rooms to link
-     * @param secondRoom the other room
-     * @throws RoomsAreNotNeighboursException if the two rooms are not next to each other, according to their coordinates
-     */
-    public static void setRoomsAsNeighbours(Room firstRoom, Room secondRoom) throws RoomsAreNotNeighboursException {
-        Direction initialDirection = Room.getDirectionFromRoomToOtherRoom(firstRoom, secondRoom);
-
-        if (initialDirection != null) {
-            firstRoom.addNeighbourForDirection(secondRoom, initialDirection);
-            secondRoom.addNeighbourForDirection(firstRoom, Direction.getOppositeDirection(initialDirection));
-        } else {
-            throw new RoomsAreNotNeighboursException("These rooms are not neighbours");
-        }
-    }
-
-    public boolean hasLinkedNeighbourForDirection(Direction direction) {
-        return linkedNeighbour.get(direction) != null;
-    }
-
-    public String coordsToString() {
-        return "x=[" + x + "], y=[" + y + "]";
-    }
-
-    /**
-     * @return the directions of this room's neighbours
-     */
-    public String neighbourDirectionsToString() {
-        StringBuilder stringBuilder = new StringBuilder("Neighbours=[\n");
-        for (Map.Entry<Direction, Room> pair : linkedNeighbour.entrySet()) {
-            stringBuilder
-                    .append("\t")
-                    .append(pair.getKey())
-                    .append(",\n");
-        }
-        stringBuilder.append("]\n");
-        return stringBuilder.toString();
     }
 
     /**
@@ -199,6 +138,80 @@ public class Room {
         this.isExit = exitRoom;
     }
 
+    public void removeMonster(Monster target) {
+        monsters.remove(target);
+    }
+
+    public boolean isRevealed() {
+        return revealed;
+    }
+
+    public void setRevealed(boolean revealed) {
+        this.revealed = revealed;
+    }
+
+    /**
+     * Gets direction between two {@link Room}s, from origin to destination, ONLY if they are neighbours.
+     *
+     * @param origin from where we are calculating the direction
+     * @param dest   towards where we are calculating the direction
+     * @return the direction from 'origin' to 'dest' according to their coordinates
+     * @throws RoomsAreNotNeighboursException if the rooms are not neighbours
+     */
+    public static Direction getDirectionFromRoomToOtherRoom(Room origin, Room dest) throws RoomsAreNotNeighboursException {
+        if (origin.getX() == dest.getX()) {
+            if (origin.getY() == (dest.getY() + 1)) {
+                return Direction.NORTH;
+            } else if (origin.getY() == (dest.getY() - 1)) {
+                return Direction.SOUTH;
+            }
+        } else if (origin.getY() == dest.getY()) {
+            if (origin.getX() == (dest.getX() + 1)) {
+                return Direction.WEST;
+            } else if (origin.getX() == (dest.getX() - 1)) {
+                return Direction.EAST;
+            }
+        }
+        throw new RoomsAreNotNeighboursException("Cannot calculate direction between two " + Room.class.getSimpleName() + " that are not neighbours");
+    }
+
+    /**
+     * Sets these two rooms to have each other as linkedNeighbour. Order has no importance.
+     *
+     * @param firstRoom  one of the rooms to link
+     * @param secondRoom the other room
+     * @throws RoomsAreNotNeighboursException if the two rooms are not next to each other, according to their coordinates
+     */
+    public static void setRoomsAsNeighbours(Room firstRoom, Room secondRoom) throws RoomsAreNotNeighboursException {
+        Direction initialDirection = Room.getDirectionFromRoomToOtherRoom(firstRoom, secondRoom);
+
+        firstRoom.addNeighbourForDirection(secondRoom, initialDirection);
+        secondRoom.addNeighbourForDirection(firstRoom, Direction.getOppositeDirection(initialDirection));
+    }
+
+    public boolean hasLinkedNeighbourForDirection(Direction direction) {
+        return linkedNeighbour.get(direction) != null;
+    }
+
+    public String coordsToString() {
+        return "x=[" + x + "], y=[" + y + "]";
+    }
+
+    /**
+     * @return the directions of this room's neighbours
+     */
+    public String neighbourDirectionsToString() {
+        StringBuilder stringBuilder = new StringBuilder("Neighbours=[\n");
+        for (Map.Entry<Direction, Room> pair : linkedNeighbour.entrySet()) {
+            stringBuilder
+                    .append("\t")
+                    .append(pair.getKey())
+                    .append(",\n");
+        }
+        stringBuilder.append("]\n");
+        return stringBuilder.toString();
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -223,15 +236,61 @@ public class Room {
         return result;
     }
 
-    public void removeMonster(Monster target) {
-        monsters.remove(target);
-    }
+    public static class Builder {
 
-    public boolean isRevealed() {
-        return revealed;
-    }
+        private Room room;
 
-    public void setRevealed(boolean revealed) {
-        this.revealed = revealed;
+        public Builder createSimpleRoom(int x, int y) {
+            room = new Room(x, y);
+            return this;
+        }
+
+        public Builder withItems() {
+            addItems();
+            return this;
+        }
+
+        public Builder withBeings() {
+            addBeings();
+            return this;
+        }
+
+        public Room build() {
+            return room;
+        }
+
+        /**
+         * Adds all spawnable items to the room
+         */
+        private void addItems() {
+            // GOLD
+            Optional<CoinPouch> coinPouch = new CoinPouch().getRandomSpawn();
+            coinPouch.ifPresent(room::addSingleItem);
+
+            // HealthPotion
+            Optional<HealthPotion> healthPotion = new HealthPotion().getRandomSpawn();
+            healthPotion.ifPresent(room::addSingleItem);
+
+            // StrengthPotion
+            Optional<StrengthPotion> strengthPotion = new StrengthPotion().getRandomSpawn();
+            strengthPotion.ifPresent(room::addSingleItem);
+
+            // OneArmedBandit
+            Optional<OneArmedBandit> oneArmedBandit = new OneArmedBandit().getRandomSpawn();
+            oneArmedBandit.ifPresent(room::addSingleItem);
+
+
+            // OTHER FUTURE ITEMS
+        }
+
+        /**
+         * Generates all living beings and adds them to the room.
+         */
+        private void addBeings() {
+            List<Monster> monsters = new Monster().getRandomSpawn();
+            room.addMonsters(monsters);
+
+            // OTHER FUTURE ITEMS
+        }
     }
 }

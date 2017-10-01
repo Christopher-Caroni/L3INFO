@@ -3,7 +3,6 @@ package fil.coo.spawnables.items;
 import fil.coo.spawnables.beings.GamePlayer;
 import fil.coo.spawnables.interfaces.Item;
 import fil.coo.structures.Room;
-import fil.coo.structures.RoomFactory;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -23,7 +22,7 @@ public abstract class ItemTest {
 
     protected void initPlayer() {
         player = new GamePlayer();
-        Room room = new RoomFactory().generateSimpleRoom(0, 0);
+        Room room = new Room.Builder().createSimpleRoom(0,0).build();
         player.setCurrentRoom(room);
     }
 

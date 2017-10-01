@@ -1,15 +1,20 @@
 package fil.coo.spawnables.beings;
 
 import fil.coo.structures.Room;
-import fil.coo.structures.RoomFactory;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
-
-import java.util.Arrays;
 
 import static org.junit.Assert.*;
 
 public abstract class GameCharacterTest {
+
+    protected static Room.Builder roomBuilder;
+
+    @BeforeClass
+    public static void setupRoomFactory() {
+        roomBuilder = new Room.Builder();
+    }
 
     protected GameCharacter character;
 
@@ -120,7 +125,7 @@ public abstract class GameCharacterTest {
     public void testSetGetCurrentRoom() throws Exception {
         assertNull(character.getCurrentRoom());
 
-        Room room = new RoomFactory().generateSimpleRoom(0, 0);
+        Room room = roomBuilder.createSimpleRoom(0,0).build();
         character.setCurrentRoom(room);
 
         assertSame(room, character.getCurrentRoom());

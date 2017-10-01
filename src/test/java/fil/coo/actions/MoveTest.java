@@ -5,7 +5,6 @@ import fil.coo.exception.ActionCannotBeExecutedException;
 import fil.coo.exception.RoomsAreNotNeighboursException;
 import fil.coo.spawnables.beings.GamePlayer;
 import fil.coo.structures.Room;
-import fil.coo.structures.RoomFactory;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -73,7 +72,7 @@ public class MoveTest extends ActionTest {
     @Test
     public void testNotPossibleWithNeighbourButWithMonters() {
         GamePlayer player = this.getPlayerWithMonsterInRoom();
-        Room neighbour = new RoomFactory().generateSimpleRoom(0, 1);
+        Room neighbour = roomBuilder.createSimpleRoom(0, 1).build();
         try {
             Room.setRoomsAsNeighbours(player.getCurrentRoom(), neighbour);
         } catch (RoomsAreNotNeighboursException e) {
@@ -90,7 +89,7 @@ public class MoveTest extends ActionTest {
     public void testIsPossibleWithNoMonstersAndRoomRevealedAndNeighbours() {
         GamePlayer player = getSimplePlayerWithRoom();
         player.revealCurrentRoom();
-        Room neighbour = new RoomFactory().generateSimpleRoom(0, 1);
+        Room neighbour = roomBuilder.createSimpleRoom(0, 1).build();
         try {
             Room.setRoomsAsNeighbours(player.getCurrentRoom(), neighbour);
         } catch (RoomsAreNotNeighboursException e) {
@@ -199,7 +198,7 @@ public class MoveTest extends ActionTest {
     @Test(expected = ActionCannotBeExecutedException.class)
     public void testExecuteWithNeighbourButWithMonsters() throws ActionCannotBeExecutedException {
         GamePlayer player = this.getPlayerWithMonsterInRoom();
-        Room neighbour = new RoomFactory().generateSimpleRoom(0, 1);
+        Room neighbour = roomBuilder.createSimpleRoom(0, 1).build();
 
         try {
             Room.setRoomsAsNeighbours(player.getCurrentRoom(), neighbour);
@@ -231,7 +230,7 @@ public class MoveTest extends ActionTest {
     public void testExecuteWithNoMonstersAndRoomRevealedAndSingleNeighbour() {
         GamePlayer player = getSimplePlayerWithRoom();
         player.revealCurrentRoom();
-        Room neighbour = new RoomFactory().generateSimpleRoom(0, 1);
+        Room neighbour = roomBuilder.createSimpleRoom(0, 1).build();
         try {
             Room.setRoomsAsNeighbours(player.getCurrentRoom(), neighbour);
         } catch (RoomsAreNotNeighboursException e) {
@@ -257,8 +256,8 @@ public class MoveTest extends ActionTest {
     public void testExecuteWithNoMonstersAndRoomRevealedAndMultipleNeighbours() {
         GamePlayer player = getSimplePlayerWithRoom();
         player.revealCurrentRoom();
-        Room firstNeighbour = new RoomFactory().generateSimpleRoom(0, 1); // SOUTH
-        Room secondNeighbour = new RoomFactory().generateSimpleRoom(1, 0); // EAST
+        Room firstNeighbour = roomBuilder.createSimpleRoom(0, 1).build();
+        Room secondNeighbour = roomBuilder.createSimpleRoom(1, 0).build();
         try {
             Room.setRoomsAsNeighbours(player.getCurrentRoom(), firstNeighbour);
             Room.setRoomsAsNeighbours(player.getCurrentRoom(), secondNeighbour);
