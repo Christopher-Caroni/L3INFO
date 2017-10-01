@@ -35,8 +35,8 @@ public class GamePlayerTest extends GameCharacterTest {
 
 
     @Override
-    protected void createCharacter() {
-        character = new GamePlayer();
+    protected GameCharacter createCharacter() {
+        return new GamePlayer();
     }
 
     @Test

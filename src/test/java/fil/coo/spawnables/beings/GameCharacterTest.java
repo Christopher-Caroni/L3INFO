@@ -15,10 +15,10 @@ public abstract class GameCharacterTest {
 
     @Before
     public void setup() {
-        createCharacter();
+        character = createCharacter();
     }
 
-    protected abstract void createCharacter();
+    protected abstract GameCharacter createCharacter();
 
 
     @Test

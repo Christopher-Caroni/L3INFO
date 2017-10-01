@@ -8,6 +8,11 @@ import java.util.Random;
 
 public class Monster extends GameCharacter implements IMultipleSpawnable<Monster> {
 
+    public static final int UPPER_BOUND_RANDOM_AMOUNT = 3;
+    public static final double UPPER_BOUND_SPAWN_CHANCE = 0.2;
+
+    public static final String MENU_DESC_FORMAT = "Monster: %d HP";
+
     public Monster() {
         super();
     }
@@ -29,7 +34,7 @@ public class Monster extends GameCharacter implements IMultipleSpawnable<Monster
 
     @Override
     public String getMenuDescription() {
-        return "Monster: " + getHP() + " HP";
+        return String.format(MENU_DESC_FORMAT, getHP());
     }
 
     /**
@@ -55,12 +60,12 @@ public class Monster extends GameCharacter implements IMultipleSpawnable<Monster
 
     @Override
     public int getRandomAmount() {
-        return new Random().nextInt(3);
+        return new Random().nextInt(UPPER_BOUND_RANDOM_AMOUNT);
     }
 
     @Override
     public double getSpawnRate() {
-        return 0.2;
+        return UPPER_BOUND_SPAWN_CHANCE;
     }
 
     @Override
