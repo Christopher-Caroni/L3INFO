@@ -25,7 +25,7 @@ public class RestTest extends ActionTest {
 
     @Test
     public void testNotPossibleWithNotEnoughStrength() {
-        GamePlayer player = this.getSimplePlayer();
+        GamePlayer player = this.getSimplePlayerWithRoom();
         player.setStrength(0);
 
         assertFalse(action.isPossible(player));
@@ -33,7 +33,7 @@ public class RestTest extends ActionTest {
 
     @Test
     public void testNotPossibleWithEnoughStrengthButRoomNotRevealed() {
-        GamePlayer player = this.getSimplePlayer();
+        GamePlayer player = this.getSimplePlayerWithRoom();
         player.setStrength(100);
 
         assertFalse(action.isPossible(player));
@@ -41,7 +41,7 @@ public class RestTest extends ActionTest {
 
     @Test
     public void testNotPossibleWithNotEnoughStrengthAndRoomRevealed() {
-        GamePlayer player = this.getSimplePlayer();
+        GamePlayer player = this.getSimplePlayerWithRoom();
         player.setStrength(0);
         player.revealCurrentRoom();
 
@@ -75,7 +75,7 @@ public class RestTest extends ActionTest {
 
     @Test
     public void testIsPossibleWithNoMonstersAndEnoughStrengthAndRoomRevealed() {
-        GamePlayer player = this.getSimplePlayer();
+        GamePlayer player = this.getSimplePlayerWithRoom();
         player.setStrength(100);
         player.revealCurrentRoom();
 
@@ -95,7 +95,7 @@ public class RestTest extends ActionTest {
 
     @Test(expected = ActionCannotBeExecutedException.class)
     public void testExecuteWithNotEnoughStrength() throws ActionCannotBeExecutedException {
-        GamePlayer player = this.getSimplePlayer();
+        GamePlayer player = this.getSimplePlayerWithRoom();
         player.setStrength(0);
 
         setManualChoice(0);
@@ -104,7 +104,7 @@ public class RestTest extends ActionTest {
 
     @Test(expected = ActionCannotBeExecutedException.class)
     public void testExecuteWithEnoughStrengthButRoomNotRevealed() throws ActionCannotBeExecutedException {
-        GamePlayer player = this.getSimplePlayer();
+        GamePlayer player = this.getSimplePlayerWithRoom();
         player.setStrength(100);
 
         setManualChoice(0);
@@ -113,7 +113,7 @@ public class RestTest extends ActionTest {
 
     @Test(expected = ActionCannotBeExecutedException.class)
     public void testExecuteWithNotEnoughStrengthAndRoomRevealed() throws ActionCannotBeExecutedException {
-        GamePlayer player = this.getSimplePlayer();
+        GamePlayer player = this.getSimplePlayerWithRoom();
         player.setStrength(0);
         player.revealCurrentRoom();
 
@@ -151,7 +151,7 @@ public class RestTest extends ActionTest {
 
     @Test
     public void testExecuteWithNoMonstersAndEnoughStrengthAndRoomRevealed() {
-        GamePlayer player = this.getSimplePlayer();
+        GamePlayer player = this.getSimplePlayerWithRoom();
         player.setStrength(100);
         player.revealCurrentRoom();
 

@@ -55,7 +55,7 @@ public abstract class ActionTest {
     /**
      * @return a simple {@link GamePlayer} object with only a currentRoom initialized at coords x[0], y[0].
      */
-    protected GamePlayer getSimplePlayer() {
+    protected GamePlayer getSimplePlayerWithRoom() {
         Room currentRoom = new RoomFactory().generateSimpleRoom(0, 0);
 
         GamePlayer player = new GamePlayer();
@@ -64,12 +64,12 @@ public abstract class ActionTest {
     }
 
     /**
-     * Builds on {@link #getSimplePlayer()} to create a bare player but adds one monster to the room.
+     * Builds on {@link #getSimplePlayerWithRoom()} to create a bare player but adds one monster to the room.
      *
      * @return a {@link GamePlayer} with one monster in his room.
      */
     protected GamePlayer getPlayerWithMonsterInRoom() {
-        GamePlayer player = this.getSimplePlayer();
+        GamePlayer player = this.getSimplePlayerWithRoom();
 
         List<Monster> monsterList = new ArrayList<>();
         monsterList.add(new Monster());

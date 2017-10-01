@@ -22,7 +22,7 @@ public class AttackTest extends ActionTest {
      */
     @Test
     public void testNotPossibleWithNoMonstersAndRoomNotRevealed() {
-        GamePlayer player = this.getSimplePlayer();
+        GamePlayer player = this.getSimplePlayerWithRoom();
 
         assertFalse(action.isPossible(player));
     }
@@ -42,7 +42,7 @@ public class AttackTest extends ActionTest {
      */
     @Test
     public void testNotPossibleWithRoomRevealedButWithNoMonsters() {
-        GamePlayer player = this.getSimplePlayer();
+        GamePlayer player = this.getSimplePlayerWithRoom();
         player.revealCurrentRoom();
 
         assertFalse(action.isPossible(player));
@@ -69,7 +69,7 @@ public class AttackTest extends ActionTest {
      */
     @Test(expected = ActionCannotBeExecutedException.class)
     public void testExecuteWithNoMonsterAndRoomNotRevealed() throws ActionCannotBeExecutedException {
-        GamePlayer player = this.getSimplePlayer();
+        GamePlayer player = this.getSimplePlayerWithRoom();
 
         int expectedInitialHealth = 100;
         assertEquals(expectedInitialHealth, player.getHP());
@@ -123,7 +123,7 @@ public class AttackTest extends ActionTest {
      */
     @Test(expected = ActionCannotBeExecutedException.class)
     public void testExecuteWitRoomNotRevealedButNoMonster() throws ActionCannotBeExecutedException {
-        GamePlayer player = this.getSimplePlayer();
+        GamePlayer player = this.getSimplePlayerWithRoom();
         player.revealCurrentRoom();
 
         int expectedInitialHealth = 100;

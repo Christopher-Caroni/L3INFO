@@ -20,6 +20,16 @@ public class StrengthPotion extends Item<StrengthPotion> {
     }
 
     @Override
+    public int getAmount() {
+        return strengthBoost;
+    }
+
+    @Override
+    public void setAmount(int amount) {
+        this.strengthBoost = amount;
+    }
+
+    @Override
     public String getMenuDescription() {
         return "Strength potion: +" + strengthBoost + " strength";
     }
@@ -34,7 +44,7 @@ public class StrengthPotion extends Item<StrengthPotion> {
     }
 
     private StrengthPotion withStrengthBoost(int strengthBoost) {
-        this.strengthBoost = strengthBoost;
+        setAmount(strengthBoost);
         return this;
     }
 

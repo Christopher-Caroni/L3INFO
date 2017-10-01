@@ -23,6 +23,16 @@ public class CoinPouch extends Item<CoinPouch> {
     }
 
     @Override
+    public int getAmount() {
+        return goldAmount;
+    }
+
+    @Override
+    public void setAmount(int amount) {
+        this.goldAmount = amount;
+    }
+
+    @Override
     public String getMenuDescription() {
         return "Gold purse: +" + goldAmount + " gold.";
     }
@@ -42,16 +52,12 @@ public class CoinPouch extends Item<CoinPouch> {
     }
 
 
-    public void setGoldAmount(int goldAmount) {
-        this.goldAmount = goldAmount;
-    }
-
     /**
      * @param goldAmount the amount of gold this purse should hold.
      * @return this instance
      */
     public CoinPouch withGoldAmount(int goldAmount) {
-        this.setGoldAmount(goldAmount);
+        this.setAmount(goldAmount);
         return this;
     }
 

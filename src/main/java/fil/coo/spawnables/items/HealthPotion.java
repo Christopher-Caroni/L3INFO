@@ -20,6 +20,16 @@ public class HealthPotion extends Item<HealthPotion> {
     }
 
     @Override
+    public int getAmount() {
+        return healthBoost;
+    }
+
+    @Override
+    public void setAmount(int amount) {
+        this.healthBoost = amount;
+    }
+
+    @Override
     public String getMenuDescription() {
         return "Health potion: +" + healthBoost + " health";
     }
@@ -34,7 +44,7 @@ public class HealthPotion extends Item<HealthPotion> {
     }
 
     private HealthPotion withHealthBoost(int healthBoost) {
-        this.healthBoost = healthBoost;
+        setAmount(healthBoost);
         return this;
     }
 

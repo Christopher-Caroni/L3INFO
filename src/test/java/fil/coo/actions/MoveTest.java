@@ -30,7 +30,7 @@ public class MoveTest extends ActionTest {
      */
     @Test
     public void testNotPossibleWithoutRoomRevealedAndWithoutNeighbour() {
-        GamePlayer player = this.getSimplePlayer();
+        GamePlayer player = this.getSimplePlayerWithRoom();
 
         assertFalse(action.isPossible(player));
     }
@@ -50,7 +50,7 @@ public class MoveTest extends ActionTest {
      */
     @Test
     public void testNotPossibleWithRoomRevealed() {
-        GamePlayer player = this.getSimplePlayer();
+        GamePlayer player = this.getSimplePlayerWithRoom();
         player.revealCurrentRoom();
 
         assertFalse(action.isPossible(player));
@@ -88,7 +88,7 @@ public class MoveTest extends ActionTest {
      */
     @Test
     public void testIsPossibleWithNoMonstersAndRoomRevealedAndNeighbours() {
-        GamePlayer player = getSimplePlayer();
+        GamePlayer player = getSimplePlayerWithRoom();
         player.revealCurrentRoom();
         Room neighbour = new RoomFactory().generateSimpleRoom(0, 1);
         try {
@@ -108,7 +108,7 @@ public class MoveTest extends ActionTest {
      */
     @Test(expected = ActionCannotBeExecutedException.class)
     public void testExecuteWithRoomNotRevealed() throws ActionCannotBeExecutedException {
-        GamePlayer player = this.getSimplePlayer();
+        GamePlayer player = this.getSimplePlayerWithRoom();
 
         // Create a shallow clone of the instance of the player's initial Room so we can use equals() on the Room's fields.
         Room initialRoomCopy = new Cloner().shallowClone(player.getCurrentRoom());
@@ -152,7 +152,7 @@ public class MoveTest extends ActionTest {
      */
     @Test(expected = ActionCannotBeExecutedException.class)
     public void testExecuteWithRoomRevealed() throws ActionCannotBeExecutedException {
-        GamePlayer player = this.getSimplePlayer();
+        GamePlayer player = this.getSimplePlayerWithRoom();
         player.revealCurrentRoom();
 
         // Create a shallow clone of the instance of the player's initial Room so we can use equals() on the Room's fields.
@@ -229,7 +229,7 @@ public class MoveTest extends ActionTest {
      */
     @Test
     public void testExecuteWithNoMonstersAndRoomRevealedAndSingleNeighbour() {
-        GamePlayer player = getSimplePlayer();
+        GamePlayer player = getSimplePlayerWithRoom();
         player.revealCurrentRoom();
         Room neighbour = new RoomFactory().generateSimpleRoom(0, 1);
         try {
@@ -255,7 +255,7 @@ public class MoveTest extends ActionTest {
      */
     @Test
     public void testExecuteWithNoMonstersAndRoomRevealedAndMultipleNeighbours() {
-        GamePlayer player = getSimplePlayer();
+        GamePlayer player = getSimplePlayerWithRoom();
         player.revealCurrentRoom();
         Room firstNeighbour = new RoomFactory().generateSimpleRoom(0, 1); // SOUTH
         Room secondNeighbour = new RoomFactory().generateSimpleRoom(1, 0); // EAST

@@ -16,4 +16,7 @@ public abstract class Item<T extends Item<T>> implements Selectable, ISingleSpaw
 
     protected abstract void applySpecificEffect(GamePlayer player);
 
+    public abstract int getAmount();
+
+    public abstract void setAmount(int amount);
 }

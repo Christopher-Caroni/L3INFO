@@ -18,7 +18,7 @@ public abstract class AlwaysAvailableActionTest extends ActionTest {
      */
     @Test
     public void testIsPossibleWhenOK() {
-        GamePlayer player = this.getSimplePlayer();
+        GamePlayer player = this.getSimplePlayerWithRoom();
         assertTrue(action.isPossible(player));
     }
 
@@ -34,7 +34,7 @@ public abstract class AlwaysAvailableActionTest extends ActionTest {
      */
     @Test
     public void testExecuteWithoutMonsters() {
-        GamePlayer player = getSimplePlayer();
+        GamePlayer player = getSimplePlayerWithRoom();
 
         setManualChoice(0);
         try {
