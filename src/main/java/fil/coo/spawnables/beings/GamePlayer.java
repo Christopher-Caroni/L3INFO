@@ -23,7 +23,7 @@ public class GamePlayer extends GameCharacter {
         super();
 
         name = DEFAULT_NAME;
-        uniqueRoomCount = 1; // starting room
+        uniqueRoomCount = 0;
         initActions();
     }
 
@@ -35,6 +35,17 @@ public class GamePlayer extends GameCharacter {
     @Override
     protected void setRandomStrength(Random random) {
         strength = random.nextInt(30) + 30;
+    }
+
+    /**
+     * Calls {@link GameCharacter#setCurrentRoom(Room)} and then {@link #incrementUniqueRoomCountIfNotVisitedYet()} if the room hasn't been revealed yet.
+     *
+     * @param currentRoom the room to be set as the player's current room.
+     */
+    @Override
+    public void setCurrentRoom(Room currentRoom) {
+        super.setCurrentRoom(currentRoom);
+        incrementUniqueRoomCountIfNotVisitedYet();
     }
 
     private void initActions() {
@@ -53,9 +64,8 @@ public class GamePlayer extends GameCharacter {
      * @param direction the direction from the player's current room to the neighbour
      */
     public void moveToDirection(Direction direction) {
-        this.currentRoom = this.currentRoom.getNeighbour(direction);
+        this.setCurrentRoom(currentRoom.getNeighbour(direction));
         revealCurrentRoom();
-        incrementUniqueRoomCount();
     }
 
 
@@ -114,21 +124,28 @@ public class GamePlayer extends GameCharacter {
         return name;
     }
 
-    public boolean hasItemsInCurrentRoom() {
+    /**
+     * @return if the player's room has items
+     * @throws NullPointerException if the player doesn't have a room yet
+     */
+    public boolean hasItemsInCurrentRoom() throws NullPointerException {
         return currentRoom.hasItems();
     }
 
-    public List<Item> getItemsFromRoom() {
+    /**
+     * @return the list of items in the player's room
+     * @throws NullPointerException if the player doesn't have a room yet
+     */
+    public List<Item> getItemsFromRoom() throws NullPointerException {
         return currentRoom.getItems();
 
     }
 
+    /**
+     * Calls {@link Room#setRevealed(boolean)} with true, to {@link #currentRoom}
+     */
     public void revealCurrentRoom() {
         currentRoom.setRevealed(true);
-    }
-
-    public void hideCurrentRoom() {
-        currentRoom.setRevealed(false);
     }
 
     public boolean isCurrentRoomRevealed() {
@@ -139,18 +156,27 @@ public class GamePlayer extends GameCharacter {
         return uniqueRoomCount;
     }
 
-    private void incrementUniqueRoomCount() {
-        uniqueRoomCount++;
+    private boolean incrementUniqueRoomCountIfNotVisitedYet() {
+        if (!currentRoom.isRevealed()) {
+            uniqueRoomCount++;
+            return true;
+        }
+        return false;
     }
 
     /**
      * @return a list of directions where the player can move, according to his current room's {@link Room#getNeighboursDirections()}
+     * @throws NullPointerException if the player doesn't have a room yet
      */
-    public List<Direction> getPossibleMoveDirections() {
+    public List<Direction> getPossibleMoveDirections() throws NullPointerException {
         return currentRoom.getNeighboursDirections();
     }
 
-    public boolean currentRoomHasNeighbour() {
+    /**
+     * @return if {@link #currentRoom} has any neighbours.
+     * @throws NullPointerException if the player doesn't have a currentRoom yet.
+     */
+    public boolean currentRoomHasNeighbour() throws NullPointerException {
         return currentRoom.getNumberOfNeighbours() > 0;
     }
 

@@ -139,13 +139,23 @@ public class GamePlayerTest extends GameCharacterTest {
     }
 
     @Test
-    public void hasEnoughGold() {
+    public void testHasEnoughGold() {
         GamePlayer player = getSimplePlayer();
         player.setGold(0);
 
         assertFalse(player.hasEnoughGold(10));
         assertFalse(player.hasEnoughGold(-10));
         assertTrue(player.hasEnoughGold(0));
+    }
+
+    @Test
+    public void testHasEnoughStrength() {
+        GamePlayer player = getSimplePlayer();
+        player.setStrength(0);
+
+        assertFalse(player.hasEnoughStrength(10));
+        assertFalse(player.hasEnoughStrength(-10));
+        assertTrue(player.hasEnoughStrength(0));
     }
 
     @Test
@@ -159,39 +169,101 @@ public class GamePlayerTest extends GameCharacterTest {
     }
 
     @Test
-    public void hasItemsInCurrentRoom() {
+    public void testHasItemsInCurrentRoom() {
+        GamePlayer player = getPlayerWithRoom();
+        assertFalse(player.hasItemsInCurrentRoom());
+
+        CoinPouch coinPouch = new CoinPouch();
+        player.getCurrentRoom().addSingleItem(coinPouch);
+
+        assertTrue(player.hasItemsInCurrentRoom());
     }
 
     @Test
     public void getItemsFromRoom() {
+        // TODO cant test bc no set?
     }
 
     @Test
-    public void revealCurrentRoom() {
+    public void testRevealAndIsCurrentRoomRevealed() {
+        GamePlayer player = getPlayerWithRoom();
+        assertFalse(player.isCurrentRoomRevealed());
+
+        player.revealCurrentRoom();
+        assertTrue(player.isCurrentRoomRevealed());
     }
 
     @Test
-    public void hideCurrentRoom() {
+    public void testGetUniqueRoomCount() {
+        GamePlayer player = getSimplePlayer();
+        assertEquals(0, player.getUniqueRoomCount());
+
+        player = getPlayerWithRoom();
+        assertEquals(1, player.getUniqueRoomCount());
+
+        Room eastNeighbour = roomFactory.generateSimpleRoom(1, 0);
+        try {
+            Room.setRoomsAsNeighbours(player.getCurrentRoom(), eastNeighbour);
+        } catch (RoomsAreNotNeighboursException e) {
+            fail("These rooms should be able to be linked since we created them at (x,y)= (0,0) & (0,1)");
+        }
+
+        player.moveToDirection(Direction.EAST);
+        assertEquals(2, player.getUniqueRoomCount());
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void testGetPossibleMoveDirectionsThrowsNullIfNoCurrentRoom() {
+        GamePlayer player = getSimplePlayer();
+        player.getPossibleMoveDirections();
     }
 
     @Test
-    public void isCurrentRoomRevealed() {
+    public void testGetPossibleMoveDirections() {
+        GamePlayer player = getPlayerWithRoom();
+        assertTrue(player.getPossibleMoveDirections().isEmpty());
+
+
+        Room eastNeighbour = roomFactory.generateSimpleRoom(1, 0);
+        try {
+            Room.setRoomsAsNeighbours(player.getCurrentRoom(), eastNeighbour);
+        } catch (RoomsAreNotNeighboursException e) {
+            fail("These rooms should be able to be linked since we created them at (x,y)= (0,0) & (0,1)");
+        }
+        assertEquals(1, player.getPossibleMoveDirections().size());
+        assertEquals(Direction.EAST, player.getPossibleMoveDirections().get(0));
+
+
+        Room southNeighbour = roomFactory.generateSimpleRoom(0, 1);
+        try {
+            Room.setRoomsAsNeighbours(player.getCurrentRoom(), southNeighbour);
+        } catch (RoomsAreNotNeighboursException e) {
+            fail("These rooms should be able to be linked since we created them at (x,y)= (0,0) & (1,0)");
+        }
+        assertEquals(2, player.getPossibleMoveDirections().size());
+        assertEquals(Direction.EAST, player.getPossibleMoveDirections().get(0));
+        assertEquals(Direction.SOUTH, player.getPossibleMoveDirections().get(1));
+
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void testCurrentRoomHasNeighbourThrowsNullIfNoCurrentRoom() {
+        GamePlayer player = getSimplePlayer();
+        player.currentRoomHasNeighbour();
     }
 
     @Test
-    public void getUniqueRoomCount() {
-    }
+    public void testCurrentRoomHasNeighbour() {
+        GamePlayer player = getPlayerWithRoom();
+        assertFalse(player.currentRoomHasNeighbour());
 
-    @Test
-    public void getPossibleMoveDirections() {
-    }
-
-    @Test
-    public void currentRoomHasNeighbour() {
-    }
-
-    @Test
-    public void hasEnoughStrength() {
+        Room eastNeighbour = roomFactory.generateSimpleRoom(1, 0);
+        try {
+            Room.setRoomsAsNeighbours(player.getCurrentRoom(), eastNeighbour);
+        } catch (RoomsAreNotNeighboursException e) {
+            fail("These rooms should be able to be linked since we created them at (x,y)= (0,0) & (0,1)");
+        }
+        assertTrue(player.currentRoomHasNeighbour());
     }
 
     @Test

@@ -29,6 +29,15 @@ public abstract class GameCharacter implements Selectable {
 
     protected abstract void setRandomStrength(Random random);
 
+    /**
+     * Sets currentRoom as the player's actual current room.
+     *
+     * @param currentRoom the new room
+     */
+    public void setCurrentRoom(Room currentRoom) {
+        this.currentRoom = currentRoom;
+    }
+
     public boolean isAlive() {
         return hp > 0;
     }
@@ -78,10 +87,6 @@ public abstract class GameCharacter implements Selectable {
 
     public int getHP() {
         return hp;
-    }
-
-    public void setCurrentRoom(Room currentRoom) {
-        this.currentRoom = currentRoom;
     }
 
     public void setStrength(int strength) {

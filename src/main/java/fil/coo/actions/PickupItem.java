@@ -19,10 +19,10 @@ public class PickupItem implements Action {
 
     @Override
     public void execute(GamePlayer player) throws ActionCannotBeExecutedException {
-        List<Item> itemInRoom = player.getItemsFromRoom();
         if (isPossible(player)) {
             logger.info("Choose an item from the room:");
-            Item choice = Menu.getInstance().chooseElement(itemInRoom);
+            List<Item> itemsInRoom = player.getItemsFromRoom();
+            Item choice = Menu.getInstance().chooseElement(itemsInRoom);
 
             choice.use(player);
         } else {
