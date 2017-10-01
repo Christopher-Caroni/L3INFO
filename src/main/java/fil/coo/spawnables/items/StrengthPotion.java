@@ -9,7 +9,7 @@ import java.util.Random;
 
 public class StrengthPotion extends Item<StrengthPotion> {
 
-    final static Logger logger = Logger.getLogger(StrengthPotion.class);
+    private static final Logger logger = Logger.getLogger(StrengthPotion.class);
 
     private int strengthBoost;
 

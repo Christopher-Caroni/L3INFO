@@ -109,9 +109,6 @@ public class Dungeon {
         if (options.displayGeneration) {
             logger.info("Finished generation");
         }
-        if (isInBounds(options.debugRoomX, options.debugRoomY)) {
-            Menu.getInstance().printRoom(getRoom(options.debugRoomX, options.debugRoomY), true);
-        }
     }
 
     private void markExitRoom() {

@@ -9,7 +9,7 @@ import java.util.Random;
 
 public class CoinPouch extends Item<CoinPouch> {
 
-    final static Logger logger = Logger.getLogger(CoinPouch.class);
+    private final static Logger logger = Logger.getLogger(CoinPouch.class);
 
     /**
      * The amount of gold this purse contains.
@@ -56,7 +56,7 @@ public class CoinPouch extends Item<CoinPouch> {
      * @param goldAmount the amount of gold this purse should hold.
      * @return this instance
      */
-    public CoinPouch withGoldAmount(int goldAmount) {
+    private CoinPouch withGoldAmount(int goldAmount) {
         this.setAmount(goldAmount);
         return this;
     }

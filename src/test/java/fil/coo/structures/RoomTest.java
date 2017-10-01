@@ -206,6 +206,34 @@ public class RoomTest {
         }
 
         assertEquals(EAST, Room.getDirectionFromRoomToOtherRoom(room, eastNeighbour));
+
+        Room badNeighbour = roomFactory.generateSimpleRoom(5,5);
+        assertNull(Room.getDirectionFromRoomToOtherRoom(room, badNeighbour));
+    }
+
+    @Test(expected = RoomsAreNotNeighboursException.class)
+    public void testSetRoomsAsNeighbours() throws RoomsAreNotNeighboursException {
+        Room eastNeighbour = roomFactory.generateSimpleRoom(1, 0);
+        assertFalse(room.hasLinkedNeighbourForDirection(EAST));
+
+        try {
+            Room.setRoomsAsNeighbours(room, eastNeighbour);
+        } catch (RoomsAreNotNeighboursException e) {
+            fail("These rooms should be able to be linked since we created them at (x,y)= (0,0) & (0,1)");
+        }
+        assertTrue(room.hasLinkedNeighbourForDirection(EAST));
+
+        Room southNeighbour = roomFactory.generateSimpleRoom(0, 1);
+        assertFalse(room.hasLinkedNeighbourForDirection(SOUTH));
+        try {
+            Room.setRoomsAsNeighbours(room, southNeighbour);
+        } catch (RoomsAreNotNeighboursException e) {
+            fail("These rooms should be able to be linked since we created them at (x,y)= (0,0) & (1,0)");
+        }
+        assertTrue(room.hasLinkedNeighbourForDirection(SOUTH));
+
+        Room badNeighbour = roomFactory.generateSimpleRoom(5,5);
+        Room.setRoomsAsNeighbours(room, badNeighbour);
     }
 
 }

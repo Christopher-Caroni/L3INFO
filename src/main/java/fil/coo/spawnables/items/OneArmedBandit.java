@@ -10,7 +10,7 @@ import java.util.Random;
 
 public class OneArmedBandit extends Item<OneArmedBandit> {
 
-    final static Logger logger = Logger.getLogger(OneArmedBandit.class);
+    private final static Logger logger = Logger.getLogger(OneArmedBandit.class);
 
 
     private int cost;

@@ -9,7 +9,7 @@ import java.util.Random;
 
 public class HealthPotion extends Item<HealthPotion> {
 
-    final static Logger logger = Logger.getLogger(HealthPotion.class);
+    private final static Logger logger = Logger.getLogger(HealthPotion.class);
 
     private int healthBoost;
 

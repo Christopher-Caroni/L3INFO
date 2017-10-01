@@ -126,8 +126,8 @@ public class GamePlayerTest extends GameCharacterTest {
         GamePlayer player = getPlayerWithRoom();
         assertEquals(0, player.getItemsFromRoom().size());
 
-        CoinPouch coinPouch = new CoinPouch()
-                .withGoldAmount(20);
+        CoinPouch coinPouch = new CoinPouch();
+        coinPouch.setAmount(20);
         player.getCurrentRoom().addSingleItem(coinPouch);
 
         assertEquals(1, player.getItemsFromRoom().size());

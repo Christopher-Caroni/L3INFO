@@ -36,22 +36,6 @@ public class AdventureGameOptions extends OptionsBase {
     public int generationWaitTime;
 
     @Option(
-            name = "debug-room-x-coord",
-            abbrev = 'x',
-            help = "prints the state of one room specified by its coordinates x",
-            defaultValue = "-1"
-    )
-    public int debugRoomX;
-
-    @Option(
-            name = "debug-room-y-coord",
-            abbrev = 'y',
-            help = "prints the state of one room specified by its coordinates y",
-            defaultValue = "-1"
-    )
-    public int debugRoomY;
-
-    @Option(
             name = "playername",
             abbrev = 'p',
             help = "Choose a default player name",
