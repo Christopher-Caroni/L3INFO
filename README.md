@@ -8,7 +8,7 @@ Ce TD a pour but de créer un mini jeu d'un donjon duquel on doit s'évader. Ce 
  - Clonez le repository: `git clone https://gitlab-etu.fil.univ-lille1.fr/caroni/COO-TD1.git`
  - Une fois dans le dossier cloné, compilez avec Maven: `mvn clean package`
  - Lancez le .jar généré `java -jar target/COO-TD1-1.0-SNAPSHOT.jar`
- - Eventuellement, générez la javadoc avec`mvn javadoc:javadoc`. Il est ensuite disponible dans `target/site/apidoc/index.html`
+ - Eventuellement, générez la javadoc avec`mvn javadoc:javadoc`. Il est ensuite disponible dans `target/docs/index.html`
 
 ## Options de lancement
 
