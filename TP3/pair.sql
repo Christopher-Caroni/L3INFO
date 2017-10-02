@@ -45,4 +45,8 @@ having count(anom)=1;
 
 
 -- Q14
-\echo '\nQuestion 14\n'
+/*
+Les deux requête permettent de ne pas dupliquer les lignes pour des cas inutile où les id sont different
+Les deux ont la même performance
+using est plus clair mais il faut que le nom de la colonne soit la meme pour les deux tables
+*/
