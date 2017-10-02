@@ -28,9 +28,21 @@ group by aid, acoul;
 
 -- Q10
 \echo '\nQuestion 10\n'
+/*
+select f.fnom as FOURNISSEURS, count(a.anom) as nb_a
+from articles as a, fournisseurs as f, catalogue as c
+where a.aid = c.aid and f.fid = c.fid
+group by fnom
+having count(a.anom)>1;
+*/
 
 -- Q12
 \echo '\nQuestion 12\n'
+select anom
+from articles natural join catalogue
+group by anom
+having count(anom)=1;
+
 
 -- Q14
 \echo '\nQuestion 14\n'
