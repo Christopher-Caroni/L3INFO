@@ -29,14 +29,18 @@ order by PRIX_MOYEN asc;
 select  anom, count(f.fid) as nb_fournisseur
 from articles as a, fournisseurs as f, catalogue as c
 where a.aid = c.aid and f.fid = c.fid
-group by anom
+group by anom;
 
 --Q11
-\echo 'Question 11'/*
+\echo 'Question 11'
 select fnom, anom
-from articles as a, fournisseurs as f, catalogue as c
-where a.aid = c.aid and f.fid = c.fid
-group by fnom;*/
+from catalogue natural join articles natural join fournisseurs
+group by fnom, anom
+having count(anom) > 1;
 
 --Q13
-\echo 'Question 11'
+\echo 'Question 13'
+select distinct substring(anom from 1 for 1) as c, count(*)
+from articles
+group by anom
+order by substring(anom from 1 for 1) asc;
