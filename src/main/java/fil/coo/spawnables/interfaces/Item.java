@@ -3,6 +3,12 @@ package fil.coo.spawnables.interfaces;
 import fil.coo.other.Selectable;
 import fil.coo.spawnables.beings.GamePlayer;
 
+/**
+ * Interface specifying how a {@link GamePlayer} may interact with Items.
+ * Implements the {@link ISingleSpawnable} as Items should only be spawned one at a time.
+ *
+ * @param <T> the type of {@link Item} the implementing class will spawn.
+ */
 public abstract class Item<T extends Item<T>> implements Selectable, ISingleSpawnable<T> {
 
     /**

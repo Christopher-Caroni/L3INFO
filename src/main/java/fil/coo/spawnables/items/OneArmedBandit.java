@@ -18,7 +18,7 @@ public class OneArmedBandit extends Item<OneArmedBandit> {
     /**
      * The player must have enough money to use the {@link OneArmedBandit} otherwise he disappears. If he gives him the money, the oneArmedBandit attemps to spawn a random object. If an object is spawned, it will be used immediately.
      *
-     * @param player
+     * @param player the player on which to apply the effect on
      * @throws NotEnoughGoldException if the player doesn't have enough gold
      */
     @Override

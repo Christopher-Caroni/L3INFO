@@ -62,7 +62,7 @@ public class AdventureGame {
             player.setName(options.playerName);
         }
         logger.info("Using \"" + player.getName() + "\" as your player name");
-        player.setCurrentRoom(getStartingRoom());
+        player.setCurrentRoom(dungeon.getRandomRoom());
     }
 
     /**
@@ -108,9 +108,5 @@ public class AdventureGame {
         } else if (player.reachedExit()) {
             logger.info("You won!");
         }
-    }
-
-    public Room getStartingRoom() {
-        return dungeon.getRandomRoom();
     }
 }

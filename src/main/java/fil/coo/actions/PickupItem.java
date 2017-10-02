@@ -12,11 +12,21 @@ public class PickupItem implements Action {
 
     final static Logger logger = Logger.getLogger(PickupItem.class);
 
+    /**
+     * @param currentPlayer the player for whom we want to know if this action is possible
+     * @return if the player's room has items and the room is revealed
+     */
     @Override
     public boolean isPossible(GamePlayer currentPlayer) {
         return currentPlayer.hasItemsInCurrentRoom() && currentPlayer.isCurrentRoomRevealed();
     }
 
+    /**
+     * Asks the player which item from the room to pickup. This item is then used immediately.
+     *
+     * @param player the player who is doing the action, which may affect him.
+     * @throws ActionCannotBeExecutedException if !{@link #isPossible(GamePlayer)}
+     */
     @Override
     public void execute(GamePlayer player) throws ActionCannotBeExecutedException {
         if (isPossible(player)) {

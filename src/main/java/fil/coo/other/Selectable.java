@@ -7,7 +7,7 @@ package fil.coo.other;
 public interface Selectable {
 
     /**
-     * @return a description this {@link Selectable} that will be given to the user if it is selectable through the menu.
+     * @return a description of this {@link Selectable} that will be given to the user if it is selectable through the menu.
      */
     String getMenuDescription();
 }

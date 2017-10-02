@@ -8,7 +8,7 @@ public interface Spawnable {
 
     /**
      *
-     * @return the spawn chance as a percent => 0 && percent <= 1
+     * @return the spawn chance as a percent =&gt; 0.0 &amp;&amp; percent &lt;= 1.0
      */
     double getSpawnRate();
 

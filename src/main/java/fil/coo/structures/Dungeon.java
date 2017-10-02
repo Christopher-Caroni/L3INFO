@@ -30,7 +30,7 @@ public class Dungeon {
     private GenerationFrame generationFrame;
 
     /**
-     * Applies the custom sizes if different from {@link #DEFAULT_HEIGHT_DUNGEON} & {@link #DEFAULT_WIDTH_DUNGEON}. Creates the array of rooms and defines exit.
+     * Applies the custom sizes if different from {@link #DEFAULT_HEIGHT_DUNGEON} &amp; {@link #DEFAULT_WIDTH_DUNGEON}. Creates the array of rooms and defines exit.
      *
      * @param options the {@link AdventureGameOptions} containing the options for the custom sizes.
      */
@@ -169,7 +169,7 @@ public class Dungeon {
             try {
                 Thread.sleep(options.generationWaitTime);
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                logger.debug(e);
             }
         }
     }

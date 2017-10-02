@@ -26,7 +26,7 @@ public enum Direction implements Selectable {
 
     /**
      *
-     * @param initialDirection
+     * @param initialDirection the direction from which we want to calculate the opposite
      * @return the opposite direction of initialDirection
      */
     public static Direction getOppositeDirection(Direction initialDirection) {

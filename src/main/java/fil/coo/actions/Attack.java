@@ -1,8 +1,8 @@
 package fil.coo.actions;
 
 import fil.coo.exception.ActionCannotBeExecutedException;
-import fil.coo.spawnables.beings.Monster;
 import fil.coo.spawnables.beings.GamePlayer;
+import fil.coo.spawnables.beings.Monster;
 import fil.coo.util.Menu;
 import org.apache.log4j.Logger;
 
@@ -12,6 +12,11 @@ public class Attack implements Action {
 
     final static Logger logger = Logger.getLogger(Action.class);
 
+    /**
+     *
+     * @param currentPlayer the player for whom we want to know if this action is possible
+     * @return if the player's room has monsters and the room is revealed.
+     */
     public boolean isPossible(GamePlayer currentPlayer) {
         return currentPlayer.getCurrentRoom().hasMonsters() && currentPlayer.isCurrentRoomRevealed();
     }
@@ -20,6 +25,7 @@ public class Attack implements Action {
      * Asks the player to target a monster in his room and attacks it. If the monster is still alive, it attacks the player in return.
      *
      * @param player the player that will attack
+     * @throws ActionCannotBeExecutedException if !{@link #isPossible(GamePlayer)}
      */
     public void execute(GamePlayer player) throws ActionCannotBeExecutedException {
 

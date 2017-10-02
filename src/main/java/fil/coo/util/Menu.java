@@ -1,6 +1,5 @@
 package fil.coo.util;
 
-import fil.coo.other.Direction;
 import fil.coo.other.Selectable;
 import fil.coo.structures.Room;
 import org.apache.log4j.Logger;
@@ -24,7 +23,7 @@ public class Menu {
     private static final String SPACE = " ";
 
     private Menu() {
-        scanner = new Scanner(System.in);
+        initialize();
     }
 
     public static synchronized Menu getInstance() {

@@ -12,6 +12,10 @@ public class Move implements Action {
 
     final static Logger logger = org.apache.log4j.Logger.getLogger(Move.class);
 
+    /**
+     * @param currentPlayer the player for whom we want to know if this action is possible
+     * @return if the player's room doesn't have monsters, the room is revealed and the room has a neighbour
+     */
     public boolean isPossible(GamePlayer currentPlayer) {
         return !currentPlayer.getCurrentRoom().hasMonsters() && currentPlayer.isCurrentRoomRevealed() && currentPlayer.currentRoomHasNeighbour();
     }
@@ -20,6 +24,7 @@ public class Move implements Action {
      * Asks the player to choose a direction and calls {@link GamePlayer#moveToDirection(Direction)}
      *
      * @param player the player that will move
+     * @throws ActionCannotBeExecutedException if !{@link #isPossible(GamePlayer)}
      */
     public void execute(GamePlayer player) throws ActionCannotBeExecutedException {
 

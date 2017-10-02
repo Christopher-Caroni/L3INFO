@@ -14,11 +14,19 @@ public class Rest implements Action {
     private int hpRestoration;
 
     public Rest() {
+        initCostAndHPBoost();
+    }
+
+    private void initCostAndHPBoost() {
         Random random = new Random();
         cost = random.nextInt(10) + 1;
         hpRestoration = random.nextInt(5) + 5;
     }
 
+    /**
+     * @param currentPlayer the player for whom we want to know if this action is possible
+     * @return if the player's room doesn't have monsters, he has enough strength for the cost and the room is revealed.
+     */
     public boolean isPossible(GamePlayer currentPlayer) {
         return !currentPlayer.getCurrentRoom().hasMonsters() && currentPlayer.hasEnoughStrength(cost) && currentPlayer.isCurrentRoomRevealed();
     }
@@ -27,6 +35,7 @@ public class Rest implements Action {
      * Restores {@link #hpRestoration} and makes the player use {@link #cost} strength.
      *
      * @param player the player that will rest.
+     * @throws ActionCannotBeExecutedException if !{@link #isPossible(GamePlayer)}
      */
     public void execute(GamePlayer player) throws ActionCannotBeExecutedException {
         if (isPossible(player)) {
