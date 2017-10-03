@@ -1,7 +1,5 @@
 package fil.coo;
 
-import java.util.NoSuchElementException;
-
 public class BasketPool extends ResourcePool<Basket>{
 
 	
@@ -13,7 +11,7 @@ public class BasketPool extends ResourcePool<Basket>{
 	protected Basket createOneResource() {
 		return new Basket();
 	}
-	
+	/*
 	@Override
 	Basket provideResource() throws NoSuchElementException {
 		Basket first;
@@ -23,12 +21,13 @@ public class BasketPool extends ResourcePool<Basket>{
 			throw new NoSuchElementException();
 		}
 		return first;
-	}
+	}*/
 
+	/*
 	@Override
 	void recoverResource(Basket basket) throws IllegalArgumentException {
 		throw new IllegalArgumentException();		
-	}
+	}*/
 
 	
 
