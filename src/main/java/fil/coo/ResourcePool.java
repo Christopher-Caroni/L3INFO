@@ -42,7 +42,13 @@ public abstract class ResourcePool<T extends Resource> {
      * @return a resource from the pool
      * @throws NoSuchElementException if no resources are available
      */
-    abstract T provideResource() throws NoSuchElementException;
+    public T provideResource() throws NoSuchElementException {
+        if (!resourceList.isEmpty()) {
+            T first = resourceList.remove(0);
+            return first;
+        } else
+            throw new NoSuchElementException();
+    }
 
     /**
      * The pool recovers the resource provided.
@@ -51,5 +57,15 @@ public abstract class ResourcePool<T extends Resource> {
      * @throws IllegalArgumentException  if the resource parameter is incorrect
      * @throws TooManyResourcesException if the pool already contains {@link #nbMaxResources} resources
      */
-    abstract void recoverResource(T resource) throws IllegalArgumentException, TooManyResourcesException;
+    public void recoverResource(T resource) throws IllegalArgumentException, TooManyResourcesException {
+        if (resource != null) {
+            if (resourceList.size() == nbMaxResources) {
+                throw new TooManyResourcesException("Cannot add above max number of resources");
+            } else {
+                resourceList.add(resource);
+            }
+        } else {
+            throw new IllegalArgumentException();
+        }
+    }
 }
