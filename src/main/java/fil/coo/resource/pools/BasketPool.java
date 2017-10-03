@@ -1,6 +1,6 @@
-package fil.coo;
+package fil.coo.resource.pools;
 
-import java.util.NoSuchElementException;
+import fil.coo.Basket;
 
 public class BasketPool extends ResourcePool<Basket>{
 

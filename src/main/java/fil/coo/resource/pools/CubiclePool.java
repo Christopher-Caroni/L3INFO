@@ -1,6 +1,6 @@
-package fil.coo;
+package fil.coo.resource.pools;
 
-import java.util.NoSuchElementException;
+import fil.coo.resource.Cubicle;
 
 public class CubiclePool extends ResourcePool<Cubicle> {
 

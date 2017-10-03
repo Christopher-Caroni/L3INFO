@@ -1,4 +1,4 @@
-package fil.coo;
+package fil.coo.resource;
 
 public interface Resource {
 

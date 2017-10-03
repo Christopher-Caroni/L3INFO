@@ -1,5 +1,6 @@
-package fil.coo;
+package fil.coo.resource.pools;
 
+import fil.coo.resource.Resource;
 import fil.coo.exception.TooManyResourcesException;
 
 import java.util.ArrayList;
@@ -13,18 +14,18 @@ public abstract class ResourcePool<T extends Resource> {
     protected List<T> resourceList;
 
     /**
-     * @param nbMaxResources the initial and max amount of resources that this pool will hold.
+     * @param nbMaxResources the initial and max amount of resources that this pools will hold.
      */
     public ResourcePool(int nbMaxResources) {
         if (nbMaxResources <= 0) {
-            throw new IllegalArgumentException("Cannot create pool of 0 resources");
+            throw new IllegalArgumentException("Cannot create pools of 0 resources");
         }
         this.nbMaxResources = nbMaxResources;
         initResources();
     }
 
     /**
-     * Creates the resources that this pool will hold.
+     * Creates the resources that this pools will hold.
      */
     private void initResources() {
         resourceList = new ArrayList<T>();
@@ -39,7 +40,7 @@ public abstract class ResourcePool<T extends Resource> {
     protected abstract T createOneResource();
 
     /**
-     * @return a resource from the pool
+     * @return a resource from the pools
      * @throws NoSuchElementException if no resources are available
      */
     public T provideResource() throws NoSuchElementException {
@@ -52,11 +53,11 @@ public abstract class ResourcePool<T extends Resource> {
     }
 
     /**
-     * The pool recovers the resource provided.
+     * The pools recovers the resource provided.
      *
      * @param resource the resource that will be recovered
      * @throws IllegalArgumentException  if the resource parameter is incorrect
-     * @throws TooManyResourcesException if the pool already contains {@link #nbMaxResources} resources
+     * @throws TooManyResourcesException if the pools already contains {@link #nbMaxResources} resources
      */
     public void recoverResource(T resource) throws IllegalArgumentException, TooManyResourcesException {
         if (resource != null) {
