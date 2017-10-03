@@ -11,24 +11,4 @@ public class CubiclePool extends ResourcePool<Cubicle> {
     protected Cubicle createOneResource() {
         return new Cubicle();
     }
-
-    @Override
-    Cubicle provideResource() throws NoSuchElementException {
-        if (!resourceList.isEmpty()) {
-            Cubicle first = resourceList.get(0);
-            resourceList.remove(first);
-            return first;
-        } else {
-            throw new NoSuchElementException();
-        }
-    }
-
-    @Override
-    void recoverResource(Cubicle resource) throws IllegalArgumentException {
-        if (resource == null) {
-            throw new IllegalArgumentException("Cannot recover a null resource");
-        } else {
-            resourceList.add(resource);
-        }
-    }
 }

@@ -46,8 +46,9 @@ public abstract class ResourcePool<T extends Resource> {
         if (!resourceList.isEmpty()) {
             T first = resourceList.remove(0);
             return first;
-        } else
+        } else {
             throw new NoSuchElementException();
+        }
     }
 
     /**
