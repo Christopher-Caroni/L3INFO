@@ -1,7 +1,5 @@
 package fil.coo;
 
-import fil.coo.exception.TooManyResourcesException;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -42,7 +40,13 @@ public abstract class ResourcePool<T extends Resource> {
      * @return a resource from the pool
      * @throws NoSuchElementException if no resources are available
      */
-    abstract T provideResource() throws NoSuchElementException;
+    public T provideResource() throws NoSuchElementException{
+    	if(!resourceList.isEmpty()){
+    		T first = resourceList.remove(0);
+    		return first;
+    	}else
+    		throw new NoSuchElementException();   		
+    }
 
     /**
      * The pool recovers the resource provided.
@@ -50,5 +54,10 @@ public abstract class ResourcePool<T extends Resource> {
      * @param resource the resource that will be recovered
      * @throws IllegalArgumentException  if the resource parameter is incorrect
      */
-    abstract void recoverResource(T resource) throws IllegalArgumentException;
+    public void recoverResource(T resource) throws IllegalArgumentException{
+    	if(resource != null)
+    		resourceList.add(resource);
+    	else
+    		throw new IllegalArgumentException();
+    }
 }
