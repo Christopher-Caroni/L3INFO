@@ -1,23 +1,25 @@
 package fil.coo;
 
+import fil.coo.exception.TooManyResourcesException;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
 public abstract class ResourcePool<T extends Resource> {
 
-    protected int nbResources;
+    protected int nbMaxResources;
 
     protected List<T> resourceList;
 
     /**
-     * @param nbResources the initial amount of resources that this pool will hold.
+     * @param nbMaxResources the initial and max amount of resources that this pool will hold.
      */
-    public ResourcePool(int nbResources) {
-        if (nbResources <= 0) {
+    public ResourcePool(int nbMaxResources) {
+        if (nbMaxResources <= 0) {
             throw new IllegalArgumentException("Cannot create pool of 0 resources");
         }
-        this.nbResources = nbResources;
+        this.nbMaxResources = nbMaxResources;
         initResources();
     }
 
@@ -26,8 +28,8 @@ public abstract class ResourcePool<T extends Resource> {
      */
     private void initResources() {
         resourceList = new ArrayList<T>();
-        for (int i = 0; i < nbResources; i++) {
-            T resource = createOneResource();
+        for (int i = 0; i < nbMaxResources; i++) {
+            resourceList.add(createOneResource());
         }
     }
 
@@ -40,12 +42,12 @@ public abstract class ResourcePool<T extends Resource> {
      * @return a resource from the pool
      * @throws NoSuchElementException if no resources are available
      */
-    public T provideResource() throws NoSuchElementException{
-    	if(!resourceList.isEmpty()){
-    		T first = resourceList.remove(0);
-    		return first;
-    	}else
-    		throw new NoSuchElementException();   		
+    public T provideResource() throws NoSuchElementException {
+        if (!resourceList.isEmpty()) {
+            T first = resourceList.remove(0);
+            return first;
+        } else
+            throw new NoSuchElementException();
     }
 
     /**
@@ -53,11 +55,17 @@ public abstract class ResourcePool<T extends Resource> {
      *
      * @param resource the resource that will be recovered
      * @throws IllegalArgumentException  if the resource parameter is incorrect
+     * @throws TooManyResourcesException if the pool already contains {@link #nbMaxResources} resources
      */
-    public void recoverResource(T resource) throws IllegalArgumentException{
-    	if(resource != null)
-    		resourceList.add(resource);
-    	else
-    		throw new IllegalArgumentException();
+    public void recoverResource(T resource) throws IllegalArgumentException, TooManyResourcesException {
+        if (resource != null) {
+            if (resourceList.size() == nbMaxResources) {
+                throw new TooManyResourcesException("Cannot add above max number of resources");
+            } else {
+                resourceList.add(resource);
+            }
+        } else {
+            throw new IllegalArgumentException();
+        }
     }
 }
