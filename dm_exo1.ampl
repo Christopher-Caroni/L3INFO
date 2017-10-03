@@ -17,18 +17,18 @@ maximize profit :
     sum {p in PARCELLES}
       est_affecte[l, p] * prix_vente[l] * rendement[l] * 1000;
 
-subject to un_legume_par_parcelle {l in LEGUMES} :
+subject to nb_min_culture_par_legume {l in LEGUMES} :
   sum {p in PARCELLES}
     est_affecte[l,p] >= 1;
 /*
-un légume doit être cultivée au minimum une fois
+pour tous les légumes, ce légume doit être cultivée au minimum une fois
 */
 
-subject to au_moins_un_legume_cultivee {p in PARCELLES} :
+subject to max_un_legume_cultive_par_parcelle {p in PARCELLES} :
   sum {l in LEGUMES}
-    est_affecte[l,p] = 1;
+    est_affecte[l,p] <= 1;
 /*
-pour une parcelle, un seul légume peut être cultivée à la fois
+pour tous nos parcelles, cette parcelle ne peut être cultivée par un seul légume à la fois
 */
 
 subject to compatibilite_legume_parcelle {p in PARCELLES, l in LEGUMES} :
