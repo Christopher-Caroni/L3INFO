@@ -12,7 +12,7 @@ CFLAGS  = -Wall -Wextra -ansi -pedantic
 CFLAGS += -D_XOPEN_SOURCE=500
 CFLAGS += -g
 
-mcat-lib: mcat-lib.o
+mcat-fsync: mcat-fsync.o
 	$(CC) $(LDFLAGS) -o $@ $^
 
 %.o: %.c

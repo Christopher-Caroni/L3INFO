@@ -20,6 +20,7 @@ void mcat_scd(char *pathname)
   while ( (nbLu = read(fdRead, contenu, 4096)) > 0 )
   {
     write(STDOUT_FILENO, contenu, nbLu);
+    fsync(STDOUT_FILENO);
   }
   close(fdRead);
 }

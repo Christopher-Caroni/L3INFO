@@ -4,10 +4,14 @@
 # du
 du/mdu
 *.Rhistory
-performances/bigfile
-performances/mcat-tm.dat
-performances/mcat-tm-lib.dat
+performances/test/script/bigfile
+performances/test/script/*.dat
+performances/test/script/*.dat
 performances/TIME_FILE
+performances/mcat-fsync
+performances/mcat-lib
+performances/mcat-scd
+performances/mcat-scs
 
 
 ### C ###
