@@ -13,3 +13,11 @@ Durant ce tp nous avons:
 - pour toutes les commandes nous avons testé leurs performances par le biais d'un shell
 
 Ainsi ici vous pouvez voir les différents graphique que nous produis gnuplot:
+Performances pour mcat-scd:
+![Performances pour mcat-scd](test/mcat-scd.png)
+Performances pour mcat-scs:
+![Performances pour mcat-scs](test/mcat-scs.png)
+Performances pour mcat-lib:
+![Performances pour mcat-lib](test/mcat-lib.png)
+Performances pour mcat-fsync:
+![Performances pour mcat-fsync](test/mcat-fsync.png)
