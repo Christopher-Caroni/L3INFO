@@ -12,6 +12,7 @@ performances/mcat-fsync
 performances/mcat-lib
 performances/mcat-scd
 performances/mcat-scs
+tail/mtail
 
 
 ### C ###

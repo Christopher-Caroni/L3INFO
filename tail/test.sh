@@ -26,20 +26,20 @@ cat ./test/fileC.txt
 echo -e "\n tail ./test/fileB.txt -n 2 : \n"
 tail ./test/fileB.txt -n 2
 echo -e "\n mtail ./test/fileB.txt -n 2 : \n"
-#tail ./test/fileB.txt -n 2
+./mtail ./test/fileB.txt -n 2
 
 echo -e "fichierA qui contient moins que le nombre de lignes demandé"
 
 echo -e "\n tail ./test/fileA.txt -n 5 : \n"
 tail ./test/fileA.txt -n 5
 echo -e "\n mtail ./test/fileA.txt -n 5 : \n"
-#tail ./test/fileA.txt -n 5
+./mtail ./test/fileA.txt -n 5
 
-echo -e "fichierC dont le dernier octet est une fin de ligne"
+echo -e "\nTest n°3: fichierC dont le dernier octet est une fin de ligne:"
 
-echo -e "\n tail ./test/fileC.txt -n 2 : \n"
+echo -e "\nresult of \"tail ./test/fileC.txt -n 2\" : \n"
 tail ./test/fileC.txt -n 2
 echo -e "\n mtail ./test/fileC.txt -n 2 : \n"
-#tail ./test/fileC.txt -n 5
+./mtail ./test/fileC.txt -n 2
 
 rm -r ./test
