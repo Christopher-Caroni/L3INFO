@@ -18,9 +18,15 @@ nouveau test sur le même fichier
 
 Performances pour mcat-scd:
 ![Performances pour mcat-scd](test/mcat-scd.png)
+
+
 Performances pour mcat-scs:
 ![Performances pour mcat-scs](test/mcat-scs.png)
+
+
 Performances pour mcat-lib:
 ![Performances pour mcat-lib](test/mcat-lib.png)
+
+
 Performances pour mcat-fsync:
 ![Performances pour mcat-fsync](test/mcat-fsync.png)
