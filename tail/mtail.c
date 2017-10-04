@@ -93,10 +93,12 @@ int mtail(const char *path, int nb_lignes)
   {
     ligne_debut = nb_lignes_total - nb_lignes;
   }
+  /*
   printf("found %d lines\n", nb_lignes_total);
   printf("need to print %d\n", nb_lignes);
   printf("print from %d\n", ligne_debut);
   print_file(fd, ligne_debut);
+  */
   return 0;
 }
 
