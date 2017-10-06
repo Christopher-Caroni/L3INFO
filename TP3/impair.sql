@@ -40,7 +40,7 @@ having count(anom) > 1;
 
 --Q13
 \echo 'Question 13'
-select distinct substring(anom from 1 for 1) as c, count(*)
+select substring(acoul from 1 for 1) as c, count(*)
 from articles
-group by anom
-order by substring(anom from 1 for 1) asc;
+group by acoul
+order by acoul asc;

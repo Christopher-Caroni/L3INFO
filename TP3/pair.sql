@@ -28,13 +28,13 @@ group by aid, acoul;
 
 -- Q10
 \echo '\nQuestion 10\n'
-/*
+
 select f.fnom as FOURNISSEURS, count(a.anom) as nb_a
 from articles as a, fournisseurs as f, catalogue as c
 where a.aid = c.aid and f.fid = c.fid
-group by fnom
+group by fnom, acoul
 having count(a.anom)>1;
-*/
+
 
 -- Q12
 \echo '\nQuestion 12\n'
@@ -46,7 +46,7 @@ having count(anom)=1;
 
 -- Q14
 /*
-Les deux requête permettent de ne pas dupliquer les lignes pour des cas inutile où les id sont different
-Les deux ont la même performance
-using est plus clair mais il faut que le nom de la colonne soit la meme pour les deux tables
+ON et USING ont la même performance
+USING est plus clair mais il faut que le nom de la colonne soit la meme pour les deux tables
+Donc dans l'autre cas il faut utiliser ON
 */
