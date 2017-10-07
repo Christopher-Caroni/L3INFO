@@ -21,7 +21,9 @@ public abstract class Scheduler extends Action{
 		} catch (ActionFinishedException e) {
 			// cannot happen since there is no finished action in a scheduler
 		}
-		if (action.isFinished()) this.actions.remove(action);
+		if (action.isFinished()) {
+			this.actions.remove(action);
+		}
 	}
 
 	protected abstract int nextAction();

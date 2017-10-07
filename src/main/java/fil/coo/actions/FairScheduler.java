@@ -12,7 +12,9 @@ public class FairScheduler extends Scheduler {
 	protected int nextAction() {
 		int index = this.currentIndex ;
 		this.currentIndex++ ;
-		if (this.currentIndex == this.actions.size()) this.currentIndex = 0 ;
+		if (this.currentIndex == this.actions.size()) {
+			this.currentIndex = 0 ;
+		}
 		return index ;
 	}
 

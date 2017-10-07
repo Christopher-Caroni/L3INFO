@@ -11,10 +11,14 @@ public abstract class Action {
 	}
 	
     public void doStep() throws ActionFinishedException {
-        if (this.isFinished()) throw new ActionFinishedException();
+        if (this.isFinished()) {
+        	throw new ActionFinishedException();
+        }
         this.state = ActionState.IN_PROGRESS ;
         this.realStep() ;
-        if (this.stopCondition()) this.state = ActionState.FINISHED;
+        if (this.stopCondition()) {
+        	this.state = ActionState.FINISHED;
+        }
     }
 
     protected abstract void realStep();
