@@ -1,5 +1,6 @@
 package fil.coo.resource.pools;
 
+import fil.coo.exception.ForeignResourceException;
 import fil.coo.resource.Resource;
 import fil.coo.exception.TooManyResourcesException;
 import org.junit.Before;
@@ -85,23 +86,31 @@ public abstract class ResourcePoolTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testRecoverResourceWithNullThrowsException() throws TooManyResourcesException {
+    public void testRecoverResourceWithNullThrowsException() throws TooManyResourcesException, ForeignResourceException {
         resourcePool.recoverResource(null);
     }
 
     @Test(expected = TooManyResourcesException.class)
-    public void testRecoverResourceAlreadyFullThrowsException() throws TooManyResourcesException {
+    public void testRecoverResourceAlreadyFullThrowsException() throws TooManyResourcesException, ForeignResourceException {
         resourcePool.recoverResource(getOneResource());
     }
 
     @Test
-    public void testRecoverResourceWithEmptyDoesNotThrow() {
+    public void testRecoverResourceWithOriginalDoesNotThrow() throws ForeignResourceException {
         Resource firstResource = resourcePool.provideResource();
         try {
-            resourcePool.recoverResource(getOneResource());
+            resourcePool.recoverResource(firstResource);
         } catch (TooManyResourcesException e) {
             fail("Should not have thrown exception since list should've been empty, and we provide non null resource");
         }
+    }
+
+    @Test(expected = ForeignResourceException.class)
+    public void testRecoverForgeinResourceThrowsException() throws ForeignResourceException, TooManyResourcesException {
+        Resource firstResource = resourcePool.provideResource();
+        // resource has one free slot
+        Resource badResource = getOneResource();
+        resourcePool.recoverResource(badResource);
     }
 
 }

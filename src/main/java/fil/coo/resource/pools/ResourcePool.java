@@ -1,9 +1,10 @@
 package fil.coo.resource.pools;
 
-import fil.coo.resource.Resource;
+import fil.coo.exception.ForeignResourceException;
 import fil.coo.exception.TooManyResourcesException;
+import fil.coo.resource.Resource;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -11,7 +12,8 @@ public abstract class ResourcePool<T extends Resource> {
 
     protected int nbMaxResources;
 
-    protected List<T> resourceList;
+    protected List<T> freeResources;
+    protected List<T> busyResources;
 
     /**
      * @param nbMaxResources the initial and max amount of resources that this pools will hold.
@@ -28,9 +30,10 @@ public abstract class ResourcePool<T extends Resource> {
      * Creates the resources that this pools will hold.
      */
     private void initResources() {
-        resourceList = new ArrayList<T>();
+        freeResources = new LinkedList<T>();
+        busyResources = new LinkedList<T>();
         for (int i = 0; i < nbMaxResources; i++) {
-            resourceList.add(createOneResource());
+            freeResources.add(createOneResource());
         }
     }
 
@@ -44,8 +47,9 @@ public abstract class ResourcePool<T extends Resource> {
      * @throws NoSuchElementException if no resources are available
      */
     public T provideResource() throws NoSuchElementException {
-        if (!resourceList.isEmpty()) {
-            T first = resourceList.remove(0);
+        if (!freeResources.isEmpty()) {
+            T first = freeResources.remove(0);
+            busyResources.add(first);
             return first;
         } else {
             throw new NoSuchElementException();
@@ -58,13 +62,19 @@ public abstract class ResourcePool<T extends Resource> {
      * @param resource the resource that will be recovered
      * @throws IllegalArgumentException  if the resource parameter is incorrect
      * @throws TooManyResourcesException if the pools already contains {@link #nbMaxResources} resources
+     * @throws ForeignResourceException  if the resource did not belong to the pool originally
      */
-    public void recoverResource(T resource) throws IllegalArgumentException, TooManyResourcesException {
+    public void recoverResource(T resource) throws IllegalArgumentException, TooManyResourcesException, ForeignResourceException {
         if (resource != null) {
-            if (resourceList.size() == nbMaxResources) {
+            if (freeResources.size() == nbMaxResources) {
                 throw new TooManyResourcesException("Cannot add above max number of resources");
             } else {
-                resourceList.add(resource);
+                if (busyResources.contains(resource)) {
+                    busyResources.remove(resource);
+                    freeResources.add(resource);
+                } else {
+                    throw new ForeignResourceException("Cannot add a resource to a pool that it did not originate from");
+                }
             }
         } else {
             throw new IllegalArgumentException();
