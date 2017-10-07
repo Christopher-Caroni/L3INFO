@@ -4,7 +4,13 @@
 #include <stdio.h>
 #include <sys/fcntl.h>
 
-void print_file(int fd, int ligne_debut) {
+/**
+ *
+ * @param fd the file descriptor of the file to print
+ * @param ligne_debut the number of the line to print from
+ * @param read_offset the offset from which we will start reading to dertermine where ligne_debut is
+ */
+void print_file(int fd, int ligne_debut, int read_offset) {
     char *readBuffer;
     char *printBuffer;
     int status;
@@ -13,6 +19,7 @@ void print_file(int fd, int ligne_debut) {
     int print_offset;
 
     assert(fd != -1);
+    assert(ligne_debut >= 0);
     i = 0;
     status = 0;
     nb_lignes_lus = 0;
@@ -21,7 +28,7 @@ void print_file(int fd, int ligne_debut) {
     readBuffer = malloc(4096 * sizeof(char));
     printBuffer = malloc(4096 * sizeof(char));
 
-    lseek(fd, 0, SEEK_SET);
+    lseek(fd, read_offset, SEEK_SET);
 
 
     /*
@@ -51,7 +58,7 @@ void print_file(int fd, int ligne_debut) {
         }
     }
 
-    lseek(fd, print_offset, SEEK_SET);
+    lseek(fd, print_offset + read_offset, SEEK_SET);
     while ((status = read(fd, printBuffer, 4096))) {
         printf("%s", printBuffer);
     }
@@ -79,7 +86,7 @@ int mtail(const char *path, int nb_lignes_voulu) {
     assert(fd != -1);
 
     if (!nb_lignes_voulu) {
-        print_file(fd, 0);
+        print_file(fd, 0, 0);
         return 0;
     }
 
@@ -101,8 +108,92 @@ int mtail(const char *path, int nb_lignes_voulu) {
         ligne_debut = nb_lignes_total - nb_lignes_voulu;
     }
 
-    print_file(fd, ligne_debut);
+    print_file(fd, ligne_debut, 0);
     return 0;
+}
+
+
+/**
+ *
+ * @param fd the file descriptor to tail
+ * @param size_buffer  the size of the buffer
+ * @param ntail the number of last lines
+ * @return 0 if success
+ */
+int tail_last_lines(int fd, int *size_buffer, int ntail) {
+    int status;
+    int total_newline;
+    int i;
+    int total_size_file;
+    char *buffer;
+
+    assert(fd != -1);
+    assert(*size_buffer > 0);
+
+    status = 0;
+    total_newline = 0;
+    i = 0;
+    total_size_file = 0;
+
+    total_size_file = lseek(fd, 0, SEEK_END);
+
+    /*
+    if the buffer is bigger than the file's size, print everything
+    */
+    if (*size_buffer > total_size_file) {
+        /*
+        printf("buffer bigger than filesize, will print everything\n");
+         */
+        print_file(fd, 0, 0);
+        return 0;
+    }
+
+    buffer = malloc(*size_buffer * sizeof(char));
+
+
+    lseek(fd, -*size_buffer, SEEK_END);
+    while ((status = read(fd, buffer, *size_buffer))) {
+        for (i = 0; i < status-1; i++) {
+            if (buffer[i] == '\n') {
+                total_newline++;
+            }
+        }
+        /*
+        printf("with buffer %d, read: \"%s\"\n", *size_buffer, buffer);
+         */
+    }
+
+    /*
+    printf("found %d newlines\n", total_newline);
+     */
+
+    if (total_newline < ntail) {
+        *size_buffer *= 2;
+        return tail_last_lines(fd, size_buffer, ntail);
+    } else {
+        print_file(fd, total_newline - ntail, total_size_file - *size_buffer);
+    }
+
+    close(fd);
+    free(buffer);
+    return 0;
+}
+
+/**
+ *
+ * @param path  the path of the file to tail
+ * @param ntail the number of last lines
+ * @return 0 if success
+ */
+int tail_efficace(const char *path, int ntail) {
+    int fd;
+    int size_buffer;
+
+    size_buffer = 4;
+
+    fd = open(path, O_RDONLY);
+    assert(fd != -1);
+    return tail_last_lines(fd, &size_buffer, ntail);
 }
 
 /*
@@ -125,5 +216,5 @@ int main(int argc, char **argv) {
         }
     }
 
-    return mtail(argv[3], nb_lignes);
+    return tail_efficace(argv[3], nb_lignes);
 }
