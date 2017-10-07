@@ -13,7 +13,7 @@ public class CubiclePool extends ResourcePool<Cubicle> {
     }
 
     @Override
-    Cubicle provideResource() throws NoSuchElementException {
+	public Cubicle provideResource() throws NoSuchElementException {
         if (!resourceList.isEmpty()) {
             Cubicle first = resourceList.get(0);
             resourceList.remove(first);
@@ -24,7 +24,7 @@ public class CubiclePool extends ResourcePool<Cubicle> {
     }
 
     @Override
-    void recoverResource(Cubicle resource) throws IllegalArgumentException {
+    public void recoverResource(Cubicle resource) throws IllegalArgumentException {
         if (resource == null) {
             throw new IllegalArgumentException("Cannot recover a null resource");
         } else {

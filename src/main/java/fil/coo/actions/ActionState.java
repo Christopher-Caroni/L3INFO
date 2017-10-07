@@ -1,4 +1,4 @@
-package fil.coo;
+package fil.coo.actions;
 
 public enum ActionState {
 
