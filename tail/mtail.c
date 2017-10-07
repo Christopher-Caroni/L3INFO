@@ -153,7 +153,7 @@ int tail_last_lines(int fd, int *size_buffer, int ntail) {
 
     lseek(fd, -*size_buffer, SEEK_END);
     while ((status = read(fd, buffer, *size_buffer))) {
-        for (i = 0; i < status-1; i++) {
+        for (i = 0; i < status; i++) {
             if (buffer[i] == '\n') {
                 total_newline++;
             }
