@@ -2,6 +2,7 @@
 
 RED='\033[0;31m'
 LBLUE='\033[0;36m'
+LGREEN='\033[0;32m'
 NC='\033[0m' # No Color
 
 #initialisation
@@ -30,11 +31,11 @@ echo -e "${LBLUE}--start--${NC}"
 cat test/fileB.txt
 echo -e "${LBLUE}--end--${NC}"
 
-echo -e "\nresult of \"tail -n 2 test/fileB.txt\" : ${NC}\n"
+echo -e "\n${LGREEN}result of \"tail -n 2 test/fileB.txt\" : ${NC}\n"
 echo -e "${LBLUE}--start--${NC}"
 tail -n 2 test/fileB.txt
 echo -e "${LBLUE}--end--${NC}"
-echo -e "\nresult of \"mtail -n 2 test/fileB.txt\" : \n"
+echo -e "\n${LGREEN}result of \"mtail -n 2 test/fileB.txt\" : \n"
 echo -e "${LBLUE}--start--${NC}"
 ./mtail -n 2 test/fileB.txt
 echo -e "${LBLUE}--end--${NC}"
@@ -46,11 +47,11 @@ echo -e "${LBLUE}--start--${NC}"
 cat test/fileA.txt
 echo -e "${LBLUE}--end--${NC}"
 
-echo -e "\nresult of \"tail -n 5 test/fileA.txt\" : ${NC}\n"
+echo -e "\n${LGREEN}result of \"tail -n 5 test/fileA.txt\" : ${NC}\n"
 echo -e "${LBLUE}--start--${NC}"
 tail -n 5 test/fileA.txt
 echo -e "${LBLUE}--end--${NC}"
-echo -e "\nresult of \"mtail -n 5 test/fileA.txt\" : \n"
+echo -e "\n${LGREEN}result of \"mtail -n 5 test/fileA.txt\" : \n"
 echo -e "${LBLUE}--start--${NC}"
 ./mtail -n 5 test/fileA.txt
 echo -e "${LBLUE}--end--${NC}"
@@ -62,11 +63,11 @@ echo -e "${LBLUE}--start--${NC}"
 cat test/fileC.txt
 echo -e "${RED}${LBLUE}--end--${NC}"
 
-echo -e "\nresult of \"tail -n 2 test/fileC.txt \" : ${NC}\n"
+echo -e "\n${LGREEN}result of \"tail -n 2 test/fileC.txt \" : ${NC}\n"
 echo -e "${LBLUE}--start--${NC}"
 tail -n 2 test/fileC.txt
 echo -e "${LBLUE}--end--${NC}"
-echo -e "\nresult of \"mtail -n 2 test/fileC.txt\" : \n"
+echo -e "\n${LGREEN}result of \"mtail -n 2 test/fileC.txt\" : \n"
 echo -e "${LBLUE}--start--${NC}"
 ./mtail -n 2 test/fileC.txt
 echo -e "${LBLUE}--end--${NC}"
@@ -78,11 +79,11 @@ echo -e "${LBLUE}--start--${NC}"
 cat test/fileD.txt
 echo -e "${RED}${LBLUE}--end--${NC}"
 
-echo -e "\nresult of \"tail -n 2 test/fileD.txt \" : ${NC}\n"
+echo -e "\n${LGREEN}result of \"tail -n 2 test/fileD.txt \" : ${NC}\n"
 echo -e "${LBLUE}--start--${NC}"
 tail -n 2 test/fileD.txt
 echo -e "${LBLUE}--end--${NC}"
-echo -e "\nresult of \"mtail -n 2 test/fileD.txt\" : \n"
+echo -e "\n${LGREEN}result of \"mtail -n 2 test/fileD.txt\" : \n"
 echo -e "${LBLUE}--start--${NC}"
 ./mtail -n 2 test/fileD.txt
 echo -e "${LBLUE}--end--${NC}"
