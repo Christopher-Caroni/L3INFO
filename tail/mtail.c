@@ -12,11 +12,10 @@
  * @param fd the file descriptor for which we want to count the lines for
  * @return -1 if the file is empty, or the number of lines
  */
-int count_total_lines(int fd)
+int count_total_lines(int fd, int start_offset, int bufferSize)
 {
     int nb_lines = -1;
     char *buffer;
-    int bufferSize;
     int status;
     int i;
 
@@ -27,10 +26,9 @@ int count_total_lines(int fd)
         return -1;
     }
 
-    lseek(fd, 0, SEEK_SET);
+    lseek(fd, start_offset, SEEK_SET);
 
     nb_lines = 0;
-    bufferSize = 4096;
     buffer = (char *) malloc(bufferSize * sizeof(char));
 
     while ((status = read(fd, buffer, bufferSize)))
@@ -53,13 +51,14 @@ int count_total_lines(int fd)
 
 /**
  *
- * Resets the read offset of the file and reads the file until the last newline, where the next character will belong to wanted_line_index.
+ * Resets the read offset of the file to start_offset and reads the file until the last newline, where the next character will belong to wanted_line_index.
  *
  * @param fd the file descriptor for which we want to count the lines for
  * @param wanted_line_index the index of the line that we want
+ * @param start_offset the offset that we will set to
  * @return the offset for the wanted line or -1 if failed to find
  */
-int seek_until_line(int fd, int wanted_line_index)
+int seek_until_line(int fd, int wanted_line_index, int start_offset)
 {
     /**
      * index of the current line, starts at 0. Incremented immediately once a '\n' is found
@@ -78,11 +77,15 @@ int seek_until_line(int fd, int wanted_line_index)
         return 0;
     }
 
+    /*
+    printf("seeking until line index: %d with offset %d\n", wanted_line_index, start_offset);
+     */
+
     assert(fd != -1);
     current_line_index = 0;
     offset = 0;
 
-    lseek(fd, 0, SEEK_SET);
+    lseek(fd, start_offset, SEEK_SET);
 
     while (current_line_index < wanted_line_index && (status = read(fd, &currentChar, 1)))
     {
@@ -111,17 +114,15 @@ int seek_until_line(int fd, int wanted_line_index)
 /**
  *
  * @param fd the file descriptor for which we want to count the lines for
- * @param offset the offset of the line that we will start printing at
+ * @param start_offset the offset of the line that we will start printing at
  */
-void print_file_from_line(int fd, int offset)
+void print_file_from_offset(int fd, int start_offset, int bufferSize)
 {
     char *buffer;
     int status;
-    int bufferSize;
 
-    lseek(fd, offset, SEEK_SET);
+    lseek(fd, start_offset, SEEK_SET);
 
-    bufferSize = 4096;
     buffer = (char *) malloc(bufferSize * sizeof(char));
 
     /*
@@ -157,7 +158,7 @@ int tail_simpliste(char *path, int ntail)
     fd = open(path, O_RDONLY);
     assert(fd != -1);
 
-    total_lines = count_total_lines(fd);
+    total_lines = count_total_lines(fd, 0, 4096);
     /*
     printf("found %d lines\n", total_lines);
     empty file if (lines == -1)
@@ -166,34 +167,43 @@ int tail_simpliste(char *path, int ntail)
     if (total_lines)
     {
         start_print_line_index = total_lines - ntail;
-        offset_for_print_line_index = seek_until_line(fd, start_print_line_index);
-        print_file_from_line(fd, offset_for_print_line_index);
+        offset_for_print_line_index = seek_until_line(fd, start_print_line_index, 0);
+        print_file_from_offset(fd, offset_for_print_line_index, 4096);
     }
     return 0;
 }
 
 int tail_last_lines(int fd, int ntail, int *buffer_size)
 {
+    int totalSize;
     int ending_line_count;
     int start_print_line_index;
     int offset_for_print_line_index;
 
     assert(fd != -1);
+    totalSize = lseek(fd, 0, SEEK_END);
+
+    if (*buffer_size > totalSize)
+    {
+        print_file_from_offset(fd, 0, 4096);
+        return 0;
+    }
 
     lseek(fd, -*buffer_size, SEEK_END);
-    ending_line_count = count_total_lines(fd);
+    ending_line_count = count_total_lines(fd, totalSize - *buffer_size, *buffer_size);
 
-    if (!ending_line_count)
+    if (ending_line_count)
     {
-        if (ending_line_count < ntail)
+        if (ending_line_count <= ntail)
         {
             *buffer_size *= 2;
             return tail_last_lines(fd, ntail, buffer_size);
         } else
         {
             start_print_line_index = ending_line_count - ntail;
-            offset_for_print_line_index = seek_until_line(fd, start_print_line_index);
-            print_file_from_line(fd, offset_for_print_line_index);
+            offset_for_print_line_index = seek_until_line(fd, start_print_line_index, totalSize - *buffer_size);
+            offset_for_print_line_index += (totalSize - *buffer_size);
+            print_file_from_offset(fd, offset_for_print_line_index, *buffer_size);
         }
     }
     return 0;
@@ -242,5 +252,5 @@ int main(int argc, char **argv)
         }
     }
 
-    return tail_simpliste(argv[3], nb_lignes);
+    return tail_efficace(argv[3], nb_lignes);
 }
