@@ -3,8 +3,11 @@ Auteur 1: Lepretre Guillaume
 Auteur 2: Caroni Christopher
 */
 
+---------------------   REPONSES AU TP 3 ----------------------
+ \echo '\n TP 3\n'
+
 --Q1
- \echo 'Question 1'
+ \echo '\nQuestion 1\n'
 select Max(prix)
 from catalogue;
 
@@ -15,23 +18,20 @@ from catalogue as c natural join articles as a
 where prix >= (select max(prix) from catalogue);
 
 --Q3
- \echo 'Question 3'
+ \echo '\nQuestion 3\n'
 select fnom
 from catalogue natural join fournisseurs
 where prix >=(select max(prix) from catalogue);
 
 -- Q4
--- il faut trouver 3 micro sd et pas 4
 \echo '\nQuestion 4\n'
-select anom as article, count(*) as nb_a
-from (select anom, acoul
-      from articles
-      group by anom, acoul) as dummy
-group by anom;
+select anom as article , count(distinct acoul) as nb_coul 
+from articles 
+group by anom ;
 
 --Q5
- \echo 'Question 5'
-select  anom, count(f.fid) as nb_fournisseur, min(prix), max(prix)
+ \echo '\nQuestion 5\n'
+select  anom, count(distinct f.fid) as nb_fournisseur, min(prix), max(prix)
 from articles as a, fournisseurs as f, catalogue as c
 where a.aid = c.aid and f.fid = c.fid
 group by anom
@@ -45,7 +45,7 @@ group by acoul
 having count(*) = 1;
 
 --Q7
- \echo 'Question 7'
+ \echo '\nQuestion 7\n'
 select acoul as COULEUR, avg(prix) as PRIX_MOYEN
 from articles natural join catalogue
 group by acoul
@@ -58,7 +58,7 @@ from catalogue natural join articles
 group by aid, acoul;
 
 --Q9
-\echo 'Question 9'
+\echo '\nQuestion 9\n'
 select  anom, count(f.fid) as nb_fournisseur
 from articles as a, fournisseurs as f, catalogue as c
 where a.aid = c.aid and f.fid = c.fid
@@ -67,14 +67,12 @@ group by anom;
 -- Q10
 \echo '\nQuestion 10\n'
 
-select f.fnom as FOURNISSEURS, count(a.anom) as nb_a
-from articles as a, fournisseurs as f, catalogue as c
-where a.aid = c.aid and f.fid = c.fid
-group by fnom, acoul
-having count(a.anom)>1;
+select fnom as FOURNISSEUR, count(distinct articles.acoul)as NB_A 
+from fournisseurs join catalogue ON catalogue.fid = fournisseurs.fid JOIN articles on articles.aid = catalogue.aid 
+group by fnom ;
 
 --Q11
-\echo 'Question 11'
+\echo '\nQuestion 11\n'
 select fnom, anom
 from catalogue natural join articles natural join fournisseurs
 group by fnom, anom
@@ -88,14 +86,14 @@ group by anom
 having count(anom)=1;
 
 --Q13
-\echo 'Question 13'
+\echo '\nQuestion 13\n'
 select substring(acoul from 1 for 1) as c, count(*)
 from articles
-group by acoul
-order by acoul asc;
+group by c
+order by c asc;
 
 -- Q14
-echo -e 'ON et USING ont la même performance \n
-USING est plus clair mais il faut que le nom de la colonne soit la meme pour les deux tables \n
-Donc dans l\'autre cas il faut utiliser ON'
+/*ON et USING ont la même performance
+USING est plus clair mais il faut que le nom de la colonne soit la meme pour les deux table
+Donc dans l\'autre cas il faut utiliser ON'*/
 
