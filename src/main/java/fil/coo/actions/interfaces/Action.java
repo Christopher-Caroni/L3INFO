@@ -29,7 +29,7 @@ public abstract class Action {
     /**
      * Execution specific to the implementing class
      */
-    protected abstract void execute();
+    protected abstract void execute() throws ActionFinishedException;
 
     public abstract boolean stopCondition();
 

@@ -1,102 +1,118 @@
 package fil.coo.actions.interfaces;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
+import fil.coo.exception.ActionFinishedException;
+import fil.coo.exception.SchedulerStartedException;
 import org.junit.Before;
 import org.junit.Test;
 
-import fil.coo.exception.ActionFinishedException;
-import fil.coo.exception.SchedulerStartedException;
+import static org.junit.Assert.*;
 
 public abstract class SchedulerTest extends ActionTest {
 
-	  private static final int NB_ACTIONS = 2;
+    private static final int NB_ACTIONS = 2;
 
-	  protected Scheduler scheduler;
+    protected Scheduler scheduler;
 
-	  protected abstract Scheduler createScheduler();
+    protected abstract Scheduler createScheduler();
 
-	  protected void addActions(int nb) throws ActionFinishedException, SchedulerStartedException {
-	    for (int i = 0; i < nb; i++) {
-	      this.scheduler.addAction(new OneStepMockAction());
-	    }
-	  }
+    /**
+     * Creates the scheduler and calls adds {@link #NB_ACTIONS} {@link OneStepMockAction}
+     */
+    @Before
+    public void setupScheduler() {
+        if (this.scheduler == null) {
+            this.scheduler = this.createScheduler();
+            for (int i = 0; i < NB_ACTIONS; i++) {
+                try {
+                    this.scheduler.addAction(new OneStepMockAction());
+                } catch (ActionFinishedException | SchedulerStartedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
 
-	  @Before
-	  public void setup() {
-	    this.scheduler = this.createScheduler();
-	    try {
-			this.addActions(NB_ACTIONS);
-		} catch (ActionFinishedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SchedulerStartedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	  }
+    /**
+     * Calls {@link #setupScheduler()} if the scheduler is null
+     *
+     * @return the scheduler created from {@link #setupScheduler()}
+     */
+    @Override
+    protected Action createAction() {
+        if (scheduler == null) ;
+        setupScheduler();
+        return this.scheduler;
+    }
 
-	  @Test
-	  public void testAddActionWhenOk() throws ActionFinishedException, SchedulerStartedException {
-	    assertEquals(NB_ACTIONS, this.scheduler.getRemainingActions().size());
-	    this.scheduler.addAction(new OneStepMockAction());
-	    assertEquals(NB_ACTIONS + 1, this.scheduler.getRemainingActions().size());
-	  }
+    @Test
+    public void testAddActionWhenReadyIsOk() throws ActionFinishedException, SchedulerStartedException {
+        assertEquals(NB_ACTIONS, this.scheduler.getRemainingActions().size());
+        this.scheduler.addAction(new OneStepMockAction());
+        assertEquals(NB_ACTIONS + 1, this.scheduler.getRemainingActions().size());
+    }
 
-	  @Test(expected = SchedulerStartedException.class)
-	  public void cantAddActionWhenAlreadyStarted() throws ActionFinishedException, SchedulerStartedException {
-	    this.scheduler.doStep();
-	    this.scheduler.addAction(new OneStepMockAction());
-	  }
+    @Test(expected = SchedulerStartedException.class)
+    public void testAddActionWhenAlreadyStartedThrowsException() throws ActionFinishedException, SchedulerStartedException {
+        this.scheduler.doStep();
+        this.scheduler.addAction(new OneStepMockAction());
+    }
 
-	  @Test(expected = ActionFinishedException.class)
-	  public void cantAddFinishedAction() throws ActionFinishedException, SchedulerStartedException {
-	    OneStepMockAction action = new OneStepMockAction();
+    @Test(expected = ActionFinishedException.class)
+    public void testAddFinishedActionThrowsException() throws ActionFinishedException {
+        OneStepMockAction action = new OneStepMockAction();
+        try {
+            action.doStep();
+        } catch (ActionFinishedException e) {
+            fail("Manual setup should ensure correct conditions for test");
+        }
+        try {
+            this.scheduler.addAction(action);
+        } catch (SchedulerStartedException e) {
+            fail("Manual setup should ensure correct conditions for test");
+        }
+    }
 
-	    action.doStep();
-	    this.scheduler.addAction(action);
-	  }
+    /**
+     * Tests that the scheduler finishes only when all actions are finished.
+     * We use {@link OneStepMockAction} that finish in one step so that this test will work with any implementation of {@link Scheduler}
+     *
+     * @throws ActionFinishedException
+     */
+    @Test
+    public void testIsFinishedWhenAllActionsAreFinished() throws ActionFinishedException {
+        Action a1 = this.scheduler.getRemainingActions().get(0);
+        Action a2 = this.scheduler.getRemainingActions().get(1);
 
-	  @Test
-	  public void isFinishedWhenAllActionsAreFinished() throws ActionFinishedException {
-	    Action a1 = this.scheduler.getRemainingActions().get(0);
-	    Action a2 = this.scheduler.getRemainingActions().get(1);
+        // 1st step
+        this.scheduler.doStep();
+        assertFalse(this.scheduler.isFinished());
+        assertTrue(a1.isFinished());
+        assertFalse(a2.isFinished());
 
-	    // 1st step
-	    this.scheduler.doStep();
-	    assertFalse(this.scheduler.isFinished());
-	    assertTrue(a1.isFinished());
-	    assertFalse(a2.isFinished());
+        // 2nd step
+        this.scheduler.doStep();
+        assertTrue(this.scheduler.isFinished());
+        assertTrue(a2.isFinished());
+    }
 
-	    // 2nd step
-	    this.scheduler.doStep();
-	    assertTrue(this.scheduler.isFinished());
-	    assertTrue(a2.isFinished());
-	  }
+    private class OneStepMockAction extends Action {
 
-	  private class OneStepMockAction extends Action {
+        private boolean isFinished;
 
-	    private boolean isFinished;
+        public OneStepMockAction() {
+            super();
+            isFinished = false;
+        }
 
-	    public OneStepMockAction() {
-	      this.isFinished = false;
-	    }
+        @Override
+        protected void execute() throws ActionFinishedException {
+            isFinished = true;
+        }
 
-	    protected void executeOneStep() {
-	      this.isFinished = true;
-	    }
+        @Override
+        public boolean stopCondition() {
+            return isFinished;
+        }
+    }
 
-	    public boolean stopCondition() {
-	      return this.isFinished;
-	    }
-
-		@Override
-		protected void execute() {
-			// TODO Auto-generated method stub	
-		}
-
-	  }
-
-	}
+}

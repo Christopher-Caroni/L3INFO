@@ -1,56 +1,79 @@
 package fil.coo.actions.interfaces;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import fil.coo.actions.ActionState;
 import fil.coo.exception.ActionFinishedException;
 import fil.coo.exception.SchedulerStartedException;
 
-public abstract class Scheduler extends Action{
+import java.util.ArrayList;
+import java.util.List;
 
-	protected List<Action> actions;
-	
-	public Scheduler(){
-		this.actions = new ArrayList<Action>();
-	}
-	
-	protected void execute() {
-		Action action = this.actions.get(this.nextAction()) ;
-		try {
-			action.doStep();
-		} catch (ActionFinishedException e) {
-		    e.printStackTrace();
-        }
-		if (action.isFinished()) {
-			this.actions.remove(action);
-		}
-	}
+public abstract class Scheduler extends Action {
 
-	protected abstract int nextAction();
+    protected List<Action> actions;
+    private int nbActionsFinished;
+
+    public Scheduler() {
+        this.actions = new ArrayList<Action>();
+        nbActionsFinished = 0;
+    }
 
     /**
-     *
+     * Gets the next action using {@link #getNextAction()} and calls {@link Action#doStep()}
+     */
+    protected void execute() throws ActionFinishedException {
+        Action action = getNextAction();
+        try {
+            action.doStep();
+            if (action.isFinished()) {
+                nbActionsFinished++;
+            }
+        } catch (ActionFinishedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    protected abstract Action getNextAction() throws ActionFinishedException;
+
+    /**
      * @param action
-     * @throws ActionFinishedException if the action to add is already finished
+     * @throws ActionFinishedException   if the action to add is already finished
      * @throws SchedulerStartedException if this scheduler is already started
      */
-	public void addAction(Action action) throws ActionFinishedException, SchedulerStartedException {
-		if (this.getState() != ActionState.READY) {
-			throw new SchedulerStartedException() ;
-		}
-		if (action.isFinished()) {
-			throw new ActionFinishedException() ;
-		}
-		this.actions.add(action);
-	}
+    public void addAction(Action action) throws ActionFinishedException, SchedulerStartedException {
+        if (this.getState() != ActionState.READY) {
+            throw new SchedulerStartedException();
+        }
+        if (action.isFinished()) {
+            throw new ActionFinishedException();
+        }
+        this.actions.add(action);
+    }
 
-	public boolean stopCondition() {
-		return this.actions.isEmpty();
-	}
+    public boolean stopCondition() {
+        return nbActionsFinished == actions.size();
+    }
 
-	protected List<Action> getRemainingActions() {
-		return this.actions;
-	}
-	
+    protected List<Action> getRemainingActions() {
+        return this.actions;
+    }
+
+    @Override
+    public String toString() {
+        return "Scheduler{" +
+                "nb actions=" + actions.size() +
+                actionsToString() +
+                ", nbActionsFinished=" + nbActionsFinished +
+                ", state=" + state +
+                '}';
+    }
+
+    private String actionsToString() {
+        StringBuilder stringBuilder = new StringBuilder("actions{");
+        for (int i = 0; i < actions.size(); i++) {
+            stringBuilder.append("\n")
+                    .append(actions.toString());
+        }
+        stringBuilder.append("}");
+        return stringBuilder.toString();
+    }
 }

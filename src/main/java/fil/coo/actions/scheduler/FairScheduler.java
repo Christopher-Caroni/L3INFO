@@ -1,26 +1,27 @@
 package fil.coo.actions.scheduler;
 
+import fil.coo.actions.interfaces.Action;
 import fil.coo.actions.interfaces.Scheduler;
 
 /**
- * Iterates of the the list of actions
+ * Iterates over the the list of actions one by one by doing one step for each one
  */
 public class FairScheduler extends Scheduler {
 
-	protected int currentIndex;
-	
-	public FairScheduler() {
-		this.currentIndex = 0;
-	}
+    private int currentActionIndex;
 
-	@Override
-	protected int nextAction() {
-		int index = this.currentIndex ;
-		this.currentIndex++ ;
-		if (this.currentIndex == this.actions.size()) {
-			this.currentIndex = 0 ;
-		}
-		return index ;
-	}
+    public FairScheduler() {
+        super();
+        currentActionIndex = -1;
+    }
+
+    @Override
+    protected Action getNextAction() {
+        currentActionIndex++;
+        if (currentActionIndex == actions.size()) {
+            currentActionIndex = 0;
+        }
+        return actions.get(currentActionIndex);
+    }
 
 }
