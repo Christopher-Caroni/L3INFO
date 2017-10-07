@@ -1,4 +1,4 @@
-package fil.coo;
+package fil.coo.actions;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -8,7 +8,7 @@ import static org.junit.Assert.fail;
 import org.junit.Before;
 import org.junit.Test;
 
-import fil.coo.actions.Action;
+import fil.coo.actions.interfaces.Action;
 import fil.coo.actions.ActionState;
 import fil.coo.exception.ActionFinishedException;
 

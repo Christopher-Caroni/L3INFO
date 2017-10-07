@@ -1,10 +1,12 @@
 package fil.coo.actions;
 
-public class Foreseeable extends Action {
+import fil.coo.actions.interfaces.Action;
+
+public class ForeseeableAction extends Action {
 
 	private int waitingTime;
 
-	public Foreseeable(int waiting) {
+	public ForeseeableAction(int waiting) {
 		this.waitingTime = waiting;
 	}
 

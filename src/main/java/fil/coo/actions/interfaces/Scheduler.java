@@ -1,8 +1,9 @@
-package fil.coo.actions;
+package fil.coo.actions.interfaces;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import fil.coo.actions.ActionState;
 import fil.coo.exception.ActionFinishedException;
 import fil.coo.exception.SchedulerStardedException;
 

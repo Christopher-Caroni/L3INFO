@@ -1,4 +1,4 @@
-package fil.coo;
+package fil.coo.actions;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -7,8 +7,8 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 
-import fil.coo.actions.Action;
-import fil.coo.actions.Scheduler;
+import fil.coo.actions.interfaces.Action;
+import fil.coo.actions.interfaces.Scheduler;
 import fil.coo.exception.ActionFinishedException;
 import fil.coo.exception.SchedulerStardedException;
 

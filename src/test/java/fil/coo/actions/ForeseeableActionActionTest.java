@@ -1,19 +1,18 @@
-package fil.coo;
+package fil.coo.actions;
 
 import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import fil.coo.actions.Action;
-import fil.coo.actions.Foreseeable;
+import fil.coo.actions.interfaces.Action;
 import fil.coo.exception.ActionFinishedException;
 
-public class ForeseeableActionTest extends ActionTest {
+public class ForeseeableActionActionTest extends ActionTest {
 
 	  private final int NB_STEP = 2;
 
 	  protected Action createAction() {
-	    return new Foreseeable(NB_STEP);
+	    return new ForeseeableAction(NB_STEP);
 	  }
 
 	  @Test

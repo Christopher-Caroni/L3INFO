@@ -1,5 +1,7 @@
 package fil.coo.actions;
 
+import fil.coo.actions.interfaces.Scheduler;
+
 public class FairScheduler extends Scheduler {
 
 	protected int currentIndex;

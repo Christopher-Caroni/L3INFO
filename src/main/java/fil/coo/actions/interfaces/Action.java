@@ -1,5 +1,6 @@
-package fil.coo.actions;
+package fil.coo.actions.interfaces;
 
+import fil.coo.actions.ActionState;
 import fil.coo.exception.ActionFinishedException;
 
 public abstract class Action {
