@@ -1,9 +1,12 @@
-#/bin/bash
+#!/bin/bash
+
+RED='\033[0;31m'
+LBLUE='\033[0;36m'
+NC='\033[0m' # No Color
 
 #initialisation
 mkdir test
-
-cd ./test
+cd test
 
 touch fileA.txt
 echo -e "l.1- j ecris dans le fichierA" > fileA.txt
@@ -12,51 +15,61 @@ echo -e "l.1- j ecris dans le ficherB\nl.2- encore\nl.3- et encore\nl.4- toujour
 touch fileC.txt
 echo -e "l.1- j ecris dans le ficherC\nl.2- avec un retour à la ligne\nl.3- à la fin de mon fichier\n" > fileC.txt
 
-#start testing
-cd ..
-echo -e "\nContenu du fichierA :\n"
-cat ./test/fileA.txt
-echo -e "\nContenu du fichierB :\n"
-cat ./test/fileB.txt
-echo -e "\nContenu du fichierC :\n"
-cat ./test/fileC.txt
 
 #test des differents fichiers
+cd ..
+echo -e "\n${RED}Compiling...${NC}"
+make clean
+make
 
-echo -e "\nStarting Tests:\n"
+echo -e "\n${RED}Starting Tests:\n"
 
+echo -e "\nTest n°1: fichierB\n"
 
-echo -e "\nTest n°1: fichierB"
+echo -e "\n${RED}Contenu du fichierB :${NC}\n"
+echo -e "${LBLUE}--start--${NC}"
+cat test/fileB.txt
+echo -e "${LBLUE}--end--${NC}"
 
-echo -e "\nresult of \"tail ./test/fileB.txt -n 2\" : \n"
-echo "--start--"
-tail ./test/fileB.txt -n 2
-echo "--end--"
-echo -e "\nresult of \"mtail ./test/fileB.txt -n 2\" : \n"
-echo "--start--"
-./mtail ./test/fileB.txt -n 2
-echo "--end--"
+echo -e "\nresult of \"tail -n 2 test/fileB.txt\" : ${NC}\n"
+echo -e "${LBLUE}--start--${NC}"
+tail -n 2 test/fileB.txt
+echo -e "${LBLUE}--end--${NC}"
+echo -e "\nresult of \"mtail -n 2 test/fileB.txt\" : \n"
+echo -e "${LBLUE}--start--${NC}"
+./mtail.exe -n 2 test/fileB.txt
+echo -e "${LBLUE}--end--${NC}"
 
-echo -e "\nTest n°2: fichierA qui contient moins que le nombre de lignes demandé"
+echo -e "\n${RED}Test n°2: fichierA qui contient moins que le nombre de lignes demandé"
 
-echo -e "\nresult of \"tail ./test/fileA.txt -n 5\" : \n"
-echo "--start--"
-tail ./test/fileA.txt -n 5
-echo "--end--"
-echo -e "\nresult of \"mtail ./test/fileA.txt -n 5\" : \n"
-echo "--start--"
-./mtail ./test/fileA.txt -n 5
-echo "--end--"
+echo -e "\n${RED}Contenu du fichierA :${NC}\n"
+echo -e "${LBLUE}--start--${NC}"
+cat test/fileA.txt
+echo -e "${LBLUE}--end--${NC}"
 
-echo -e "\nTest n°3: fichierC dont le dernier octet est une fin de ligne:"
+echo -e "\nresult of \"tail -n 5 test/fileA.txt\" : ${NC}\n"
+echo -e "${LBLUE}--start--${NC}"
+tail -n 5 test/fileA.txt
+echo -e "${LBLUE}--end--${NC}"
+echo -e "\nresult of \"mtail -n 5 test/fileA.txt\" : \n"
+echo -e "${LBLUE}--start--${NC}"
+./mtail.exe -n 5 test/fileA.txt
+echo -e "${LBLUE}--end--${NC}"
 
-echo -e "\nresult of \"tail ./test/fileC.txt -n 2\" : \n"
-echo "--start--"
-tail ./test/fileC.txt -n 2
-echo "--end--"
-echo -e "\nresult of \"mtail ./test/fileC.txt -n 2\" : \n"
-echo "--start--"
-./mtail ./test/fileC.txt -n 2
-echo "--end--"
+echo -e "\n${RED}Test n°3: fichierC dont le dernier octet est une fin de ligne:"
 
-rm -r ./test
+echo -e "\n${RED}Contenu du fichierC :${NC}\n"
+echo -e "${LBLUE}--start--${NC}"
+cat test/fileC.txt
+echo -e "${RED}${LBLUE}--end--${NC}"
+
+echo -e "\nresult of \"tail -n 2 test/fileC.txt \" : ${NC}\n"
+echo -e "${LBLUE}--start--${NC}"
+tail -n 2 test/fileC.txt
+echo -e "${LBLUE}--end--${NC}"
+echo -e "\nresult of \"mtail -n 2test/fileC.txt\" : \n"
+echo -e "${LBLUE}--start--${NC}"
+./mtail.exe -n 2 test/fileC.txt
+echo -e "${LBLUE}--end--${NC}"
+
+rm -r test

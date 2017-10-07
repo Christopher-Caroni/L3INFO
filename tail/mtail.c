@@ -1,131 +1,129 @@
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <fcntl.h>
-#include <unistd.h>
-#include <stdio.h>
 #include <assert.h>
 #include <stdlib.h>
-#include <string.h>
+#include <unistd.h>
+#include <stdio.h>
+#include <sys/fcntl.h>
+
+void print_file(int fd, int ligne_debut) {
+    char *readBuffer;
+    char *printBuffer;
+    int status;
+    int nb_lignes_lus;
+    int i;
+    int print_offset;
+
+    assert(fd != -1);
+    i = 0;
+    status = 0;
+    nb_lignes_lus = 0;
+    print_offset = 0;
+
+    readBuffer = malloc(4096 * sizeof(char));
+    printBuffer = malloc(4096 * sizeof(char));
+
+    lseek(fd, 0, SEEK_SET);
+
+
+    /*
+     * Set a variable "print index", the index of the byte from which we will print
+     * "newline print number" => the number of newline from which we will print
+     * For the whole file, read in chunks of 4096 bytes.
+     * For each chunk, if the number of newlines found is less than the number of the newline print number:
+     *      scan each char =>
+     *           If we encounter a newline, increment the number of newlines found
+     *           If the number of newlines found equals the number of the newline from which we need to print
+     *                  add the byte position of the (newline+1) to the print index.
+     * If we don't encounter a newline in the whole chunk
+     *      add the number of bytes in the chunk to the print index.
+     */
+    while ((status = read(fd, readBuffer, 4096)) && nb_lignes_lus < ligne_debut) {
+        while (i < status && nb_lignes_lus < ligne_debut) {
+            if (readBuffer[i] == '\n') {
+                nb_lignes_lus++;
+                if (nb_lignes_lus == ligne_debut) {
+                    print_offset += i + 1;
+                }
+            }
+            i++;
+        }
+        if (nb_lignes_lus < ligne_debut) {
+            print_offset += status;
+        }
+    }
+
+    lseek(fd, print_offset, SEEK_SET);
+    while ((status = read(fd, printBuffer, 4096))) {
+        printf("%s", printBuffer);
+    }
+
+    close(fd);
+    free(readBuffer);
+    free(printBuffer);
+}
 
 /*
-ligne debut >= a partir de 1
-*/
-void print_file(int fd, int ligne_debut)
-{
-  char contenu[4096];
-  char print[4096];
-  int status;
-  int nb_lignes_lus;
-  int i;
-  int index_octet_print;
+ * Counts the number of lines, then calls print_file() with the index of where to start printing
+ */
+int mtail(const char *path, int nb_lignes_voulu) {
+    char contenu[4096];
+    int status;
+    int nb_lignes_total;
+    int fd;
+    int i;
 
-  status = 0;
-  nb_lignes_lus = 0;
-  index_octet_print = 0;
+    int ligne_debut;
 
-  lseek(fd, 0, SEEK_SET);
+    nb_lignes_total = 0;
 
-  while ((status = read(fd, contenu, 4096)) && nb_lignes_lus < ligne_debut)
-  {
-    while (i<status && nb_lignes_lus < ligne_debut)
-    {
-      if (contenu[i] == '\n')
-      {
-        nb_lignes_lus++;
-        if (nb_lignes_lus == ligne_debut)
-        {
-          index_octet_print += i + 1;
+    fd = open(path, O_RDONLY);
+    assert(fd != -1);
+
+    if (!nb_lignes_voulu) {
+        print_file(fd, 0);
+        return 0;
+    }
+
+    while ((status = read(fd, contenu, 4096))) {
+        for (i = 0; i < status; i++) {
+            if (contenu[i] == '\n') {
+                nb_lignes_total++;
+            }
         }
-      }
-      i++;
     }
-    if (nb_lignes_lus < ligne_debut)
-    {
-      index_octet_print += status;
+
+    /*
+     * nb_lignes_total already contains (separators+1) because of how files are read
+     */
+
+    if (nb_lignes_total < nb_lignes_voulu) {
+        ligne_debut = 0;
+    } else {
+        ligne_debut = nb_lignes_total - nb_lignes_voulu;
     }
-  }
 
-  lseek(fd, index_octet_print, SEEK_SET);
-  while ((status = read(fd, print, 4096)))
-  {
-    printf("%s\n", print);
-  }
-}
-
-int mtail(const char *path, int nb_lignes)
-{
-  char contenu[4096];
-  int status;
-  int nb_lignes_total;
-  int fd;
-  int i;
-
-  int ligne_debut;
-
-  fd = open(path, O_RDONLY);
-  assert(fd != -1);
-
-  if (!nb_lignes)
-  {
-    print_file(fd, 0);
+    print_file(fd, ligne_debut);
     return 0;
-  }
-
-
-  while ( (status = read(fd, contenu, 4096)) )
-  {
-    for (i=0;i<status;i++) {
-      if (contenu[i] == '\n')
-      {
-        nb_lignes_total++;
-      }
-    }
-  }
-  if (nb_lignes_total)
-  {
-    nb_lignes_total++;
-  }
-
-  if (nb_lignes_total <= nb_lignes)
-  {
-    ligne_debut = 0;
-  } else
-  {
-    ligne_debut = nb_lignes_total - nb_lignes;
-  }
-  /*
-  printf("found %d lines\n", nb_lignes_total);
-  printf("need to print %d\n", nb_lignes);
-  printf("print from %d\n", ligne_debut);
-  print_file(fd, ligne_debut);
-  */
-  return 0;
 }
 
-int main(int argc, char **argv)
-{
-  char ch;
-  char *string_nb_lignes = NULL;
-  int nb_lignes;
+/*
+ * Accepts ./mtail -n N file
+ */
+int main(int argc, char **argv) {
+    char ch;
+    int nb_lignes;
 
-  assert(argc == 2 || argc == 4);
-  nb_lignes = 0;
+    assert(argc == 2 || argc == 4);
+    nb_lignes = 0;
 
-  while ((ch = getopt(argc, argv, "n:")) != -1)
-  {
-    switch (ch) {
-    case 'n':
-      nb_lignes = 1;
-      string_nb_lignes = malloc(strlen(optarg));
-      strcpy(string_nb_lignes, optarg);
-      break;
+    while ((ch = getopt(argc, argv, "n:")) != -1) {
+        switch (ch) {
+            case 'n':
+                nb_lignes = atoi(optarg);
+                break;
+            default:
+                break;
+        }
     }
-  }
 
-  if (nb_lignes)
-  {
-    nb_lignes = atoi(string_nb_lignes);
-  }
-
-  return mtail(argv[3], nb_lignes);
+    return mtail(argv[3], nb_lignes);
 }

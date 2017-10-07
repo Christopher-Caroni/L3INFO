@@ -12,7 +12,10 @@ performances/mcat-scd
 performances/mcat-scs
 tail/mtail
 
-# Created by https://www.gitignore.io/api/c,clion+all
+*.stackdump
+CMakeLists.txt
+
+# Created by https://www.gitignore.io/api/c,cmake,clion+all
 
 ### C ###
 # Prerequisites
@@ -128,4 +131,16 @@ fabric.properties
 
 .idea/
 
-# End of https://www.gitignore.io/api/c,clion+all
+### CMake ###
+CMakeCache.txt
+CMakeFiles
+CMakeScripts
+Testing
+#Makefile
+cmake_install.cmake
+install_manifest.txt
+compile_commands.json
+CTestTestfile.cmake
+build
+
+# End of https://www.gitignore.io/api/c,cmake,clion+all
