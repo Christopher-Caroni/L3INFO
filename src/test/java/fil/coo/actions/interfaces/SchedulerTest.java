@@ -1,4 +1,4 @@
-package fil.coo.actions;
+package fil.coo.actions.interfaces;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -7,10 +7,8 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 
-import fil.coo.actions.interfaces.Action;
-import fil.coo.actions.interfaces.Scheduler;
 import fil.coo.exception.ActionFinishedException;
-import fil.coo.exception.SchedulerStardedException;
+import fil.coo.exception.SchedulerStartedException;
 
 public abstract class SchedulerTest extends ActionTest {
 
@@ -20,7 +18,7 @@ public abstract class SchedulerTest extends ActionTest {
 
 	  protected abstract Scheduler createScheduler();
 
-	  protected void addActions(int nb) throws ActionFinishedException, SchedulerStardedException {
+	  protected void addActions(int nb) throws ActionFinishedException, SchedulerStartedException {
 	    for (int i = 0; i < nb; i++) {
 	      this.scheduler.addAction(new OneStepMockAction());
 	    }
@@ -34,27 +32,27 @@ public abstract class SchedulerTest extends ActionTest {
 		} catch (ActionFinishedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (SchedulerStardedException e) {
+		} catch (SchedulerStartedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	  }
 
 	  @Test
-	  public void testAddActionWhenOk() throws ActionFinishedException, SchedulerStardedException {
+	  public void testAddActionWhenOk() throws ActionFinishedException, SchedulerStartedException {
 	    assertEquals(NB_ACTIONS, this.scheduler.getRemainingActions().size());
 	    this.scheduler.addAction(new OneStepMockAction());
 	    assertEquals(NB_ACTIONS + 1, this.scheduler.getRemainingActions().size());
 	  }
 
-	  @Test(expected = SchedulerStardedException.class)
-	  public void cantAddActionWhenAlreadyStarted() throws ActionFinishedException, SchedulerStardedException {
+	  @Test(expected = SchedulerStartedException.class)
+	  public void cantAddActionWhenAlreadyStarted() throws ActionFinishedException, SchedulerStartedException {
 	    this.scheduler.doStep();
 	    this.scheduler.addAction(new OneStepMockAction());
 	  }
 
 	  @Test(expected = ActionFinishedException.class)
-	  public void cantAddFinishedAction() throws ActionFinishedException, SchedulerStardedException {
+	  public void cantAddFinishedAction() throws ActionFinishedException, SchedulerStartedException {
 	    OneStepMockAction action = new OneStepMockAction();
 
 	    action.doStep();
@@ -95,7 +93,7 @@ public abstract class SchedulerTest extends ActionTest {
 	    }
 
 		@Override
-		protected void realStep() {
+		protected void execute() {
 			// TODO Auto-generated method stub	
 		}
 

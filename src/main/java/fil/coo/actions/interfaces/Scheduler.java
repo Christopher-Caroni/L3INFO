@@ -5,7 +5,7 @@ import java.util.List;
 
 import fil.coo.actions.ActionState;
 import fil.coo.exception.ActionFinishedException;
-import fil.coo.exception.SchedulerStardedException;
+import fil.coo.exception.SchedulerStartedException;
 
 public abstract class Scheduler extends Action{
 
@@ -15,13 +15,13 @@ public abstract class Scheduler extends Action{
 		this.actions = new ArrayList<Action>();
 	}
 	
-	protected void realStep() {		
+	protected void execute() {
 		Action action = this.actions.get(this.nextAction()) ;
 		try {
 			action.doStep();
 		} catch (ActionFinishedException e) {
-			// cannot happen since there is no finished action in a scheduler
-		}
+		    e.printStackTrace();
+        }
 		if (action.isFinished()) {
 			this.actions.remove(action);
 		}
@@ -29,9 +29,15 @@ public abstract class Scheduler extends Action{
 
 	protected abstract int nextAction();
 
-	public void addAction(Action action) throws ActionFinishedException, SchedulerStardedException {
+    /**
+     *
+     * @param action
+     * @throws ActionFinishedException if the action to add is already finished
+     * @throws SchedulerStartedException if this scheduler is already started
+     */
+	public void addAction(Action action) throws ActionFinishedException, SchedulerStartedException {
 		if (this.getState() != ActionState.READY) {
-			throw new SchedulerStardedException() ;
+			throw new SchedulerStartedException() ;
 		}
 		if (action.isFinished()) {
 			throw new ActionFinishedException() ;
@@ -43,7 +49,7 @@ public abstract class Scheduler extends Action{
 		return this.actions.isEmpty();
 	}
 
-	public List<Action> getRemainingActions() {
+	protected List<Action> getRemainingActions() {
 		return this.actions;
 	}
 	

@@ -2,12 +2,13 @@ package fil.coo.actions;
 
 import static org.junit.Assert.*;
 
+import fil.coo.actions.interfaces.ActionTest;
 import org.junit.Test;
 
 import fil.coo.actions.interfaces.Action;
 import fil.coo.exception.ActionFinishedException;
 
-public class ForeseeableActionActionTest extends ActionTest {
+public class ForeseeableActionTest extends ActionTest {
 
 	  private final int NB_STEP = 2;
 

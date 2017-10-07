@@ -4,18 +4,18 @@ import fil.coo.actions.interfaces.Action;
 
 public class ForeseeableAction extends Action {
 
-	private int waitingTime;
+	private int timeRemaining;
 
-	public ForeseeableAction(int waiting) {
-		this.waitingTime = waiting;
+	public ForeseeableAction(int timeToFinish) {
+		this.timeRemaining = timeToFinish;
 	}
 
-	protected void realStep() {
-		this.waitingTime--;
+	protected void execute() {
+		this.timeRemaining--;
 	}
 
 	public boolean stopCondition() {
-		return this.waitingTime == 0;
+		return this.timeRemaining == 0;
 	}
 
 }

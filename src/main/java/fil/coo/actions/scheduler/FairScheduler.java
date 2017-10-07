@@ -1,7 +1,10 @@
-package fil.coo.actions;
+package fil.coo.actions.scheduler;
 
 import fil.coo.actions.interfaces.Scheduler;
 
+/**
+ * Iterates of the the list of actions
+ */
 public class FairScheduler extends Scheduler {
 
 	protected int currentIndex;
