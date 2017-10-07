@@ -170,6 +170,51 @@ int tail_simpliste(char *path, int ntail)
     return 0;
 }
 
+int tail_last_lines(int fd, int ntail, int *buffer_size)
+{
+    int ending_line_count;
+    int start_print_line_index;
+
+    assert(fd != -1);
+
+    lseek(fd, -*buffer_size, SEEK_END);
+    ending_line_count = count_total_lines(fd);
+
+    if (!ending_line_count)
+    {
+        if (ending_line_count < ntail)
+        {
+            *buffer_size *= 2;
+            return tail_last_lines(fd, ntail, buffer_size);
+        } else
+        {
+            start_print_line_index = ending_line_count - ntail;
+            print_file_from_line(fd, start_print_line_index);
+        }
+    }
+    return 0;
+}
+
+int tail_efficace(char *path, int ntail)
+{
+    int start_buffer_size;
+    int fd;
+    /**
+     * the index of the line that we will start printing with
+     */
+
+    if (!ntail)
+    {
+        return 0;
+    }
+
+    fd = open(path, O_RDONLY);
+    assert(fd != -1);
+
+    start_buffer_size = 16;
+    return tail_last_lines(fd, ntail, &start_buffer_size);
+}
+
 /*
  * Accepts ./mtail -n N file
  */
@@ -193,5 +238,5 @@ int main(int argc, char **argv)
         }
     }
 
-    return tail_simpliste(argv[3], nb_lignes);
+    return tail_efficace(argv[3], nb_lignes);
 }
