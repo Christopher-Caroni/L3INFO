@@ -1,6 +1,6 @@
 package fil.coo.resource.pools;
 
-import fil.coo.Basket;
+import fil.coo.resource.Basket;
 
 public class BasketPool extends ResourcePool<Basket>{
 

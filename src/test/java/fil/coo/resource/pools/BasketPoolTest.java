@@ -1,6 +1,6 @@
 package fil.coo.resource.pools;
 
-import fil.coo.Basket;
+import fil.coo.resource.Basket;
 import fil.coo.resource.Resource;
 import org.junit.Test;
 
