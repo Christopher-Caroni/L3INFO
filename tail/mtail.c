@@ -111,16 +111,15 @@ int seek_until_line(int fd, int wanted_line_index)
 /**
  *
  * @param fd the file descriptor for which we want to count the lines for
- * @param start_line_index the index of the line that we will start printing at
+ * @param offset the offset of the line that we will start printing at
  */
-void print_file_from_line(int fd, int start_line_index)
+void print_file_from_line(int fd, int offset)
 {
     char *buffer;
     int status;
     int bufferSize;
 
-
-    seek_until_line(fd, start_line_index);
+    lseek(fd, offset, SEEK_SET);
 
     bufferSize = 4096;
     buffer = (char *) malloc(bufferSize * sizeof(char));
@@ -148,6 +147,8 @@ int tail_simpliste(char *path, int ntail)
 {
     int fd;
     int total_lines;
+    int offset_for_print_line_index;
+
     /**
      * the index of the line that we will start printing with
      */
@@ -165,7 +166,8 @@ int tail_simpliste(char *path, int ntail)
     if (total_lines)
     {
         start_print_line_index = total_lines - ntail;
-        print_file_from_line(fd, start_print_line_index);
+        offset_for_print_line_index = seek_until_line(fd, start_print_line_index);
+        print_file_from_line(fd, offset_for_print_line_index);
     }
     return 0;
 }
@@ -174,6 +176,7 @@ int tail_last_lines(int fd, int ntail, int *buffer_size)
 {
     int ending_line_count;
     int start_print_line_index;
+    int offset_for_print_line_index;
 
     assert(fd != -1);
 
@@ -189,7 +192,8 @@ int tail_last_lines(int fd, int ntail, int *buffer_size)
         } else
         {
             start_print_line_index = ending_line_count - ntail;
-            print_file_from_line(fd, start_print_line_index);
+            offset_for_print_line_index = seek_until_line(fd, start_print_line_index);
+            print_file_from_line(fd, offset_for_print_line_index);
         }
     }
     return 0;
@@ -238,5 +242,5 @@ int main(int argc, char **argv)
         }
     }
 
-    return tail_efficace(argv[3], nb_lignes);
+    return tail_simpliste(argv[3], nb_lignes);
 }
