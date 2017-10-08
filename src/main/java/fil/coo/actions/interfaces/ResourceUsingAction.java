@@ -1,6 +1,7 @@
 package fil.coo.actions.interfaces;
 
 import fil.coo.client.interfaces.ResourceUser;
+import fil.coo.exception.ActionFinishedException;
 import fil.coo.resource.Resource;
 import fil.coo.resource.pools.ResourcePool;
 
@@ -12,9 +13,9 @@ import fil.coo.resource.pools.ResourcePool;
 public abstract class ResourceUsingAction<R extends Resource> extends Action {
 
     protected ResourceUser<R> resourceUser;
-    protected ResourcePool resourcePool;
+    protected ResourcePool<R> resourcePool;
 
-    public ResourceUsingAction(ResourceUser<R> resourceUser, ResourcePool resourcePool) {
+    public ResourceUsingAction(ResourceUser<R> resourceUser, ResourcePool<R> resourcePool) {
         this.resourceUser = resourceUser;
         this.resourcePool = resourcePool;
     }

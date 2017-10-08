@@ -14,7 +14,7 @@ import fil.coo.resource.pools.ResourcePool;
  */
 public class FreeResourceAction<R extends Resource> extends ResourceUsingAction<R> {
 
-    public FreeResourceAction(ResourceUser<R> resourceUser, ResourcePool resourcePool) {
+    public FreeResourceAction(ResourceUser<R> resourceUser, ResourcePool<R> resourcePool) {
         super(resourceUser, resourcePool);
     }
 

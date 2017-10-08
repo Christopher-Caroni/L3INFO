@@ -14,17 +14,21 @@ import fil.coo.resource.pools.ResourcePool;
  */
 public class TakeResourceAction<R extends Resource> extends ResourceUsingAction<R> {
 
-    public TakeResourceAction(ResourceUser<R> resourceUser, ResourcePool resourcePool) {
+    public TakeResourceAction(ResourceUser<R> resourceUser, ResourcePool<R> resourcePool) {
         super(resourceUser, resourcePool);
     }
 
     @Override
-    protected void execute() throws ActionFinishedException {
+    protected void execute() {
+        /*
+        R resource = null;
         try {
-            Resource resource = resourcePool.provideResource();
+            resource = resourcePool.provideResource();
         } catch (fil.coo.exception.NoFreeResourcesException e) {
             e.printStackTrace();
         }
+        resourceUser.setResource(resource);
+        */
     }
 
     @Override

@@ -4,6 +4,7 @@ import fil.coo.client.interfaces.ResourceUser;
 import fil.coo.resource.pools.BasketPool;
 import fil.coo.resource.pools.ResourcePool;
 import org.junit.Before;
+import org.junit.Test;
 
 public abstract class ResourceUsingActionTest extends ActionTest {
 
