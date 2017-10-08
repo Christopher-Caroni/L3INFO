@@ -95,6 +95,18 @@ public abstract class SchedulerTest extends ActionTest {
         assertTrue(a2.isFinished());
     }
 
+    @Test(expected = ActionFinishedException.class)
+    public void testGetNextActionThrowsExceptionAfterAllActionsTreated() throws ActionFinishedException {
+        try {
+            scheduler.doStep();
+            scheduler.doStep();
+        } catch (ActionFinishedException e) {
+            fail("Manual setup should ensure two actions that finish in one step so that this always succeeds");
+        }
+
+        Action inexistantAction = scheduler.getNextAction();
+    }
+
     private class OneStepMockAction extends Action {
 
         private boolean isFinished;

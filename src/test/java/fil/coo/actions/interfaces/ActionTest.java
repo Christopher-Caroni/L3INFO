@@ -5,6 +5,8 @@ import fil.coo.exception.ActionFinishedException;
 import org.junit.Before;
 import org.junit.Test;
 
+import static fil.coo.actions.ActionState.IN_PROGRESS;
+import static fil.coo.actions.ActionState.READY;
 import static org.junit.Assert.*;
 
 public abstract class ActionTest {
@@ -50,6 +52,13 @@ public abstract class ActionTest {
         assertTrue(this.action.isFinished());
         // Lance l'exception
         this.action.doStep();
+    }
+
+    @Test
+    public void doStepChangesStateToInProgress() throws ActionFinishedException {
+        assertEquals(READY, action.getState());
+        action.doStep();
+        assertEquals(IN_PROGRESS, action.getState());
     }
 
 }

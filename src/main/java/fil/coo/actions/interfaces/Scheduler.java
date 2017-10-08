@@ -11,17 +11,29 @@ public abstract class Scheduler extends Action {
 
     protected List<Action> actions;
     private int nbActionsFinished;
+    protected int currentActionIndex;
 
     public Scheduler() {
         this.actions = new ArrayList<Action>();
         nbActionsFinished = 0;
+        initStartIndex();
     }
 
     /**
+     * Set the {@link #currentActionIndex} according to what the implementation depends on in {@link #getNextAction()}
+     */
+    protected abstract void initStartIndex();
+
+    /**
+     *
      * Gets the next action using {@link #getNextAction()} and calls {@link Action#doStep()}
+     * @throws ActionFinishedException if the next action to execute is already finished
      */
     protected void execute() throws ActionFinishedException {
         Action action = getNextAction();
+        if (action.isFinished()) {
+            throw new ActionFinishedException("Tried to execute action with index " + currentActionIndex + " but was finished");
+        }
         try {
             action.doStep();
             if (action.isFinished()) {
@@ -32,6 +44,10 @@ public abstract class Scheduler extends Action {
         }
     }
 
+    /**
+     * @return the next action that {@link Action#doStep()} will be called on in this scheduler
+     * @throws ActionFinishedException if this scheduler is already finished
+     */
     protected abstract Action getNextAction() throws ActionFinishedException;
 
     /**
@@ -44,7 +60,7 @@ public abstract class Scheduler extends Action {
             throw new SchedulerStartedException();
         }
         if (action.isFinished()) {
-            throw new ActionFinishedException();
+            throw new ActionFinishedException("Action " + action + " is already finished");
         }
         this.actions.add(action);
     }

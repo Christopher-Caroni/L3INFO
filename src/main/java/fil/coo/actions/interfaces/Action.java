@@ -5,24 +5,23 @@ import fil.coo.exception.ActionFinishedException;
 
 public abstract class Action {
 
-	protected ActionState state;
+    protected ActionState state;
 
-	public Action() {
-		state = ActionState.READY;
-	}
+    public Action() {
+        state = ActionState.READY;
+    }
 
     /**
-     *
      * @throws ActionFinishedException if this action is already finished
      */
     public void doStep() throws ActionFinishedException {
         if (this.isFinished()) {
-        	throw new ActionFinishedException();
+            throw new ActionFinishedException("This action/implementation is already finished");
         }
-        this.state = ActionState.IN_PROGRESS ;
-        this.execute() ;
+        this.state = ActionState.IN_PROGRESS;
+        this.execute();
         if (this.stopCondition()) {
-        	this.state = ActionState.FINISHED;
+            this.state = ActionState.FINISHED;
         }
     }
 
@@ -31,9 +30,22 @@ public abstract class Action {
      */
     protected abstract void execute() throws ActionFinishedException;
 
-    public abstract boolean stopCondition();
 
-    public boolean isFinished() {return this.state == ActionState.FINISHED ;}
+    /**
+     * Internal method to know whether this instance should go to state {@link ActionState#FINISHED}
+     *
+     * @return if this action should be finished in the sense of {@link #isFinished()}
+     */
+    protected abstract boolean stopCondition();
 
-    public ActionState getState() {return this.state ;}
+    /**
+     * @return if this action's state == {@link ActionState#FINISHED}
+     */
+    public boolean isFinished() {
+        return this.state == ActionState.FINISHED;
+    }
+
+    public ActionState getState() {
+        return this.state;
+    }
 }

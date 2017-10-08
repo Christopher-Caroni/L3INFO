@@ -18,4 +18,16 @@ public class ForeseeableAction extends Action {
 		return this.timeRemaining == 0;
 	}
 
+
+    @Override
+    public String toString() {
+        return "ForeseeableAction{" +
+                "timeRemaining=" + timeRemaining +
+                ", state=" + state +
+                '}';
+    }
+
+    public int getTimeRemaining() {
+        return timeRemaining;
+    }
 }

@@ -9,17 +9,19 @@ import fil.coo.exception.ActionFinishedException;
  */
 public class SequentialScheduler extends Scheduler {
 
-    private int currentActionIndex;
-
     public SequentialScheduler() {
         super();
+    }
+
+    @Override
+    protected void initStartIndex() {
         currentActionIndex = 0;
     }
 
     @Override
     protected Action getNextAction() throws ActionFinishedException {
         if (isFinished()) {
-            throw new ActionFinishedException();
+            throw new ActionFinishedException("This scheduler is finished. There is no next action to execute");
         }
 
         if (actions.get(currentActionIndex).isFinished()) {
