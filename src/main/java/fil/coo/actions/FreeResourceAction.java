@@ -4,6 +4,8 @@ import fil.coo.actions.interfaces.ResourceUsingAction;
 import fil.coo.actions.interfaces.Scheduler;
 import fil.coo.client.interfaces.ResourceUser;
 import fil.coo.exception.ActionFinishedException;
+import fil.coo.exception.ForeignResourceException;
+import fil.coo.exception.TooManyResourcesException;
 import fil.coo.resource.Resource;
 import fil.coo.resource.pools.ResourcePool;
 
@@ -20,11 +22,16 @@ public class FreeResourceAction<R extends Resource> extends ResourceUsingAction<
 
     @Override
     protected void execute() throws ActionFinishedException {
-
+        try {
+            resourcePool.recoverResource(resourceUser.getResource());
+        } catch (TooManyResourcesException | ForeignResourceException e) {
+            // This shouldn't ever be thrown
+        }
+        resourceUser.resetResource();
     }
 
     @Override
     protected boolean stopCondition() {
-        return false;
+        return resourceUser.getResource() == null;
     }
 }
