@@ -1,8 +1,9 @@
 package fil.coo.resource.pools;
 
 import fil.coo.exception.ForeignResourceException;
-import fil.coo.resource.Resource;
+import fil.coo.exception.NoFreeResourcesException;
 import fil.coo.exception.TooManyResourcesException;
+import fil.coo.resource.Resource;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -67,9 +68,14 @@ public abstract class ResourcePoolTest {
         assertNotNull(resourcePool.createOneResource());
     }
 
-    @Test(expected = NoSuchElementException.class)
-    public void testProvideResourceWithoutResourcesThrowsException() {
-        Resource firstResource = resourcePool.provideResource(); // empty the pools
+    @Test(expected = NoFreeResourcesException.class)
+    public void testProvideResourceWithoutResourcesThrowsException() throws NoFreeResourcesException {
+        try {
+            Resource firstResource = resourcePool.provideResource(); // empty the pools
+        } catch (NoFreeResourcesException e) {
+            e.printStackTrace();
+            fail("Should succeed");
+        }
         Resource badResource = resourcePool.provideResource(); // throws because pools is empty
 
     }
@@ -81,6 +87,8 @@ public abstract class ResourcePoolTest {
             firstResource = resourcePool.provideResource();
         } catch (NoSuchElementException e) {
             fail("We should get the first resource here");
+        } catch (fil.coo.exception.NoFreeResourcesException e) {
+            e.printStackTrace();
         }
         assertNotNull(firstResource);
     }
@@ -97,7 +105,12 @@ public abstract class ResourcePoolTest {
 
     @Test
     public void testRecoverResourceWithOriginalDoesNotThrow() throws ForeignResourceException {
-        Resource firstResource = resourcePool.provideResource();
+        Resource firstResource = null;
+        try {
+            firstResource = resourcePool.provideResource();
+        } catch (fil.coo.exception.NoFreeResourcesException e) {
+            e.printStackTrace();
+        }
         try {
             resourcePool.recoverResource(firstResource);
         } catch (TooManyResourcesException e) {
@@ -107,7 +120,11 @@ public abstract class ResourcePoolTest {
 
     @Test(expected = ForeignResourceException.class)
     public void testRecoverForgeinResourceThrowsException() throws ForeignResourceException, TooManyResourcesException {
-        Resource firstResource = resourcePool.provideResource();
+        try {
+            Resource firstResource = resourcePool.provideResource();
+        } catch (fil.coo.exception.NoFreeResourcesException e) {
+            e.printStackTrace();
+        }
         // resource has one free slot
         Resource badResource = getOneResource();
         resourcePool.recoverResource(badResource);

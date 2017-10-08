@@ -1,6 +1,7 @@
 package fil.coo.resource.pools;
 
 import fil.coo.exception.ForeignResourceException;
+import fil.coo.exception.NoFreeResourcesException;
 import fil.coo.exception.TooManyResourcesException;
 import fil.coo.resource.Resource;
 
@@ -46,13 +47,13 @@ public abstract class ResourcePool<T extends Resource> {
      * @return a resource from the pools
      * @throws NoSuchElementException if no resources are available
      */
-    public T provideResource() throws NoSuchElementException {
+    public T provideResource() throws NoFreeResourcesException {
         if (!freeResources.isEmpty()) {
             T first = freeResources.remove(0);
             busyResources.add(first);
             return first;
         } else {
-            throw new NoSuchElementException();
+            throw new NoFreeResourcesException("No free resources in " + this.toString());
         }
     }
 
