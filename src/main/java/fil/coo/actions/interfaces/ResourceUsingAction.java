@@ -15,6 +15,8 @@ public abstract class ResourceUsingAction<R extends Resource> extends Action {
     protected ResourceUser<R> resourceUser;
     protected ResourcePool<R> resourcePool;
 
+    protected R resource;
+
     public ResourceUsingAction(ResourceUser<R> resourceUser, ResourcePool<R> resourcePool) {
         this.resourceUser = resourceUser;
         this.resourcePool = resourcePool;

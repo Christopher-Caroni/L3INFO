@@ -11,8 +11,4 @@ public class FreeResourceActionTest extends ResourceUsingActionTest {
         return new FreeResourceAction(this.resourceUser, this.resourcePool);
     }
 
-    @Override
-    protected Action createAction() {
-        return createResourceUsingAction();
-    }
 }

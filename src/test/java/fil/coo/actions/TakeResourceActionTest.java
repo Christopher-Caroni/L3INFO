@@ -10,9 +10,4 @@ public class TakeResourceActionTest extends ResourceUsingActionTest {
     protected ResourceUsingAction createResourceUsingAction() {
         return new TakeResourceAction(this.resourceUser, this.resourcePool);
     }
-
-    @Override
-    protected Action createAction() {
-        return createResourceUsingAction();
-    }
 }

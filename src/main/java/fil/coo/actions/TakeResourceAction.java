@@ -20,7 +20,6 @@ public class TakeResourceAction<R extends Resource> extends ResourceUsingAction<
 
     @Override
     protected void execute() {
-        /*
         R resource = null;
         try {
             resource = resourcePool.provideResource();
@@ -28,11 +27,10 @@ public class TakeResourceAction<R extends Resource> extends ResourceUsingAction<
             e.printStackTrace();
         }
         resourceUser.setResource(resource);
-        */
     }
 
     @Override
     protected boolean stopCondition() {
-        return false;
+        return resource != null;
     }
 }
