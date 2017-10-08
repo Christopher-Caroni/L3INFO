@@ -7,8 +7,7 @@ import fil.coo.exception.NoFreeResourcesException;
 import fil.coo.resource.Basket;
 import org.junit.Test;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
+import static org.junit.Assert.*;
 
 public class TakeResourceActionTest extends ResourceUsingActionTest {
 
@@ -21,6 +20,7 @@ public class TakeResourceActionTest extends ResourceUsingActionTest {
     public void testAfterSuccessfulDoStepResourceUserHasResource() throws ActionFinishedException {
         assertNull(resourceUser.getResource());
         resourceUsingAction.doStep();
+        assertTrue(resourceUsingAction.isFinished());
         assertNotNull(resourceUser.getResource());
     }
 
@@ -33,6 +33,7 @@ public class TakeResourceActionTest extends ResourceUsingActionTest {
 
         assertNull(resourceUser.getResource());
         resourceUsingAction.doStep();
+        assertFalse(resourceUsingAction.isFinished());
         assertNull(resourceUser.getResource());
     }
 }

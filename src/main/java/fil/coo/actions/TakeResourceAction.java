@@ -20,16 +20,17 @@ public class TakeResourceAction<R extends Resource> extends ResourceUsingAction<
 
     @Override
     protected void execute() {
+        R resource = null;
         try {
-            this.resource = resourcePool.provideResource();
+            resource = resourcePool.provideResource();
         } catch (NoFreeResourcesException e) {
             return;
         }
-        resourceUser.setResource(this.resource);
+        resourceUser.setResource(resource);
     }
 
     @Override
     protected boolean stopCondition() {
-        return resource != null;
+        return resourceUser.getResource() != null;
     }
 }
