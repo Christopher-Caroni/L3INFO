@@ -1,6 +1,8 @@
 package fil.coo.actions.interfaces;
 
 import fil.coo.client.interfaces.ResourceUser;
+import fil.coo.exception.ActionFinishedException;
+import fil.coo.exception.TooManyResourcesException;
 import fil.coo.resource.Resource;
 import fil.coo.resource.pools.ResourcePool;
 

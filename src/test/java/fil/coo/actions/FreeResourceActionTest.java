@@ -4,6 +4,7 @@ import fil.coo.actions.interfaces.ResourceUsingAction;
 import fil.coo.actions.interfaces.ResourceUsingActionTest;
 import fil.coo.exception.ActionFinishedException;
 import fil.coo.exception.NoFreeResourcesException;
+import fil.coo.exception.TooManyResourcesException;
 import fil.coo.resource.Basket;
 import fil.coo.resource.Resource;
 import org.junit.Before;
@@ -19,7 +20,7 @@ public class FreeResourceActionTest extends ResourceUsingActionTest {
     }
 
     @Before
-    public void makeResourceUserHaveResourceFromPool() {
+    public void makeResourceUserHaveResourceFromPool() throws TooManyResourcesException {
         Basket basket = null;
         try {
             basket = resourcePool.provideResource();

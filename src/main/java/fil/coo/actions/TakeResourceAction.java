@@ -4,6 +4,7 @@ import fil.coo.actions.interfaces.ResourceUsingAction;
 import fil.coo.actions.interfaces.Scheduler;
 import fil.coo.client.interfaces.ResourceUser;
 import fil.coo.exception.NoFreeResourcesException;
+import fil.coo.exception.TooManyResourcesException;
 import fil.coo.resource.Resource;
 import fil.coo.resource.pools.ResourcePool;
 
@@ -26,7 +27,11 @@ public class TakeResourceAction<R extends Resource> extends ResourceUsingAction<
         } catch (NoFreeResourcesException e) {
             return;
         }
-        resourceUser.setResource(resource);
+        try {
+            resourceUser.setResource(resource);
+        } catch (TooManyResourcesException ignored) {
+            // TODO cant override exceptions from inherited method
+        }
     }
 
     @Override
