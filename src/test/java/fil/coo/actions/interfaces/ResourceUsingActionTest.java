@@ -5,7 +5,7 @@ import fil.coo.resource.pools.BasketPool;
 import fil.coo.resource.pools.ResourcePool;
 import org.junit.Before;
 
-public abstract class ResourceUsingActionTest extends ActionTest {
+public abstract class ResourceUsingActionTest extends SingleActionStepTest {
 
     protected static final int NB_RESOURCES = 2;
 

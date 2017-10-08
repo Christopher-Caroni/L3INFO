@@ -7,7 +7,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public abstract class SchedulerTest extends ActionTest {
+public abstract class SchedulerTest extends MultipleActionStepTest {
 
     private static final int NB_ACTIONS = 2;
 
