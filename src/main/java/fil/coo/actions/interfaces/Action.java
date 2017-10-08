@@ -2,6 +2,7 @@ package fil.coo.actions.interfaces;
 
 import fil.coo.actions.ActionState;
 import fil.coo.exception.ActionFinishedException;
+import fil.coo.exception.NoFreeResourcesException;
 
 public abstract class Action {
 
