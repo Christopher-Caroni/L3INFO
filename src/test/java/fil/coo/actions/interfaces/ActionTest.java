@@ -25,7 +25,7 @@ public abstract class ActionTest {
         assertEquals(this.action.getState(), ActionState.READY);
     }
 
-    @Test
+    @Test(timeout = 500)
     public void isFinishedOnlyWhenStopConditionIsReached() throws ActionFinishedException {
         assertFalse(this.action.isFinished());
         assertFalse(this.action.stopCondition());
@@ -38,7 +38,7 @@ public abstract class ActionTest {
         assertTrue(this.action.isFinished());
     }
 
-    @Test(expected = ActionFinishedException.class)
+    @Test(expected = ActionFinishedException.class, timeout = 500)
     public void doStepThrowsExceptionOnlyWhenIsFinished() throws ActionFinishedException {
         // On déroule l'action et si exception, le test échoue
         while (!this.action.isFinished()) {

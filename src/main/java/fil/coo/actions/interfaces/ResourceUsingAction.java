@@ -2,6 +2,7 @@ package fil.coo.actions.interfaces;
 
 import fil.coo.client.interfaces.ResourceUser;
 import fil.coo.resource.Resource;
+import fil.coo.resource.pools.ResourcePool;
 
 /**
  * This type of action acts upon a type R of resource(s)
@@ -11,11 +12,11 @@ import fil.coo.resource.Resource;
 public abstract class ResourceUsingAction<R extends Resource> extends Action {
 
     protected ResourceUser<R> resourceUser;
-    protected Scheduler scheduler;
+    protected ResourcePool resourcePool;
 
-    public ResourceUsingAction(ResourceUser<R> resourceUser, Scheduler scheduler) {
+    public ResourceUsingAction(ResourceUser<R> resourceUser, ResourcePool resourcePool) {
         this.resourceUser = resourceUser;
-        this.scheduler = scheduler;
+        this.resourcePool = resourcePool;
     }
 
 }

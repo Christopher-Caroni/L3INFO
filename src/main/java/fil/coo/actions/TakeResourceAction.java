@@ -5,6 +5,7 @@ import fil.coo.actions.interfaces.Scheduler;
 import fil.coo.client.interfaces.ResourceUser;
 import fil.coo.exception.ActionFinishedException;
 import fil.coo.resource.Resource;
+import fil.coo.resource.pools.ResourcePool;
 
 /**
  * This class specifies how a {@link ResourceUser} will take resources from a {@link Scheduler}
@@ -13,13 +14,12 @@ import fil.coo.resource.Resource;
  */
 public class TakeResourceAction<R extends Resource> extends ResourceUsingAction<R> {
 
-    public TakeResourceAction(ResourceUser<R> resourceUser, Scheduler scheduler) {
-        super(resourceUser, scheduler);
+    public TakeResourceAction(ResourceUser<R> resourceUser, ResourcePool resourcePool) {
+        super(resourceUser, resourcePool);
     }
 
     @Override
     protected void execute() throws ActionFinishedException {
-
     }
 
     @Override

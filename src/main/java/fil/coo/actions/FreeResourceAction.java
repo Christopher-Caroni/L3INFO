@@ -5,6 +5,7 @@ import fil.coo.actions.interfaces.Scheduler;
 import fil.coo.client.interfaces.ResourceUser;
 import fil.coo.exception.ActionFinishedException;
 import fil.coo.resource.Resource;
+import fil.coo.resource.pools.ResourcePool;
 
 /**
  * This class specifies how a {@link ResourceUser} will give back resources to a {@link Scheduler}
@@ -13,8 +14,8 @@ import fil.coo.resource.Resource;
  */
 public class FreeResourceAction<R extends Resource> extends ResourceUsingAction<R> {
 
-    public FreeResourceAction(ResourceUser<R> resourceUser, Scheduler scheduler) {
-        super(resourceUser, scheduler);
+    public FreeResourceAction(ResourceUser<R> resourceUser, ResourcePool resourcePool) {
+        super(resourceUser, resourcePool);
     }
 
     @Override
