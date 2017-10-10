@@ -27,6 +27,7 @@ public class SequentialScheduler extends Scheduler {
         if (actions.get(currentActionIndex).isFinished()) {
             currentActionIndex++;
         }
+        System.out.println("getting next action at index: " + currentActionIndex);
         return actions.get(currentActionIndex);
     }
 

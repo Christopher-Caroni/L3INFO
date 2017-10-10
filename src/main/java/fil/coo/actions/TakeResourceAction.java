@@ -25,6 +25,7 @@ public class TakeResourceAction<R extends Resource> extends ResourceUsingAction<
         try {
             resource = resourcePool.provideResource();
         } catch (NoFreeResourcesException e) {
+            e.printStackTrace();
             return;
         }
         try {

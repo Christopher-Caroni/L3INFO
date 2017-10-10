@@ -25,19 +25,25 @@ public abstract class Scheduler extends Action {
     protected abstract void initStartIndex();
 
     /**
-     *
      * Gets the next action using {@link #getNextAction()} and calls {@link Action#doStep()}
+     *
      * @throws ActionFinishedException if the next action to execute is already finished
      */
     protected void execute() throws ActionFinishedException {
         Action action = getNextAction();
+        System.out.println("next action: " + action);
         if (action.isFinished()) {
-            throw new ActionFinishedException("Tried to execute action with index " + currentActionIndex + " but was finished");
+            throw new ActionFinishedException("Tried to execute " + action + " with index " + currentActionIndex +
+                    " but was finished");
         }
         try {
+            System.out.println("executing: " + action);
             action.doStep();
             if (action.isFinished()) {
+                System.out.println(action + " did finish");
                 nbActionsFinished++;
+            } else {
+                System.out.println("didnt finish");
             }
         } catch (ActionFinishedException e) {
             e.printStackTrace();
