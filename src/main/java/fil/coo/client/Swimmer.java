@@ -13,19 +13,24 @@ public class Swimmer extends SequentialScheduler {
     private ResourceUser<Basket> basketResourceUser;
     private ResourceUser<Cubicle> cubicleResourceUser;
 
-    /*
     private ResourcePool<Basket> basketPool;
     private ResourcePool<Cubicle> cubiclePool;
 
     private void initResourceUsers() {
         TakeResourceAction<Basket> basketTakeResourceAction = new TakeResourceAction<>(basketResourceUser, basketPool);
-        TakeResourceAction<Cubicle> cubicleTakeResourceAction= new TakeResourceAction<>(cubicleResourceUser,
+        TakeResourceAction<Cubicle> cubicleTakeResourceAction = new TakeResourceAction<>(cubicleResourceUser,
                 cubiclePool);
 
         FreeResourceAction<Basket> basketFreeResourceAction = new FreeResourceAction<>(basketResourceUser, basketPool);
-        FreeResourceAction<Cubicle> cubicleFreeResourceAction= new FreeResourceAction<>(cubicleResourceUser,
+        FreeResourceAction<Cubicle> cubicleFreeResourceAction = new FreeResourceAction<>(cubicleResourceUser,
                 cubiclePool);
-    */
+    }
 
+    public ResourceUser<Basket> getBasketResourceUser() {
+        return basketResourceUser;
+    }
 
+    public ResourceUser<Cubicle> getCubicleResourceUser() {
+        return cubicleResourceUser;
+    }
 }
