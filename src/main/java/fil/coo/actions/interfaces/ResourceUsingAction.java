@@ -1,10 +1,8 @@
 package fil.coo.actions.interfaces;
 
-import fil.coo.client.interfaces.ResourceUser;
-import fil.coo.exception.ActionFinishedException;
-import fil.coo.exception.TooManyResourcesException;
-import fil.coo.resource.Resource;
-import fil.coo.resource.pools.ResourcePool;
+import fil.coo.resources.client.ResourceUser;
+import fil.coo.resources.resource.interfaces.Resource;
+import fil.coo.resources.pools.ResourcePool;
 
 /**
  * This type of action acts upon a type R of resource(s)

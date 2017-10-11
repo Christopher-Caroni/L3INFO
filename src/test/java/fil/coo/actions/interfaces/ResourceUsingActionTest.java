@@ -1,12 +1,12 @@
 package fil.coo.actions.interfaces;
 
-import fil.coo.client.interfaces.ResourceUser;
-import fil.coo.resource.Basket;
-import fil.coo.resource.pools.BasketPool;
-import fil.coo.resource.pools.ResourcePool;
+import fil.coo.resources.client.ResourceUser;
+import fil.coo.resources.resource.Basket;
+import fil.coo.resources.pools.BasketPool;
+import fil.coo.resources.pools.ResourcePool;
 import org.junit.Before;
 
-public abstract class ResourceUsingActionTest extends SingleActionStepTest {
+public abstract class ResourceUsingActionTest extends SingleStepActionTest {
 
     protected static final int NB_RESOURCES = 2;
 

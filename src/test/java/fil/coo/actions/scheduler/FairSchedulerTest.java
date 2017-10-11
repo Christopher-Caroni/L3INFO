@@ -1,8 +1,8 @@
 package fil.coo.actions.scheduler;
 
-import fil.coo.actions.ForeseeableAction;
+import fil.coo.actions.action.ForeseeableAction;
 import fil.coo.actions.interfaces.Scheduler;
-import fil.coo.actions.interfaces.SchedulerTest;
+import fil.coo.actions.interfaces.SchedulerWithPredefinedActionsTest;
 import fil.coo.exception.ActionFinishedException;
 import fil.coo.exception.SchedulerStartedException;
 import org.junit.Test;
@@ -11,7 +11,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-public class FairSchedulerTest extends SchedulerTest {
+public class FairSchedulerTest extends SchedulerWithPredefinedActionsTest {
 
     @Override
     protected Scheduler createScheduler() {

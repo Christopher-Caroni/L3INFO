@@ -31,7 +31,6 @@ public abstract class Scheduler extends Action {
      */
     protected void execute() throws ActionFinishedException {
         Action action = getNextAction();
-        System.out.println("next action: " + action);
         if (action.isFinished()) {
             throw new ActionFinishedException("Tried to execute " + action + " with index " + currentActionIndex +
                     " but was finished");
@@ -39,10 +38,7 @@ public abstract class Scheduler extends Action {
         try {
             action.doStep();
             if (action.isFinished()) {
-                System.out.println("finished: TRUE");
                 nbActionsFinished++;
-            } else {
-                System.out.println("finished: FALSE");
             }
         } catch (ActionFinishedException e) {
             e.printStackTrace();
