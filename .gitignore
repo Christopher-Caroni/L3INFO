@@ -1,5 +1,6 @@
 # custom
 .idea/sonarlint/
+*.uml
 
 # Created by https://www.gitignore.io/api/maven,eclipse,intellij+all
 
