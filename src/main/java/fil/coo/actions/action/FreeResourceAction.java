@@ -2,12 +2,13 @@ package fil.coo.actions.action;
 
 import fil.coo.actions.interfaces.ResourceUsingAction;
 import fil.coo.actions.interfaces.Scheduler;
-import fil.coo.resources.client.ResourceUser;
 import fil.coo.exception.ActionFinishedException;
+import fil.coo.exception.DuplicateRecoveryException;
 import fil.coo.exception.ForeignResourceException;
 import fil.coo.exception.TooManyResourcesException;
-import fil.coo.resources.resource.interfaces.Resource;
+import fil.coo.resources.client.ResourceUser;
 import fil.coo.resources.pools.ResourcePool;
+import fil.coo.resources.resource.interfaces.Resource;
 
 /**
  * This class specifies how a {@link ResourceUser} will give back resources to a {@link Scheduler}
@@ -24,8 +25,9 @@ public class FreeResourceAction<R extends Resource> extends ResourceUsingAction<
     protected void execute() throws ActionFinishedException {
         try {
             resourcePool.recoverResource(resourceUser.getResource());
-        } catch (TooManyResourcesException | ForeignResourceException e) {
-            // This shouldn't ever be thrown
+        } catch (TooManyResourcesException | ForeignResourceException | DuplicateRecoveryException e) {
+            e.printStackTrace();
+            // this should never happen
         }
         resourceUser.resetResource();
     }

@@ -3,10 +3,7 @@ package fil.coo.resources.client;
 import fil.coo.actions.action.ForeseeableAction;
 import fil.coo.actions.interfaces.Scheduler;
 import fil.coo.actions.interfaces.SchedulerTest;
-import fil.coo.exception.ActionFinishedException;
-import fil.coo.exception.ForeignResourceException;
-import fil.coo.exception.NoFreeResourcesException;
-import fil.coo.exception.TooManyResourcesException;
+import fil.coo.exception.*;
 import fil.coo.resources.resource.Basket;
 import fil.coo.resources.resource.Cubicle;
 import fil.coo.resources.pools.BasketPool;
@@ -63,7 +60,7 @@ public class SwimmerTest extends SchedulerTest {
     }
 
     @Test
-    public void testTakeBasketAndCubicleWhenFail() throws ActionFinishedException, NoFreeResourcesException, IllegalArgumentException, TooManyResourcesException, ForeignResourceException {
+    public void testTakeBasketAndCubicleWhenFail() throws ActionFinishedException, NoFreeResourcesException, IllegalArgumentException, TooManyResourcesException, ForeignResourceException, DuplicateRecoveryException {
         ResourceUser<Basket> basketResourceUser = swimmer.getBasketResourceUser();
         ResourceUser<Cubicle> cubicleResourceUser = swimmer.getCubicleResourceUser();
         Basket basket = basketPool.provideResource();
