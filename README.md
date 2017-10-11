@@ -1,3 +1,5 @@
+[![pipeline status](https://gitlab-etu.fil.univ-lille1.fr/caroni/pds-ps/badges/master/pipeline.svg)](https://gitlab-etu.fil.univ-lille1.fr/caroni/pds-ps/commits/master)
+
 #   Gestion des processus
 
 Ce dépôt correspond aux TPs de PDS « [Gestion des processus](http://www.fil.univ-lille1.fr/~hym/e/pds/tp/tdps.html) ».
