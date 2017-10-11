@@ -3,12 +3,13 @@ package fil.coo.resources.client;
 import fil.coo.actions.action.ForeseeableAction;
 import fil.coo.actions.action.FreeResourceAction;
 import fil.coo.actions.action.TakeResourceAction;
+import fil.coo.actions.interfaces.Action;
 import fil.coo.actions.scheduler.SequentialScheduler;
-import fil.coo.resources.resource.Basket;
-import fil.coo.resources.resource.Cubicle;
 import fil.coo.resources.pools.BasketPool;
 import fil.coo.resources.pools.CubiclePool;
 import fil.coo.resources.pools.ResourcePool;
+import fil.coo.resources.resource.Basket;
+import fil.coo.resources.resource.Cubicle;
 
 public class Swimmer extends SequentialScheduler {
 
@@ -19,13 +20,10 @@ public class Swimmer extends SequentialScheduler {
 
     private ResourcePool<Basket> basketPool;
     private ResourcePool<Cubicle> cubiclePool;
+
     private final int timeToUndress;
     private final int timeToSwim;
     private final int timeToDress;
-
-    private ForeseeableAction swimAction;
-    private ForeseeableAction dressAction;
-    private ForeseeableAction undressAction;
 
     public Swimmer(String name, BasketPool basketPool, CubiclePool cubiclePool, int timeToUndress, int timeToSwim,
                    int timeToDress) {
@@ -50,56 +48,45 @@ public class Swimmer extends SequentialScheduler {
     }
 
     /**
-     * Add the predefined actions that all swimmers will do
+     * Add the predefined actions that all swimmers will do. Only one method because a swimmer's actions are predefined and depend on one another because of the order of execution.
+     * <br>It's like trying to separate the baking process in a recipe. The time and temperature is dependant on what ingredients compose the recipe.
      */
     private void initActionList() {
-
-        initForeseeableActions();
 
         actions.add(new TakeResourceAction<>(basketResourceUser, basketPool));
         actions.add(new TakeResourceAction<>(cubicleResourceUser, cubiclePool));
 
         // undress
-        actions.add(undressAction);
+        actions.add(new ForeseeableAction(timeToUndress));
         actions.add(new FreeResourceAction<>(cubicleResourceUser, cubiclePool));
 
         // swim
-        actions.add(swimAction);
+        actions.add(new ForeseeableAction(timeToSwim));
         actions.add(new TakeResourceAction<>(cubicleResourceUser, cubiclePool));
 
         // dress
-        actions.add(dressAction);
+        actions.add(new ForeseeableAction(timeToDress));
         actions.add(new FreeResourceAction<>(basketResourceUser, basketPool));
         actions.add(new FreeResourceAction<>(cubicleResourceUser, cubiclePool));
     }
 
-    /**
-     * Create the actions to  undress, swim and dress.
-     */
-    private void initForeseeableActions() {
-        undressAction = new ForeseeableAction(timeToUndress);
-        swimAction = new ForeseeableAction(timeToSwim);
-        dressAction = new ForeseeableAction(timeToDress);
-
-    }
-
-    public ResourceUser<Basket> getBasketResourceUser() {
+    protected ResourceUser<Basket> getBasketResourceUser() {
         return basketResourceUser;
     }
 
-    public ResourceUser<Cubicle> getCubicleResourceUser() {
+    protected ResourceUser<Cubicle> getCubicleResourceUser() {
         return cubicleResourceUser;
     }
 
-    public ForeseeableAction getUndressAction() {
-        return undressAction;
+    protected Action getUndressAction() {
+        return actions.get(2);
     }
 
-    public ForeseeableAction getSwimAction() {
-        return swimAction;
+    protected Action getSwimAction() {
+        return actions.get(4);
     }
 
-    public ForeseeableAction getDressAction() {
-        return dressAction;
+    protected Action getDressAction() {
+        return actions.get(6);
     }
 }
