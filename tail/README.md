@@ -5,12 +5,11 @@ Ce répertoire correspond aux exercices de la section
 fichier](http://www.fil.univ-lille1.fr/~hym/e/pds/tp/tdfs-cmd.html#tail)
 (versions simpliste et efficace de `tail`).
 
-Ce répertoire devra contenir **exclusivement** les fichiers :
-`README.md`, `Makefile`, `mtail.c` et soit `tests.sh` soit
-`session.txt`.
-En particulier, un dépôt de code ne doit jamais contenir les fichiers
-compilés (`.o`, exécutable, etc.).
+# Ce que nous avons fait :
 
-Vous éditerez ce fichier pour qu’il contienne un compte-rendu du
-travail effectué (qu’est-ce qui marche, qu’est-ce qui ne marche pas,
-etc.).
+Durant ce tp nous avons:
+- crée la commande `mtail` qui reproduis la commande `tail -n`
+- il y a `deux façons` de faire dans cette commande
+- la premiere avec `tail_simpliste` qui est plus simple mais qui lis 2 fois tout le fichier
+- la deuxieme `tail_efficace` qui lis la fin du fichier avec `la fonction lseek()` et `un tampon`
+- tester la commande `mtail` avec differents cas d'utilisation par le biais d'un shell
