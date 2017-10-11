@@ -1,13 +1,12 @@
 package fil.coo.actions.action;
 
-import fil.coo.actions.action.FreeResourceAction;
 import fil.coo.actions.interfaces.ResourceUsingAction;
 import fil.coo.actions.interfaces.ResourceUsingActionTest;
 import fil.coo.exception.ActionFinishedException;
 import fil.coo.exception.NoFreeResourcesException;
 import fil.coo.exception.TooManyResourcesException;
-import fil.coo.resources.resource.Basket;
-import org.junit.Before;
+import fil.coo.resources.client.ResourceUser;
+import fil.coo.resources.pools.ResourcePool;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -15,19 +14,27 @@ import static org.junit.Assert.*;
 public class FreeResourceActionTest extends ResourceUsingActionTest {
 
     @Override
-    protected ResourceUsingAction<Basket> createResourceUsingAction() {
-        return new FreeResourceAction<>(this.resourceUser, this.resourcePool);
+    protected ResourceUsingAction<MockResource> getResourceUsingAction(ResourceUser<MockResource> resourceUser, ResourcePool<MockResource> resourcePool) {
+        return new FreeResourceAction<>(resourceUser, resourcePool);
     }
 
-    @Before
-    public void makeResourceUserHaveResourceFromPool() throws TooManyResourcesException {
-        Basket basket = null;
+    /**
+     * We need the resourceUser to have a resource from this instance's resourcePool
+     *
+     * @param resourceUsingAction the action to prepare
+     */
+    @Override
+    protected void prepareResourceUsingAction(ResourceUsingAction<MockResource> resourceUsingAction) {
+        MockResource resource = null;
         try {
-            basket = resourcePool.provideResource();
+            resource = resourcePool.provideResource();
         } catch (NoFreeResourcesException e) {
             fail("Manual setup must not have error to setup tests");
         }
-        resourceUser.setResource(basket);
+        try {
+            resourceUser.setResource(resource);
+        } catch (TooManyResourcesException ignored) {
+        }
     }
 
     @Test

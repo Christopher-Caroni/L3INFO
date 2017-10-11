@@ -10,14 +10,14 @@ import static org.junit.Assert.assertTrue;
 
 public abstract class SingleStepActionTest {
 
-    protected abstract Action createAction();
-
     protected Action action;
 
     @Before
     public void setupAction() {
         this.action = this.createAction();
     }
+
+    protected abstract Action createAction();
 
     @Test
     public void stateIsReadyWhenCreated() {

@@ -1,41 +1,80 @@
 package fil.coo.actions.interfaces;
 
 import fil.coo.resources.client.ResourceUser;
-import fil.coo.resources.resource.Basket;
-import fil.coo.resources.pools.BasketPool;
 import fil.coo.resources.pools.ResourcePool;
+import fil.coo.resources.resource.interfaces.Resource;
 import org.junit.Before;
 
 public abstract class ResourceUsingActionTest extends SingleStepActionTest {
 
     protected static final int NB_RESOURCES = 2;
 
-    protected ResourceUser<Basket> resourceUser;
-    protected ResourcePool<Basket> resourcePool;
-
-    protected ResourceUsingAction<Basket> resourceUsingAction;
+    protected ResourceUsingAction<MockResource> resourceUsingAction;
+    protected ResourceUser<MockResource> resourceUser;
+    protected ResourcePool<MockResource> resourcePool;
 
     @Before
     public void setupResourceUsingAction() {
-        if (this.resourceUsingAction == null) {
-            initFields();
-            this.resourceUsingAction = this.createResourceUsingAction();
-        }
+        this.resourceUsingAction = this.initResourceUsingAction();
     }
 
-    private void initFields() {
-        resourceUser = new ResourceUser<>();
-        resourcePool = new BasketPool(NB_RESOURCES);
+    protected ResourceUsingAction<MockResource> initResourceUsingAction() {
+        resourceUser = getResourceResourceUser();
+        resourcePool = getResourcePool();
+
+        ResourceUsingAction<MockResource> resourceUsingAction = getResourceUsingAction(resourceUser, resourcePool);
+        prepareResourceUsingAction(resourceUsingAction);
+
+        return resourceUsingAction;
     }
 
-    protected abstract ResourceUsingAction<Basket> createResourceUsingAction();
+    protected abstract ResourceUsingAction<MockResource> getResourceUsingAction(ResourceUser<MockResource> resourceUser, ResourcePool<MockResource> resourcePool);
+
+    /**
+     * Do any preparations necessary for the resourceUsingAction. For example, the {@link fil.coo.actions.action.FreeResourceAction}
+     * can only be executed if the user already has a resource from the pool
+     *
+     * @param resourceUsingAction the action to prepare
+     */
+    protected abstract void prepareResourceUsingAction(ResourceUsingAction<MockResource> resourceUsingAction);
+
+    private ResourceUser<MockResource> getResourceResourceUser() {
+        return new ResourceUser<>();
+    }
+
+    private ResourcePool<MockResource> getResourcePool() {
+        return new MockPool(NB_RESOURCES);
+    }
+
 
     @Override
     protected Action createAction() {
-        if (this.resourceUsingAction == null) {
-            this.setupResourceUsingAction();
+        resourceUser = getResourceResourceUser();
+        resourcePool = getResourcePool();
+        return initResourceUsingAction();
+    }
+
+    protected class MockResource implements Resource {
+
+        @Override
+        public String description() {
+            return "Mock Resource";
         }
-        return this.resourceUsingAction;
+    }
+
+    protected class MockPool extends ResourcePool<MockResource> {
+
+        /**
+         * @param nbMaxResources the initial and max amount of resources that this pools will hold.
+         */
+        public MockPool(int nbMaxResources) {
+            super(nbMaxResources);
+        }
+
+        @Override
+        protected MockResource createOneResource() {
+            return new MockResource();
+        }
     }
 
 }

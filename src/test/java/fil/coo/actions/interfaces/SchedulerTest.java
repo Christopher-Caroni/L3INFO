@@ -5,7 +5,7 @@ import fil.coo.exception.SchedulerStartedException;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.fail;
 
 public abstract class SchedulerTest extends MultipleStepActionTest {
 
@@ -16,32 +16,32 @@ public abstract class SchedulerTest extends MultipleStepActionTest {
     protected abstract Scheduler createScheduler();
 
     /**
-     * Creates the scheduler and calls adds {@link #NB_ACTIONS} {@link OneStepMockAction}
+     * Creates the scheduler and calls adds {@link #NB_ACTIONS} of {@link OneStepMockAction}
      */
     @Before
     public void setupScheduler() {
-        if (this.scheduler == null) {
-            this.scheduler = this.createScheduler();
-            for (int i = 0; i < NB_ACTIONS; i++) {
-                try {
-                    this.scheduler.addAction(new OneStepMockAction());
-                } catch (ActionFinishedException | SchedulerStartedException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
+        this.scheduler = createScheduler();
+        initScheduler(this.scheduler);
     }
 
     /**
-     * Calls {@link #setupScheduler()} if the scheduler is null
-     *
-     * @return the scheduler created from {@link #setupScheduler()}
+     * @return a scheduler created with {@link #initScheduler(Scheduler)}
      */
     @Override
     protected Action createAction() {
-        if (scheduler == null) ;
-        setupScheduler();
-        return this.scheduler;
+        Scheduler scheduler = createScheduler();
+        initScheduler(scheduler);
+        return scheduler;
+    }
+
+    private void initScheduler(Scheduler scheduler) {
+        for (int i = 0; i < NB_ACTIONS; i++) {
+            try {
+                scheduler.addAction(new OneStepMockAction());
+            } catch (ActionFinishedException | SchedulerStartedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @Test(expected = SchedulerStartedException.class)

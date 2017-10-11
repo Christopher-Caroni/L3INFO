@@ -1,11 +1,11 @@
 package fil.coo.actions.action;
 
-import fil.coo.actions.action.TakeResourceAction;
 import fil.coo.actions.interfaces.ResourceUsingAction;
 import fil.coo.actions.interfaces.ResourceUsingActionTest;
 import fil.coo.exception.ActionFinishedException;
 import fil.coo.exception.NoFreeResourcesException;
-import fil.coo.resources.resource.Basket;
+import fil.coo.resources.client.ResourceUser;
+import fil.coo.resources.pools.ResourcePool;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -13,8 +13,13 @@ import static org.junit.Assert.*;
 public class TakeResourceActionTest extends ResourceUsingActionTest {
 
     @Override
-    protected ResourceUsingAction<Basket> createResourceUsingAction() {
-        return new TakeResourceAction<>(this.resourceUser, this.resourcePool);
+    protected ResourceUsingAction<MockResource> getResourceUsingAction(ResourceUser<MockResource> resourceUser, ResourcePool<MockResource> resourcePool) {
+        return new TakeResourceAction<>(resourceUser, resourcePool);
+    }
+
+    @Override
+    protected void prepareResourceUsingAction(ResourceUsingAction<MockResource> resourceUsingAction) {
+        // No preparations necessary
     }
 
     @Test

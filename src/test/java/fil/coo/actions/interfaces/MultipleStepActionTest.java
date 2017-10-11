@@ -1,6 +1,7 @@
 package fil.coo.actions.interfaces;
 
 import fil.coo.exception.ActionFinishedException;
+import org.junit.Before;
 import org.junit.Test;
 
 import static fil.coo.actions.ActionState.IN_PROGRESS;
