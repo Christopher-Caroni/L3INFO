@@ -25,9 +25,7 @@ public class FreeResourceAction<R extends Resource> extends ResourceUsingAction<
     protected void execute() throws ActionFinishedException {
         try {
             resourcePool.recoverResource(resourceUser.getResource());
-        } catch (TooManyResourcesException | ForeignResourceException | DuplicateRecoveryException e) {
-            e.printStackTrace();
-            // this should never happen
+        } catch (TooManyResourcesException | ForeignResourceException | DuplicateRecoveryException ignored) {
         }
         resourceUser.resetResource();
     }
