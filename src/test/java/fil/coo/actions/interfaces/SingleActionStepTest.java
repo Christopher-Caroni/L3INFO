@@ -24,7 +24,7 @@ public abstract class SingleActionStepTest {
         assertEquals(this.action.getState(), ActionState.READY);
     }
 
-    @Test(timeout = 500)
+    @Test
     public void isFinishedOnlyWhenStopConditionIsReached() throws ActionFinishedException {
         assertFalse(this.action.isFinished());
         assertFalse(this.action.stopCondition());
@@ -52,4 +52,6 @@ public abstract class SingleActionStepTest {
         // Lance l'exception
         this.action.doStep();
     }
+
+
 }

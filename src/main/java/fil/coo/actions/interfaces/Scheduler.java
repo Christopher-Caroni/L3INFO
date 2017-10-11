@@ -37,13 +37,12 @@ public abstract class Scheduler extends Action {
                     " but was finished");
         }
         try {
-            System.out.println("executing: " + action);
             action.doStep();
             if (action.isFinished()) {
-                System.out.println(action + " did finish");
+                System.out.println("finished: TRUE");
                 nbActionsFinished++;
             } else {
-                System.out.println("didnt finish");
+                System.out.println("finished: FALSE");
             }
         } catch (ActionFinishedException e) {
             e.printStackTrace();

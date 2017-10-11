@@ -14,10 +14,6 @@ import fil.coo.resource.pools.ResourcePool;
 public class Swimmer extends SequentialScheduler {
 
     private final String name;
-    private TakeResourceAction<Basket> basketTakeResourceAction;
-    private TakeResourceAction<Cubicle> cubicleTakeResourceAction;
-    private FreeResourceAction<Basket> basketFreeResourceAction;
-    private FreeResourceAction<Cubicle> cubicleFreeResourceAction;
 
     private ResourceUser<Basket> basketResourceUser;
     private ResourceUser<Cubicle> cubicleResourceUser;
@@ -60,36 +56,22 @@ public class Swimmer extends SequentialScheduler {
     private void initActionList() {
 
         initForeseeableActions();
-        initTakeFreeResourceAction();
 
-        actions.add(basketTakeResourceAction);
-        actions.add(cubicleTakeResourceAction);
+        actions.add(new TakeResourceAction<>(basketResourceUser, basketPool));
+        actions.add(new TakeResourceAction<>(cubicleResourceUser, cubiclePool));
 
         // undress
         actions.add(undressAction);
-        actions.add(cubicleFreeResourceAction);
+        actions.add(new FreeResourceAction<>(cubicleResourceUser, cubiclePool));
 
         // swim
         actions.add(swimAction);
-        actions.add(cubicleTakeResourceAction);
+        actions.add(new TakeResourceAction<>(cubicleResourceUser, cubiclePool));
 
         // dress
         actions.add(dressAction);
-        actions.add(basketFreeResourceAction);
-        actions.add(cubicleFreeResourceAction);
-    }
-
-    /**
-     * Creates the actions to take and free the basket/cubicle resources.
-     */
-    private void initTakeFreeResourceAction() {
-        basketTakeResourceAction = new TakeResourceAction<>(basketResourceUser, basketPool);
-        cubicleTakeResourceAction = new TakeResourceAction<>(cubicleResourceUser,
-                cubiclePool);
-
-        basketFreeResourceAction = new FreeResourceAction<>(basketResourceUser, basketPool);
-        cubicleFreeResourceAction = new FreeResourceAction<>(cubicleResourceUser,
-                cubiclePool);
+        actions.add(new FreeResourceAction<>(basketResourceUser, basketPool));
+        actions.add(new FreeResourceAction<>(cubicleResourceUser, cubiclePool));
     }
 
     /**

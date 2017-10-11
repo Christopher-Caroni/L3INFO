@@ -28,12 +28,10 @@ public class FreeResourceAction<R extends Resource> extends ResourceUsingAction<
             // This shouldn't ever be thrown
         }
         resourceUser.resetResource();
-        System.out.println("free execution success");
     }
 
     @Override
     protected boolean stopCondition() {
-        System.out.println("testing if free finished");
         return resourceUser.getResource() == null;
     }
 

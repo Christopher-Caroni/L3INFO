@@ -39,4 +39,11 @@ public class TakeResourceAction<R extends Resource> extends ResourceUsingAction<
     protected boolean stopCondition() {
         return resourceUser.getResource() != null;
     }
+
+    @Override
+    public String toString() {
+        return "TakeResourceAction{" +
+                "state=" + state +
+                '}';
+    }
 }
