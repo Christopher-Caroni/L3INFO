@@ -7,7 +7,7 @@ package postfixees;
 %column
 %{
   private int compteurCommentaire = 0 ;
-%} 
+%}
 
 %unicode
 
@@ -20,7 +20,7 @@ MULT=[*]|mult
 QUO=[/]|quo
 OPP=opp
 
-%% 
+%%
 
 <YYINITIAL> {
       {ENTIER_SIMPLE}
@@ -56,7 +56,7 @@ OPP=opp
 \s|\n|\r
       {
       }
-      
+
 <COMMENTAIRE>{
       [^*/]|[*]+[^/]|[/]+[^*]
             {
@@ -70,5 +70,8 @@ OPP=opp
             }
 }
 /* ajouter le cas des espaces et fins de ligne */
+
+[\s\n]
+  {}
 
 /* ajouter les autres tokens */
