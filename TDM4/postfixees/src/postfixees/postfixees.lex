@@ -9,8 +9,9 @@ package postfixees;
 ENTIER_SIMPLE=[0-9]+
 PLUS=[+]|plus
 MOINS=[-]|plus
-FACTEUR=[*]|plus
-DIVISION=[/]|plus
+MULT=[*]|plus
+QUO=[/]|plus
+OPP=opp
 
 %%
 
@@ -23,11 +24,13 @@ DIVISION=[/]|plus
 {MOINS}
       { return new Moins(yytext()); }
 
-{FACTEUR}
-      { return new Facteur(yytext()); }
+{MULT}
+      { return new Mult(yytext()); }
 
-{DIVISION}
-      { return new Division(yytext()); }
+{QUO}
+      { return new Quo(yytext()); }
+{OPP}
+      { return new Opp(yytext()); }
 
 /* ajouter le cas des espaces et fins de ligne */
 [\s]
