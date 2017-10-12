@@ -33,10 +33,10 @@ class Yylex {
    * Translates characters to character classes
    */
   private static final String ZZ_CMAP_PACKED = 
-    "\11\0\5\12\22\0\1\12\11\0\1\10\1\2\1\0\1\7\1\0"+
-    "\1\11\12\1\62\0\1\4\3\0\1\3\2\0\1\6\1\0\1\5"+
-    "\17\0\1\12\32\0\1\12\u15df\0\1\12\u097f\0\13\12\35\0\2\12"+
-    "\5\0\1\12\57\0\1\12\u0fa0\0\1\12\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\ud00f\0";
+    "\11\0\5\13\22\0\1\13\11\0\1\10\1\2\1\0\1\7\1\0"+
+    "\1\11\12\1\62\0\1\4\2\0\1\12\1\3\2\0\1\6\1\0"+
+    "\1\5\17\0\1\13\32\0\1\13\u15df\0\1\13\u097f\0\13\13\35\0"+
+    "\2\13\5\0\1\13\57\0\1\13\u0fa0\0\1\13\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\ud00f\0";
 
   /** 
    * Translates characters to character classes
@@ -49,11 +49,11 @@ class Yylex {
   private static final int [] ZZ_ACTION = zzUnpackAction();
 
   private static final String ZZ_ACTION_PACKED_0 =
-    "\1\0\1\1\1\2\1\0\1\3\1\4\1\5\1\6"+
-    "\2\0";
+    "\1\0\1\1\1\2\1\0\1\3\1\4\1\5\1\0"+
+    "\1\6\3\0\1\7";
 
   private static int [] zzUnpackAction() {
-    int [] result = new int[10];
+    int [] result = new int[13];
     int offset = 0;
     offset = zzUnpackAction(ZZ_ACTION_PACKED_0, offset, result);
     return result;
@@ -78,11 +78,11 @@ class Yylex {
   private static final int [] ZZ_ROWMAP = zzUnpackRowMap();
 
   private static final String ZZ_ROWMAP_PACKED_0 =
-    "\0\0\0\13\0\26\0\41\0\26\0\26\0\26\0\26"+
-    "\0\54\0\67";
+    "\0\0\0\14\0\30\0\44\0\30\0\30\0\30\0\60"+
+    "\0\30\0\74\0\110\0\124\0\30";
 
   private static int [] zzUnpackRowMap() {
-    int [] result = new int[10];
+    int [] result = new int[13];
     int offset = 0;
     offset = zzUnpackRowMap(ZZ_ROWMAP_PACKED_0, offset, result);
     return result;
@@ -106,11 +106,11 @@ class Yylex {
 
   private static final String ZZ_TRANS_PACKED_0 =
     "\1\0\1\2\1\3\1\4\3\0\1\5\1\6\1\7"+
-    "\1\10\1\0\1\2\30\0\1\11\13\0\1\12\13\0"+
-    "\1\3\4\0";
+    "\1\10\1\11\1\0\1\2\32\0\1\12\12\0\1\13"+
+    "\15\0\1\14\11\0\1\15\16\0\1\3\5\0";
 
   private static int [] zzUnpackTrans() {
-    int [] result = new int[66];
+    int [] result = new int[96];
     int offset = 0;
     offset = zzUnpackTrans(ZZ_TRANS_PACKED_0, offset, result);
     return result;
@@ -148,10 +148,11 @@ class Yylex {
   private static final int [] ZZ_ATTRIBUTE = zzUnpackAttribute();
 
   private static final String ZZ_ATTRIBUTE_PACKED_0 =
-    "\1\0\1\1\1\11\1\0\4\11\2\0";
+    "\1\0\1\1\1\11\1\0\3\11\1\0\1\11\3\0"+
+    "\1\11";
 
   private static int [] zzUnpackAttribute() {
-    int [] result = new int[10];
+    int [] result = new int[13];
     int offset = 0;
     offset = zzUnpackAttribute(ZZ_ATTRIBUTE_PACKED_0, offset, result);
     return result;
@@ -247,7 +248,7 @@ class Yylex {
     char [] map = new char[0x110000];
     int i = 0;  /* index in packed string  */
     int j = 0;  /* index in unpacked array */
-    while (i < 106) {
+    while (i < 108) {
       int  count = packed.charAt(i++);
       char value = packed.charAt(i++);
       do map[j++] = value; while (--count > 0);
@@ -600,27 +601,31 @@ class Yylex {
           case 1: 
             { return new Valeur(yytext());
             }
-          case 7: break;
+          case 8: break;
           case 2: 
             { return new Plus(yytext());
             }
-          case 8: break;
+          case 9: break;
           case 3: 
             { return new Moins(yytext());
             }
-          case 9: break;
-          case 4: 
-            { return new Facteur(yytext());
-            }
           case 10: break;
-          case 5: 
-            { return new Division(yytext());
+          case 4: 
+            { return new Mult(yytext());
             }
           case 11: break;
+          case 5: 
+            { return new Quo(yytext());
+            }
+          case 12: break;
           case 6: 
             { 
             }
-          case 12: break;
+          case 13: break;
+          case 7: 
+            { return new Opp(yytext());
+            }
+          case 14: break;
           default:
             zzScanError(ZZ_NO_MATCH);
         }

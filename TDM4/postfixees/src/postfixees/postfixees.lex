@@ -33,7 +33,7 @@ OPP=opp
       { return new Opp(yytext()); }
 
 /* ajouter le cas des espaces et fins de ligne */
-[\s]
+[\s\n]
   {}
 
 /* ajouter les autres tokens */
