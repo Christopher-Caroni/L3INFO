@@ -9,8 +9,8 @@ package postfixees;
 ENTIER_SIMPLE=[0-9]+
 PLUS=[+]|plus
 MOINS=[-]|plus
-FACTEUR=[/]|plus
-DIVISION=[*]|plus
+FACTEUR=[*]|plus
+DIVISION=[/]|plus
 
 %%
 

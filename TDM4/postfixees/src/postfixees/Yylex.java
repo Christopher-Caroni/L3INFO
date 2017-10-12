@@ -33,8 +33,8 @@ class Yylex {
    * Translates characters to character classes
    */
   private static final String ZZ_CMAP_PACKED = 
-    "\11\0\5\12\22\0\1\12\11\0\1\11\1\2\1\0\1\7\1\0"+
-    "\1\10\12\1\62\0\1\4\3\0\1\3\2\0\1\6\1\0\1\5"+
+    "\11\0\5\12\22\0\1\12\11\0\1\10\1\2\1\0\1\7\1\0"+
+    "\1\11\12\1\62\0\1\4\3\0\1\3\2\0\1\6\1\0\1\5"+
     "\17\0\1\12\32\0\1\12\u15df\0\1\12\u097f\0\13\12\35\0\2\12"+
     "\5\0\1\12\57\0\1\12\u0fa0\0\1\12\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\ud00f\0";
 

@@ -2,7 +2,7 @@ package postfixees;
 public class Moins  extends Operateur implements Yytoken{
 
   protected int calcul(int... values){
-    return values[0]-values[1];
+    return values[1]-values[0];
   }
 
   public Moins(String image){
