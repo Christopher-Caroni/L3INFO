@@ -1,6 +1,6 @@
 package fil.coo.resources.pools;
 
-import fil.coo.exception.DuplicateRecoveryException;
+import fil.coo.exception.DuplicateResourceException;
 import fil.coo.exception.ForeignResourceException;
 import fil.coo.exception.NoFreeResourcesException;
 import fil.coo.exception.TooManyResourcesException;
@@ -86,7 +86,7 @@ public abstract class ResourcePoolTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testRecoverResourceWithNullThrowsException() throws TooManyResourcesException, ForeignResourceException, DuplicateRecoveryException {
+    public void testRecoverResourceWithNullThrowsException() throws TooManyResourcesException, ForeignResourceException, DuplicateResourceException {
         resourcePool.recoverResource(null);
     }
 
@@ -97,7 +97,7 @@ public abstract class ResourcePoolTest {
      * @throws ForeignResourceException  if the object being recovered did not originate from the pool
      */
     @Test(expected = TooManyResourcesException.class)
-    public void testRecoverResourceAlreadyFullThrowsException() throws TooManyResourcesException, ForeignResourceException, DuplicateRecoveryException {
+    public void testRecoverResourceAlreadyFullThrowsException() throws TooManyResourcesException, ForeignResourceException, DuplicateResourceException {
         resourcePool.recoverResource(getOneResource());
     }
 
@@ -107,13 +107,13 @@ public abstract class ResourcePoolTest {
 
         try {
             resourcePool.recoverResource(firstResource);
-        } catch (TooManyResourcesException | ForeignResourceException | DuplicateRecoveryException e) {
+        } catch (TooManyResourcesException | ForeignResourceException | DuplicateResourceException e) {
             fail("Should not have thrown exception since list should've been empty, and we provide non null resource");
         }
     }
 
     @Test(expected = ForeignResourceException.class)
-    public void testRecoverForeignResourceThrowsException() throws ForeignResourceException, TooManyResourcesException, NoFreeResourcesException, DuplicateRecoveryException {
+    public void testRecoverForeignResourceThrowsException() throws ForeignResourceException, TooManyResourcesException, NoFreeResourcesException, DuplicateResourceException {
         Resource firstResource = resourcePool.provideResource();
 
         // resource has one free slot
@@ -121,8 +121,8 @@ public abstract class ResourcePoolTest {
         resourcePool.recoverResource(badResource); // throws ForeignResourceException
     }
 
-    @Test(expected = DuplicateRecoveryException.class)
-    public void testCannotRecoverResourceTwice() throws NoFreeResourcesException, ForeignResourceException, TooManyResourcesException, DuplicateRecoveryException {
+    @Test(expected = DuplicateResourceException.class)
+    public void testCannotRecoverResourceTwice() throws NoFreeResourcesException, ForeignResourceException, TooManyResourcesException, DuplicateResourceException {
 
         // free two slots from the pool so we can try to recover the same object twice
         Resource firstResource = resourcePool.provideResource();
@@ -130,13 +130,13 @@ public abstract class ResourcePoolTest {
 
         try {
             resourcePool.recoverResource(firstResource);
-        } catch (TooManyResourcesException | DuplicateRecoveryException | ForeignResourceException e) {
+        } catch (TooManyResourcesException | DuplicateResourceException | ForeignResourceException e) {
             fail("No reason to fail here");
         }
 
         try {
             resourcePool.recoverResource(firstResource);
-        } catch (TooManyResourcesException | DuplicateRecoveryException | ForeignResourceException e) {
+        } catch (TooManyResourcesException | DuplicateResourceException | ForeignResourceException e) {
             // expected
             throw (e);
         }

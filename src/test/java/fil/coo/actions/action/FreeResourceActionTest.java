@@ -1,7 +1,6 @@
 package fil.coo.actions.action;
 
 import fil.coo.actions.interfaces.ResourceUsingAction;
-import fil.coo.actions.interfaces.ResourceUsingActionTest;
 import fil.coo.exception.ActionFinishedException;
 import fil.coo.exception.NoFreeResourcesException;
 import fil.coo.exception.TooManyResourcesException;
@@ -43,6 +42,15 @@ public class FreeResourceActionTest extends ResourceUsingActionTest {
         resourceUsingAction.doStep();
         assertTrue(resourceUsingAction.isFinished());
         assertNull(resourceUser.getResource());
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testIfResourceUserDidNotHaveResourceThrowsException() throws ActionFinishedException, IllegalArgumentException {
+        resourceUser.resetResource();
+        assertNull(resourceUser.getResource());
+
+        resourceUsingAction.doStep();
+        assertFalse(resourceUsingAction.isFinished());
     }
 
 }

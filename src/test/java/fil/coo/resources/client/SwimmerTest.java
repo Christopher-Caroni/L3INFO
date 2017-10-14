@@ -83,10 +83,10 @@ public class SwimmerTest extends SchedulerTest {
      * @throws IllegalArgumentException   should not be thrown
      * @throws TooManyResourcesException  should not be thrown
      * @throws ForeignResourceException   should not be thrown
-     * @throws DuplicateRecoveryException should not be thrown
+     * @throws DuplicateResourceException should not be thrown
      */
     @Test
-    public void testTakeBasketAndCubicleWhenFail() throws ActionFinishedException, NoFreeResourcesException, IllegalArgumentException, TooManyResourcesException, ForeignResourceException, DuplicateRecoveryException {
+    public void testTakeBasketAndCubicleWhenFail() throws ActionFinishedException, NoFreeResourcesException, IllegalArgumentException, TooManyResourcesException, ForeignResourceException, DuplicateResourceException {
         ResourceUser<Basket> basketResourceUser = swimmer.getBasketResourceUser();
         ResourceUser<Cubicle> cubicleResourceUser = swimmer.getCubicleResourceUser();
         Basket basket = basketPool.provideResource();

@@ -1,6 +1,6 @@
 package fil.coo.resources.pools;
 
-import fil.coo.exception.DuplicateRecoveryException;
+import fil.coo.exception.DuplicateResourceException;
 import fil.coo.exception.ForeignResourceException;
 import fil.coo.exception.NoFreeResourcesException;
 import fil.coo.exception.TooManyResourcesException;
@@ -64,21 +64,25 @@ public abstract class ResourcePool<T extends Resource> {
      * @param resource the resource that will be recovered
      * @throws IllegalArgumentException   if the resource parameter is incorrect
      * @throws TooManyResourcesException  if the pools already contains {@link #nbMaxResources} resources
-     * @throws DuplicateRecoveryException if the resource has already been recovered
+     * @throws DuplicateResourceException if the resource has already been recovered
      * @throws ForeignResourceException   if the resource did not belong to the pool originally
      */
-    public void recoverResource(T resource) throws IllegalArgumentException, TooManyResourcesException, DuplicateRecoveryException, ForeignResourceException {
+    public void recoverResource(T resource) throws IllegalArgumentException, TooManyResourcesException, DuplicateResourceException, ForeignResourceException {
         if (resource == null) {
             throw new IllegalArgumentException();
         } else if (freeResources.size() == nbMaxResources) {
             throw new TooManyResourcesException("Cannot add above max number of resources");
         } else if (freeResources.contains(resource)) {
-            throw new DuplicateRecoveryException("Cannot recover a same resource twice");
+            throw new DuplicateResourceException("Cannot recover a same resource twice");
         } else if (!busyResources.contains(resource)) {
             throw new ForeignResourceException("Cannot add a resource to a pool that it did not originate from");
         } else {
             busyResources.remove(resource);
             freeResources.add(resource);
         }
+    }
+
+    public int getNbAvailableResources() {
+        return freeResources.size();
     }
 }

@@ -1,9 +1,9 @@
 package fil.coo.actions.action;
 
 import fil.coo.actions.interfaces.ResourceUsingAction;
-import fil.coo.actions.interfaces.ResourceUsingActionTest;
 import fil.coo.exception.ActionFinishedException;
 import fil.coo.exception.NoFreeResourcesException;
+import fil.coo.exception.TooManyResourcesException;
 import fil.coo.resources.client.ResourceUser;
 import fil.coo.resources.pools.ResourcePool;
 import org.junit.Test;
@@ -25,7 +25,10 @@ public class TakeResourceActionTest extends ResourceUsingActionTest {
     @Test
     public void testAfterSuccessfulDoStepResourceUserHasResource() throws ActionFinishedException {
         assertNull(resourceUser.getResource());
+        int initialNbFreeResources = resourcePool.getNbAvailableResources();
+
         resourceUsingAction.doStep();
+        assertEquals(initialNbFreeResources - 1, resourcePool.getNbAvailableResources());
         assertTrue(resourceUsingAction.isFinished());
         assertNotNull(resourceUser.getResource());
     }
@@ -41,5 +44,17 @@ public class TakeResourceActionTest extends ResourceUsingActionTest {
         resourceUsingAction.doStep();
         assertFalse(resourceUsingAction.isFinished());
         assertNull(resourceUser.getResource());
+    }
+
+    @Test
+    public void testDoStepWhenResourceUserAlreadyHasResource() throws TooManyResourcesException, ActionFinishedException {
+        MockResource firstResource = new MockResource();
+        resourceUser.setResource(firstResource);
+        assertSame(firstResource, resourceUser.getResource());
+        int initialNbFreeResources = resourcePool.getNbAvailableResources();
+
+        resourceUsingAction.doStep();
+        assertSame(firstResource, resourceUser.getResource());
+        assertEquals(initialNbFreeResources, resourcePool.getNbAvailableResources());
     }
 }

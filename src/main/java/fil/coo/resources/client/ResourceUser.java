@@ -11,6 +11,12 @@ public class ResourceUser<R extends Resource> {
         return resource;
     }
 
+    /**
+     * Sets {@link #resource} to the one passed in parameter
+     *
+     * @param resource the {@link Resource} that this instance will hold
+     * @throws TooManyResourcesException if this instance already has a resource in {@link #resource}
+     */
     public void setResource(R resource) throws TooManyResourcesException {
         if (this.resource != null) {
             throw new TooManyResourcesException("This ResourceUser already has a resource");

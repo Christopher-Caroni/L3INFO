@@ -1,5 +1,8 @@
-package fil.coo.actions.interfaces;
+package fil.coo.actions.action;
 
+import fil.coo.actions.interfaces.Action;
+import fil.coo.actions.interfaces.ResourceUsingAction;
+import fil.coo.actions.interfaces.SingleStepActionTest;
 import fil.coo.resources.client.ResourceUser;
 import fil.coo.resources.pools.ResourcePool;
 import fil.coo.resources.resource.interfaces.Resource;

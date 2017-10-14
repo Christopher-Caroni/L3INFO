@@ -2,7 +2,6 @@ package fil.coo.actions.interfaces;
 
 import fil.coo.actions.ActionState;
 import fil.coo.exception.ActionFinishedException;
-import fil.coo.exception.NoFreeResourcesException;
 
 public abstract class Action {
 
@@ -28,6 +27,8 @@ public abstract class Action {
 
     /**
      * Execution specific to the implementing class
+     *
+     * @throws ActionFinishedException if this action is already finished or in the case of a scheduler, if the next action is already finished
      */
     protected abstract void execute() throws ActionFinishedException;
 
