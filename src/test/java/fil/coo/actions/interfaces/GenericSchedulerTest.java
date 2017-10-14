@@ -2,16 +2,49 @@ package fil.coo.actions.interfaces;
 
 import fil.coo.exception.ActionFinishedException;
 import fil.coo.exception.SchedulerStartedException;
+import fil.coo.resources.client.Swimmer;
+import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
 
 /**
- * Tests for all classes extending {@link Scheduler} by using a predefined amount of {@link fil.coo.actions.interfaces.SchedulerTest.OneStepMockAction}.
+ * Tests for all classes extending {@link Scheduler} by using a predefined amount of {@link OneStepMockAction} according to {@link #NB_ACTIONS}.
+ * <br>All concrete schedulers that have their own predefined actions such as {@link Swimmer} should not extend this test class.
  */
-public abstract class SchedulerWithPredefinedActionsTest extends SchedulerTest {
+public abstract class GenericSchedulerTest extends SchedulerTest {
 
     private static final int NB_ACTIONS = 2;
+
+    /**
+     * Creates the scheduler and calls adds {@link #NB_ACTIONS} of {@link OneStepMockAction}
+     */
+    @Before
+    public void setupScheduler() {
+        this.scheduler = createScheduler();
+        initScheduler(this.scheduler);
+    }
+
+    /**
+     * @return a scheduler created with {@link #initScheduler(Scheduler)}
+     */
+    @Override
+    protected Action createAction() {
+        Scheduler scheduler = createScheduler();
+        initScheduler(scheduler);
+        return scheduler;
+    }
+
+
+    private void initScheduler(Scheduler scheduler) {
+        for (int i = 0; i < NB_ACTIONS; i++) {
+            try {
+                scheduler.addAction(new OneStepMockAction());
+            } catch (ActionFinishedException | SchedulerStartedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
     @Test
     public void testAddActionWhenReadyIsOk() throws ActionFinishedException, SchedulerStartedException {

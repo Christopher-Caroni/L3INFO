@@ -28,11 +28,17 @@ public class SwimmerTest extends SchedulerTest {
     private CubiclePool cubiclePool;
     private Swimmer swimmer;
 
+    /**
+     * Initializes the class instance {@link #swimmer}. This instance is different than the instance of {@link Swimmer} used in the inherited tests.
+     */
     @Before
     public void setup() {
         this.swimmer = initSwimmer();
     }
 
+    /**
+     * @return a new instance of {@link Swimmer} for tests inherited from {@link SchedulerTest}
+     */
     @Override
     protected Scheduler createScheduler() {
         return initSwimmer();

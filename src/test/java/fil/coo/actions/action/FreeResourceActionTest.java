@@ -1,6 +1,7 @@
 package fil.coo.actions.action;
 
 import fil.coo.actions.interfaces.ResourceUsingAction;
+import fil.coo.actions.interfaces.ResourceUsingActionTest;
 import fil.coo.exception.ActionFinishedException;
 import fil.coo.exception.NoFreeResourcesException;
 import fil.coo.exception.TooManyResourcesException;

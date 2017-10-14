@@ -9,40 +9,25 @@ import static org.junit.Assert.fail;
 
 public abstract class SchedulerTest extends MultipleStepActionTest {
 
-    private static final int NB_ACTIONS = 2;
-
     protected Scheduler scheduler;
 
-    protected abstract Scheduler createScheduler();
-
     /**
-     * Creates the scheduler and calls adds {@link #NB_ACTIONS} of {@link OneStepMockAction}
+     * Initializes {@link #scheduler} with {@link #createScheduler()}
      */
     @Before
     public void setupScheduler() {
         this.scheduler = createScheduler();
-        initScheduler(this.scheduler);
     }
 
     /**
-     * @return a scheduler created with {@link #initScheduler(Scheduler)}
+     * @return a scheduler created with {@link #createScheduler()}
      */
     @Override
     protected Action createAction() {
-        Scheduler scheduler = createScheduler();
-        initScheduler(scheduler);
-        return scheduler;
+        return createScheduler();
     }
 
-    private void initScheduler(Scheduler scheduler) {
-        for (int i = 0; i < NB_ACTIONS; i++) {
-            try {
-                scheduler.addAction(new OneStepMockAction());
-            } catch (ActionFinishedException | SchedulerStartedException e) {
-                e.printStackTrace();
-            }
-        }
-    }
+    protected abstract Scheduler createScheduler();
 
     @Test(expected = SchedulerStartedException.class)
     public void testAddActionWhenAlreadyStartedThrowsException() throws ActionFinishedException, SchedulerStartedException {
@@ -64,7 +49,6 @@ public abstract class SchedulerTest extends MultipleStepActionTest {
             fail("Manual setup should ensure correct conditions for test");
         }
     }
-
 
     protected class OneStepMockAction extends Action {
 

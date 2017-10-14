@@ -5,14 +5,14 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import fil.coo.actions.interfaces.Scheduler;
-import fil.coo.actions.interfaces.SchedulerWithPredefinedActionsTest;
+import fil.coo.actions.interfaces.GenericSchedulerTest;
 import org.junit.Test;
 
 import fil.coo.actions.action.ForeseeableAction;
 import fil.coo.exception.ActionFinishedException;
 import fil.coo.exception.SchedulerStartedException;
 
-public abstract class SequentialSchedulerTest extends SchedulerWithPredefinedActionsTest {
+public abstract class SequentialSchedulerTest extends GenericSchedulerTest {
 
     @Override
     protected Scheduler createScheduler() {

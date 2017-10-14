@@ -49,7 +49,6 @@ public class Swimmer extends SequentialScheduler {
 
     /**
      * Add the predefined actions that all swimmers will do. Only one method because a swimmer's actions are predefined and depend on one another because of the order of execution.
-     * <br>It's like trying to separate the baking process in a recipe. The time and temperature is dependant on what ingredients compose the recipe.
      */
     private void initActionList() {
 

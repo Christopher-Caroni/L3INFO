@@ -1,8 +1,5 @@
-package fil.coo.actions.action;
+package fil.coo.actions.interfaces;
 
-import fil.coo.actions.interfaces.Action;
-import fil.coo.actions.interfaces.ResourceUsingAction;
-import fil.coo.actions.interfaces.SingleStepActionTest;
 import fil.coo.resources.client.ResourceUser;
 import fil.coo.resources.pools.ResourcePool;
 import fil.coo.resources.resource.interfaces.Resource;
@@ -57,7 +54,7 @@ public abstract class ResourceUsingActionTest extends SingleStepActionTest {
         return initResourceUsingAction();
     }
 
-    protected class MockResource implements Resource {
+    public class MockResource implements Resource {
 
         @Override
         public String description() {
