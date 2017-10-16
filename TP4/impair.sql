@@ -75,9 +75,10 @@ where not exists (
 select a.anom, min(prix) as prix_min, max(prix) as prix_max
 from articles as a natural join catalogue as c
 where exists (
-  select f.fid
-  from fournisseurs as f
-  where f.fid != c.fid
+  select c2.fid
+  from articles as a2 natural join catalogue as c2
+  where a.anom = a2.anom
+  and c2.fid != c.fid
 )
 group by a.anom;
 
@@ -85,15 +86,16 @@ group by a.anom;
 select a.anom
 from articles as a natural join catalogue as c
 where not exists (
-  select f.fid
-  from fournisseurs as f
-  where f.fid != c.fid
+  select c2.fid
+  from catalogue as c2 natural join articles as a2
+  where c2.fid != c.fid
+  and a2.anom = a.anom
 )
 group by a.anom;
 
 
-\echo '\nQuestion 13\n'
-select c.aid
+\echo '\nQuestion 13: les articles vendus aux USA et non uniquement\n'
+select distinct c.aid
 from catalogue as c
 where exists (
   select *
@@ -110,5 +112,6 @@ group by f.fnom, a.acoul
 having count(*) = (
   select count(*)
   from articles as a2
-  where a2.acoul = a.acoul
-);
+  where a2.acoul = 'rouge'
+)
+and a.acoul = 'rouge';
