@@ -51,7 +51,6 @@ where fid != ALL (
 
 
 \echo '\nQuestion 7\n'
--- en cours
 /*
 select les fids
 where la déclaration suivante est fausse:
@@ -69,4 +68,47 @@ where not exists (
                   where f.fid = c2.fid
                   and a.anom = a2.anom
           )
+);
+
+
+\echo '\nQuestion 9\n'
+select a.anom, min(prix) as prix_min, max(prix) as prix_max
+from articles as a natural join catalogue as c
+where exists (
+  select f.fid
+  from fournisseurs as f
+  where f.fid != c.fid
+)
+group by a.anom;
+
+\echo '\nQuestion 11\n'
+select a.anom
+from articles as a natural join catalogue as c
+where not exists (
+  select f.fid
+  from fournisseurs as f
+  where f.fid != c.fid
+)
+group by a.anom;
+
+
+\echo '\nQuestion 13\n'
+select c.aid
+from catalogue as c
+where exists (
+  select *
+  from fournisseurs as f
+  where f.fid = c.fid
+  and f.fad like '%USA%'
+);
+
+
+\echo '\nQuestion 15\n'
+select distinct f.fnom
+from fournisseurs as f natural join catalogue as c natural join articles as a
+group by f.fnom, a.acoul
+having count(*) = (
+  select count(*)
+  from articles as a2
+  where a2.acoul = a.acoul
 );
