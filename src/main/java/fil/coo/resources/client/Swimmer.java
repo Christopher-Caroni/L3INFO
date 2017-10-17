@@ -69,8 +69,8 @@ public class Swimmer extends SequentialScheduler {
 
         // dress
         actions.add(new ForeseeableAction(timeToDress, "dress"));
-        actions.add(new FreeResourceAction<>(basketResourceUser, basketPool));
         actions.add(new FreeResourceAction<>(cubicleResourceUser, cubiclePool));
+        actions.add(new FreeResourceAction<>(basketResourceUser, basketPool));
     }
 
     protected ResourceUser<Basket> getBasketResourceUser() {

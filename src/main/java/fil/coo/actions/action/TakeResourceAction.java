@@ -21,6 +21,11 @@ public class TakeResourceAction<R extends Resource> extends ResourceUsingAction<
         super(resourceUser, resourcePool);
     }
 
+    @Override
+    protected String getActionType() {
+        return "take";
+    }
+
     /**
      * Attempts to take a resource from the {@link #resourcePool}. If it can, it tries to call {@link ResourceUser#setResource(Resource)}. If this method throws,
      * {@link TooManyResourcesException} make the resourcePool recover the resource.

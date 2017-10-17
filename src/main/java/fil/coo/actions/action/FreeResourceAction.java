@@ -20,6 +20,11 @@ public class FreeResourceAction<R extends Resource> extends ResourceUsingAction<
         super(resourceUser, resourcePool);
     }
 
+    @Override
+    protected String getActionType() {
+        return "free";
+    }
+
     /**
      * Frees the resource from the {@link #resourceUser} and gives it back to {@link #resourcePool}
      *

@@ -21,8 +21,13 @@ public abstract class ResourceUsingAction<R extends Resource> extends Action {
 
 
     public String getActionExecutionTrace(String schedulerName) {
-        return schedulerName + " trying to take resource from " + resourcePool.getDescription() + "... " + getExecutionStatus();
+        return schedulerName + " trying to "+ getActionType() + " resource from " + resourcePool.getDescription() +
+                "... " +
+                "" +
+                getExecutionStatus();
     }
+
+    protected abstract String getActionType();
 
     protected String getExecutionStatus() {
         return isFinished() ? "success" : "failed";
