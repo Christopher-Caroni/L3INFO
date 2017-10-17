@@ -75,6 +75,11 @@ public abstract class ResourceUsingActionTest extends SingleStepActionTest {
         protected MockResource createOneResource() {
             return new MockResource();
         }
+
+        @Override
+        public String getDescription() {
+            return "mock pool";
+        }
     }
 
 }

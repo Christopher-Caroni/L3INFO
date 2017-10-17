@@ -19,4 +19,13 @@ public abstract class ResourceUsingAction<R extends Resource> extends Action {
         this.resourcePool = resourcePool;
     }
 
+
+    public String getActionExecutionTrace(String name) {
+        return name + " trying to take resource from " + resourcePool.getDescription() + "... " + getExecutionStatus();
+    }
+
+    protected String getExecutionStatus() {
+        return isFinished() ? "success" : "failed";
+    }
+
 }

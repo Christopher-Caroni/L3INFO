@@ -14,6 +14,11 @@ public class FairScheduler extends Scheduler {
     }
 
     @Override
+    public String getActionExecutionTrace(String name) {
+        return "fair scheduler, executing action index: " + currentActionIndex;
+    }
+
+    @Override
     protected void initStartIndex() {
         currentActionIndex = -1;
     }

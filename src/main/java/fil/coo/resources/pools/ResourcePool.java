@@ -85,4 +85,10 @@ public abstract class ResourcePool<T extends Resource> {
     public int getNbAvailableResources() {
         return freeResources.size();
     }
+
+    /**
+     *
+     * @return a description of what this pool is ex: "cubicle pool"
+     */
+    public abstract String getDescription();
 }

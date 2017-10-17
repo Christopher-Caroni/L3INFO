@@ -50,4 +50,11 @@ public abstract class Action {
     public ActionState getState() {
         return this.state;
     }
+
+    /**
+     * Method for schedulers to call on their actions to get a trace of their execution
+     *
+     * @param name the name of the scheduler calling this method
+     */
+    public abstract String getActionExecutionTrace(String name);
 }

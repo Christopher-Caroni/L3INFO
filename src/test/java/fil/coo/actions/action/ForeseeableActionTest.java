@@ -27,15 +27,15 @@ public class ForeseeableActionTest extends MultipleStepActionTest {
     }
 
     @Test
-    public void testTimeRemainingIsDecremented() throws ActionFinishedException {
+    public void testStepCountIsIncremented() throws ActionFinishedException {
         ForeseeableAction foreseeableAction = new ForeseeableAction(NB_STEP);
-        assertEquals(NB_STEP, foreseeableAction.getTimeRemaining());
+        assertEquals(0, foreseeableAction.getStepCount());
 
         for (int i=1;i<=NB_STEP;i++) {
             foreseeableAction.doStep();
-            assertEquals(NB_STEP-i, foreseeableAction.getTimeRemaining());
+            assertEquals(i, foreseeableAction.getStepCount());
         }
-        assertEquals(0, foreseeableAction.getTimeRemaining());
+        assertEquals(NB_STEP, foreseeableAction.getStepCount());
     }
 
 }

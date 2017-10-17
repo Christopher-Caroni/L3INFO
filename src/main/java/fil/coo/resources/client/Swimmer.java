@@ -5,6 +5,7 @@ import fil.coo.actions.action.FreeResourceAction;
 import fil.coo.actions.action.TakeResourceAction;
 import fil.coo.actions.interfaces.Action;
 import fil.coo.actions.scheduler.SequentialScheduler;
+import fil.coo.exception.ActionFinishedException;
 import fil.coo.resources.pools.BasketPool;
 import fil.coo.resources.pools.CubiclePool;
 import fil.coo.resources.pools.ResourcePool;
@@ -87,5 +88,24 @@ public class Swimmer extends SequentialScheduler {
 
     protected Action getDressAction() {
         return actions.get(6);
+    }
+
+    @Override
+    protected void execute() throws ActionFinishedException {
+        System.out.println(name + "'s turn");
+
+        Action action = getNextAction();
+        if (action.isFinished()) {
+            throw new ActionFinishedException("Tried to execute " + action + " with index " + currentActionIndex +
+                    " but was finished");
+        }
+        action.doStep();
+
+        String desc = action.getActionExecutionTrace(name);
+        System.out.println(desc);
+
+        if (action.isFinished()) {
+            nbActionsFinished++;
+        }
     }
 }

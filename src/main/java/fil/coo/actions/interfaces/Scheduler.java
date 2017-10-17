@@ -10,7 +10,7 @@ import java.util.List;
 public abstract class Scheduler extends Action {
 
     protected List<Action> actions;
-    private int nbActionsFinished;
+    protected int nbActionsFinished;
     protected int currentActionIndex;
 
     public Scheduler() {

@@ -11,4 +11,9 @@ public class CubiclePool extends ResourcePool<Cubicle> {
     protected Cubicle createOneResource() {
         return new Cubicle();
     }
+
+    @Override
+    public String getDescription() {
+        return "cubicle pool";
+    }
 }

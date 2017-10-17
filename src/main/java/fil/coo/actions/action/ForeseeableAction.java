@@ -4,30 +4,37 @@ import fil.coo.actions.interfaces.Action;
 
 public class ForeseeableAction extends Action {
 
-	private int timeRemaining;
+	private int stepCount;
+	private int totalTime;
 
 	public ForeseeableAction(int timeToFinish) {
-		this.timeRemaining = timeToFinish;
+		this.totalTime = timeToFinish;
+		this.stepCount = 0;
 	}
 
 	protected void execute() {
-		this.timeRemaining--;
+		this.stepCount++;
 	}
 
 	public boolean stopCondition() {
-		return this.timeRemaining == 0;
+		return this.stepCount == totalTime;
 	}
 
+	@Override
+	public String getActionExecutionTrace(String name) {
+		return name + "(" + stepCount + "/" + totalTime + ")";
+	}
 
     @Override
     public String toString() {
         return "ForeseeableAction{" +
-                "timeRemaining=" + timeRemaining +
+                "stepCount=" + stepCount +
+                ", totalTime=" + totalTime +
                 ", state=" + state +
                 '}';
     }
 
-    public int getTimeRemaining() {
-        return timeRemaining;
+    public int getStepCount() {
+        return stepCount;
     }
 }
