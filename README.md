@@ -23,7 +23,7 @@ Bienvenue sur notre TP Piscine
 - Pour lancer le programme, exécuter la commande  `java -jar COO-Pool-1.0-SNAPSHOT.jar` dans le dossier `target`
 
 
-# Diposition des classes
+# Diposition des classes :
 
 Si vous voulez voir des détails spécifique sur nos UML, diriger vous dans le dossier `/diagrams` où vous trouverez des UML pour les différents package.
 <p>Vous pouvez voir ci-dessous l'UML complet de notre projet :</p>
@@ -32,7 +32,7 @@ Si vous voulez voir des détails spécifique sur nos UML, diriger vous dans le d
 
 
 
-# Tests
+# Tests :
 
 Lors de la réalisation de notre tp, nous avons déveloper en `TDD` (Test Driven Developement) où le but est de coder les tests avant de coder les différentes méthodes.
 Cette méthode est souvent utilisé dans les entreprises et à l'avantage de ne jamais être surpris d'un `bug`. En effet, le but est de réalisé les tests et le code pas à pas et de vérifier le tout en executant ces tests. Par conséquent, si le test ne fonctionne pas, le problème viens soit de la `méthode/classe` créer, soit du `test`. 
@@ -41,11 +41,19 @@ Cette méthode est souvent utilisé dans les entreprises et à l'avantage de ne 
 Master branch:
 [![pipeline status](https://gitlab-etu.fil.univ-lille1.fr/caroni/COO-Pool/badges/master/pipeline.svg)](https://gitlab-etu.fil.univ-lille1.fr/caroni/COO-Pool/commits/master)
 
-Dev branch:
-[![pipeline status](https://gitlab-etu.fil.univ-lille1.fr/caroni/COO-Pool/badges/dev/pipeline.svg)](https://gitlab-etu.fil.univ-lille1.fr/caroni/COO-Pool/commits/dev)
-
-
 Vous pouvez voir ci-dessous l'UML des différents test: 
 
 
 ![image](diagrams/tests.png)
+
+# Précision de code :
+
+## Logger
+
+- Le Logger est une classe permettant d'avoir des traces d'exécutions
+- Il peut remplacer le `System.out.println("String")`, en utilisant `Logger.info("String")`
+- L'intérêt est que l'on peut `configurer` les traces d'exécutions
+- Ainsi, dans `/src/main/resources` et `/src/test/resources` nous trouvons un fichier de configuration  
+- Et grâce à cela, nous pouvons dire qu'il n'y aura aucune trace lors de `l'exécution des tests`
+- Ce qui est très pratique puisque `Maven` exécute les tests pour compiler le programme
+
