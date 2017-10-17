@@ -14,7 +14,7 @@ public class SequentialScheduler extends Scheduler {
     }
 
     @Override
-    public String getActionExecutionTrace(String name) {
+    public String getActionExecutionTrace(String schedulerName) {
         return "sequential scheduler, executing action index: " + currentActionIndex;
     }
 

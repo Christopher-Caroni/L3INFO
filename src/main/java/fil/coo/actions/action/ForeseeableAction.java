@@ -6,13 +6,19 @@ public class ForeseeableAction extends Action {
 
 	private int stepCount;
 	private int totalTime;
+    private String name;
 
-	public ForeseeableAction(int timeToFinish) {
+    public ForeseeableAction(int timeToFinish) {
 		this.totalTime = timeToFinish;
 		this.stepCount = 0;
 	}
 
-	protected void execute() {
+    public ForeseeableAction(int totalTime, String name) {
+        this(totalTime);
+        this.name = name;
+    }
+
+    protected void execute() {
 		this.stepCount++;
 	}
 
@@ -21,8 +27,8 @@ public class ForeseeableAction extends Action {
 	}
 
 	@Override
-	public String getActionExecutionTrace(String name) {
-		return name + "(" + stepCount + "/" + totalTime + ")";
+	public String getActionExecutionTrace(String schedulerName) {
+		return this.name + "(" + stepCount + "/" + totalTime + ")";
 	}
 
     @Override

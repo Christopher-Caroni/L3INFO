@@ -70,8 +70,8 @@ public abstract class SchedulerTest extends MultipleStepActionTest {
         }
 
         @Override
-        public String getActionExecutionTrace(String name) {
-            return name + " trying to execute one step mock action..." + (isFinished ? "finished" : "in progress");
+        public String getActionExecutionTrace(String schedulerName) {
+            return schedulerName + " trying to execute one step mock action..." + (isFinished ? "finished" : "in progress");
         }
     }
 

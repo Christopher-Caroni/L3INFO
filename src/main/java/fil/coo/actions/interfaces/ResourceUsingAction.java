@@ -20,8 +20,8 @@ public abstract class ResourceUsingAction<R extends Resource> extends Action {
     }
 
 
-    public String getActionExecutionTrace(String name) {
-        return name + " trying to take resource from " + resourcePool.getDescription() + "... " + getExecutionStatus();
+    public String getActionExecutionTrace(String schedulerName) {
+        return schedulerName + " trying to take resource from " + resourcePool.getDescription() + "... " + getExecutionStatus();
     }
 
     protected String getExecutionStatus() {

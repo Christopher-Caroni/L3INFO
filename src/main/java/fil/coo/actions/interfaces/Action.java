@@ -54,7 +54,7 @@ public abstract class Action {
     /**
      * Method for schedulers to call on their actions to get a trace of their execution
      *
-     * @param name the name of the scheduler calling this method
+     * @param schedulerName the name of the scheduler calling this method
      */
-    public abstract String getActionExecutionTrace(String name);
+    public abstract String getActionExecutionTrace(String schedulerName);
 }

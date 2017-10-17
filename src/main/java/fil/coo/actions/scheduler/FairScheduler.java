@@ -14,7 +14,7 @@ public class FairScheduler extends Scheduler {
     }
 
     @Override
-    public String getActionExecutionTrace(String name) {
+    public String getActionExecutionTrace(String schedulerName) {
         return "fair scheduler, executing action index: " + currentActionIndex;
     }
 
