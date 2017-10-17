@@ -28,7 +28,7 @@ public class ForeseeableAction extends Action {
 
 	@Override
 	public String getActionExecutionTrace(String schedulerName) {
-		return this.name + "(" + stepCount + "/" + totalTime + ")";
+		return this.name + "ing (" + stepCount + "/" + totalTime + ")";
 	}
 
     @Override

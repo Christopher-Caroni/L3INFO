@@ -11,8 +11,11 @@ import fil.coo.resources.pools.CubiclePool;
 import fil.coo.resources.pools.ResourcePool;
 import fil.coo.resources.resource.Basket;
 import fil.coo.resources.resource.Cubicle;
+import org.apache.log4j.Logger;
 
 public class Swimmer extends SequentialScheduler {
+
+    final static Logger logger = Logger.getLogger(Swimmer.class);
 
     private final String name;
 
@@ -92,7 +95,7 @@ public class Swimmer extends SequentialScheduler {
 
     @Override
     protected void execute() throws ActionFinishedException {
-        System.out.println(name + "'s turn");
+        logger.info(name + "'s turn");
 
         Action action = getNextAction();
         if (action.isFinished()) {
@@ -101,8 +104,8 @@ public class Swimmer extends SequentialScheduler {
         }
         action.doStep();
 
-        String desc = action.getActionExecutionTrace(name);
-        System.out.println(desc);
+        String desc = "\t" + action.getActionExecutionTrace(name);
+        logger.info(desc);
 
         if (action.isFinished()) {
             nbActionsFinished++;
