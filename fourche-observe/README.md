@@ -5,10 +5,10 @@ Ce répertoire correspond à l’exercice `multif` de la section
 et aux exercices de la section
 [Gestion de processus](http://www.fil.univ-lille1.fr/~hym/e/pds/tp/tdps-ps.html).
 
-Ce répertoire devra contenir **exclusivement** les fichiers :
-`README.md`, `Makefile`, `multif.c`, `course.c`, `observe.c` et
-`tests.sh`.
+# Ce que nous avons fait :
 
-Vous éditerez ce fichier pour qu’il contienne un compte-rendu du
-travail effectué (qu’est-ce qui marche, qu’est-ce qui ne marche pas,
-etc.).
+Durant ce tp nous avons:
+- crée la commande `multi.c`
+- crée la commande `course.c`
+- crée la commande `observe.c`
+
