@@ -22,3 +22,10 @@ Vous trouverez ainsi :
     tableau de type `argv`,
 -   une petite commande `args` dont le code vous servira d’exemple
     d’utilisation de `makeargv`.
+
+# Ce que nous avons fait :
+
+Durant ce tp nous avons:
+- crée la commande `do.c`
+- Cette commande gère les arguments `-a` `-o` `-c` `-k`
+
