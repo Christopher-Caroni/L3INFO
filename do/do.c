@@ -6,16 +6,9 @@
 #include <sys/types.h>
 #include <wait.h>
 
-#define conjunction_opt "-a"
-#define disjunction_opt "-o"
-
 static int conjunction;
 static int disjunction;
-
-int verify_command(char *arg)
-{
-  return strcmp(arg, conjunction_opt) && strcmp(arg, disjunction_opt);
-}
+static int short_circuit;
 
 /*
 returns:
@@ -32,18 +25,17 @@ int mdo(int argc, char **argv)
 
   status = (int*) malloc(argc * sizeof(int));
   single_arg[1] = NULL;
-  return_value = conjunction_opt ? 1 : 0;
+  return_value = conjunction ? 1 : 0;
 
   for (i=0;i<argc;i++)
   {
-    if (verify_command(argv[i]))
-    {
       pid = fork();
       switch (pid)
       {
         case -1:
           exit(EXIT_FAILURE);
         case 0:
+          printf("will exc %s\n", argv[i]);
           single_arg[0] = argv[i];
           execvp(argv[i], single_arg);
           exit(EXIT_FAILURE);
@@ -59,8 +51,14 @@ int mdo(int argc, char **argv)
           } else if (!disjunction){
             return_value |= WEXITSTATUS(status[i]);
           }
+
+          if (short_circuit && disjunction && !return_value)
+          {
+            exit(EXIT_SUCCESS);
+          } else if (short_circuit && conjunction && return_value) {
+            exit(EXIT_FAILURE);
+          }
       }
-    }
   }
   return return_value;
 }
@@ -68,17 +66,26 @@ int mdo(int argc, char **argv)
 int main(int argc, char **argv)
 {
   char ch;
+  int nb_opts_found;
   /* conjonction par défaut */
   conjunction = 0;
+  short_circuit = 0;
+  nb_opts_found = 0;
 
-  while ((ch = getopt(argc, argv, "o")) != -1)
+  while ((ch = getopt(argc, argv, "aoc")) != -1)
   {
     switch (ch) {
     case 'a':
       conjunction = 1;
+      nb_opts_found++;
       break;
     case 'o':
       disjunction = 1;
+      nb_opts_found++;
+      break;
+    case 'c':
+      short_circuit = 1;
+      nb_opts_found++;
       break;
     }
   }
@@ -89,5 +96,5 @@ int main(int argc, char **argv)
   /* on ne peut pas avoir les deux en même temps */
   assert( !(conjunction && disjunction));
 
-  return mdo(argc-1, argv+1);
+  return mdo(argc-nb_opts_found-1, argv+nb_opts_found+1);
 }
