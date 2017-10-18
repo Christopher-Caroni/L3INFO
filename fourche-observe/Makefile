@@ -12,7 +12,7 @@ CFLAGS  = -Wall -Wextra -ansi -pedantic
 CFLAGS += -D_XOPEN_SOURCE=500
 CFLAGS += -g
 
-observe: observe.o
+multif: multif.o
 	$(CC) $(LDFLAGS) -o $@ $^
 
 %.o: %.c
