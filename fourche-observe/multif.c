@@ -59,7 +59,6 @@ int multif (func_t f[], char *args[], int n)
   int pid;
   int i;
   int return_value;
-
   status = (int*) malloc(n * sizeof(int));
 
   for (i=0;i<n;i++)
@@ -74,7 +73,11 @@ int multif (func_t f[], char *args[], int n)
         /*
         printf("waited for pid %d, index %d with status %d\n", pid, i, WEXITSTATUS(status[i]));
         */
+        if (i==0) {
+        return_value = WEXITSTATUS(status[i]);
+      } else {
         return_value = return_value || WEXITSTATUS(status[i]);
+      }
     }
   }
 
