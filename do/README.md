@@ -22,3 +22,14 @@ Vous trouverez ainsi :
     tableau de type `argv`,
 -   une petite commande `args` dont le code vous servira d’exemple
     d’utilisation de `makeargv`.
+
+# Ce que nous avons fait :
+
+Durant ce tp nous avons:
+- Crée la commande `do.c` qui execute des commandes passés en paramètre
+- Cette commande gère les arguments `-a` `-o` `-c` `-k`
+- L'argument `-a` fait la conjonction des commandes
+- L'argument `-o` fait la disjonction des commandes
+- L'argument `-c` stop l'execution des commandes lorsque la conjonction ou disjonction est faux (renvois 1)
+- L'argument `-k` kill les commande non terminés 
+
