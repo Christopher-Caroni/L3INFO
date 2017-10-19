@@ -34,7 +34,7 @@ public class AutomataUtils {
         a.setInitial(namePrefix + "_epsilon");
         for (int i = 0; i < word.length(); i++) {
             a.addNewState(namePrefix + "_" + word.substring(0, i + 1));
-            a.addTransition(word.substring(0, i), word.charAt(i), word.substring(0, i + 1));
+            a.addTransition(-1, word.charAt(i), i);
         }
         a.setAccepting(namePrefix + "_" + word);
     }
@@ -80,10 +80,10 @@ public class AutomataUtils {
         for (int i = 0; i < exp.length(); i++) {
             // substring(0, i) gives previous char and (i+1) gives current char
             if (exp.charAt(i) == '*') {
-                a.addTransition(exp.substring(0, i), exp.charAt(i - 1), exp.substring(0, i));
+                a.addTransition(i - 1, exp.charAt(i - 1), i - 1);
             } else {
                 a.addNewState(prefix + exp.substring(0, i + 1));
-                a.addTransition(exp.substring(0, i), exp.charAt(i), exp.substring(0, i + 1));
+                a.addTransition(i, exp.charAt(i), i);
             }
         }
         a.setAccepting(prefix + exp);
