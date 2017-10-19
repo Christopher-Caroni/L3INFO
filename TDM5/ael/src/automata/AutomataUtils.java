@@ -30,11 +30,20 @@ public class AutomataUtils {
      * @param namePrefix : prefix to use for state names.
      */
     public static void addSingleton(String word, AutomatonBuilder a, String namePrefix) {
+        String currentStateName;
+
         a.addNewState(namePrefix + "_epsilon");
         a.setInitial(namePrefix + "_epsilon");
+
         for (int i = 0; i < word.length(); i++) {
-            a.addNewState(namePrefix + "_" + word.substring(0, i + 1));
-            a.addTransition(-1, word.charAt(i), i);
+            currentStateName = namePrefix + "_" + word.substring(0, i + 1);
+            a.addNewState(currentStateName);
+
+            if (i == 0) {
+                a.addTransition(namePrefix + "_epsilon", word.charAt(i), currentStateName);
+            } else {
+                a.addTransition(namePrefix + "_" + word.substring(0, i), word.charAt(i), currentStateName);
+            }
         }
         a.setAccepting(namePrefix + "_" + word);
     }

@@ -82,6 +82,8 @@ public class TestND {
 		a.addTransition("q2", 'b', "q3");
 		a.addTransition("q3", 'a', "q2");
 
+		AutomataUtils.addSingleton("toto", a);
+
 		/*
 		 * Dessin de l'automate (fabrication d'un fichier Graphviz)
 		 */
@@ -97,7 +99,7 @@ public class TestND {
 		 * avec une vraie méthode accept()
 		 */
 
-		 testAccept(a);
+//		 testAccept(a);
 
 		System.out.println("That's all folks");
 
