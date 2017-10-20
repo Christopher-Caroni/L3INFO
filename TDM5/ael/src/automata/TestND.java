@@ -83,18 +83,19 @@ public class TestND {
 		a.addTransition("q2", 'b', "q3");
 		a.addTransition("q3", 'a', "q2");
 
-		AutomataUtils.addFlatExp("10*1", a, "exp");
-//		AutomataUtils.transpose(a, b);
+//		AutomataUtils.addFlatExp("10*1", a, "exp");
+		AutomataUtils.transpose(a, b);
 
 		/*
 		 * Dessin de l'automate (fabrication d'un fichier Graphviz)
 		 */
-		dotToFile(a, "automate-test.dot");
+		dotToFile(b, "automate-test.dot");
 
 		/*
 		 * Affichage de l'automate, en mode texte
 		 */
-		System.out.println(a);
+//        System.out.println(a);
+        System.out.println(b);
 
 		/*
 		 * Test de la méthode accept() à réactiver quand vous aurez développé une classe

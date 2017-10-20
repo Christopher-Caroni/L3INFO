@@ -91,12 +91,12 @@ public class AutomataUtils {
         a.setInitial(firstName);
 
         for (int i = 0; i < exp.length(); i++) {
-            nextIsMultiple = (i+1) < exp.length() && exp.charAt(i+1) == '*';
+            nextIsMultiple = (i + 1) < exp.length() && exp.charAt(i + 1) == '*';
 
             if (exp.charAt(i) == '*') {
                 // do nothing
-            } else if (!nextIsMultiple){
-                newName = prefix + exp.substring(0, i+1); // exclude the '*'
+            } else if (!nextIsMultiple) {
+                newName = prefix + exp.substring(0, i + 1); // exclude the '*'
                 a.addNewState(newName);
                 a.addTransition(previousName, exp.charAt(i), newName);
             }
@@ -118,6 +118,18 @@ public class AutomataUtils {
      */
 
     public static void transpose(Automaton original, AutomatonBuilder mirror) {
+        Set<State> endStates = original.getInitialStates();
+        int automateIndex = 0;
+
+        for (State endState : endStates) {
+            int endId = endState.getId();
+            String newEndName = "transpose_" + automateIndex + "_epsilon";
+            mirror.addNewState(newEndName);
+
+            for (char charInAlphabet : endState.getAutomaton().usedAlphabet()) {
+            }
+            automateIndex++;
+        }
     }
 
     /**
