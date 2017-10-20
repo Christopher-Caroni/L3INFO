@@ -1,6 +1,6 @@
 digraph Automaton { 
   rankdir = LR
-  0 [label="q0",peripheries=2];  1 [label="q1"];  2 [label="q2",peripheries=2];  3 [label="q3"];  4 [label="q_epsilon"];  5 [label="q_t"];  6 [label="q_to"];  7 [label="q_tot"];  8 [label="q_toto",peripheries=2];  start0 [style=invis]
+  0 [label="q0",peripheries=2];  1 [label="q1"];  2 [label="q2",peripheries=2];  3 [label="q3"];  4 [label="exp_epsilon"];  5 [label="exp_1"];  6 [label="exp_10*1",peripheries=2];  start0 [style=invis]
   start0 -> 0[color="black:white:black"]
   start2 [style=invis]
   start2 -> 2[color="black:white:black"]
@@ -10,9 +10,8 @@ digraph Automaton {
   1 -> 0 [label = "b" ]
   2 -> 3 [label = "b" ]
   3 -> 2 [label = "a" ]
-  4 -> 5 [label = "t" ]
-  5 -> 6 [label = "o" ]
-  6 -> 7 [label = "t" ]
-  7 -> 8 [label = "o" ]
+  4 -> 5 [label = "1" ]
+  5 -> 5 [label = "0" ]
+  5 -> 6 [label = "1" ]
 }
 

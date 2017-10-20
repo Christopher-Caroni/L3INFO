@@ -51,6 +51,7 @@ public class TestND {
 		/* Fabrication de l'automate */
 
 		AutomatonBuilder a = new NDAutomaton();
+		AutomatonBuilder b = new NDAutomaton();
 
 		/*
 		 * Définition des états Notez que les états sont numérotés 0, 1, 2, ... dans
@@ -82,7 +83,8 @@ public class TestND {
 		a.addTransition("q2", 'b', "q3");
 		a.addTransition("q3", 'a', "q2");
 
-		AutomataUtils.addSingleton("toto", a);
+		AutomataUtils.addFlatExp("10*1", a, "exp");
+//		AutomataUtils.transpose(a, b);
 
 		/*
 		 * Dessin de l'automate (fabrication d'un fichier Graphviz)

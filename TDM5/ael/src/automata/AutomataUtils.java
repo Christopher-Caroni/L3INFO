@@ -83,18 +83,29 @@ public class AutomataUtils {
     public static void addFlatExp(String exp, AutomatonBuilder a, String namePrefix) {
         String prefix = namePrefix + "_";
         String firstName = prefix + "epsilon";
+        String newName = null;
+        String previousName = firstName;
+        boolean nextIsMultiple = false;
 
         a.addNewState(firstName);
         a.setInitial(firstName);
+
         for (int i = 0; i < exp.length(); i++) {
-            // substring(0, i) gives previous char and (i+1) gives current char
+            nextIsMultiple = (i+1) < exp.length() && exp.charAt(i+1) == '*';
+
             if (exp.charAt(i) == '*') {
-                a.addTransition(i - 1, exp.charAt(i - 1), i - 1);
-            } else {
-                a.addNewState(prefix + exp.substring(0, i + 1));
-                a.addTransition(i, exp.charAt(i), i);
+                // do nothing
+            } else if (!nextIsMultiple){
+                newName = prefix + exp.substring(0, i+1); // exclude the '*'
+                a.addNewState(newName);
+                a.addTransition(previousName, exp.charAt(i), newName);
             }
+            if (nextIsMultiple) {
+                a.addTransition(newName, exp.charAt(i), newName);
+            }
+            previousName = newName;
         }
+
         a.setAccepting(prefix + exp);
     }
 
@@ -105,6 +116,7 @@ public class AutomataUtils {
      * @param original : automaton to be transposed
      * @param mirror   : receive the transposed automaton
      */
+
     public static void transpose(Automaton original, AutomatonBuilder mirror) {
     }
 
