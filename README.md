@@ -59,3 +59,12 @@ Vous pouvez voir ci-dessous l'UML des différents test:
 - Grâce à cela, il n'y a aucune trace à l'écran lors de la phase `exécution des tests` avec Maven
 - Tout est redirigé vers un fichier `.log` dans le dossier `logs/test/DATE.log`
 
+## SwimmerTest
+
+Cette classe permet de tester la classe `Swimmer` qui étend la classe `SequentialScheduler`, lui-même testé par `SequentialSchedulerTest`.
+On pourrait s'attendre à ce que l'on teste `Swimmer` en héritant de la classe `SequentialScheduler` mais comme Swimmer est une classe concrète qui possède une éxécution
+spécifique, il agit différemment de SequentialScheduler et ainsi doit être testé d'une manière différente. Ceci est parce qu'un Swimmer possède un nombre et des actions
+prédéfinies lors de sa construction, actions qui définissement `Swimmer`. Il serait alors inutile de tester Swimmer avec les tests de SequentialSchedulerTest car il faudrait alors
+tester une version simplifiée, ce qui reviendrait à tester SequentialScheduler.  
+La solution est une classe de teste commune à SequentialSchedulerTest et SwimmerTest: `GenericSchedulerTest`.
+
