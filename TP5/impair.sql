@@ -35,6 +35,16 @@ having count(*) >= 2;
 
 -- Q7
 \echo '\nQuestion 7\n'
+select e.eid
+from employes as e
+where e.salaire = (
+  select max(e2.salaire)
+  from employes as e2
+  where e2.salaire != (
+    select max(salaire)
+    from employes
+  )
+);
 
 -- Q9
 \echo '\nQuestion 9\n'
