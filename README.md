@@ -11,7 +11,8 @@ Bienvenue sur notre TP Piscine
 - Une archive `Maven`
 - Le code source dans `src/main`
 - Les tests unitaire dans `src/test`
-- Les différents UML dans `/diagrams`
+- Les différents UML dans `/diagrams`. Attention: tous les diagrammes ne sont pas présentés dans ce readme,
+  et certains diagrammes peuvent "cacher" des classes car elles ne présentent qu'une petite de ces vue.
 - Le `README.md` de ce tp
 
 
@@ -53,8 +54,8 @@ Vous pouvez voir ci-dessous l'UML des différents test:
 
 - Le Logger est une classe permettant d'avoir des traces d'exécutions
 - Il peut remplacer le `System.out.println("String")`, en utilisant `Logger.info("String")`
-- L'intérêt est que l'on peut `configurer` les traces d'exécutions
-- Ainsi, dans `/src/main/resources` et `/src/test/resources` nous trouvons un fichier de configuration  
-- Et grâce à cela, nous pouvons dire qu'il n'y aura aucune trace lors de `l'exécution des tests`
-- Ce qui est très pratique puisque `Maven` exécute les tests pour compiler le programme
+- Il permet de  `configurer` les traces d'exécutions, par exemple en produisant le texte à la fois sur la sortie standard et dans un fichier `.log`
+- Ainsi, dans `/src/main/resources` et `/src/test/resources` nous avons des fichier de configuration spécifiques à l'éxécution pour le logger utilisé par ce projet.
+- Grâce à cela, il n'y a aucune trace à l'écran lors de la phase `exécution des tests` avec Maven
+- Tout est redirigé vers un fichier `.log` dans le dossier `logs/test/DATE.log`
 
