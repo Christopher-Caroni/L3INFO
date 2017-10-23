@@ -25,7 +25,7 @@ Bienvenue sur notre TP Piscine
 
 # Diposition des classes :
 
-Si vous voulez voir des détails spécifique sur nos UML, diriger vous dans le dossier `/diagrams` où vous trouverez des UML pour les différents package.
+Si vous voulez voir des détails spécifique sur nos UML, dirigez vous dans le dossier `/diagrams` où vous trouverez des UML pour les différents package.
 <p>Vous pouvez voir ci-dessous l'UML complet de notre projet :</p>
 
 ![image](diagrams/coo.png)
@@ -35,8 +35,9 @@ Si vous voulez voir des détails spécifique sur nos UML, diriger vous dans le d
 # Tests :
 
 Lors de la réalisation de notre tp, nous avons déveloper en `TDD` (Test Driven Developement) où le but est de coder les tests avant de coder les différentes méthodes.
-Cette méthode est souvent utilisé dans les entreprises et à l'avantage de ne jamais être surpris d'un `bug`. En effet, le but est de réalisé les tests et le code pas à pas et de vérifier le tout en executant ces tests. Par conséquent, si le test ne fonctionne pas, le problème viens soit de la `méthode/classe` créer, soit du `test`. 
-<p>Vous pouvez voir ci-dessous que les tests exécutés sont correcte :</p>
+Cette méthode est souvent utilisé dans les entreprises et à l'avantage de ne jamais être surpris d'un `bug`. En effet, le but est de réalisé les tests et le code pas à pas et de vérifier le tout en executant ces tests. Par conséquent, si le test ne fonctionne pas, le problème viens soit de la `méthode/classe` créer, soit du `test`.
+Par le biais du fichier `.gitlab-ci.yml`, nous pouvons executer les tests de notre projet directement sur git.
+<p>Ainsi, vous pouvez voir ci-dessous que les tests exécutés sont correcte :</p>
 
 Master branch:
 [![pipeline status](https://gitlab-etu.fil.univ-lille1.fr/caroni/COO-Pool/badges/master/pipeline.svg)](https://gitlab-etu.fil.univ-lille1.fr/caroni/COO-Pool/commits/master)
