@@ -24,18 +24,7 @@ public abstract class AnswerTest {
     @Test
     public void testSetGetPromptWhenNull() {
         assertNull(answer.getPrompt());
-
-        answer.setPrompt(null);
         assertNull(answer.getPrompt());
-    }
-
-    @Test
-    public void testSetGetWhenOK() {
-        assertNull(answer.getPrompt());
-        String prompt = "dummy_prompt";
-
-        answer.setPrompt(prompt);
-        assertEquals(prompt, answer.getPrompt());
     }
 
     @Test(expected = NullPointerException.class)

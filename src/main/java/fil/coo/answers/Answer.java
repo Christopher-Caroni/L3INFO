@@ -2,7 +2,6 @@ package fil.coo.answers;
 
 public interface Answer {
 
-	public void setPrompt(String prompt);
 	public String getPrompt();
 
     /**
