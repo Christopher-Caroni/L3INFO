@@ -4,8 +4,11 @@ public abstract class SingleAnswer implements Answer {
 
     protected String answer;
 
-    @Override
-    public boolean isCorrect(String userAnswer) throws NullPointerException {
+    public SingleAnswer(String answer) {
+		this.answer = answer;
+	}
+
+	public boolean isCorrect(String userAnswer) throws NullPointerException {
         return answer.equals(userAnswer);
     }
 
