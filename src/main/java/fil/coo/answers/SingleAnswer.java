@@ -8,5 +8,4 @@ public abstract class SingleAnswer implements Answer {
     public boolean isCorrect(String userAnswer) {
         return answer.equals(userAnswer);
     }
-
 }
