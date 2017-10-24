@@ -1,8 +1,8 @@
 package fil.coo.answers;
 
-import org.junit.Test;
+import static org.junit.Assert.assertEquals;
 
-import static org.junit.Assert.*;
+import org.junit.Test;
 
 public class TextAnswerTest extends SingleAnswerTest{
 
@@ -10,7 +10,7 @@ public class TextAnswerTest extends SingleAnswerTest{
     private final static String EXPECTED_PROMPT = "(text)";
 
     @Override
-    protected SingleAnswer getSpecificSingleAnswer(String answer) {
+    protected SingleAnswer getSpecificSingleAnswer(String answer) throws NullPointerException, NotCorrectAnswerException {
         return new TextAnswer(answer);
     }
 
