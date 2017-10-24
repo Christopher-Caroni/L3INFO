@@ -7,7 +7,7 @@ public class TextAnswer extends SingleAnswer {
     }
 
     public String getPrompt() {
-        return null;
+        return "(text)";
     }
 
     protected boolean checkUserAnswerIsValid(String userAnswer) {
