@@ -1,20 +1,9 @@
 package fil.coo.answers;
 
-import static org.junit.Assert.*;
+public class YesNoAnswerTest extends SingleAnswerTest{
 
-import org.junit.Test;
-
-public class YesNoAnswerTest {
-
-	
-	@Test
-	public void testGetPrompt() {
-		fail("Not yet implemented");
+	@Override
+	protected SingleAnswer getSpecificSingleAnswer(String anwser) {
+		return new YesNoAnswer(anwser);
 	}
-
-	@Test
-	public void testIsValid() {
-		fail("Not yet implemented");
-	}
-
 }

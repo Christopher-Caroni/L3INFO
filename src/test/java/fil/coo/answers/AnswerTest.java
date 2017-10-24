@@ -21,12 +21,6 @@ public abstract class AnswerTest {
         this.answer = getSpecificAnswer();
     }
 
-    @Test
-    public void testSetGetPromptWhenNull() {
-        assertNull(answer.getPrompt());
-        assertNull(answer.getPrompt());
-    }
-
     @Test(expected = NullPointerException.class)
     public void testIsValidThrowsWithNullParam() throws NullPointerException {
         answer.isValid(null);

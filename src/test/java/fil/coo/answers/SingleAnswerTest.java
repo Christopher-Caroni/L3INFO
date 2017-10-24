@@ -11,31 +11,27 @@ public abstract class SingleAnswerTest extends AnswerTest {
 
     @Before
     public void setupSingleAnswer() {
-        singleAnswer = getSpecificSingleAnswer();
+        singleAnswer = getSpecificSingleAnswer("answer");
     }
 
-    protected abstract SingleAnswer getSpecificSingleAnswer();
+    protected abstract SingleAnswer getSpecificSingleAnswer(String answer);
 
     @Override
     public Answer getSpecificAnswer() {
-        return getSpecificSingleAnswer();
+        return getSpecificSingleAnswer("answer");
     }
 
-    @Test
-    public void testGetSetWithNull() {
-        assertNotNull(singleAnswer.getAnswer());
-
-        singleAnswer.setAnswer(null);
-        assertNull(singleAnswer.getPrompt());
+    @Test(expected=NullPointerException.class)
+    public void testWhenAnwserIsNull() {
+        SingleAnswer s = getSpecificSingleAnswer(null);
     }
 
     @Test
     public void testGetSetWhenOK() {
         assertNotNull(singleAnswer.getAnswer());
-
         String dummyAnswer = "dummy_answer";
-        singleAnswer.setAnswer(dummyAnswer);
-        assertEquals(dummyAnswer, singleAnswer.getAnswer());
+        SingleAnswer oneAnswer = getSpecificSingleAnswer(dummyAnswer);
+        assertEquals(dummyAnswer, oneAnswer.getAnswer());
     }
 
 }

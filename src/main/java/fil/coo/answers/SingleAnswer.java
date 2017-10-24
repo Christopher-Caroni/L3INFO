@@ -4,7 +4,10 @@ public abstract class SingleAnswer extends Answer {
 
     protected String answer;
 
-    public SingleAnswer(String answer) {
+    public SingleAnswer(String answer) throws NullPointerException{
+    	if(answer == null){
+    		throw new NullPointerException();
+    	}
 		this.answer = answer;
 	}
 
@@ -15,9 +18,5 @@ public abstract class SingleAnswer extends Answer {
 
     public String getAnswer() {
         return answer;
-    }
-
-    public void setAnswer(String answer) {
-        this.answer = answer;
     }
 }
