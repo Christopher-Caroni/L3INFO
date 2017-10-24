@@ -2,12 +2,14 @@ package fil.coo.answers;
 
 public class TextAnswer extends SingleAnswer {
 
-    @Override
+    public TextAnswer(String answer) {
+        super(answer);
+    }
+
     public String getPrompt() {
         return null;
     }
 
-    @Override
     public boolean isValid(String userAnswer) {
         return false;
     }
