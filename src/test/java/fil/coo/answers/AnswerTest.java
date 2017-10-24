@@ -43,9 +43,27 @@ public abstract class AnswerTest {
         answer.isValid(null);
     }
 
+    @Test
+    public void testIsValidDoesNotThrowException() {
+        try {
+            answer.isValid("dummy_answer");
+        } catch (NullPointerException e) {
+            fail("Should not throw with non null param");
+        }
+    }
+
     @Test(expected = NullPointerException.class)
-    public void testIsCorrentWithNullParamThrowsException() throws NullPointerException {
+    public void testIsCorrectWithNullParamThrowsException() throws NullPointerException {
         answer.isCorrect(null);
+    }
+
+    @Test
+    public void testIsCorrectDoesNotThrowException() {
+        try {
+            answer.isCorrect("dummy_answer");
+        } catch (NullPointerException e) {
+            fail("Should not throw with non null param");
+        }
     }
 
 }
