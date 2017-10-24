@@ -10,7 +10,8 @@ public class TextAnswer extends SingleAnswer {
         return null;
     }
 
-    public boolean isValid(String userAnswer) {
+    protected boolean checkUserAnswerIsValid(String userAnswer) {
         return false;
     }
+
 }

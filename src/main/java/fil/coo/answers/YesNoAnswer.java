@@ -10,7 +10,8 @@ public class YesNoAnswer extends SingleAnswer {
 		return "(oui/non)" + this.getAnswer() ;
 	}
 
-	public boolean isValid(String userAnswer) throws NullPointerException {
+	protected boolean checkUserAnswerIsValid(String userAnswer) {
 		return userAnswer.equals("oui") || userAnswer.equals("non");
 	}
+
 }

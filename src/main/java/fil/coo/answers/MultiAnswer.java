@@ -1,16 +1,17 @@
 package fil.coo.answers;
 
-public class MultiAnswer implements Answer {
+public class MultiAnswer extends Answer {
 
     public String getPrompt() {
         return null;
     }
 
-    public boolean isValid(String userAnswer) throws NullPointerException {
+    protected boolean checkUserAnswerIsValid(String userAnswer) {
         return false;
     }
 
-    public boolean isCorrect(String userAnswer) throws NullPointerException {
+    protected boolean checkUserAnswerIsCorrect(String userAnswer) {
         return false;
     }
+
 }

@@ -10,7 +10,7 @@ public class NumericalAnswer extends SingleAnswer {
         return null;
     }
 
-    public boolean isValid(String userAnswer) throws NullPointerException {
+    protected boolean checkUserAnswerIsValid(String userAnswer) {
         return false;
     }
 }

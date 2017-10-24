@@ -1,6 +1,6 @@
 package fil.coo.answers;
 
-public abstract class SingleAnswer implements Answer {
+public abstract class SingleAnswer extends Answer {
 
     protected String answer;
 
@@ -8,7 +8,8 @@ public abstract class SingleAnswer implements Answer {
 		this.answer = answer;
 	}
 
-	public boolean isCorrect(String userAnswer) throws NullPointerException {
+    @Override
+    protected boolean checkUserAnswerIsCorrect(String userAnswer) {
         return answer.equals(userAnswer);
     }
 
