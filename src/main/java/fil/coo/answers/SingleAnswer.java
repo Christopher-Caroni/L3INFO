@@ -1,4 +1,12 @@
 package fil.coo.answers;
 
-public class SingleAnswer implements Answer {
+public abstract class SingleAnswer implements Answer {
+
+    protected String answer;
+
+    @Override
+    public boolean isCorrect(String userAnswer) {
+        return answer.equals(userAnswer);
+    }
+
 }
