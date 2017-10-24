@@ -23,7 +23,7 @@ public abstract class SingleAnswerTest extends AnswerTest {
 
     @Test
     public void testGetSetWithNull() {
-        assertNull(singleAnswer.getAnswer());
+        assertNotNull(singleAnswer.getAnswer());
 
         singleAnswer.setAnswer(null);
         assertNull(singleAnswer.getPrompt());
@@ -31,7 +31,7 @@ public abstract class SingleAnswerTest extends AnswerTest {
 
     @Test
     public void testGetSetWhenOK() {
-        assertNull(singleAnswer.getAnswer());
+        assertNotNull(singleAnswer.getAnswer());
 
         String dummyAnswer = "dummy_answer";
         singleAnswer.setAnswer(dummyAnswer);
