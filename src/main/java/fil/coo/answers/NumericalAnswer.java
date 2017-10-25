@@ -7,7 +7,7 @@ public class NumericalAnswer extends SingleAnswer {
     }
 
     public String getPrompt() {
-        return null;
+        return "(numerical)";
     }
 
     protected boolean checkUserAnswerIsValid(String userAnswer) {

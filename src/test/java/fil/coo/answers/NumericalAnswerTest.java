@@ -7,6 +7,7 @@ import static org.junit.Assert.*;
 public class NumericalAnswerTest extends SingleAnswerTest {
 
     private static final String DEFAULT_ANSWER = "1";
+    private static final String EXPECTED_PROMPT = "(numerical)";
 
     protected SingleAnswer getSpecificSingleAnswer(String answer) throws NullPointerException, NotCorrectAnswerException {
         return new NumericalAnswer(answer);
@@ -14,6 +15,11 @@ public class NumericalAnswerTest extends SingleAnswerTest {
 
     protected String getDefaultAnswer() {
         return DEFAULT_ANSWER;
+    }
+
+    @Test
+    public void testPrompt() {
+        assertEquals(EXPECTED_PROMPT, singleAnswer.getPrompt());
     }
 
     @Test
