@@ -11,6 +11,12 @@ public class NumericalAnswer extends SingleAnswer {
     }
 
     protected boolean checkUserAnswerIsValid(String userAnswer) {
-        return false;
+        int number;
+        try {
+            number = Integer.parseInt(userAnswer);
+        } catch (NumberFormatException e){
+            return false;
+        }
+        return true;
     }
 }

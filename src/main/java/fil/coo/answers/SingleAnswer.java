@@ -5,7 +5,7 @@ public abstract class SingleAnswer extends Answer {
     protected String answer;
 
     public SingleAnswer(String answer) throws NullPointerException, NotCorrectAnswerException{
-    	if(answer == null){
+        if(answer == null){
     		throw new NullPointerException();
     	}
     	if(this.checkUserAnswerIsValid(answer)){
