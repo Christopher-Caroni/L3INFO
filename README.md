@@ -32,4 +32,4 @@ avertissements dus au code manquant. Vous devrez pouvoir justifier
 ceux qui resteront à la fin de votre travail.
 
 
-##  Shell réalisé par Christopher Caroni et Leprêtre Guillaume
+##  Shell réalisé par le binôme Christopher Caroni et Leprêtre Guillaume
