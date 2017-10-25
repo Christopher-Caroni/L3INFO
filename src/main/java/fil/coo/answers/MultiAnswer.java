@@ -1,6 +1,7 @@
 package fil.coo.answers;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -32,8 +33,9 @@ public class MultiAnswer extends Answer {
 
     protected boolean checkUserAnswerIsCorrect(String userAnswer) {
         boolean found = false;
-        for (TextAnswer textAnswer : answers) {
-            found = textAnswer.isCorrect(userAnswer);
+        Iterator<TextAnswer> textAnswerIterator = answers.iterator();
+        while (textAnswerIterator.hasNext() && !found) {
+            found = textAnswerIterator.next().isCorrect(userAnswer);
         }
         return found;
     }

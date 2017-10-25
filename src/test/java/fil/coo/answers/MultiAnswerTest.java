@@ -41,19 +41,21 @@ public class MultiAnswerTest extends AnswerTest {
 
     @Test
     public void testDoesNotAcceptInCorrectAnswer() throws NullPointerException, InvalidAnswerException {
-        TextAnswer textAnswer = new TextAnswer(DEFAULT_ANSWER);
-        assertFalse(textAnswer.isCorrect(""));
-        assertFalse(textAnswer.isCorrect("1"));
-        assertFalse(textAnswer.isCorrect("-1"));
-        assertFalse(textAnswer.isCorrect("yes"));
-        assertFalse(textAnswer.isCorrect("no"));
-        assertFalse(textAnswer.isCorrect("oui"));
-        assertFalse(textAnswer.isCorrect("non"));
+        assertFalse(answer.isCorrect(""));
+        assertFalse(answer.isCorrect("1"));
+        assertFalse(answer.isCorrect("-1"));
+        assertFalse(answer.isCorrect("yes"));
+        assertFalse(answer.isCorrect("no"));
+        assertFalse(answer.isCorrect("oui"));
+        assertFalse(answer.isCorrect("non"));
     }
 
     @Test
     public void testDoesAcceptCorrectAnswer() throws NullPointerException, InvalidAnswerException {
-        TextAnswer textAnswer = new TextAnswer(DEFAULT_ANSWER);
-        assertTrue(textAnswer.isCorrect(DEFAULT_ANSWER));
+        assertFalse(answer.isCorrect(DEFAULT_ANSWER));
+        assertTrue(answer.isCorrect("Frodo"));
+        assertTrue(answer.isCorrect("Pippin"));
+        assertTrue(answer.isCorrect("Merry"));
+        assertTrue(answer.isCorrect("Sam"));
     }
 }
