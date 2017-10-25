@@ -25,13 +25,4 @@ public abstract class SingleAnswerTest extends AnswerTest {
     public void testWhenAnwserIsNull() throws NullPointerException, NotCorrectAnswerException {
         SingleAnswer s = getSpecificSingleAnswer(null);
     }
-
-    @Test
-    public void testGetSetWhenOK() throws NullPointerException, NotCorrectAnswerException {
-        assertNotNull(singleAnswer.getAnswer());
-        String dummyAnswer = "dummy_answer";
-        SingleAnswer oneAnswer = getSpecificSingleAnswer(dummyAnswer);
-        assertEquals(dummyAnswer, oneAnswer.getAnswer());
-    }
-
 }

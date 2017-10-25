@@ -8,14 +8,11 @@ public abstract class SingleAnswer extends Answer {
     	if(answer == null){
     		throw new NullPointerException();
     	}
-    	
-    	this.answer = answer;
-    	
-    	/*if(this.checkUserAnswerIsCorrect(answer)){
+    	if(this.checkUserAnswerIsValid(answer)){
     		this.answer = answer;
     	}else{
     		throw new NotCorrectAnswerException();
-    	}*/
+    	}
 	}
 
     @Override

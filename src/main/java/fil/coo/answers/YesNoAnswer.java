@@ -7,11 +7,11 @@ public class YesNoAnswer extends SingleAnswer {
 	}
 
 	public String getPrompt() {
-		return "(oui/non) " + this.getAnswer() ;
+		return "(oui/non) ";
 	}
 
 	protected boolean checkUserAnswerIsValid(String userAnswer) {
 		return userAnswer.equals("oui") || userAnswer.equals("non");
 	}
-
+	
 }

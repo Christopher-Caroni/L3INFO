@@ -29,6 +29,12 @@ public class YesNoAnswerTest extends SingleAnswerTest{
     @Test
     public void testPromptWhenIsYes() {    	
         assertEquals(EXPECTED_PROMPT+DEFAULT_YES, answerYes.getPrompt());
-        assertEquals(EXPECTED_PROMPT+DEFAULT_NO, answerNo.getPrompt());
     }
+    
+    @Test
+    public void testWhenIsNotValid(){
+    	singleAnswer.isValid(DEFAULT_YES);
+    	singleAnswer.isValid(DEFAULT_NO);
+    }
+    
 }
