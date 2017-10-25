@@ -37,8 +37,22 @@ public class YesNoAnswerTest extends SingleAnswerTest{
     
     @Test
     public void testWhenIsNotValid(){
+    	assertFalse(singleAnswer.isValid(""));
+    	assertFalse(singleAnswer.isValid("-1"));
     	assertFalse(singleAnswer.isValid("1"));
     	assertFalse(singleAnswer.isValid("answer"));
+    }
+    
+    @Test
+    public void testWhenIsCorrect() throws NullPointerException, NotCorrectAnswerException{
+    	YesNoAnswer yesNoAnswer = new YesNoAnswer(DEFAULT_NO);
+    	assertTrue(yesNoAnswer.isCorrect(DEFAULT_NO));
+    }
+    
+    @Test
+    public void testWhenIsNotCorrect() throws NullPointerException, NotCorrectAnswerException{
+    	YesNoAnswer yesNoAnswer = new YesNoAnswer(DEFAULT_YES);
+    	assertFalse(yesNoAnswer.isCorrect(DEFAULT_NO));
     }
     
 }
