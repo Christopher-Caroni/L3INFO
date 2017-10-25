@@ -64,9 +64,29 @@ struct job_t *treat_argv(char **argv) {
 
 /* do_bg - Execute the builtin bg command */
 void do_bg(char **argv) {
-    printf("do_bg : To be implemented\n");
+  pid_t pid_to_fg;
+  struct job_t *job;
+  char *commande_fg;
 
-    return;
+  job = treat_argv(argv);
+  job->jb_state = BG;
+
+  pid_to_fg = job->jb_pid;
+  commande_fg = malloc(sizeof(pid_t));
+  sprintf(commande_fg, "%d", pid_to_fg);
+
+  switch (fork())
+  {
+    case -1:
+      exit(EXIT_FAILURE);
+    case 0:
+      execlp("bg", "bg", commande_fg);
+      exit(EXIT_FAILURE);
+    default:
+      break;
+      /* rien */
+  }
+  return;
 }
 
 /* waitfg - Block until process pid is no longer the foreground process */
@@ -110,16 +130,55 @@ void do_fg(char **argv) {
 
 /* do_stop - Execute the builtin stop command */
 void do_stop(char **argv) {
-    printf("do_stop : To be implemented\n");
+  pid_t pid_to_fg;
+  struct job_t *job;
+  char *commande_fg;
 
-    return;
+  job = treat_argv(argv);
+  job->jb_state = ST;
+
+  pid_to_fg = job->jb_pid;
+  commande_fg = malloc(sizeof(pid_t));
+  sprintf(commande_fg, "%d", pid_to_fg);
+
+  switch (fork())
+  {
+    case -1:
+      exit(EXIT_FAILURE);
+    case 0:
+      execlp("stop", "stop", commande_fg);
+      exit(EXIT_FAILURE);
+    default:
+      break;
+      /* rien */
+  }
+  return;
 }
 
 /* do_kill - Execute the builtin kill command */
 void do_kill(char **argv) {
-    printf("do_kill : To be implemented\n");
+  pid_t pid_to_fg;
+  struct job_t *job;
+  char *commande_fg;
 
-    return;
+  job = treat_argv(argv);
+
+  pid_to_fg = job->jb_pid;
+  commande_fg = malloc(sizeof(pid_t));
+  sprintf(commande_fg, "%d", pid_to_fg);
+
+  switch (fork())
+  {
+    case -1:
+      exit(EXIT_FAILURE);
+    case 0:
+      execlp("kill", "kill", commande_fg);
+      exit(EXIT_FAILURE);
+    default:
+      break;
+      /* rien */
+  }
+  return;
 }
 
 /* do_exit - Execute the builtin exit command */
