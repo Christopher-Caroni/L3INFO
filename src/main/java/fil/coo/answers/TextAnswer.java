@@ -11,6 +11,12 @@ public class TextAnswer extends SingleAnswer {
     }
 
     protected boolean checkUserAnswerIsValid(String userAnswer) {
+        int number;
+        try {
+            number = Integer.parseInt(userAnswer);
+        } catch (NumberFormatException e){
+            return true;
+        }
         return false;
     }
 

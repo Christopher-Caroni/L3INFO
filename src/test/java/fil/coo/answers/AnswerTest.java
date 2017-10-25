@@ -42,13 +42,4 @@ public abstract class AnswerTest {
         answer.isCorrect(null);
     }
 
-    @Test
-    public void testIsCorrectDoesNotThrowException() {
-        try {
-            answer.isCorrect("dummy_answer");
-        } catch (NullPointerException e) {
-            fail("Should not throw with non null param");
-        }
-    }
-
 }
