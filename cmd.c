@@ -83,9 +83,29 @@ void waitfg(pid_t pid) {
 
 /* do_fg - Execute the builtin fg command */
 void do_fg(char **argv) {
-    printf("do_fg : To be implemented\n");
+  pid_t pid_to_fg;
+  struct job_t *job;
+  char *commande_fg;
 
-    return;
+  job = treat_argv(argv);
+  job->jb_state = FG;
+
+  pid_to_fg = job->jb_pid;
+  commande_fg = malloc(sizeof(pid_t));
+  sprintf(commande_fg, "%d", pid_to_fg);
+
+  switch (fork())
+  {
+    case -1:
+      exit(EXIT_FAILURE);
+    case 0:
+      execlp("fg", "fg", commande_fg);
+      exit(EXIT_FAILURE);
+    default:
+      break;
+      /* rien */
+  }
+  return;
 }
 
 /* do_stop - Execute the builtin stop command */
