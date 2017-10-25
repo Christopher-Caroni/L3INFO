@@ -13,6 +13,11 @@ public class TextAnswerTest extends SingleAnswerTest {
     protected String getDefaultAnswer() {
         return DEFAULT_ANSWER;
     }
+    
+	@Override
+	protected String getCorrectAnswer() {
+		return getDefaultAnswer();
+	}
 
     @Override
     protected SingleAnswer getSpecificSingleAnswer(String answer) throws NullPointerException, InvalidAnswerException {
@@ -32,7 +37,6 @@ public class TextAnswerTest extends SingleAnswerTest {
 
     @Test
     public void testNonNumberIsValid() {
-        assertTrue(singleAnswer.isValid(""));
         assertTrue(singleAnswer.isValid("yes"));
         assertTrue(singleAnswer.isValid("no"));
         assertTrue(singleAnswer.isValid("oui"));

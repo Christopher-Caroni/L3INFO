@@ -17,6 +17,10 @@ public class NumericalAnswerTest extends SingleAnswerTest {
         return DEFAULT_ANSWER;
     }
 
+    protected String getCorrectAnswer() {
+        return getDefaultAnswer();
+    }
+
     @Test
     public void testPrompt() {
         assertEquals(EXPECTED_PROMPT, singleAnswer.getPrompt());

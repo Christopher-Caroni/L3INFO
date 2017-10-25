@@ -2,6 +2,8 @@
 package fil.coo.answers;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
@@ -16,6 +18,11 @@ public class YesNoAnswerTest extends SingleAnswerTest{
 	protected String getDefaultAnswer() {
 		return DEFAULT_YES;
 	}
+	
+	@Override
+	protected String getCorrectAnswer() {
+		return getDefaultAnswer();
+	}
 
 	@Override
 	protected SingleAnswer getSpecificSingleAnswer(String anwser) throws NullPointerException, InvalidAnswerException {
@@ -28,9 +35,31 @@ public class YesNoAnswerTest extends SingleAnswerTest{
     }
     
     @Test
-    public void testWhenIsNotValid(){
-    	singleAnswer.isValid(DEFAULT_YES);
-    	singleAnswer.isValid(DEFAULT_NO);
+    public void testWhenIsValid(){
+    	assertTrue(singleAnswer.isValid(DEFAULT_YES));
+    	assertTrue(singleAnswer.isValid(DEFAULT_NO));
     }
+    
+    @Test
+    public void testWhenIsNotValid(){
+    	assertFalse(singleAnswer.isValid(""));
+    	assertFalse(singleAnswer.isValid("-1"));
+    	assertFalse(singleAnswer.isValid("1"));
+    	assertFalse(singleAnswer.isValid("answer"));
+    }
+    
+    @Test
+    public void testWhenIsCorrect() throws NullPointerException, InvalidAnswerException {
+    	YesNoAnswer yesNoAnswer = new YesNoAnswer(DEFAULT_NO);
+    	assertTrue(yesNoAnswer.isCorrect(DEFAULT_NO));
+    }
+    
+    @Test
+    public void testWhenIsNotCorrect() throws NullPointerException, InvalidAnswerException{
+    	YesNoAnswer yesNoAnswer = new YesNoAnswer(DEFAULT_YES);
+    	assertFalse(yesNoAnswer.isCorrect(DEFAULT_NO));
+    }
+
+	
     
 }
