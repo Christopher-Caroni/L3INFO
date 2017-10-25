@@ -71,9 +71,14 @@ void do_bg(char **argv) {
 
 /* waitfg - Block until process pid is no longer the foreground process */
 void waitfg(pid_t pid) {
-    printf("waitfg : To be implemented\n");
+  struct job_t *j = jobs_getjobpid(pid);
 
+  if(!j)
     return;
+
+  while (j-> jb_pid == pid && j-> jb_state == FG) {
+    pause();
+  }
 }
 
 /* do_fg - Execute the builtin fg command */
