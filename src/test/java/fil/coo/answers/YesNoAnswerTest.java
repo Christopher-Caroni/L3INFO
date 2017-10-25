@@ -18,6 +18,11 @@ public class YesNoAnswerTest extends SingleAnswerTest{
 	protected String getDefaultAnswer() {
 		return DEFAULT_YES;
 	}
+	
+	@Override
+	protected String getCorrectAnswer() {
+		return getDefaultAnswer();
+	}
 
 	@Override
 	protected SingleAnswer getSpecificSingleAnswer(String anwser) throws NullPointerException, NotCorrectAnswerException {
@@ -54,5 +59,7 @@ public class YesNoAnswerTest extends SingleAnswerTest{
     	YesNoAnswer yesNoAnswer = new YesNoAnswer(DEFAULT_YES);
     	assertFalse(yesNoAnswer.isCorrect(DEFAULT_NO));
     }
+
+	
     
 }

@@ -13,6 +13,11 @@ public class TextAnswerTest extends SingleAnswerTest {
     protected String getDefaultAnswer() {
         return DEFAULT_ANSWER;
     }
+    
+	@Override
+	protected String getCorrectAnswer() {
+		return getDefaultAnswer();
+	}
 
     @Override
     protected SingleAnswer getSpecificSingleAnswer(String answer) throws NullPointerException, NotCorrectAnswerException {
