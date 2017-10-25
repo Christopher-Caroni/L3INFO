@@ -44,14 +44,32 @@ int sigaction_wrapper(int signum, handler_t * handler) {
 void sigchld_handler(int sig) {
   pid_t child_pid;
   int status;
+  struct job_t *job;
 
     if (verbose)
     {
       printf("sigchld_handler: entering\n");
     }
 
-    child_pid = waitpid(-1, &status, WNOHANG);
-    jobs_deletejob(child_pid);
+    child_pid = waitpid(-1, &status, WNOHANG|WUNTRACED);
+
+
+    if(child_pid != -1 ){
+
+      if(WIFEXITED(status)){
+        jobs_deletejob(child_pid);
+      }else if(WIFSTOPPED(status)){
+        job = jobs_getjobpid(child_pid);
+        if(job != NULL){
+          job->jb_state = ST;
+          if (verbose)
+            printf("[%d] Arrêté\t %s\n", job->jb_jid, job->jb_cmdline);
+        }else if(verbose){
+          printf("Erreur stop job\n");
+        }
+      }
+  }
+
 
     if (verbose)
     {

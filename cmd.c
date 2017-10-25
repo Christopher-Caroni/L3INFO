@@ -135,7 +135,6 @@ void do_stop(char **argv) {
   char *commande_fg;
 
   job = treat_argv(argv);
-  job->jb_state = ST;
 
   pid_to_fg = job->jb_pid;
   commande_fg = malloc(sizeof(pid_t));
