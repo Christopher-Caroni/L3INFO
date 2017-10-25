@@ -2,8 +2,9 @@
 package fil.coo.answers;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
-import org.junit.Before;
 import org.junit.Test;
 
 public class YesNoAnswerTest extends SingleAnswerTest{
@@ -29,9 +30,15 @@ public class YesNoAnswerTest extends SingleAnswerTest{
     }
     
     @Test
+    public void testWhenIsValid(){
+    	assertTrue(singleAnswer.isValid(DEFAULT_YES));
+    	assertTrue(singleAnswer.isValid(DEFAULT_NO));
+    }
+    
+    @Test
     public void testWhenIsNotValid(){
-    	singleAnswer.isValid(DEFAULT_YES);
-    	singleAnswer.isValid(DEFAULT_NO);
+    	assertFalse(singleAnswer.isValid("1"));
+    	assertFalse(singleAnswer.isValid("answer"));
     }
     
 }

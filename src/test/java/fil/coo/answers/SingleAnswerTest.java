@@ -47,7 +47,7 @@ public abstract class SingleAnswerTest extends AnswerTest {
 
     @Test
     public void testGetSetWhenOK() throws NullPointerException, NotCorrectAnswerException {
-        String dummyAnswer = "dummy_answer";
+        String dummyAnswer = getDefaultAnswer();
         SingleAnswer oneAnswer = getSpecificSingleAnswer(dummyAnswer);
         assertEquals(dummyAnswer, oneAnswer.getAnswer());
     }
