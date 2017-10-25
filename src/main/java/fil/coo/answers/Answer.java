@@ -11,6 +11,9 @@ public abstract class Answer {
      */
     public final boolean isValid(String userAnswer) throws NullPointerException {
         verifyUserInputNotNull(userAnswer);
+        if ("".equals(userAnswer)) {
+            return false;
+        }
         return checkUserAnswerIsValid(userAnswer);
     }
 

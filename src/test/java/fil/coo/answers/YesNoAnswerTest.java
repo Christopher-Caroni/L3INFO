@@ -3,7 +3,6 @@ package fil.coo.answers;
 
 import static org.junit.Assert.assertEquals;
 
-import org.junit.Before;
 import org.junit.Test;
 
 public class YesNoAnswerTest extends SingleAnswerTest{
@@ -19,7 +18,7 @@ public class YesNoAnswerTest extends SingleAnswerTest{
 	}
 
 	@Override
-	protected SingleAnswer getSpecificSingleAnswer(String anwser) throws NullPointerException, NotCorrectAnswerException {
+	protected SingleAnswer getSpecificSingleAnswer(String anwser) throws NullPointerException, InvalidAnswerException {
 		return new YesNoAnswer(anwser);
 	}
 	

@@ -1,17 +1,41 @@
 package fil.coo.answers;
 
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * Has several answers that are correct
+ */
 public class MultiAnswer extends Answer {
 
+    List<TextAnswer> answers;
+
+    public MultiAnswer(String allAnswers) throws InvalidAnswerException {
+        answers = new ArrayList<TextAnswer>();
+        for (String oneAnswer : allAnswers.split(" ; ")) {
+            if (!("".equals(oneAnswer))) {
+                answers.add(new TextAnswer(oneAnswer));
+            }
+        }
+        if (answers.size() == 0) {
+            throw new InvalidAnswerException();
+        }
+    }
+
     public String getPrompt() {
-        return null;
+        return "(" + answers.size() + " possible answers)";
     }
 
     protected boolean checkUserAnswerIsValid(String userAnswer) {
-        return false;
+        return answers.get(0).isValid(userAnswer);
     }
 
     protected boolean checkUserAnswerIsCorrect(String userAnswer) {
-        return false;
+        boolean found = false;
+        for (TextAnswer textAnswer : answers) {
+            found = textAnswer.isCorrect(userAnswer);
+        }
+        return found;
     }
 
 }

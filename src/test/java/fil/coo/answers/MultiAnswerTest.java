@@ -1,42 +1,42 @@
 package fil.coo.answers;
 
-import static org.junit.Assert.*;
-
 import org.junit.Test;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
-public class TextAnswerTest extends SingleAnswerTest {
+public class MultiAnswerTest extends AnswerTest {
 
-    private final static String DEFAULT_ANSWER = "default_answer";
-    private final static String EXPECTED_PROMPT = "(text)";
+    private static final String DEFAULT_ANSWER = "Frodo ; Pippin ; Merry ; Sam";
 
-    protected String getDefaultAnswer() {
-        return DEFAULT_ANSWER;
+    public Answer getSpecificAnswer() throws NullPointerException, InvalidAnswerException {
+        return new MultiAnswer(DEFAULT_ANSWER);
     }
 
-    @Override
-    protected SingleAnswer getSpecificSingleAnswer(String answer) throws NullPointerException, InvalidAnswerException {
-        return new TextAnswer(answer);
+    private String createPrompt(int nbAnswers) {
+        return "(" + nbAnswers + " possible answers)";
     }
 
     @Test
-    public void testPrompt() {
-        assertEquals(EXPECTED_PROMPT, singleAnswer.getPrompt());
+    public void testPrompt() throws InvalidAnswerException {
+        MultiAnswer multiAnswer = new MultiAnswer(DEFAULT_ANSWER);
+        assertEquals(createPrompt(4), multiAnswer.getPrompt());
     }
+
 
     @Test
     public void testNumberIsInvalid() {
-        assertFalse(singleAnswer.isValid("1"));
-        assertFalse(singleAnswer.isValid("-1"));
+        assertFalse(answer.isValid("1"));
+        assertFalse(answer.isValid("-1"));
     }
 
     @Test
     public void testNonNumberIsValid() {
-        assertTrue(singleAnswer.isValid(""));
-        assertTrue(singleAnswer.isValid("yes"));
-        assertTrue(singleAnswer.isValid("no"));
-        assertTrue(singleAnswer.isValid("oui"));
-        assertTrue(singleAnswer.isValid("non"));
+        assertTrue(answer.isValid("yes"));
+        assertTrue(answer.isValid("no"));
+        assertTrue(answer.isValid("oui"));
+        assertTrue(answer.isValid("non"));
     }
 
     @Test

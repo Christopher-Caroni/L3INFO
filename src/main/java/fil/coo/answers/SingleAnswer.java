@@ -4,14 +4,14 @@ public abstract class SingleAnswer extends Answer {
 
     protected String answer;
 
-    public SingleAnswer(String answer) throws NullPointerException, NotCorrectAnswerException{
+    public SingleAnswer(String answer) throws NullPointerException, InvalidAnswerException {
         if(answer == null){
     		throw new NullPointerException();
     	}
-    	if(this.checkUserAnswerIsValid(answer)){
+    	if(this.isValid(answer)){
     		this.answer = answer;
     	}else{
-    		throw new NotCorrectAnswerException();
+    		throw new InvalidAnswerException();
     	}
 	}
 

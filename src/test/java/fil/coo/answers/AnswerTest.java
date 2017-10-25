@@ -13,13 +13,13 @@ public abstract class AnswerTest {
      *
      * @return an implementation of {@link Answer}. By default, this instance should have empty attributes, or null
      * values for non list objects.
-     * @throws NotCorrectAnswerException 
+     * @throws InvalidAnswerException
      * @throws NullPointerException 
      */
-    public abstract Answer getSpecificAnswer() throws NullPointerException, NotCorrectAnswerException;
+    public abstract Answer getSpecificAnswer() throws NullPointerException, InvalidAnswerException;
 
     @Before
-    public void setupAnswer() throws NullPointerException, NotCorrectAnswerException {
+    public void setupAnswer() throws NullPointerException, InvalidAnswerException {
         this.answer = getSpecificAnswer();
     }
 

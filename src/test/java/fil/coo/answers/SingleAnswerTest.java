@@ -12,7 +12,7 @@ public abstract class SingleAnswerTest extends AnswerTest {
     
    
     @Before
-    public void setupSingleAnswer() throws NullPointerException, NotCorrectAnswerException {
+    public void setupSingleAnswer() throws NullPointerException, InvalidAnswerException {
         singleAnswer = getSpecificSingleAnswer(getDefaultAnswer());
     }
 
@@ -20,11 +20,11 @@ public abstract class SingleAnswerTest extends AnswerTest {
      * @param answer the correct answer
      * @return an instance of the implementing Answer to test
      */
-    protected abstract SingleAnswer getSpecificSingleAnswer(String answer) throws NullPointerException, NotCorrectAnswerException;
+    protected abstract SingleAnswer getSpecificSingleAnswer(String answer) throws NullPointerException, InvalidAnswerException;
 
 
     @Test(expected=NullPointerException.class)
-    public void testWhenAnwserIsNull() throws NullPointerException, NotCorrectAnswerException {
+    public void testWhenAnwserIsNull() throws NullPointerException, InvalidAnswerException {
         SingleAnswer s = getSpecificSingleAnswer(null);
     }
   
@@ -34,19 +34,19 @@ public abstract class SingleAnswerTest extends AnswerTest {
      */
     protected abstract String getDefaultAnswer();
 
-   
+
     @Override
-    public Answer getSpecificAnswer() throws NullPointerException, NotCorrectAnswerException {
+    public Answer getSpecificAnswer() throws NullPointerException, InvalidAnswerException {
         return getSpecificSingleAnswer(getDefaultAnswer());
     }
 
     @Test(expected = NullPointerException.class)
-    public void testNullConstructionThrows() throws NullPointerException, NotCorrectAnswerException {
+    public void testNullConstructionThrows() throws NullPointerException, InvalidAnswerException {
         SingleAnswer s = getSpecificSingleAnswer(null);
     }
 
     @Test
-    public void testGetSetWhenOK() throws NullPointerException, NotCorrectAnswerException {
+    public void testGetSetWhenOK() throws NullPointerException, InvalidAnswerException {
         String dummyAnswer = getDefaultAnswer();
         SingleAnswer oneAnswer = getSpecificSingleAnswer(dummyAnswer);
         assertEquals(dummyAnswer, oneAnswer.getAnswer());

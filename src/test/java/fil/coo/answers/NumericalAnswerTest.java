@@ -9,7 +9,7 @@ public class NumericalAnswerTest extends SingleAnswerTest {
     private static final String DEFAULT_ANSWER = "1";
     private static final String EXPECTED_PROMPT = "(numerical)";
 
-    protected SingleAnswer getSpecificSingleAnswer(String answer) throws NullPointerException, NotCorrectAnswerException {
+    protected SingleAnswer getSpecificSingleAnswer(String answer) throws NullPointerException, InvalidAnswerException {
         return new NumericalAnswer(answer);
     }
 
@@ -38,7 +38,7 @@ public class NumericalAnswerTest extends SingleAnswerTest {
     }
 
     @Test
-    public void testDoesNotAcceptInCorrectAnswer() throws NullPointerException, NotCorrectAnswerException {
+    public void testDoesNotAcceptInCorrectAnswer() throws NullPointerException, InvalidAnswerException {
         NumericalAnswer textAnswer = new NumericalAnswer(DEFAULT_ANSWER);
         assertFalse(textAnswer.isCorrect(""));
         assertFalse(textAnswer.isCorrect("-1"));
@@ -49,7 +49,7 @@ public class NumericalAnswerTest extends SingleAnswerTest {
     }
 
     @Test
-    public void testDoesAcceptCorrectAnswer() throws NullPointerException, NotCorrectAnswerException {
+    public void testDoesAcceptCorrectAnswer() throws NullPointerException, InvalidAnswerException {
         NumericalAnswer textAnswer = new NumericalAnswer(DEFAULT_ANSWER);
         assertTrue(textAnswer.isCorrect(DEFAULT_ANSWER));
     }

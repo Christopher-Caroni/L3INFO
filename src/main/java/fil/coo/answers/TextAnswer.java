@@ -2,7 +2,7 @@ package fil.coo.answers;
 
 public class TextAnswer extends SingleAnswer {
 
-    public TextAnswer(String answer) throws NullPointerException, NotCorrectAnswerException {
+    public TextAnswer(String answer) throws NullPointerException, InvalidAnswerException {
         super(answer);
     }
 
