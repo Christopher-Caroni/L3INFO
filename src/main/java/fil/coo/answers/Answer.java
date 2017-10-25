@@ -2,11 +2,11 @@ package fil.coo.answers;
 
 public abstract class Answer {
 
-	public abstract String getPrompt();
+    public abstract String getPrompt();
 
     /**
      * @param userAnswer
-     * @return
+     * @return if the user's answer is in a valid format
      * @throws NullPointerException when userAnswer is null
      */
     public final boolean isValid(String userAnswer) throws NullPointerException {
@@ -19,7 +19,7 @@ public abstract class Answer {
 
     /**
      * @param userAnswer
-     * @return
+     * @return if the user's answer is the correct answer
      * @throws NullPointerException when userAnswer is null
      */
     public final boolean isCorrect(String userAnswer) throws NullPointerException {

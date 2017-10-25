@@ -11,8 +11,10 @@ public abstract class SingleAnswerTest extends AnswerTest {
 
     @Before
     public void setupSingleAnswer() {
-        singleAnswer = getSpecificSingleAnswer("answer");
+        singleAnswer = getSpecificSingleAnswer(getDefaultAnswer());
     }
+
+    protected abstract String getDefaultAnswer();
 
     protected abstract SingleAnswer getSpecificSingleAnswer(String answer);
 
