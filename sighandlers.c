@@ -59,14 +59,16 @@ void sigchld_handler(int sig) {
  *    to the foreground job.
  */
 void sigint_handler(int sig) {
+  pid_t child_pid;
     if (verbose)
         printf("sigint_handler: entering\n");
 
     printf("sigint_handler : To be implemented\n");
+    child_pid = jobs_fgpid();
+    kill(child_pid, sig);
 
     if (verbose)
         printf("sigint_handler: exiting\n");
-
     return;
 }
 
