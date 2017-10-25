@@ -27,7 +27,7 @@ int sigaction_wrapper(int signum, handler_t * handler) {
   sigaddset(&action.sa_mask, SIGINT);
 
   action.sa_flags = SA_RESTART;
-  if (sigaction(signum, action, NULL) < 0)
+  if (sigaction(signum, &action, NULL) < 0)
   {
     unix_error("sigaction_wrapper error");
   }
