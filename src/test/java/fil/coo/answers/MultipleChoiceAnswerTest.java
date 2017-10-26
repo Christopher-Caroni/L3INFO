@@ -47,6 +47,7 @@ public class MultipleChoiceAnswerTest extends SingleAnswerTest {
     @Test
     public void testWhenIsCorrect() throws NullPointerException, InvalidAnswerException {
         MultipleChoiceAnswer answer = new MultipleChoiceAnswer(AllChoice);
+        assertTrue(answer.isCorrect(correctAnswer));
     }
 
     @Test
