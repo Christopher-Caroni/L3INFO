@@ -9,30 +9,27 @@ public abstract class SingleAnswerTest extends AnswerTest {
 
     protected SingleAnswer singleAnswer;
 
-    
-   
+
     @Before
     public void setupSingleAnswer() throws NullPointerException, InvalidAnswerException {
         singleAnswer = getSpecificSingleAnswer(getDefaultAnswer());
     }
 
     /**
-     * @param answer the correct answer
+     * @param answer the answer that would be read from the quiz file
      * @return an instance of the implementing Answer to test
      */
     protected abstract SingleAnswer getSpecificSingleAnswer(String answer) throws NullPointerException, InvalidAnswerException;
 
-
-    @Test(expected=NullPointerException.class)
-    public void testWhenAnwserIsNull() throws NullPointerException, InvalidAnswerException {
-        SingleAnswer s = getSpecificSingleAnswer(null);
-    }
-  
-
     /**
-     * @return a default answer for the implementing Answer class
+     * @return a default answer for the implementing Answer class. This answer is the one that would be read from the quiz file.
      */
     protected abstract String getDefaultAnswer();
+
+    @Test(expected=NullPointerException.class)
+    public void testWhenAnswerIsNull() throws NullPointerException, InvalidAnswerException {
+        SingleAnswer s = getSpecificSingleAnswer(null);
+    }
 
 
     @Override

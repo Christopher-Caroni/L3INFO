@@ -8,20 +8,19 @@ import static org.junit.Assert.assertTrue;
 public class MultipleChoiceAnswerTest extends SingleAnswerTest {
 
 
-    private final static String EXPECTED_PROMPT = "( Robert Bourricot Bill Jolly Jumper )";
-    private final static String AllChoice = "Robert Bourricot Bill Jolly Jumper";
-    private final static String correctAnswer = "Robert";
-    private final static String falseAnswer = "Bill";
+    private final static String DEFAULT_ANSWER_VALUE = "Robert Bourricot Bill Jolly Jumper";
+    private final static String CORRECT_ANSWER = "Robert";
+    private final static String INCORRECT_ANSWER = "Bill";
 
 
     @Override
     protected String getDefaultAnswer() {
-        return AllChoice;
+        return DEFAULT_ANSWER_VALUE;
     }
 
     @Override
     protected String getCorrectAnswer() {
-        return correctAnswer;
+        return CORRECT_ANSWER;
     }
 
     @Override
@@ -32,8 +31,8 @@ public class MultipleChoiceAnswerTest extends SingleAnswerTest {
 
     @Test
     public void testWhenIsValid() {
-        assertTrue(singleAnswer.isValid(correctAnswer));
-        assertTrue(singleAnswer.isValid(falseAnswer));
+        assertTrue(singleAnswer.isValid(CORRECT_ANSWER));
+        assertTrue(singleAnswer.isValid(INCORRECT_ANSWER));
     }
 
     @Test
@@ -46,13 +45,13 @@ public class MultipleChoiceAnswerTest extends SingleAnswerTest {
 
     @Test
     public void testWhenIsCorrect() throws NullPointerException, InvalidAnswerException {
-        MultipleChoiceAnswer answer = new MultipleChoiceAnswer(AllChoice);
-        assertTrue(answer.isCorrect(correctAnswer));
+        MultipleChoiceAnswer answer = new MultipleChoiceAnswer(DEFAULT_ANSWER_VALUE);
+        assertTrue(answer.isCorrect(CORRECT_ANSWER));
     }
 
     @Test
     public void testWhenIsNotCorrect() throws NullPointerException, InvalidAnswerException {
-        MultipleChoiceAnswer answer = new MultipleChoiceAnswer(AllChoice);
-        assertFalse(answer.isCorrect(falseAnswer));
+        MultipleChoiceAnswer answer = new MultipleChoiceAnswer(DEFAULT_ANSWER_VALUE);
+        assertFalse(answer.isCorrect(INCORRECT_ANSWER));
     }
 }

@@ -5,44 +5,40 @@ import java.util.Collections;
 import java.util.List;
 
 public class MultipleChoiceAnswer extends TextAnswer {
-    
-	static List<String> multiplechoice;
-	
-	public MultipleChoiceAnswer(String answer) throws NullPointerException, InvalidAnswerException {
-		super(collectTheGoodAnswer(answer));
-		
-	}
 
-	private static String collectTheGoodAnswer(String answer) {
-		initializeList(answer);
-		return multiplechoice.get(0);
-	}
+    public static final String REGEX_SPLIT = " | ";
+    private List<String> choices;
+
+    public MultipleChoiceAnswer(String answer) throws NullPointerException, InvalidAnswerException {
+        saveChoices(answer);
+        initAnswer(choices.get(0));
+    }
+
+    /**
+     * Parses answer and saves the possible choices.
+     * The choices are delimited by {@link #REGEX_SPLIT}
+     *
+     * @param answer the string containing the choices that user will select from.
+     */
+    private void saveChoices(String answer) {
+        String[] tab = answer.split(REGEX_SPLIT);
+        choices = Arrays.asList(tab);
+    }
+
+    @Override
+    public String getPrompt() {
+        StringBuilder prompt = new StringBuilder("(");
+        Collections.shuffle(choices);
+        for (String answer : choices) {
+            prompt.append(" ").append(answer).append(" ");
+        }
+        prompt.append(")");
+        return prompt.toString();
+    }
 
 
-
-	private static void initializeList(String answer) {
-		String tab[] = answer.split(" | ");
-		multiplechoice = Arrays.asList(tab);
-	}
-
-	@Override
-	public String getPrompt() {
-		String allAnswer = "";
-		Collections.shuffle(multiplechoice);
-		for (String answer : multiplechoice) {
-			allAnswer+= " "+answer+" ";
-		}
-		return "("+allAnswer+")";
-	}
-
-
-
-	@Override
-	protected boolean checkUserAnswerIsValid(String userAnswer) {
-		for (String answer : multiplechoice) {
-			if(answer.equals(userAnswer))
-				return true;
-		}
-		return false;
-	}
+    @Override
+    protected boolean checkUserAnswerIsValid(String userAnswer) {
+        return choices.contains(userAnswer);
+    }
 }
