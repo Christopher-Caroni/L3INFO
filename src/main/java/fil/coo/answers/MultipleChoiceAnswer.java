@@ -1,36 +1,45 @@
 package fil.coo.answers;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 
 public class MultipleChoiceAnswer extends TextAnswer {
 
     public static final String REGEX_SPLIT = " | ";
-    private List<String> choices;
+    private List<TextAnswer> choices;
 
     public MultipleChoiceAnswer(String answer) throws NullPointerException, InvalidAnswerException {
         saveChoices(answer);
-        initAnswer(choices.get(0));
+        initAnswer(choices.get(0).getAnswer());
     }
 
+
     /**
-     * Parses answer and saves the possible choices.
+     * Parses answer and saves the possible choices in {@link #choices}.
      * The choices are delimited by {@link #REGEX_SPLIT}
      *
      * @param answer the string containing the choices that user will select from.
+     * @throws InvalidAnswerException if one or more of the possible answers is not a {@link TextAnswer} according to {@link TextAnswer#isValid(String)}
      */
-    private void saveChoices(String answer) {
-        String[] tab = answer.split(REGEX_SPLIT);
-        choices = Arrays.asList(tab);
+    private void saveChoices(String answer) throws InvalidAnswerException {
+        choices = new ArrayList<>();
+        String[] possibleChoices = answer.split(REGEX_SPLIT);
+        for (String oneChoice : possibleChoices) {
+            choices.add(new TextAnswer(oneChoice));
+        }
     }
 
+    /**
+     * @return all the available choices, shuffled.
+     */
     @Override
     public String getPrompt() {
         StringBuilder prompt = new StringBuilder("(");
         Collections.shuffle(choices);
-        for (String answer : choices) {
-            prompt.append(" ").append(answer).append(" ");
+        for (TextAnswer answer : choices) {
+            prompt.append(" ").append(answer.getAnswer()).append(" ");
         }
         prompt.append(")");
         return prompt.toString();
@@ -39,6 +48,11 @@ public class MultipleChoiceAnswer extends TextAnswer {
 
     @Override
     protected boolean checkUserAnswerIsValid(String userAnswer) {
-        return choices.contains(userAnswer);
+        boolean found = false;
+        Iterator<TextAnswer> textAnswerIterator = choices.iterator();
+        while (textAnswerIterator.hasNext() && !found) {
+            found = textAnswerIterator.next().isCorrect(userAnswer);
+        }
+        return found;
     }
 }
