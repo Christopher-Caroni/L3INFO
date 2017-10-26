@@ -3,11 +3,11 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>fil.coo</groupId>
-  <artifactId>COO-QUES</artifactId>
+  <artifactId>COO-QUIZ</artifactId>
   <version>1.0-SNAPSHOT</version>
   <packaging>jar</packaging>
 
-  <name>COO-QUES</name>
+  <name>COO-QUIZ</name>
   <url>http://maven.apache.org</url>
 
   <properties>
