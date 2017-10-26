@@ -1,16 +1,33 @@
 package fil.coo.answers;
 
+import org.junit.BeforeClass;
 import org.junit.Test;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class MultipleChoiceAnswerTest extends SingleAnswerTest {
 
 
-    private final static String DEFAULT_ANSWER_VALUE = "Robert Bourricot Bill Jolly Jumper";
-    private final static String CORRECT_ANSWER = "Robert";
-    private final static String INCORRECT_ANSWER = "Bill";
+    private final static String ONE = "Robert";
+    private final static String TWO = "Bourricot";
+    private final static String THREE = "Bill";
+    private final static String FOUR = "Jolly Jumper";
+
+    private final static String[] DEFAULT_ANSWER_LIST = {ONE, TWO, THREE, FOUR};
+    private static String DEFAULT_ANSWER_VALUE;
+
+    private final static String CORRECT_ANSWER = ONE;
+    private final static String INCORRECT_ANSWER = TWO;
+
+
+    @BeforeClass
+    public static void setupDefaultAnswer() {
+        DEFAULT_ANSWER_VALUE = "";
+        for (int i = 0; i < DEFAULT_ANSWER_LIST.length - 1; i++) {
+            DEFAULT_ANSWER_VALUE += DEFAULT_ANSWER_LIST[i] + " | ";
+        }
+        DEFAULT_ANSWER_VALUE += DEFAULT_ANSWER_LIST[DEFAULT_ANSWER_LIST.length - 1];
+    }
 
 
     @Override
@@ -27,6 +44,16 @@ public class MultipleChoiceAnswerTest extends SingleAnswerTest {
     protected SingleAnswer getSpecificSingleAnswer(String answer)
             throws NullPointerException, InvalidAnswerException {
         return new MultipleChoiceAnswer(answer);
+    }
+
+    @Test
+    public void testCorrectParse() throws InvalidAnswerException {
+        MultipleChoiceAnswer answer = new MultipleChoiceAnswer(DEFAULT_ANSWER_VALUE);
+        assertEquals(4, answer.getChoices().size());
+
+        for (int i = 0; i < DEFAULT_ANSWER_LIST.length; i++) {
+            assertEquals(DEFAULT_ANSWER_LIST[i], answer.getChoices().get(i).getAnswer());
+        }
     }
 
     @Test

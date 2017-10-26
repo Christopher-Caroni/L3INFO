@@ -7,7 +7,8 @@ import java.util.List;
 
 public class MultipleChoiceAnswer extends TextAnswer {
 
-    public static final String REGEX_SPLIT = " | ";
+    private static final String REGEX_SPLIT = " \\| ";
+
     private List<TextAnswer> choices;
 
     public MultipleChoiceAnswer(String answer) throws NullPointerException, InvalidAnswerException {
@@ -54,5 +55,9 @@ public class MultipleChoiceAnswer extends TextAnswer {
             found = textAnswerIterator.next().isCorrect(userAnswer);
         }
         return found;
+    }
+
+    public List<TextAnswer> getChoices() {
+        return choices;
     }
 }
