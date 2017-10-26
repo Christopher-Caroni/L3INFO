@@ -10,9 +10,8 @@ public class MultipleChoiceAnswerTest extends SingleAnswerTest {
 
     private final static String EXPECTED_PROMPT = "( Robert Bourricot Bill Jolly Jumper )";
     private final static String AllChoice = "Robert Bourricot Bill Jolly Jumper";
-    private final static int INDEX = 2;
-    private final static String correctAnswer = "Bill";
-    private final static String falseAnswer = "Robert";
+    private final static String correctAnswer = "Robert";
+    private final static String falseAnswer = "Bill";
 
 
     @Override
@@ -28,7 +27,7 @@ public class MultipleChoiceAnswerTest extends SingleAnswerTest {
     @Override
     protected SingleAnswer getSpecificSingleAnswer(String answer)
             throws NullPointerException, InvalidAnswerException {
-        return new MultipleChoiceAnswer(answer, INDEX);
+        return new MultipleChoiceAnswer(answer);
     }
 
     @Test
@@ -47,13 +46,12 @@ public class MultipleChoiceAnswerTest extends SingleAnswerTest {
 
     @Test
     public void testWhenIsCorrect() throws NullPointerException, InvalidAnswerException {
-        MultipleChoiceAnswer answer = new MultipleChoiceAnswer(AllChoice, INDEX);
-        assertTrue(answer.isCorrect(correctAnswer));
+        MultipleChoiceAnswer answer = new MultipleChoiceAnswer(AllChoice);
     }
 
     @Test
     public void testWhenIsNotCorrect() throws NullPointerException, InvalidAnswerException {
-        MultipleChoiceAnswer answer = new MultipleChoiceAnswer(AllChoice, INDEX);
+        MultipleChoiceAnswer answer = new MultipleChoiceAnswer(AllChoice);
         assertFalse(answer.isCorrect(falseAnswer));
     }
 }

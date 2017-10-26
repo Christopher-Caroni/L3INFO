@@ -1,20 +1,21 @@
 package fil.coo.answers;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
-public class MultipleChoiceAnswer extends SingleAnswer {
+public class MultipleChoiceAnswer extends TextAnswer {
     
 	static List<String> multiplechoice;
 	
-	public MultipleChoiceAnswer(String answer, int goodAnswer) throws NullPointerException, InvalidAnswerException {
-		super(collectTheGoodAnswer(answer, goodAnswer));
+	public MultipleChoiceAnswer(String answer) throws NullPointerException, InvalidAnswerException {
+		super(collectTheGoodAnswer(answer));
 		
 	}
 
-	private static String collectTheGoodAnswer(String answer, int goodAnswer) {
+	private static String collectTheGoodAnswer(String answer) {
 		initializeList(answer);
-		return multiplechoice.get(goodAnswer);
+		return multiplechoice.get(0);
 	}
 
 
@@ -27,6 +28,7 @@ public class MultipleChoiceAnswer extends SingleAnswer {
 	@Override
 	public String getPrompt() {
 		String allAnswer = "";
+		Collections.shuffle(multiplechoice);
 		for (String answer : multiplechoice) {
 			allAnswer+= " "+answer+" ";
 		}
