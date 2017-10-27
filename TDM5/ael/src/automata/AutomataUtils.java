@@ -118,17 +118,47 @@ public class AutomataUtils {
      */
 
     public static void transpose(Automaton original, AutomatonBuilder mirror) {
-        Set<State> endStates = original.getInitialStates();
+        Set<State> newEndStates = original.getInitialStates();
         int automateIndex = 0;
 
-        for (State endState : endStates) {
-            int endId = endState.getId();
-            String newEndName = "transpose_" + automateIndex + "_epsilon";
-            mirror.addNewState(newEndName);
+//        System.out.println("Adding old initial states and end states");
+        for (State endState : newEndStates) {
+            String oldName = endState.getName();
+            String newName = "transpose_" + oldName;
 
-            for (char charInAlphabet : endState.getAutomaton().usedAlphabet()) {
-            }
+//            System.out.println("For initial state index; " + automateIndex + " old: \"" + oldName + "\", added \"" + newName + "\"");
+            mirror.addNewState(newName);
+            mirror.setAccepting(newName);
+            addNext(original, mirror, oldName, newName);
+
             automateIndex++;
+        }
+    }
+
+    private static void addNext(Automaton original, AutomatonBuilder mirror, String originalName, String mirrorName) {
+        for (char charInAlphabet : original.usedAlphabet()) {
+            Set<State> transitionSet = original.getTransitionSet(originalName, charInAlphabet);
+            // the transition state for the orignal Automaton gives us the PREVIOUS state in the mirror
+            if (!transitionSet.isEmpty()) {
+                for (State previousState : transitionSet) {
+                    boolean created = false;
+                    String oldName = previousState.getName();
+                    String newName = "transpose_" + oldName;
+
+//                    System.out.println("From old automaton found transition: \"" + originalName + "\", \"" + charInAlphabet + "\", \"" + oldName + "\"");
+                    try {
+//                        System.out.println("For old: \"" + oldName + "\", trying to add \"" + newName + "\"");
+                        created = mirror.addNewState(newName) != null;
+                    } catch (StateException e) {
+                        mirror.setInitial(newName);
+                    }
+//                        System.out.println("For mirror, adding: \"" + newName + "\", \"" + charInAlphabet + "\", \"" + mirrorName + "\"");
+                    mirror.addTransition(newName, charInAlphabet, mirrorName);
+                    if (created) {
+                        addNext(original, mirror, oldName, newName);
+                    }
+                }
+            }
         }
     }
 
@@ -139,6 +169,7 @@ public class AutomataUtils {
      * @param nfa : non deterministic automaton (to be determinize)
      * @param dfa : receive determinization result
      */
+
     public static void determinize(Automaton nfa, AutomatonBuilder dfa) {
         // For each computed state set from nfa, a corresponding state has to be created in dfa
         // map represents relationship  between nfa state set (key) and created dfa state (value)

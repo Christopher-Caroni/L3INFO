@@ -1,4 +1,0 @@
-digraph Automaton { 
-  rankdir = LR
-  0 [label="transpose_0_epsilon"];  1 [label="transpose_0a"];  2 [label="transpose_1_epsilon"];  3 [label="transpose_1b"];}
-
