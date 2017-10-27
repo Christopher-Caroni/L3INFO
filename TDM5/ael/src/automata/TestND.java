@@ -60,28 +60,24 @@ public class TestND {
 		 * paramètre de la méthode addNewState
 		 */
 
-		a.addNewState();
-		a.addNewState();
-		a.addNewState();
-		a.addNewState();
-		// a.addNewState("NomQuiMePlait");
+        a.addNewState("epsilon");
+		a.addNewState("a");
+		a.addNewState("ab");
+		a.addNewState("abc");
 
 		/*
 		 * Définition des états initiaux et des états acceptants Le paramètre est
 		 * indifféremment le numéro ou le nom d'un état
 		 */
-		a.setAccepting("q0");
-		a.setInitial("q0");
-		a.setAccepting("q2");
-		a.setInitial("q2");
+		a.setAccepting("abc");
+		a.setInitial("epsilon");
 
 		/*
 		 * Définition des transitions
 		 */
-		a.addTransition("q0", 'a', "q1");
-		a.addTransition("q1", 'b', "q0");
-		a.addTransition("q2", 'b', "q3");
-		a.addTransition("q3", 'a', "q2");
+        a.addTransition("epsilon", 'a', "a");
+        a.addTransition("a", 'b', "ab");
+        a.addTransition("ab", 'c', "abc");
 
 //		AutomataUtils.addFlatExp("10*1", a, "exp");
 		AutomataUtils.transpose(a, b);
@@ -89,7 +85,8 @@ public class TestND {
 		/*
 		 * Dessin de l'automate (fabrication d'un fichier Graphviz)
 		 */
-		dotToFile(b, "automate-test.dot");
+        dotToFile(a, "automate-test-original.dot");
+		dotToFile(b, "automate-test-result.dot");
 
 		/*
 		 * Affichage de l'automate, en mode texte

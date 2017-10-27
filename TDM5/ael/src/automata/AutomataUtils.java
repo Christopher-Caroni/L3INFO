@@ -136,22 +136,22 @@ public class AutomataUtils {
     }
 
     private static void addNext(Automaton original, AutomatonBuilder mirror, String originalName, String mirrorName) {
+        boolean foundTransitionForOneState = false;
+
         for (char charInAlphabet : original.usedAlphabet()) {
             Set<State> transitionSet = original.getTransitionSet(originalName, charInAlphabet);
-            // the transition state for the orignal Automaton gives us the PREVIOUS state in the mirror
+
             if (!transitionSet.isEmpty()) {
+                foundTransitionForOneState = true;
+                // the transition state for the orignal Automaton gives us the PREVIOUS state in the mirror
                 for (State previousState : transitionSet) {
                     boolean created = false;
                     String oldName = previousState.getName();
                     String newName = "transpose_" + oldName;
 
 //                    System.out.println("From old automaton found transition: \"" + originalName + "\", \"" + charInAlphabet + "\", \"" + oldName + "\"");
-                    try {
 //                        System.out.println("For old: \"" + oldName + "\", trying to add \"" + newName + "\"");
-                        created = mirror.addNewState(newName) != null;
-                    } catch (StateException e) {
-                        mirror.setInitial(newName);
-                    }
+                    created = mirror.addNewState(newName) != null;
 //                        System.out.println("For mirror, adding: \"" + newName + "\", \"" + charInAlphabet + "\", \"" + mirrorName + "\"");
                     mirror.addTransition(newName, charInAlphabet, mirrorName);
                     if (created) {
@@ -159,6 +159,10 @@ public class AutomataUtils {
                     }
                 }
             }
+        }
+        if (!foundTransitionForOneState) {
+            System.out.println("For \"" + originalName + "\" + did not find any transitions, therefore \"" + mirrorName + "\" is accepting");
+            mirror.setInitial(mirrorName);
         }
     }
 
