@@ -23,7 +23,7 @@ public class AnswerFactoryTest {
         Answer answerMulti = factory.buildAnswer(TEXTMULTI);
         Answer answerMultipleChoice = factory.buildAnswer(TEXTMULTIPLECHOICE);
 
-        //assertTrue(answerText instanceof TextAnswer);
+        assertTrue(answerText instanceof TextAnswer);
         assertTrue(answerNumerical instanceof NumericalAnswer);
         assertTrue(answerYesNo instanceof YesNoAnswer);
         assertTrue(answerMulti instanceof MultiAnswer);
