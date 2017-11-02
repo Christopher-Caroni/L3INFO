@@ -5,11 +5,11 @@ import fil.coo.answers.Answer;
 public class Question {
 
     private int nbPoints;
-    private String text;
+    private String questionText;
     private Answer answer;
 
     public Question(String text, Answer answer, int nbPoints) {
-        this.text = text;
+        this.questionText = text;
         this.answer = answer;
         this.nbPoints = nbPoints;
     }
@@ -19,7 +19,7 @@ public class Question {
         return nbPoints;
     }
 
-    public String getText() {
-        return text;
+    public String getQuestionText() {
+        return questionText;
     }
 }
