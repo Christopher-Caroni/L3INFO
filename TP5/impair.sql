@@ -48,3 +48,20 @@ where e.salaire = (
 
 -- Q9
 \echo '\nQuestion 9\n'
+select e.enom, e.salaire
+from employes as e
+where not exists(
+    select eid
+    from certifications as c
+    where e.eid = c.eid
+)
+and e.salaire >=(
+    select avg(salaire)
+    from employes  
+);
+
+-- Q11
+\echo '\nQuestion 11\n'/*
+select h_dep
+from vols
+where h_dep > extract(hour from '2016-04-12 18:00:00');*/
