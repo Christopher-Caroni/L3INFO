@@ -8,12 +8,17 @@ public class Question {
     private String questionText;
     private Answer answer;
 
+    /**
+     * Constructor to create a question
+     * @param text the question text
+     * @param answer the answer
+     * @param nbPoints the number of points
+     */
     public Question(String text, Answer answer, int nbPoints) {
         this.questionText = text;
         this.answer = answer;
         this.nbPoints = nbPoints;
     }
-
 
     public int getNbPts() {
         return nbPoints;

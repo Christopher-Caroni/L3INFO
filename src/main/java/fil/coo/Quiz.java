@@ -11,10 +11,17 @@ public class Quiz {
         questions = new ArrayList<>();
     }
 
+    /**
+     * Method to add a question into the List of questions
+     * @param question Question
+     */
     public void addQuestion(Question question) {
         this.questions.add(question);
     }
 
+    /**
+     * Method to ask all the question present in the list
+     */
     public void askAll(){   }
 
 }

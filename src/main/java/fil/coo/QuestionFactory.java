@@ -4,6 +4,14 @@ import java.io.*;
 
 public class QuestionFactory {
 
+    /**
+     * Method to create one question
+     * @param text String, the question text
+     * @param answer String, the answer text
+     * @param points String, the number of points text
+     * @return Question
+     * @throws IOException
+     */
     public Question createQuestion(String text, String answer, String points)
             throws IOException {
         try {
@@ -14,6 +22,12 @@ public class QuestionFactory {
         }
     }
 
+    /**
+     * Method to create the quiz with a file text. Create all the questions and add into the quiz.
+     * @param fileName String
+     * @return Quiz
+     * @throws IOException
+     */
     public Quiz createQuestionnaire(String fileName) throws IOException {
         Quiz questionnaire = new Quiz();
         File source = new File(fileName);
