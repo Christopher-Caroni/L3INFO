@@ -4,7 +4,10 @@ public abstract class Answer {
 
     public abstract String getPrompt();
 
-    public Answer(String answer) throws InvalidAnswerException {
+    public Answer(String answer) throws NullPointerException, InvalidAnswerException {
+        if (answer == null) {
+            throw new NullPointerException();
+        }
         if (!isQuizTextValid(answer)) {
             throw new InvalidAnswerException();
         }
