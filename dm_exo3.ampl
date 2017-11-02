@@ -88,11 +88,8 @@ data;
 
 param N_ANNEES := 6;
 
-
 set PARCELLES := A B C D E F G;
 set LEGUMES := fruit feuille racine gousse engrais;
-
-
 
 param : richesse_initiale :=
 A						43.2
