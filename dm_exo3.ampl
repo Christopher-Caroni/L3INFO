@@ -24,15 +24,13 @@ var est_affecte {ANNEES, LEGUMES, PARCELLES} binary;
 /*
 la richesse de la parcelle à la fin de l'année indicée
 */
-var richesse {ANNEES, PARCELLES} >= 0;
+var richesse_fin_annee {ANNEES, PARCELLES} >= 0;
 
 /*
-On maximize la richesse des parcelles pour chaque année
+On maximize la richesse des parcelles a la fin des 6 ans
 */
-maximize richesse_min {a in ANNEES} :
-	  sum {l in LEGUMES}
-			sum {p in PARCELLES}
-			  est_affecte[a, l, p] * apport_richesse[l];
+maximize richesse_min {p in PARCELLES} :
+	richesse_fin_annee[6, p];
 
 
 /*
@@ -64,7 +62,7 @@ subject to cycle_legume_parcelle {a in ANNEES, p in PARCELLES, l in LEGUMES} :
 	if a != 1 then
 		est_affecte[prev(a), prev(l), p]
 	else
-		if besoin_richesse[l] <= richesse[a, p] then
+		if besoin_richesse[l] <= richesse_fin_annee[a, p] then
 			1
 		else
 			0;
@@ -80,11 +78,11 @@ Pour (a==1), la fin de l'année initiale, la richesse est égale à la richesse 
 moins le rendement du légume cultivé, plus l'apport de ce légume.
 */
 subject to richesse_cycle {a in ANNEES, p in PARCELLES, l in LEGUMES} :
-	richesse[a, p] =
+	richesse_fin_annee[a, p] =
 	if a == 1 then
 		richesse_initiale[p] - (besoin_richesse[l] * est_affecte[a, l, p]) + (apport_richesse[l] * est_affecte[a, l, p])
 	else
-		richesse[prev(a), p] - (besoin_richesse[l] * est_affecte[a, l, p]) + (apport_richesse[l] * est_affecte[a, l, p]);
+		richesse_fin_annee[prev(a), p] - (besoin_richesse[l] * est_affecte[a, l, p]) + (apport_richesse[l] * est_affecte[a, l, p]);
 
 data;
 
