@@ -41,15 +41,6 @@ subject to parcelle_doit_etre_cultivee {a in ANNEES, p in PARCELLES} :
     est_affecte[a, l, p] = 1;
 
 /*
-Tous les ans, pour toute parcelle, cette parcelle ne peut être cultivée par un seul légume à la fois
-*/
-/*
-subject to max_un_legume_par_parcelle {a in ANNEES, p in PARCELLES} :
-  sum {l in LEGUMES}
-    est_affecte[a, l, p] <= 1;
-*/
-
-/*
 Pour chaque année a, pour une parcelle p, un légume l ne peut y être cultivé que si le légume précédant
 dans le cycle y était aussi cultivé à l'année précédente.
 
@@ -62,7 +53,7 @@ subject to cycle_legume_parcelle {a in ANNEES, p in PARCELLES, l in LEGUMES} :
 	if a != 1 then
 		est_affecte[prev(a), prev(l), p]
 	else
-		if besoin_richesse[l] <= richesse_fin_annee[a, p] then
+		if besoin_richesse[l] <= richesse_initiale[p] then
 			1
 		else
 			0;
