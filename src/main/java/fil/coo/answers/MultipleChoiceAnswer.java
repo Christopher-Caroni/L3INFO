@@ -12,6 +12,7 @@ public class MultipleChoiceAnswer extends TextAnswer {
     private List<TextAnswer> choices;
 
     public MultipleChoiceAnswer(String answer) throws NullPointerException, InvalidAnswerException {
+        super(answer, false);
         saveChoices(answer);
         initAnswer(choices.get(0).getAnswer());
     }
@@ -28,7 +29,7 @@ public class MultipleChoiceAnswer extends TextAnswer {
         choices = new ArrayList<>();
         String[] possibleChoices = answer.split(REGEX_SPLIT);
         for (String oneChoice : possibleChoices) {
-            choices.add(new TextAnswer(oneChoice));
+            choices.add(new TextAnswer(oneChoice, true));
         }
     }
 
@@ -55,6 +56,11 @@ public class MultipleChoiceAnswer extends TextAnswer {
             found = textAnswerIterator.next().isCorrect(userAnswer);
         }
         return found;
+    }
+
+    @Override
+    protected boolean isQuizTextValid(String quizText) {
+        return quizText.contains("|");
     }
 
     public List<TextAnswer> getChoices() {

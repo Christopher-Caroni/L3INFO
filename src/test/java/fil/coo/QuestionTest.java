@@ -27,7 +27,7 @@ public class QuestionTest {
     @Before
     public void setUp() throws InvalidAnswerException {
         numericalAnswer = new NumericalAnswer(ANSWER1);
-        textAnswer = new TextAnswer(ANSWER2);
+        textAnswer = new TextAnswer(ANSWER2, true);
         questionWithNumerical = new Question(QUESTION1, numericalAnswer, NB_Points2);
         questionWithText = new Question(QUESTION2, textAnswer, NB_Points5);
     }

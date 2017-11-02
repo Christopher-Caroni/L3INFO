@@ -12,15 +12,21 @@ public class MultiAnswer extends Answer {
     List<TextAnswer> answers;
 
     public MultiAnswer(String allAnswers) throws InvalidAnswerException {
+        super(allAnswers);
         answers = new ArrayList<TextAnswer>();
         for (String oneAnswer : allAnswers.split(" ; ")) {
             if (!("".equals(oneAnswer))) {
-                answers.add(new TextAnswer(oneAnswer));
+                answers.add(new TextAnswer(oneAnswer, true));
             }
         }
         if (answers.size() == 0) {
             throw new InvalidAnswerException();
         }
+    }
+
+    @Override
+    protected boolean isQuizTextValid(String quizText) {
+        return quizText.contains(";");
     }
 
     public String getPrompt() {

@@ -9,7 +9,7 @@ public class TextAnswerHandler extends AnswerHandler {
     @Override
     public Answer createAnswer(String answerText) {
         try {
-            return new TextAnswer(answerText);
+            return new TextAnswer(answerText, true);
         } catch (InvalidAnswerException e) {
             return this.next.createAnswer(answerText);
         }

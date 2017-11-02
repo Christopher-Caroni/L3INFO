@@ -4,6 +4,12 @@ public abstract class Answer {
 
     public abstract String getPrompt();
 
+    public Answer(String answer) throws InvalidAnswerException {
+        if (!isQuizTextValid(answer)) {
+            throw new InvalidAnswerException();
+        }
+    }
+
     /**
      * @param userAnswer
      * @return if the user's answer is in a valid format
@@ -16,6 +22,8 @@ public abstract class Answer {
         }
         return checkUserAnswerIsValid(userAnswer);
     }
+
+    protected abstract boolean isQuizTextValid(String quizText);
 
     protected abstract boolean checkUserAnswerIsValid(String userAnswer);
 

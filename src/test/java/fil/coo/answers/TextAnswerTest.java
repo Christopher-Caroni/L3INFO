@@ -21,7 +21,7 @@ public class TextAnswerTest extends SingleAnswerTest {
 
     @Override
     protected SingleAnswer getSpecificSingleAnswer(String answer) throws NullPointerException, InvalidAnswerException {
-        return new TextAnswer(answer);
+        return new TextAnswer(answer, true);
     }
 
     @Test
@@ -45,7 +45,7 @@ public class TextAnswerTest extends SingleAnswerTest {
 
     @Test
     public void testDoesNotAcceptInCorrectAnswer() throws NullPointerException, InvalidAnswerException {
-        TextAnswer textAnswer = new TextAnswer(DEFAULT_ANSWER);
+        TextAnswer textAnswer = new TextAnswer(DEFAULT_ANSWER, true);
         assertFalse(textAnswer.isCorrect(""));
         assertFalse(textAnswer.isCorrect("1"));
         assertFalse(textAnswer.isCorrect("-1"));
@@ -57,7 +57,7 @@ public class TextAnswerTest extends SingleAnswerTest {
 
     @Test
     public void testDoesAcceptCorrectAnswer() throws NullPointerException, InvalidAnswerException {
-        TextAnswer textAnswer = new TextAnswer(DEFAULT_ANSWER);
+        TextAnswer textAnswer = new TextAnswer(DEFAULT_ANSWER, true);
         assertTrue(textAnswer.isCorrect(DEFAULT_ANSWER));
     }
 }
