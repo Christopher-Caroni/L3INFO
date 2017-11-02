@@ -15,13 +15,6 @@ param richesse_initiale {PARCELLES} >= 0;
 
 
 /*
-legume_peut_suivre[l1, l2] =
-- 1: si le légume l1 peut suivre le legume l2
-- 0: sinon
-*/
-param legume_peut_suivre {LEGUMES, LEGUMES} binary;
-
-/*
 est_affecte[a,l,p] =
 - 1: si le légume est affecté à la parcelle
 - 0: sinon
@@ -89,9 +82,9 @@ moins le rendement du légume cultivé, plus l'apport de ce légume.
 subject to richesse_cycle {a in ANNEES, p in PARCELLES, l in LEGUMES} :
 	richesse[a, p] =
 	if a == 1 then
-		richesse_initiale[p] - (rendement[l] * est_affecte[a, l, p]) + (apport_richesse[l] * est_affecte[a, l, p])
+		richesse_initiale[p] - (besoin_richesse[l] * est_affecte[a, l, p]) + (apport_richesse[l] * est_affecte[a, l, p])
 	else
-		richesse[prev(a), p] - (rendement[l] * est_affecte[a, l, p]) + (apport_richesse[l] * est_affecte[a, l, p]);
+		richesse[prev(a), p] - (besoin_richesse[l] * est_affecte[a, l, p]) + (apport_richesse[l] * est_affecte[a, l, p]);
 
 data;
 
@@ -118,12 +111,3 @@ feuille       2.6           1.2             10.1              0
 racine        3.4           2.7             5.5               0
 gousse        0.5           3.3               0             3.5
 engrais         0             0               0            25.8;
-
-
-param legume_peut_suivre :
-						fruit		feuille		racine		gousse		engrais :=
-fruit					0				0					0					0						1
-feuille				1				0					0					0						0
-racine				0				1					0					0						0
-gousse				0				0					1					0						0
-engrais				0				0					0					1						0;
