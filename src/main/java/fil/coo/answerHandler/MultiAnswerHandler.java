@@ -8,12 +8,10 @@ public class MultiAnswerHandler extends AnswerHandler {
 
     @Override
     public Answer createAnswer(String answerText) {
-        MultiAnswer answer = null;
         try {
-            answer = new MultiAnswer(answerText);
+            return new MultiAnswer(answerText);
         } catch (InvalidAnswerException e) {
-            this.next.createAnswer(answerText);
+            return this.next.createAnswer(answerText);
         }
-        return answer;
     }
 }
