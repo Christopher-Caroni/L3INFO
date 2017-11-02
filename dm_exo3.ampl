@@ -40,6 +40,14 @@ subject to parcelle_doit_etre_cultivee {a in ANNEES, p in PARCELLES} :
   sum {l in LEGUMES}
     est_affecte[a, l, p] = 1;
 
+
+/*
+Tous les ans, pour tous les légumes, ce légume doit être cultivée au minimum une fois
+*/
+subject to nb_min_culture_par_legume {a in ANNEES, l in LEGUMES} :
+  sum {p in PARCELLES}
+    est_affecte[a, l, p] = 1;
+
 /*
 Pour chaque année a, pour une parcelle p, un légume l ne peut y être cultivé que si le légume précédant
 dans le cycle y était aussi cultivé à l'année précédente.
