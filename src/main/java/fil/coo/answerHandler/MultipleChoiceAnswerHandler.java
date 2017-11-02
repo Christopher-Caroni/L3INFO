@@ -8,13 +8,11 @@ public class MultipleChoiceAnswerHandler extends AnswerHandler {
 
     @Override
     public Answer createAnswer(String answerText) {
-        MultipleChoiceAnswer answer = null;
         try {
-            answer = new MultipleChoiceAnswer(answerText);
+            return new MultipleChoiceAnswer(answerText);
         } catch (InvalidAnswerException e) {
-            this.next.createAnswer(answerText);
+            return this.next.createAnswer(answerText);
         }
-        return answer;
     }
 }
 

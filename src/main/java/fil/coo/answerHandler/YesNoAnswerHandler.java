@@ -8,12 +8,10 @@ public class YesNoAnswerHandler extends AnswerHandler {
 
     @Override
     public Answer createAnswer(String answerText) {
-        YesNoAnswer answer = null;
         try {
-            answer = new YesNoAnswer(answerText);
+            return new YesNoAnswer(answerText);
         } catch (InvalidAnswerException e) {
-            this.next.createAnswer(answerText);
+            return this.next.createAnswer(answerText);
         }
-        return answer;
     }
 }

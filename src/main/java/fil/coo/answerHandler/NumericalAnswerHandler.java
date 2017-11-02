@@ -8,12 +8,10 @@ public class NumericalAnswerHandler extends AnswerHandler {
 
     @Override
     public Answer createAnswer(String answerText) {
-        NumericalAnswer answer = null;
         try {
-            answer = new NumericalAnswer(answerText);
+            return new NumericalAnswer(answerText);
         } catch (InvalidAnswerException e) {
-            this.next.createAnswer(answerText);
+            return this.next.createAnswer(answerText);
         }
-        return answer;
     }
 }
