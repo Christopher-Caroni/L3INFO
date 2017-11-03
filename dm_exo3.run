@@ -17,14 +17,28 @@ param richesse_initiale {PARCELLES} >= 0;
 param kilo_engrais_bonus_dispo >= 0;
 param rendement_engrais_richesse_par_kilo >= 0;
 
-/* est_affecte[a, l,p] =
+/*
+est_affecte[a, l,p] =
 - 1 si le légume l est affecté à la parcelle p pour l'année a
 - 0 sinon
 */
 var est_affecte {ANNEES, LEGUMES, PARCELLES} binary;
+
+/*
+richesse_fin_annee[a, p]
+la richesse de la parcelle p à l'année a
+*/
 var richesse_fin_annee {ANNEES, PARCELLES};
+
+/*
+kilo_engrais_bonus_utilise[p]
+le nombre de kilos d'engrais utilisé sur la parcelle p
+*/
 var kilo_engrais_bonus_utilise {PARCELLES};
 
+/*
+On maximise la richesse de tous les parcelles, à la dernière année
+*/
 maximize richesse_finale_derniere_annee {p in PARCELLES} :
 		richesse_fin_annee[6, p];
 
