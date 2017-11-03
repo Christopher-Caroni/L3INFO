@@ -6,30 +6,32 @@ param prix_vente {LEGUMES} >= 0;
 param besoin_richesse {LEGUMES} >= 0;
 param peux_etre_cultivee {LEGUMES, PARCELLES} binary;
 
-var est_affecte {LEGUMES, PARCELLES} binary;
 /* est_affecte[l,p] =
 - 1 si le légume est affecté à la parcelle
 - 0 sinon
 */
+var est_affecte {LEGUMES, PARCELLES} binary;
 
 maximize profit :
   sum {l in LEGUMES}
     sum {p in PARCELLES}
       est_affecte[l, p] * prix_vente[l] * rendement[l] * 1000;
 
-subject to nb_min_culture_par_legume {l in LEGUMES} :
-  sum {p in PARCELLES}
-    est_affecte[l,p] >= 1;
+
 /*
 pour tous les légumes, ce légume doit être cultivée au minimum une fois
 */
+subject to nb_min_culture_par_legume {l in LEGUMES} :
+  sum {p in PARCELLES}
+    est_affecte[l,p] >= 1;
 
-subject to max_un_legume_cultive_par_parcelle {p in PARCELLES} :
-  sum {l in LEGUMES}
-    est_affecte[l,p] <= 1;
 /*
 pour tous nos parcelles, cette parcelle ne peut être cultivée par un seul légume à la fois
 */
+subject to max_un_legume_cultive_par_parcelle {p in PARCELLES} :
+  sum {l in LEGUMES}
+    est_affecte[l,p] <= 1;
+
 
 subject to compatibilite_legume_parcelle {p in PARCELLES, l in LEGUMES} :
   est_affecte[l, p] <= peux_etre_cultivee[l ,p];
