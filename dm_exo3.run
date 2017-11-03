@@ -1,4 +1,5 @@
 reset;
+option solver gurobi;
 
 set PARCELLES;
 set LEGUMES circular;
@@ -13,82 +14,41 @@ param apport_richesse {LEGUMES} >= 0;
 
 param richesse_initiale {PARCELLES} >= 0;
 
+param engrais_bonus_dispo >= 0;
+param rendement_engrais_richesse_par_kilo >= 0;
 
-/*
-est_affecte[a,l,p] =
-- 1: si le légume est affecté à la parcelle
-- 0: sinon
+/* est_affecte[a, l,p] =
+- 1 si le légume l est affecté à la parcelle p pour l'année a
+- 0 sinon
 */
 var est_affecte {ANNEES, LEGUMES, PARCELLES} binary;
 
-/*
-la richesse de la parcelle à la fin de l'année indicée
-*/
-var richesse_fin_annee {ANNEES, PARCELLES} >= 0;
+var richesse_fin_annee {ANNEES};
 
-/*
-On maximize la richesse des parcelles a la fin des 6 ans
-*/
-maximize richesse_min {p in PARCELLES} :
-	richesse_fin_annee[6, p];
+var engrais_bonus_utilise {PARCELLES};
 
+maximize richesse_finale {p in PARCELLES} :
+		(richesse_initiale[p] + engrais_bonus_utilise[p]);
 
-/*
-Tous les ans, chaque parcelle DOIT être cultivée
-*/
-subject to parcelle_doit_etre_cultivee {a in ANNEES, p in PARCELLES} :
-  sum {l in LEGUMES}
-    est_affecte[a, l, p] = 1;
-
-
-/*
-Tous les ans, pour tous les légumes, ce légume doit être cultivée au minimum une fois
-*/
-subject to nb_min_culture_par_legume {a in ANNEES, l in LEGUMES} :
-  sum {p in PARCELLES}
-    est_affecte[a, l, p] = 1;
-
-/*
-Pour chaque année a, pour une parcelle p, un légume l ne peut y être cultivé que si le légume précédant
-dans le cycle y était aussi cultivé à l'année précédente.
-
-CAS INTIIAL:
-Pour l'année a==1, pour une parcelle p, un légume l ne peut y être cultivé que si
-le besoin en richese de ce légume est inféreur à la richesse initiale de cette parcelle
-*/
-subject to cycle_legume_parcelle {a in ANNEES, p in PARCELLES, l in LEGUMES} :
-	est_affecte[a, l, p] <=
-	if a != 1 then
-		est_affecte[prev(a), prev(l), p]
-	else
-		if besoin_richesse[l] <= richesse_initiale[p] then
-			1
-		else
-			0;
-
-
-
-/*
-Pour chaque année (a) (sauf a==1), la richesse d'une parcelle est égale à la richesse de la parcelle
-à l'année (a-1) moins le rendement du légume cultivé, plus l'apport de ce légume.
-
-CAS INTIIAL:
-Pour (a==1), la fin de l'année initiale, la richesse est égale à la richesse intiale,
-moins le rendement du légume cultivé, plus l'apport de ce légume.
-*/
-subject to richesse_cycle {a in ANNEES, p in PARCELLES, l in LEGUMES} :
-	richesse_fin_annee[a, p] =
-	if a == 1 then
-		richesse_initiale[p] - (besoin_richesse[l] * est_affecte[a, l, p]) + (apport_richesse[l] * est_affecte[a, l, p])
-	else
-		richesse_fin_annee[prev(a), p] - (besoin_richesse[l] * est_affecte[a, l, p]) + (apport_richesse[l] * est_affecte[a, l, p]);
+subject to engrais_bonus_limitee :
+	sum {p in PARCELLES}
+		(richesse_initiale[p] + (engrais_bonus_utilise[p] * rendement_engrais_richesse_par_kilo) ) <= engrais_bonus_dispo;
 
 data;
 
 param N_ANNEES := 6;
+param engrais_bonus_dispo := 500;
+param rendement_engrais_richesse_par_kilo = 0.01;
 
 set PARCELLES := A B C D E F G;
 set LEGUMES := fruit feuille racine gousse engrais;
+
+param :     rendement   prix_vente    besoin_richesse  apport_richesse   :=
+fruit         2.7           4.3             20.2              0
+feuille       2.6           1.2             10.1              0
+racine        3.4           2.7             5.5               0
+gousse        0.5           3.3               0             3.5
+engrais         0             0               0            25.8;
 
 param : richesse_initiale :=
 A						43.2
@@ -98,10 +58,3 @@ D						16.8
 E						5.7
 F						16.3
 G						15.1;
-
-param :     rendement   prix_vente    besoin_richesse  apport_richesse   :=
-fruit         2.7           4.3             20.2              0
-feuille       2.6           1.2             10.1              0
-racine        3.4           2.7             5.5               0
-gousse        0.5           3.3               0             3.5
-engrais         0             0               0            25.8;
