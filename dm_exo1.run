@@ -1,10 +1,13 @@
+reset;
+option solver gurobi;
+
 set PARCELLES;
 set LEGUMES;
 
 param rendement {LEGUMES} >= 0;
 param prix_vente {LEGUMES} >= 0;
 param besoin_richesse {LEGUMES} >= 0;
-param peux_etre_cultivee {LEGUMES, PARCELLES} binary;
+param richesse_initiale {PARCELLES} >= 0;
 
 /* est_affecte[l,p] =
 - 1 si le légume est affecté à la parcelle
@@ -34,7 +37,11 @@ subject to max_un_legume_cultive_par_parcelle {p in PARCELLES} :
 
 
 subject to compatibilite_legume_parcelle {p in PARCELLES, l in LEGUMES} :
-  est_affecte[l, p] <= peux_etre_cultivee[l ,p];
+  est_affecte[l, p] <=
+  if besoin_richesse[l] <= richesse_initiale[p] then
+    1
+  else
+    0;
 
 
 data;
@@ -50,10 +57,11 @@ racine        3.4           2.7             5.5
 gousse        0.5           3.3               0
 engrais         0             0               0;
 
-param peux_etre_cultivee :
-        A   B   C   D   E   F   G :=
-fruit   1   0   1   0   0   0   0
-feuille 1   1   1   1   0   1   1
-racine  1   1   1   1   1   1   1
-gousse  1   1   1   1   1   1   1
-engrais 1   1   1   1   1   1   1;
+param : richesse_initiale :=
+A						43.2
+B						12.1
+C						20.8
+D						16.8
+E						5.7
+F						16.3
+G						15.1;
