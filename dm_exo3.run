@@ -52,10 +52,9 @@ subject to engrais_bonus_limitee :
 /*
 Pour tous les légumes, ce légume doit être cultivée au minimum une fois par an
 */
-subject to cultiver_tous_legumes_par_an {l in LEGUMES} :
-  sum {a in ANNEES}
-		sum {p in PARCELLES}
-    	est_affecte[a, l, p] >= 1;
+subject to cultiver_tous_legumes_par_an {a in ANNEES, l in LEGUMES} :
+	sum {p in PARCELLES}
+  	est_affecte[a, l, p] >= 1;
 
 /*
 Tous les ans, une parcelle doit être cultivée, et par un seul légume au maximum.
