@@ -14,7 +14,7 @@ param apport_richesse {LEGUMES} >= 0;
 
 param richesse_initiale {PARCELLES} >= 0;
 
-param engrais_bonus_dispo >= 0;
+param kilo_engrais_bonus_dispo >= 0;
 param rendement_engrais_richesse_par_kilo >= 0;
 
 /* est_affecte[a, l,p] =
@@ -23,14 +23,17 @@ param rendement_engrais_richesse_par_kilo >= 0;
 */
 var est_affecte {ANNEES, LEGUMES, PARCELLES} binary;
 var richesse_fin_annee {ANNEES, PARCELLES};
-var engrais_bonus_utilise {PARCELLES};
+var kilo_engrais_bonus_utilise {PARCELLES};
 
-maximize richesse_finale {p in PARCELLES} :
+maximize richesse_finale_derniere_annee {p in PARCELLES} :
 		richesse_fin_annee[6, p];
 
+/*
+La somme d'engrais utilisé sur toutes les parcelles est limitée par la quantité disponible initialement
+*/
 subject to engrais_bonus_limitee :
 	sum {p in PARCELLES}
-		engrais_bonus_utilise[p] <= engrais_bonus_dispo;
+		kilo_engrais_bonus_utilise[p] <= kilo_engrais_bonus_dispo;
 
 /*
 Pour tous les légumes, ce légume doit être cultivée au minimum une fois par an
@@ -61,7 +64,7 @@ subject to cycle_legume_parcelle {a in ANNEES, p in PARCELLES, l in LEGUMES} :
 	if a != 1 then
 		est_affecte[prev(a), prev(l), p]
 	else
-		if besoin_richesse[l] <= richesse_initiale[p] then
+		if besoin_richesse[l] <= (richesse_initiale[p] + (kilo_engrais_bonus_utilise[p] * rendement_engrais_richesse_par_kilo)) then
 			1
 		else
 			0;
@@ -79,15 +82,15 @@ moins le rendement du légume cultivé, plus l'apport de ce légume.
 subject to richesse_cycle {a in ANNEES, p in PARCELLES, l in LEGUMES} :
 	richesse_fin_annee[a, p] =
 	if a == 1 then
-		(richesse_initiale[p] + engrais_bonus_utilise[p]) - (besoin_richesse[l] * est_affecte[a, l, p]) + (apport_richesse[l] * est_affecte[a, l, p])
+		(richesse_initiale[p] + (kilo_engrais_bonus_utilise[p] * rendement_engrais_richesse_par_kilo)) + ((-besoin_richesse[l] + apport_richesse[l]) * est_affecte[a, l, p])
 	else
-		richesse_fin_annee[prev(a), p] - (besoin_richesse[l] * est_affecte[a, l, p]) + (apport_richesse[l] * est_affecte[a, l, p]);
+		richesse_fin_annee[prev(a), p] + ((-besoin_richesse[l] + apport_richesse[l]) * est_affecte[a, l, p]);
 
 
 data;
 
 param N_ANNEES := 6;
-param engrais_bonus_dispo := 500;
+param kilo_engrais_bonus_dispo := 500;
 param rendement_engrais_richesse_par_kilo = 0.01;
 
 set PARCELLES := A B C D E F G;
