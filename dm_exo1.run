@@ -22,18 +22,25 @@ maximize profit :
 
 
 /*
-pour tous les légumes, ce légume doit être cultivée au minimum une fois
+Pour tous les légumes, ce légume doit être cultivée au minimum une fois
 */
-subject to nb_min_culture_par_legume {l in LEGUMES} :
+subject to cultiver_tous_legumes_par_an {l in LEGUMES} :
   sum {p in PARCELLES}
     est_affecte[l,p] >= 1;
 
 /*
-pour tous nos parcelles, cette parcelle ne peut être cultivée par un seul légume à la fois
+Une parcelle ne peut être cultivée au maximum que par un seul légume.
 */
 subject to max_un_legume_cultive_par_parcelle {p in PARCELLES} :
   sum {l in LEGUMES}
     est_affecte[l,p] <= 1;
+
+/*
+Une parcelle peut ne pas être cultivée.
+*/
+subject to parcelle_vide {p in PARCELLES} :
+  sum {l in LEGUMES}
+    est_affecte[l,p] >= 0;
 
 
 subject to compatibilite_legume_parcelle {p in PARCELLES, l in LEGUMES} :
