@@ -3,6 +3,7 @@ Auteurs :
 Caroni Christopher 
 Lepretre Guillaume
 */
+
 -- Q1
 \echo '\nQuestion 1\n'
 
@@ -25,32 +26,18 @@ where e.salaire < all (
 -- Q3
 \echo '\nQuestion 3\n'
 \echo '\nVersion 1\n'
-select e.eid
-from certifications as c natural join avions as a natural join employes as e
-where exists (
-  select *
-  from certifications as c2
-  where e.eid = c2.eid
-)
-group by e.eid
-having e.salaire > 100000;
+select distinct(dep, arr)
+from vols as v1 where not exists(select  from employes as e1 NATURAL JOIN certifications as c1
+where salaire > 100000 and not exists
+    (select * from employes as e2 NATURAL JOIN certifications as c2 NATURAL JOIN vols as v2 where v2.dep = v1.dep and v2.arr = v1.arr and e2.eid = e1.eid)  );
 
-\echo '\nVersion 2\n'
+-- \echo '\nVersion 2\n'
 
 
 -- Q4
 \echo '\n4eme question\n'
 
 \echo 'avec exists\n'
-/*
-select distinct enom
-from employes as e natural join certifications as c
-where exists (
-  select *
-  from avions as a natural join certifications as c2
-  where c.aid = c2.aid and a.portee > 1500
-);*/
-
 select distinct enom
 from employes as e1 natural join certifications as c1
 where not exists (
@@ -59,9 +46,10 @@ where not exists (
   where c1.eid = c2.eid and a1.portee < 1500);
 
 \echo 'avec group by : faux \n'
-select distinct enom, EVERY(portee > 1500)
+select distinct enom
 from employes as e1 natural join certifications as c1 natural join avions as a1
-group by enom;
+group by enom
+having EVERY(portee >1500);
 
 -- Q5
 \echo '\nQuestion 5\n'
