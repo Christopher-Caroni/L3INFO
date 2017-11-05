@@ -1,6 +1,6 @@
 /*
 Auteurs :
-Caroni Christopher 
+Caroni Christopher
 Lepretre Guillaume
 */
 
@@ -26,16 +26,24 @@ where e.salaire < all (
 -- Q3
 \echo '\nQuestion 3\n'
 \echo '\nVersion 1\n'
-select vid,dep,arr 
+select vid,dep,arr
 from vols
 where distance <= all
-    (select max(portee) 
-     from employes natural join certifications natural join avions 
+    (select max(portee)
+     from employes natural join certifications natural join avions
      where salaire > 100000
      group by eid);
 
 -- \echo '\nVersion 2\n'
-
+\echo '\nVersion 2\n'
+select vid, dep, arr
+from vols where not exists (
+  select eid
+  from employes NATURAL JOIN certifications NATURAL JOIN avions
+  where salaire > 100000
+  GROUP BY eid
+  HAVING max(portee)< distance
+);
 
 -- Q4
 \echo '\n4eme question\n'
@@ -101,7 +109,7 @@ where e.salaire = (
 select distinct e.enom
 from employes as e natural join certifications as c natural join avions as a
 where a.portee > 2000 and not exists
-    (select e2.eid 
+    (select e2.eid
     from employes as e2 natural join certifications as c2 natural join avions as a2 where e.eid = e2.eid and upper(a2.anom) like '%BOEING%');
 
 -- Q9
@@ -120,7 +128,7 @@ and e.salaire >=(
 -- Q10
 \echo '\n10eme question\n'
 
-select (@AVG(e.salaire) - AVG(e2.salaire)) as diff_salaire, AVG(e.salaire) as Moy_salaire_employe, AVG(e2.salaire) as Moy_salaire_pilote 
+select (@AVG(e.salaire) - AVG(e2.salaire)) as diff_salaire, AVG(e.salaire) as Moy_salaire_employe, AVG(e2.salaire) as Moy_salaire_pilote
 from employes as e, employes as e2
 where exists (
   select *
