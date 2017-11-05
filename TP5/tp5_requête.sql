@@ -42,17 +42,26 @@ having e.salaire > 100000;
 \echo '\n4eme question\n'
 
 \echo 'avec exists\n'
+/*
 select distinct enom
 from employes as e natural join certifications as c
 where exists (
   select *
   from avions as a natural join certifications as c2
   where c.aid = c2.aid and a.portee > 1500
-);
+);*/
+
+select distinct enom
+from employes as e1 natural join certifications as c1
+where not exists (
+  select *
+  from avions as a1 natural join certifications as c2
+  where c1.eid = c2.eid and a1.portee < 1500);
 
 \echo 'avec group by : faux \n'
-select distinct enom
-from employes as e;
+select distinct enom, EVERY(portee > 1500)
+from employes as e1 natural join certifications as c1 natural join avions as a1
+group by enom;
 
 -- Q5
 \echo '\nQuestion 5\n'
@@ -115,7 +124,7 @@ where not exists(
 )
 and e.salaire >=(
     select avg(salaire)
-    from employes  
+    from employes natural join certifications
 );
 -- Q10
 \echo '\n10eme question\n'
