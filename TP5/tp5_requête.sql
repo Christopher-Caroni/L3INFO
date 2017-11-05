@@ -1,3 +1,8 @@
+/*
+Auteurs :
+Caroni Christopher 
+Lepretre Guillaume
+*/
 -- Q1
 \echo '\nQuestion 1\n'
 
@@ -95,15 +100,9 @@ where e.salaire = (
 
 select distinct e.enom
 from employes as e natural join certifications as c natural join avions as a
-where a.portee > 2000 and e.eid in(
-  select c2.eid
-  from certifications as c2
-)
-and not exists(
-  select *
-  from avions as a2
-  where a.aid = a2.aid and anom like'Boeing%'
-);
+where a.portee > 2000 and not exists
+    (select e2.eid 
+    from employes as e2 natural join certifications as c2 natural join avions as a2 where e.eid = e2.eid and upper(a2.anom) like '%BOEING%');
 
 -- Q9
 \echo '\nQuestion 9\n'
@@ -118,7 +117,6 @@ and e.salaire >=(
     select avg(salaire)
     from employes  
 );
-
 -- Q10
 \echo '\n10eme question\n'
 
@@ -131,10 +129,12 @@ where exists (
 );
 
 -- Q11
-\echo '\nQuestion 11\n'/*
-select h_dep
-from vols
-where h_dep > extract(hour from '2016-04-12 18:00:00');*/
+\echo '\nQuestion 11\n'
+SELECT h_dep from vols where UPPER(dep) = 'MADISON' and UPPER(arr) ='NEW YORK' and extract(hour from h_arr )< 18;
 
+/*
+Insertion pour tester la q11:
+insert into vols values(666,'Madison','New York',789, '2016-04-12 16:00:00','2016-04-12 18:15:00',195);
+*/
 -- Q12
 \echo '\n12eme question\n'
