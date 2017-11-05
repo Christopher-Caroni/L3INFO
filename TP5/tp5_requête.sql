@@ -26,10 +26,13 @@ where e.salaire < all (
 -- Q3
 \echo '\nQuestion 3\n'
 \echo '\nVersion 1\n'
-select distinct(dep, arr)
-from vols as v1 where not exists(select  from employes as e1 NATURAL JOIN certifications as c1
-where salaire > 100000 and not exists
-    (select * from employes as e2 NATURAL JOIN certifications as c2 NATURAL JOIN vols as v2 where v2.dep = v1.dep and v2.arr = v1.arr and e2.eid = e1.eid)  );
+select vid,dep,arr 
+from vols
+where distance <= all
+    (select max(portee) 
+     from employes natural join certifications natural join avions 
+     where salaire > 100000
+     group by eid);
 
 -- \echo '\nVersion 2\n'
 
