@@ -1,0 +1,14 @@
+
+% Q9. Les couleurs rares, pour lesquelles il n'y a qu'un seul article.
+
+art_rare(Anom)
+  :- articles(Aid, Anom, Acoul), not(articles(Aid2,Anom2,Acoul)), Aid\=Aid2.
+
+% Q10. Définissez un prédicatdeuxrouges tel que la requêtedeuxrouges(X) rende les noms de fournisseurs
+% d'au moinsdeuxarticles rouges :
+--J4EN SRE RIEN sqjkfhsd^fsd)à
+deux_rouge(fnom)
+  :- fournisseur(fid, fnom, fad), articles(aid,anom,acoul), articles2(aid, anom, acoul), catalogue(fid, aid, prix)
+
+% Q11. Défnissez un prédicatbonmarche tel que la requêtebonmarche(X) rende les noms de fournisseurs
+% d'articles à moins de 10 euros :
