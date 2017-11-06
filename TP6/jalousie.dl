@@ -9,4 +9,4 @@ aime(mon_chou, lapin).
 aime(lapin, mon_chou).
 
 est_jaloux_de(X, Y)
-  :- aime(X, _), aime(Y, _).
+  :- aime(X, _), aime(Y, _), X\=Y.

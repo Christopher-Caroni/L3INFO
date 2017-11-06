@@ -5,16 +5,16 @@ femme(mia).
 femme(yolande).
 
 % Q4
-femme(X).
+femme(_).
 
 % Q5
-aime(vincent, X).
+aime(vincent, _).
 
 % Q6
-aime(vincent, X).
+aime(vincent, _).
 
 % Q7
-est_jaloux_de(vincent, X).
+est_jaloux_de(vincent, _).
 
 % Q8
 est_jaloux_de(vincent,_).
