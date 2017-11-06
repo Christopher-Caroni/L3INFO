@@ -55,9 +55,5 @@ where exists (
   select *
   from certifications as c
   where c.eid = e2.eid
-);/*
-(select salaire
-  from employes natural join certifications
-) as Moy_salaire_pilote;
-*/
+);
 \echo '\n12eme question\n'
