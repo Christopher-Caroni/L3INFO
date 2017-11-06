@@ -1,0 +1,20 @@
+
+
+% Q3
+femme(mia).
+femme(yolande).
+
+% Q4
+femme(X).
+
+% Q5
+aime(vincent, X).
+
+% Q6
+aime(vincent, X).
+
+% Q7
+est_jaloux_de(vincent, X).
+
+% Q8
+est_jaloux_de(vincent,_).
