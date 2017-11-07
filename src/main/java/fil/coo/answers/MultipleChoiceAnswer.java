@@ -5,6 +5,9 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
+/**
+ * User has to choose one correct answer out of several propositions
+ */
 public class MultipleChoiceAnswer extends TextAnswer {
 
     private static final String REGEX_SPLIT = " \\| ";

@@ -2,6 +2,8 @@ package fil.coo.answers;
 
 public class TextAnswer extends SingleAnswer {
 
+    private final static String[] yesNoAnswerText = new String[]{"yes", "no", "oui", "non"};
+
     public TextAnswer(String answer, boolean save) throws NullPointerException, InvalidAnswerException {
         super(answer, save);
     }
@@ -19,10 +21,16 @@ public class TextAnswer extends SingleAnswer {
         int number;
         try {
             number = Integer.parseInt(userAnswer);
-        } catch (NumberFormatException e){
-            return true;
+            return false;
+        } catch (NumberFormatException e) {
+            // do nothing
         }
-        return false;
+        for (String yesNoText : yesNoAnswerText) {
+            if (yesNoText.equalsIgnoreCase(userAnswer)) {
+                return false;
+            }
+        }
+        return true;
     }
 
 }

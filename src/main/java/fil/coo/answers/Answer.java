@@ -28,6 +28,10 @@ public abstract class Answer {
 
     protected abstract boolean isQuizTextValid(String quizText);
 
+    /**
+     * @param userAnswer the user's answer
+     * @return if the user's answer is in a valid format
+     */
     protected abstract boolean checkUserAnswerIsValid(String userAnswer);
 
 
