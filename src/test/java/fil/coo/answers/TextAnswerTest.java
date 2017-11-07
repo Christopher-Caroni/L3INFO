@@ -30,17 +30,19 @@ public class TextAnswerTest extends SingleAnswerTest {
     }
 
     @Test
-    public void testNumberIsInvalid() {
+    public void testNumberAndYesNoInvalid() {
         assertFalse(singleAnswer.isValid("1"));
         assertFalse(singleAnswer.isValid("-1"));
+        assertFalse(answer.isValid("yes"));
+        assertFalse(answer.isValid("no"));
+        assertFalse(answer.isValid("oui"));
+        assertFalse(answer.isValid("non"));
     }
 
     @Test
-    public void testNonNumberIsValid() {
-        assertTrue(singleAnswer.isValid("yes"));
-        assertTrue(singleAnswer.isValid("no"));
-        assertTrue(singleAnswer.isValid("oui"));
-        assertTrue(singleAnswer.isValid("non"));
+    public void testSimpleTextIsValid() {
+        assertTrue(answer.isValid("hello"));
+        assertTrue(answer.isValid("Tolkien"));
     }
 
     @Test

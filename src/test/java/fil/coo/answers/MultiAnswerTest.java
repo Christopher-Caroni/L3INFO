@@ -26,17 +26,19 @@ public class MultiAnswerTest extends AnswerTest {
 
 
     @Test
-    public void testNumberIsInvalid() {
+    public void testNumberAndYesNoInvalid() {
         assertFalse(answer.isValid("1"));
         assertFalse(answer.isValid("-1"));
+        assertFalse(answer.isValid("yes"));
+        assertFalse(answer.isValid("no"));
+        assertFalse(answer.isValid("oui"));
+        assertFalse(answer.isValid("non"));
     }
 
     @Test
-    public void testNonNumberIsValid() {
-        assertTrue(answer.isValid("yes"));
-        assertTrue(answer.isValid("no"));
-        assertTrue(answer.isValid("oui"));
-        assertTrue(answer.isValid("non"));
+    public void testSimpleTextIsValid() {
+        assertTrue(answer.isValid("hello"));
+        assertTrue(answer.isValid("Tolkien"));
     }
 
     @Test

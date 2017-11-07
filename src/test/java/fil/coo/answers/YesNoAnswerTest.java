@@ -13,6 +13,8 @@ public class YesNoAnswerTest extends SingleAnswerTest{
     private final static String DEFAULT_YES = "oui";
     private final static String DEFAULT_NO = "non";
     private final static String EXPECTED_PROMPT = "(oui/non) ";
+
+	private static final String[] correctAnswers = new String[]{"yes", "no", "oui", "non", "vrai", "faux"};
     
 
 	protected String getDefaultAnswer() {
@@ -38,6 +40,10 @@ public class YesNoAnswerTest extends SingleAnswerTest{
     public void testWhenIsValid(){
     	assertTrue(singleAnswer.isValid(DEFAULT_YES));
     	assertTrue(singleAnswer.isValid(DEFAULT_NO));
+
+        for (String correctAnswer : correctAnswers) {
+            assertTrue(singleAnswer.isValid(correctAnswer));
+        }
     }
     
     @Test
