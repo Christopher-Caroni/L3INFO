@@ -46,7 +46,7 @@ public abstract class SingleAnswerTest extends AnswerTest {
     public void testGetSetWhenOK() throws NullPointerException, InvalidAnswerException {
         String dummyAnswer = getDefaultAnswer();
         SingleAnswer oneAnswer = getSpecificSingleAnswer(dummyAnswer);
-        assertEquals(getCorrectAnswer(), oneAnswer.getAnswer());
+        assertEquals(getCorrectAnswer(), oneAnswer.getCorrectAnswer());
     }
 
 	protected abstract String getCorrectAnswer();

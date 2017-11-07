@@ -33,7 +33,7 @@ public abstract class SingleAnswer extends Answer {
         return answer.equals(userAnswer);
     }
 
-    public String getAnswer() {
+    public String getCorrectAnswer() {
         return answer;
     }
 

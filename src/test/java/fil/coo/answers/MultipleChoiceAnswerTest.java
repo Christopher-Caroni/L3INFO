@@ -52,7 +52,7 @@ public class MultipleChoiceAnswerTest extends SingleAnswerTest {
         assertEquals(4, answer.getChoices().size());
 
         for (int i = 0; i < DEFAULT_ANSWER_LIST.length; i++) {
-            assertEquals(DEFAULT_ANSWER_LIST[i], answer.getChoices().get(i).getAnswer());
+            assertEquals(DEFAULT_ANSWER_LIST[i], answer.getChoices().get(i).getCorrectAnswer());
         }
     }
 

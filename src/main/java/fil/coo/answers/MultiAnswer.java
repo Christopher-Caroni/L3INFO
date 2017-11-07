@@ -46,4 +46,13 @@ public class MultiAnswer extends Answer {
         return found;
     }
 
+	@Override
+	public String getCorrectAnswer() {
+		String allAnswer = "";
+		for (TextAnswer textAnswer : answers) {
+			allAnswer += textAnswer.toString()+" ";
+		}
+		return allAnswer;
+	}
+
 }
