@@ -27,4 +27,9 @@ public class Question {
     public String getQuestionText() {
         return questionText;
     }
+
+	public Answer getAnswer() {
+		return answer;
+	} 
+    
 }
