@@ -64,6 +64,13 @@ subject to max_un_legume_cultive_par_parcelle {p in PARCELLES, a in ANNEES} :
     est_affecte[a, l, p] = 1;
 
 
+subject to cycle_legume_parcelle_initiale {p in PARCELLES, l in LEGUMES} :
+	est_affecte[1, l, p] <=
+	if besoin_richesse[l] <= (richesse_initiale[p] + (kilo_engrais_bonus_utilise[p] * rendement_engrais_richesse_par_kilo)) then
+		1
+	else
+		0;
+
 /*
 Pour chaque année a, pour une parcelle p, un légume l ne peut y être cultivé que si le légume précédant
 dans le cycle y était aussi cultivé à l'année précédente.
@@ -73,16 +80,11 @@ Pour l'année a==1, pour une parcelle p, un légume l ne peut y être cultivé q
 le besoin en richese de ce légume est inféreur à la richesse initiale de cette parcelle
 */
 subject to cycle_legume_parcelle {a in ANNEES, p in PARCELLES, l in LEGUMES} :
-	est_affecte[a, l, p] <=
-	if a != 1 then
-		est_affecte[prev(a), prev(l), p]
-	else
-		if besoin_richesse[l] <= (richesse_initiale[p] + (kilo_engrais_bonus_utilise[p] * rendement_engrais_richesse_par_kilo)) then
-			1
-		else
-			0;
+	if a != 1 then est_affecte[a, l, p] <= est_affecte[prev(a), prev(l), p];
 
 
+subject to cycle_richesse_initiale {p in PARCELLES, l in LEGUMES} :
+	richesse_fin_annee[1, p] = (richesse_initiale[p] + (kilo_engrais_bonus_utilise[p] * rendement_engrais_richesse_par_kilo)) + ((-besoin_richesse[l] + apport_richesse[l]) * est_affecte[1, l, p]);
 
 /*
 Pour chaque année (a) (sauf a==1), la richesse d'une parcelle est égale à la richesse de la parcelle
@@ -93,11 +95,7 @@ Pour (a==1), la fin de l'année initiale, la richesse est égale à la richesse 
 moins le rendement du légume cultivé, plus l'apport de ce légume.
 */
 subject to richesse_cycle {a in ANNEES, p in PARCELLES, l in LEGUMES} :
-	richesse_fin_annee[a, p] =
-	if a == 1 then
-		(richesse_initiale[p] + (kilo_engrais_bonus_utilise[p] * rendement_engrais_richesse_par_kilo)) + ((-besoin_richesse[l] + apport_richesse[l]) * est_affecte[a, l, p])
-	else
-		richesse_fin_annee[prev(a), p] + ((-besoin_richesse[l] + apport_richesse[l]) * est_affecte[a, l, p]);
+	if a != 1 then richesse_fin_annee[a, p] = richesse_fin_annee[prev(a), p] + ((-besoin_richesse[l] + apport_richesse[l]) * est_affecte[a, l, p]);
 
 
 data;
