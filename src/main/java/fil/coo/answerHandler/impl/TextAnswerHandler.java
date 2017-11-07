@@ -1,5 +1,6 @@
-package fil.coo.answerHandler;
+package fil.coo.answerHandler.impl;
 
+import fil.coo.answerHandler.AnswerHandler;
 import fil.coo.answers.Answer;
 import fil.coo.answers.InvalidAnswerException;
 import fil.coo.answers.TextAnswer;

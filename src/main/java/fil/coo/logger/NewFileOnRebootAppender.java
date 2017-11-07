@@ -1,4 +1,4 @@
-package fil.coo;
+package fil.coo.logger;
 
 import org.apache.log4j.FileAppender;
 

@@ -1,4 +1,4 @@
-package fil.coo;
+package fil.coo.quiz;
 
 import fil.coo.answers.Answer;
 

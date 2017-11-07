@@ -1,8 +1,12 @@
-package fil.coo.answers;
+package fil.coo.answers.impl;
+
+import fil.coo.answers.InvalidAnswerException;
+import fil.coo.answers.SingleAnswer;
+import fil.coo.answers.SingleAnswerTest;
+import fil.coo.answers.TextAnswer;
+import org.junit.Test;
 
 import static org.junit.Assert.*;
-
-import org.junit.Test;
 
 
 public class TextAnswerTest extends SingleAnswerTest {
@@ -13,11 +17,11 @@ public class TextAnswerTest extends SingleAnswerTest {
     protected String getDefaultAnswer() {
         return DEFAULT_ANSWER;
     }
-    
-	@Override
-	protected String getCorrectAnswer() {
-		return getDefaultAnswer();
-	}
+
+    @Override
+    protected String getCorrectAnswer() {
+        return getDefaultAnswer();
+    }
 
     @Override
     protected SingleAnswer getSpecificSingleAnswer(String answer) throws NullPointerException, InvalidAnswerException {

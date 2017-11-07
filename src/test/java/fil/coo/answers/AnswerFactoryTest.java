@@ -1,12 +1,15 @@
-package fil.coo.factory;
+package fil.coo.answers;
 
-import fil.coo.AnswerFactory;
-import fil.coo.answers.*;
+import fil.coo.answers.impl.*;
+import org.apache.log4j.Logger;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
 public class AnswerFactoryTest {
+
+
+    private static final Logger logger = Logger.getLogger(AnswerFactoryTest.class.getSimpleName());
 
     private final String TEXTANSWER = "Tolkien";
     private final String TEXTNUMERICAL = "10";
@@ -23,7 +26,9 @@ public class AnswerFactoryTest {
         Answer answerMulti = factory.buildAnswer(TEXTMULTI);
         Answer answerMultipleChoice = factory.buildAnswer(TEXTMULTIPLECHOICE);
 
-        assertTrue(answerText instanceof TextAnswer);
+        logger.debug(answerText.getClass());
+        boolean isInstance = answerText instanceof TextAnswer;
+        assertTrue(isInstance);
         assertTrue(answerNumerical instanceof NumericalAnswer);
         assertTrue(answerYesNo instanceof YesNoAnswer);
         assertTrue(answerMulti instanceof MultiAnswer);

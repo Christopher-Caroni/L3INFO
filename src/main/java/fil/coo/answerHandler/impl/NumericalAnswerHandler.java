@@ -1,18 +1,19 @@
-package fil.coo.answerHandler;
+package fil.coo.answerHandler.impl;
 
+import fil.coo.answerHandler.AnswerHandler;
 import fil.coo.answers.Answer;
 import fil.coo.answers.InvalidAnswerException;
-import fil.coo.answers.YesNoAnswer;
+import fil.coo.answers.NumericalAnswer;
 import org.apache.log4j.Logger;
 
-public class YesNoAnswerHandler extends AnswerHandler {
+public class NumericalAnswerHandler extends AnswerHandler {
 
     private static final Logger logger = Logger.getLogger(YesNoAnswerHandler.class.getSimpleName());
 
     @Override
     public Answer createAnswer(String answerText) {
         try {
-            return new YesNoAnswer(answerText);
+            return new NumericalAnswer(answerText);
         } catch (InvalidAnswerException e) {
             logger.debug("Failed to create " + this.getClass().getSimpleName() + ", will try " + next.getClass()
                     .getSimpleName());

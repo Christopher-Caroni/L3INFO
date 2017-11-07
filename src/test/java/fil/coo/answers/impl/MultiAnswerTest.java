@@ -1,10 +1,12 @@
-package fil.coo.answers;
+package fil.coo.answers.impl;
 
+import fil.coo.answers.Answer;
+import fil.coo.answers.AnswerTest;
+import fil.coo.answers.InvalidAnswerException;
+import fil.coo.answers.MultiAnswer;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class MultiAnswerTest extends AnswerTest {
 

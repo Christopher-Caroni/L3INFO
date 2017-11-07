@@ -3,18 +3,17 @@ package fil.coo.answers;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.fail;
 
 public abstract class AnswerTest {
 
     protected Answer answer;
 
     /**
-     *
      * @return an implementation of {@link Answer}. By default, this instance should have empty attributes, or null
      * values for non list objects.
      * @throws InvalidAnswerException
-     * @throws NullPointerException 
+     * @throws NullPointerException
      */
     public abstract Answer getSpecificAnswer() throws NullPointerException, InvalidAnswerException;
 

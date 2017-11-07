@@ -1,4 +1,4 @@
-package fil.coo;
+package fil.coo.quiz;
 
 import java.util.ArrayList;
 import java.util.List;

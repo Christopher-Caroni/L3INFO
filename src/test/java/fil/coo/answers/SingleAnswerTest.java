@@ -26,7 +26,7 @@ public abstract class SingleAnswerTest extends AnswerTest {
      */
     protected abstract String getDefaultAnswer();
 
-    @Test(expected=NullPointerException.class)
+    @Test(expected = NullPointerException.class)
     public void testWhenAnswerIsNull() throws NullPointerException, InvalidAnswerException {
         SingleAnswer s = getSpecificSingleAnswer(null);
     }
@@ -49,6 +49,6 @@ public abstract class SingleAnswerTest extends AnswerTest {
         assertEquals(getCorrectAnswer(), oneAnswer.getCorrectAnswer());
     }
 
-	protected abstract String getCorrectAnswer();
+    protected abstract String getCorrectAnswer();
 
 }
