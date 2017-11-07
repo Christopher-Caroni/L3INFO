@@ -1,22 +1,30 @@
 package fil.coo.answers;
 
 public class YesNoAnswer extends SingleAnswer {
-	
-	public YesNoAnswer(String answer) throws NullPointerException, InvalidAnswerException {
-		super(answer, true);
-	}
 
-	@Override
-	protected boolean isQuizTextValid(String quizText) {
-		return checkUserAnswerIsValid(quizText);
-	}
+    private static final String[] possibleAnswers = new String[]{"yes", "no", "oui", "non", "vrai", "faux"};
 
-	public String getPrompt() {
-		return "(oui/non) ";
-	}
+    public YesNoAnswer(String answer) throws NullPointerException, InvalidAnswerException {
+        super(answer, true);
+    }
 
-	protected boolean checkUserAnswerIsValid(String userAnswer) {
-		return userAnswer.equals("oui") || userAnswer.equals("non");
-	}
-	
+    @Override
+    protected boolean isQuizTextValid(String quizText) {
+        return checkUserAnswerIsValid(quizText);
+    }
+
+    public String getPrompt() {
+        return "(oui/non) ";
+    }
+
+    protected boolean checkUserAnswerIsValid(String userAnswer) {
+        boolean found;
+        for (String possibleAnswer : possibleAnswers) {
+            if (possibleAnswer.equalsIgnoreCase(userAnswer)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 }

@@ -14,7 +14,8 @@ public class YesNoAnswerHandler extends AnswerHandler {
         try {
             return new YesNoAnswer(answerText);
         } catch (InvalidAnswerException e) {
-            logger.debug("Failed to create " + YesNoAnswer.class.getSimpleName() + ", will try " + next.getClass().getSimpleName());
+            logger.debug("Failed to create " + this.getClass().getSimpleName() + ", will try " + next.getClass()
+                    .getSimpleName());
             return this.next.createAnswer(answerText);
         }
     }

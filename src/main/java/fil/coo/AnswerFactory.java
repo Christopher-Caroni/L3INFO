@@ -22,7 +22,11 @@ public class AnswerFactory {
 
     public Answer buildAnswer(String text){
         logger.debug("creating answer for \"" + text + "\"");
-        return this.c1.createAnswer(text);
+
+        Answer answer = this.c1.createAnswer(text);
+
+        logger.debug("did create " + answer.getClass().getSimpleName());
+        return answer;
     }
 
     public void initAnswerHandler(){
