@@ -17,7 +17,7 @@ public class MultipleChoiceAnswer extends TextAnswer {
     public MultipleChoiceAnswer(String answer) throws NullPointerException, InvalidAnswerException {
         super(answer, false);
         saveChoices(answer);
-        initAnswer(choices.get(0).getAnswer());
+        initAnswer(choices.get(0).getCorrectAnswer());
     }
 
 
@@ -44,7 +44,7 @@ public class MultipleChoiceAnswer extends TextAnswer {
         StringBuilder prompt = new StringBuilder("(");
         Collections.shuffle(choices);
         for (TextAnswer answer : choices) {
-            prompt.append(" ").append(answer.getAnswer()).append(" ");
+            prompt.append(" ").append(answer.getCorrectAnswer()).append(" ");
         }
         prompt.append(")");
         return prompt.toString();
