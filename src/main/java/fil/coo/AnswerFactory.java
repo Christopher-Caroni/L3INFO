@@ -2,21 +2,26 @@ package fil.coo;
 
 import fil.coo.answerHandler.*;
 import fil.coo.answers.Answer;
+import org.apache.log4j.Logger;
 
 public class AnswerFactory {
 
+    public static final AnswerFactory FACTORYANSWER = new AnswerFactory();
+
     private AnswerHandler c1;
+    private static final Logger logger = Logger.getLogger(AnswerFactory.class.getSimpleName());
+
     private AnswerFactory(){
         initAnswerHandler();
     }
 
-    public static final AnswerFactory FACTORYANSWER = new AnswerFactory();
 
     public static AnswerFactory getInstance(){
         return FACTORYANSWER;
     }
 
     public Answer buildAnswer(String text){
+        logger.debug("creating answer for \"" + text + "\"");
         return this.c1.createAnswer(text);
     }
 

@@ -28,7 +28,8 @@ public class Question {
         return questionText;
     }
 
-    public Answer getAnswer() {
-        return answer;
-    }
+	public Answer getAnswer() {
+		return answer;
+	} 
+
 }
