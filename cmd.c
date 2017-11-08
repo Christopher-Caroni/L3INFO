@@ -94,37 +94,32 @@ void waitfg(pid_t pid) {
   struct job_t *j = jobs_getjobpid(pid);
 
   if(!j)
+  {
     return;
+  }
 
-  while (j-> jb_pid == pid && j-> jb_state == FG) {
+  while (j->jb_pid == pid && j->jb_state == FG)
+  {
     pause();
   }
 }
 
 /* do_fg - Execute the builtin fg command */
 void do_fg(char **argv) {
-  pid_t pid_to_fg;
   struct job_t *job;
-  char *commande_fg;
 
   job = treat_argv(argv);
-  job->jb_state = FG;
-
-  pid_to_fg = job->jb_pid;
-  commande_fg = malloc(sizeof(pid_t));
-  sprintf(commande_fg, "%d", pid_to_fg);
-
-  switch (fork())
+  if (!job)
   {
-    case -1:
-      exit(EXIT_FAILURE);
-    case 0:
-      execlp("fg", "fg", commande_fg);
-      exit(EXIT_FAILURE);
-    default:
-      break;
-      /* rien */
+    printf("Could not find job %s\n", argv[1]);
+    return;
   }
+
+  kill(job->jb_pid, SIGCONT);
+  job->jb_state = FG;
+  printf("%s\n", job->jb_cmdline);
+  waitfg(job->jb_pid);
+
   return;
 }
 
