@@ -7,25 +7,33 @@
 #include <sys/wait.h>
 #include "pipe.h"
 
-void do_pipe(char *cmds[MAXCMDS][MAXARGS], int nbcmd, int bg) {
+void do_pipe(char *cmds[MAXCMDS][MAXARGS], int nbcmd, int bg)
+{
   int **fd;
   int i;
   int status;
   pid_t ch;
   int j;
 
-  fd = calloc(2, (nbcmd-1) * sizeof(int));
+  fd = malloc((nbcmd-1)*sizeof(int*));
+  for (i=0; i<nbcmd-1; i++)
+  {
+    fd[i] = malloc(2 * sizeof(int));
+  }
   assert(fd);
 
-  for (i=0;i<nbcmd;i++) {
-    while (cmds[i][j] != NULL)
-    {
-      printf("cmd[%d][%d] :",i , j);
-      printf("%s\n",cmds[i][j]);
-      fflush(stdout);
-      j++;
+  if (verbose)
+  {
+    for (i=0;i<nbcmd;i++) {
+      while (cmds[i][j] != NULL)
+      {
+        printf("cmd[%d][%d] :",i , j);
+        printf("%s\n",cmds[i][j]);
+        fflush(stdout);
+        j++;
+      }
+      j=0;
     }
-    j=0;
   }
 
   pipe(fd[0]);
@@ -58,5 +66,6 @@ void do_pipe(char *cmds[MAXCMDS][MAXARGS], int nbcmd, int bg) {
 
   wait(NULL);
   wait(NULL);
+
   return;
 }
