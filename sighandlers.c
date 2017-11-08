@@ -98,7 +98,15 @@ void sigint_handler(int sig) {
     }
 
     child_pid = jobs_fgpid();
-    kill(child_pid, sig);
+    if (child_pid)
+    {
+      kill(child_pid, sig);
+    } else {
+      if (verbose)
+      {
+        printf("No children to kill\n");
+      }
+    }
 
     if (verbose)
     {
