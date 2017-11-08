@@ -64,28 +64,19 @@ struct job_t *treat_argv(char **argv) {
 
 /* do_bg - Execute the builtin bg command */
 void do_bg(char **argv) {
-  pid_t pid_to_fg;
   struct job_t *job;
-  char *commande_fg;
 
   job = treat_argv(argv);
-  job->jb_state = BG;
-
-  pid_to_fg = job->jb_pid;
-  commande_fg = malloc(sizeof(pid_t));
-  sprintf(commande_fg, "%d", pid_to_fg);
-
-  switch (fork())
+  if (!job)
   {
-    case -1:
-      exit(EXIT_FAILURE);
-    case 0:
-      execlp("bg", "bg", commande_fg);
-      exit(EXIT_FAILURE);
-    default:
-      break;
-      /* rien */
+    printf("Could not find job %s\n", argv[1]);
+    return;
   }
+
+  kill(job->jb_pid, SIGCONT);
+  job->jb_state = BG;
+  printf("[%d] %s\n", job->jb_jid, job->jb_cmdline);
+
   return;
 }
 
