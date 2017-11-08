@@ -54,21 +54,27 @@ void sigchld_handler(int sig) {
     child_pid = waitpid(-1, &status, WNOHANG|WUNTRACED);
 
 
-    if(child_pid != -1 ){
-
-      if(WIFEXITED(status)){
-        jobs_deletejob(child_pid);
-      }else if(WIFSTOPPED(status)){
+    if (child_pid != -1 ) {
+      if (WIFSTOPPED(status)) {
         job = jobs_getjobpid(child_pid);
-        if(job != NULL){
+        if (job != NULL) {
           job->jb_state = ST;
           if (verbose)
             printf("[%d] Arrêté\t %s\n", job->jb_jid, job->jb_cmdline);
-        }else if(verbose){
+        } else if(verbose) {
           printf("Erreur stop job\n");
         }
+      } else
+      {
+        if (verbose && WIFEXITED(status))
+        {
+          printf("Child finished naturally %d\n", child_pid);
+        } else {
+          printf("Force kill child %d\n", child_pid);
+        }
+        jobs_deletejob(child_pid);
       }
-  }
+    }
 
 
     if (verbose)
