@@ -142,27 +142,17 @@ void do_stop(char **argv) {
 
 /* do_kill - Execute the builtin kill command */
 void do_kill(char **argv) {
-  pid_t pid_to_fg;
   struct job_t *job;
-  char *commande_fg;
 
   job = treat_argv(argv);
-
-  pid_to_fg = job->jb_pid;
-  commande_fg = malloc(sizeof(pid_t));
-  sprintf(commande_fg, "%d", pid_to_fg);
-
-  switch (fork())
+  if (!job)
   {
-    case -1:
-      exit(EXIT_FAILURE);
-    case 0:
-      execlp("kill", "kill", commande_fg);
-      exit(EXIT_FAILURE);
-    default:
-      break;
-      /* rien */
+    printf("Could not find job %s\n", argv[1]);
+    return;
   }
+
+  kill(job->jb_pid, SIGKILL);
+
   return;
 }
 
