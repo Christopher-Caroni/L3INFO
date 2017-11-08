@@ -19,6 +19,7 @@ void do_pipe(char *cmds[MAXCMDS][MAXARGS], int nbcmd, int bg)
   for (i=0; i<nbcmd-1; i++)
   {
     fd[i] = malloc(2 * sizeof(int));
+    assert(fd[i]);
   }
   assert(fd);
 
