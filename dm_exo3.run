@@ -76,7 +76,7 @@ subject to max_un_legume_cultive_par_parcelle {p in PARCELLES, a in ANNEES} :
 /*
 	CAS INTIIAL:
 	Pour l'année a==1, pour une parcelle p, un légume l ne peut y être cultivé que si
-	le besoin en richese de ce légume est inféreur à la richesse initiale de cette parcelle
+	le besoin en richese de ce légume est inféreur à la richesse initiale (avec engrais) de cette parcelle
 */
 subject to cycle_legume_parcelle_initiale {p in PARCELLES, l in LEGUMES} :
 	est_affecte[1, l, p] <=
@@ -99,7 +99,11 @@ subject to cycle_legume_parcelle {a in ANNEES, p in PARCELLES, l in LEGUMES} :
 	moins le rendement du légume cultivé, plus l'apport de ce légume.
 */
 subject to cycle_richesse_initiale {p in PARCELLES, l in LEGUMES} :
-	richesse_fin_annee[1, p] = (richesse_initiale[p] + (kilo_engrais_bonus_utilise[p] * rendement_engrais_richesse_par_kilo)) + ((-besoin_richesse[l] + apport_richesse[l]) * est_affecte[1, l, p]);
+	richesse_fin_annee[1, p] =
+	if est_affecte[1, l, p] == 1 then
+		( (richesse_initiale_avec_engrais[p]) + ((-besoin_richesse[l] + apport_richesse[l]) * est_affecte[1, l, p]) )
+	else
+		richesse_fin_annee[1, p];
 
 /*
 Pour chaque année (a) (sauf a==1), la richesse d'une parcelle est égale à la richesse de la parcelle
