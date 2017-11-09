@@ -36,11 +36,16 @@ le nombre de kilos d'engrais utilisé sur la parcelle p
 */
 var kilo_engrais_bonus_utilise {PARCELLES};
 
+var minimum_derniere_annee >= 0;
+
 /*
 On maximise la richesse de tous les parcelles, à la dernière année
 */
-maximize richesse_finale_derniere_annee {p in PARCELLES} :
-		richesse_fin_annee[6, p];
+maximize minimum_richesse_fin_cycle :
+		minimum_derniere_annee;
+
+subject to trouver_minimum {p in PARCELLES} :
+	minimum_derniere_annee <= richesse_fin_annee[N_ANNEES, p];
 
 /*
 La somme d'engrais utilisé sur toutes les parcelles est limitée par la quantité disponible initialement
