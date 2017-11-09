@@ -241,11 +241,11 @@ public class AutomataUtils {
     public void minimalise(Automaton a, AutomatonBuilder dest) {
         AutomatonBuilder result = new NDAutomaton();
 
-        transpose(a, dest);
-        determinize(dest, result);
+        transpose(a, result);
+        determinize(result, dest);
 
-        transpose(result, dest);
-        determinize(dest, result);
+        transpose(dest, result);
+        determinize(result, dest);
     }
 
 }
