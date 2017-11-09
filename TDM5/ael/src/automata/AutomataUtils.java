@@ -196,6 +196,18 @@ public class AutomataUtils {
 
         while (!todo.isEmpty()) {
             Set<State> fromSet = todo.pop(); // pick a state from todo list
+            Set<Character> alphabet = nfa.usedAlphabet();
+            for (Character usedChar : alphabet) {
+                Set<State> transitionSet = nfa.getTransitionSet(fromSet, usedChar);
+                if (map.get(transitionSet) == null) {
+                    State state = dfa.addNewState(transitionSet.toString());// state creation
+                    map.put(transitionSet, state);  // record relationship in map
+                    todo.push(transitionSet);
+                }
+                dfa.addTransition(fromSet.toString(), usedChar, transitionSet.toString());
+            }
+
+
             /* TODO :
              * for each letter of alphabet :
 			 * 		compute transitionSet from fromSet
@@ -208,6 +220,17 @@ public class AutomataUtils {
 			 */
         }
         for (Set<State> qSet : map.keySet()) {    // foreach computed state set
+            boolean containsAccepting = false;
+            for (State state : qSet) {
+                if (nfa.isAccepting(state)) {
+                    containsAccepting = true;
+                }
+            }
+            if (containsAccepting) {
+                dfa.setAccepting(qSet.toString());
+            }
+
+
             /* TODO :
              * if qset contains accepting state (from nfa)
 			 * 	 	in dfa, set corresponding state as accepting state
