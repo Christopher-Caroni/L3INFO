@@ -121,6 +121,8 @@ public class AutomataUtils {
         Set<State> newEndStates = original.getInitialStates();
         int automateIndex = 0;
 
+        mirror.clear();
+
 //        System.out.println("Adding old initial states and end states");
         for (State endState : newEndStates) {
             String oldName = endState.getName();
@@ -238,7 +240,6 @@ public class AutomataUtils {
 
     public void minimalise(Automaton a, AutomatonBuilder dest) {
         AutomatonBuilder result = new NDAutomaton();
-        dest.clear();
 
         transpose(a, dest);
         determinize(dest, result);
