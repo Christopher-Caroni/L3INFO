@@ -60,27 +60,33 @@ public class TestND {
 		 * paramètre de la méthode addNewState
 		 */
 
-        a.addNewState("epsilon");
-		a.addNewState("a");
-		a.addNewState("ab");
-		a.addNewState("abc");
+        a.addNewState("q1");
+		a.addNewState("q2");
+		a.addNewState("q3");
+		a.addNewState("q4");
+        a.addNewState("q5");
 
 		/*
 		 * Définition des états initiaux et des états acceptants Le paramètre est
 		 * indifféremment le numéro ou le nom d'un état
 		 */
-		a.setAccepting("abc");
-		a.setInitial("epsilon");
+		a.setAccepting("q3");
+		a.setAccepting("q4");
+		a.setInitial("q1");
 
 		/*
 		 * Définition des transitions
 		 */
-        a.addTransition("epsilon", 'a', "a");
-        a.addTransition("a", 'b', "ab");
-        a.addTransition("ab", 'c', "abc");
+        a.addTransition("q1", 'a', "q2");
+        a.addTransition("q2", 'b', "q3");
+        a.addTransition("q2", 'b', "q4");
+        a.addTransition("q3", 'a', "q3");
+        a.addTransition("q4", 'a', "q5");
+        a.addTransition("q5", 'b', "q4");
 
 //		AutomataUtils.addFlatExp("10*1", a, "exp");
-		AutomataUtils.transpose(a, b);
+//		AutomataUtils.transpose(a, b);
+		AutomataUtils.determinize(a, b);
 
 		/*
 		 * Dessin de l'automate (fabrication d'un fichier Graphviz)
@@ -91,6 +97,7 @@ public class TestND {
 		/*
 		 * Affichage de l'automate, en mode texte
 		 */
+        System.out.println("\nPrinting the two automatons");
         System.out.println(a);
         System.out.println(b);
 

@@ -190,7 +190,7 @@ public class AutomataUtils {
         State start = dfa.addNewState(startSet.toString()); // state creation
         map.put(startSet, start);  // record relationship in map
 
-        dfa.setAccepting(start); // start is the unique initial state of dfa
+        dfa.setInitial(start); // start is the unique initial state of dfa
 
         todo.push(startSet); // put it in todo list.
 
