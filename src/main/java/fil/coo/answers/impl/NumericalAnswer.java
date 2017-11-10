@@ -1,6 +1,8 @@
 package fil.coo.answers.impl;
 
 import fil.coo.answers.InvalidAnswerException;
+import fil.coo.gui.AnswerPanel;
+import fil.coo.gui.AnswerPanelFactory;
 
 public class NumericalAnswer extends SingleAnswer {
 
@@ -25,5 +27,10 @@ public class NumericalAnswer extends SingleAnswer {
             return false;
         }
         return true;
+    }
+
+    @Override
+    protected AnswerPanel createAnswerPanel(AnswerPanelFactory answerPanelFactory) {
+        return answerPanelFactory.createAnswerPanel(this);
     }
 }

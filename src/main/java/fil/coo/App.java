@@ -1,5 +1,6 @@
 package fil.coo;
 
+import fil.coo.gui.QuizFrame;
 import org.apache.log4j.Logger;
 
 /**
@@ -19,5 +20,7 @@ public class App {
 
         logger.info("Next line with a newline");
         logger.info("Another line with newline");
+
+        QuizFrame quizFrame = new QuizFrame();
     }
 }
