@@ -1,15 +1,17 @@
 package fil.coo.answers;
 
-import fil.coo.answerHandler.*;
-import fil.coo.answerHandler.impl.*;
+import fil.coo.handler.*;
+import fil.coo.handler.impl.*;
 import org.apache.log4j.Logger;
 
 public class AnswerFactory {
 
+    private static final Logger logger = Logger.getLogger(AnswerFactory.class.getSimpleName());
+
+
     public static final AnswerFactory FACTORYANSWER = new AnswerFactory();
 
     private AnswerHandler c1;
-    private static final Logger logger = Logger.getLogger(AnswerFactory.class.getSimpleName());
 
     private AnswerFactory(){
         initAnswerHandler();
@@ -21,7 +23,7 @@ public class AnswerFactory {
     }
 
     public Answer buildAnswer(String text){
-        logger.debug("creating answer for \"" + text + "\"");
+        logger.debug("creating answer for input text: \"" + text + "\"");
 
         Answer answer = this.c1.createAnswer(text);
 
