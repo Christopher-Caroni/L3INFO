@@ -1,7 +1,12 @@
 package fil.coo;
 
 import fil.coo.gui.QuizFrame;
+import fil.coo.gui.factory.QuizFrameFactory;
+import fil.coo.quiz.QuestionFactory;
+import fil.coo.quiz.Quiz;
 import org.apache.log4j.Logger;
+
+import java.io.IOException;
 
 /**
  * Hello world!
@@ -21,6 +26,15 @@ public class App {
         logger.info("Next line with a newline");
         logger.info("Another line with newline");
 
-        QuizFrame quizFrame = new QuizFrame();
+        dummyQuiz();
+    }
+
+    private static void dummyQuiz() {
+        try {
+            Quiz quiz = new QuestionFactory().createQuizFromTextFile("resources/dummy.quiz");
+            QuizFrame quizFrame = QuizFrameFactory.getInstance().createQuizFrame(quiz);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

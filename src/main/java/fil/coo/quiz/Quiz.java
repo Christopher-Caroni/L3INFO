@@ -90,4 +90,8 @@ public class Quiz {
     public Question getQuestion(int i) {
         return questions.get(i);
     }
+
+    public List<Question> getQuestions() {
+		return questions;
+    }
 }

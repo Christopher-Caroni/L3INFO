@@ -1,7 +1,7 @@
 package fil.coo.answers;
 
 import fil.coo.gui.AnswerPanel;
-import fil.coo.gui.AnswerPanelFactory;
+import fil.coo.gui.factory.AnswerPanelFactory;
 
 public abstract class Answer {
 
@@ -59,6 +59,6 @@ public abstract class Answer {
      * @param answerPanelFactory the factory that will create the {@link AnswerPanel} instance/
      * @return an {@link AnswerPanel} that corresponds to whatever type of {@link Answer} this instance is
      */
-    protected abstract AnswerPanel createAnswerPanel(AnswerPanelFactory answerPanelFactory);
+    public abstract AnswerPanel createAnswerPanel(AnswerPanelFactory answerPanelFactory);
 
 }

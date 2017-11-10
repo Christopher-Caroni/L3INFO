@@ -24,4 +24,9 @@ public class QuizFrame extends JFrame {
         frameDim = new Dimension(600, 600);
         setPreferredSize(frameDim);
     }
+
+    public void addQuestionPanel(QuestionPanel questionPanel) {
+        add(questionPanel);
+        repaint();
+    }
 }
