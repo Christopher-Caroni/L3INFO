@@ -1,11 +1,11 @@
 package fil.coo.answers;
 
 import fil.coo.QuizTest;
-import fil.coo.answers.impl.*;
 import org.apache.log4j.Logger;
 import org.junit.Test;
 
-import static org.junit.Assert.assertTrue;
+import static org.hamcrest.Matchers.instanceOf;
+import static org.junit.Assert.assertThat;
 
 public class AnswerFactoryTest extends QuizTest {
 
@@ -21,19 +21,18 @@ public class AnswerFactoryTest extends QuizTest {
     @Test
     public void testBuildAnswer() throws Exception {
         AnswerFactory factory = AnswerFactory.getInstance();
-        Answer answerText = factory.buildAnswer(TEXTANSWER);
-        Answer answerNumerical = factory.buildAnswer(TEXTNUMERICAL);
-        Answer answerYesNo = factory.buildAnswer(TEXTYES);
-        Answer answerMulti = factory.buildAnswer(TEXTMULTI);
-        Answer answerMultipleChoice = factory.buildAnswer(TEXTMULTIPLECHOICE);
 
-        logger.debug(answerText.getClass());
-        boolean isInstance = answerText instanceof TextAnswer;
-        assertTrue(isInstance);
-        assertTrue(answerNumerical instanceof NumericalAnswer);
-        assertTrue(answerYesNo instanceof YesNoAnswer);
-        assertTrue(answerMulti instanceof MultiAnswer);
-        assertTrue(answerMultipleChoice instanceof MultipleChoiceAnswer);
+        Answer expectAnswerTest = factory.buildAnswer(TEXTANSWER);
+        Answer expectAnswerNumerical = factory.buildAnswer(TEXTNUMERICAL);
+        Answer expectAnswerYesNo = factory.buildAnswer(TEXTYES);
+        Answer expectAnswerMulti = factory.buildAnswer(TEXTMULTI);
+        Answer expectAnswerMultipleChoice = factory.buildAnswer(TEXTMULTIPLECHOICE);
+
+        assertThat(expectAnswerTest, instanceOf(TextAnswer.class));
+        assertThat(expectAnswerNumerical, instanceOf(NumericalAnswer.class));
+        assertThat(expectAnswerYesNo, instanceOf(YesNoAnswer.class));
+        assertThat(expectAnswerMulti, instanceOf(MultiAnswer.class));
+        assertThat(expectAnswerMultipleChoice, instanceOf(MultipleChoiceAnswer.class));
 
     }
 
