@@ -1,4 +1,7 @@
-package fil.coo.answers;
+package fil.coo.answers.impl;
+
+import fil.coo.answers.Answer;
+import fil.coo.answers.InvalidAnswerException;
 
 public abstract class SingleAnswer extends Answer {
 

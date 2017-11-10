@@ -1,6 +1,7 @@
 package fil.coo.answers;
 
 import fil.coo.QuizTest;
+import fil.coo.answers.impl.*;
 import org.apache.log4j.Logger;
 import org.junit.Test;
 
@@ -12,21 +13,21 @@ public class AnswerFactoryTest extends QuizTest {
 
     private static final Logger logger = Logger.getLogger(AnswerFactoryTest.class.getSimpleName());
 
-    private final String TEXTANSWER = "Tolkien";
-    private final String TEXTNUMERICAL = "10";
-    private final String TEXTYES = "oui";
-    private final String TEXTMULTI = "Frodo ; Pippin ; Merry ; Sam";
-    private final String TEXTMULTIPLECHOICE = "Bill | Bourricot | Robert | Jolly Jumper";
+    private final String INPUT_TEXT_ANSWER = "Tolkien";
+    private final String INPUT_NUMERICAL = "10";
+    private final String INPUT_YES_NO = "oui";
+    private final String INPUT_MULTI = "Frodo ; Pippin ; Merry ; Sam";
+    private final String INPUT_MULTIPLE = "Bill | Bourricot | Robert | Jolly Jumper";
 
     @Test
     public void testBuildAnswer() throws Exception {
         AnswerFactory factory = AnswerFactory.getInstance();
 
-        Answer expectAnswerTest = factory.buildAnswer(TEXTANSWER);
-        Answer expectAnswerNumerical = factory.buildAnswer(TEXTNUMERICAL);
-        Answer expectAnswerYesNo = factory.buildAnswer(TEXTYES);
-        Answer expectAnswerMulti = factory.buildAnswer(TEXTMULTI);
-        Answer expectAnswerMultipleChoice = factory.buildAnswer(TEXTMULTIPLECHOICE);
+        Answer expectAnswerTest = factory.buildAnswer(INPUT_TEXT_ANSWER);
+        Answer expectAnswerNumerical = factory.buildAnswer(INPUT_NUMERICAL);
+        Answer expectAnswerYesNo = factory.buildAnswer(INPUT_YES_NO);
+        Answer expectAnswerMulti = factory.buildAnswer(INPUT_MULTI);
+        Answer expectAnswerMultipleChoice = factory.buildAnswer(INPUT_MULTIPLE);
 
         assertThat(expectAnswerTest, instanceOf(TextAnswer.class));
         assertThat(expectAnswerNumerical, instanceOf(NumericalAnswer.class));

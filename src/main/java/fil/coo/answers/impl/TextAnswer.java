@@ -1,4 +1,6 @@
-package fil.coo.answers;
+package fil.coo.answers.impl;
+
+import fil.coo.answers.InvalidAnswerException;
 
 public class TextAnswer extends SingleAnswer {
 

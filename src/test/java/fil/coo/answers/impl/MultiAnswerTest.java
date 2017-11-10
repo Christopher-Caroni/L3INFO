@@ -3,7 +3,6 @@ package fil.coo.answers.impl;
 import fil.coo.answers.Answer;
 import fil.coo.answers.AnswerTest;
 import fil.coo.answers.InvalidAnswerException;
-import fil.coo.answers.MultiAnswer;
 import org.junit.Test;
 
 import static org.junit.Assert.*;

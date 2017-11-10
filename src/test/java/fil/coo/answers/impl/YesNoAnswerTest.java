@@ -1,9 +1,6 @@
 package fil.coo.answers.impl;
 
 import fil.coo.answers.InvalidAnswerException;
-import fil.coo.answers.SingleAnswer;
-import fil.coo.answers.SingleAnswerTest;
-import fil.coo.answers.YesNoAnswer;
 import org.junit.Test;
 
 import static org.junit.Assert.*;

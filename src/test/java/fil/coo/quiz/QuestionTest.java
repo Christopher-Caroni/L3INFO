@@ -2,8 +2,8 @@ package fil.coo.quiz;
 
 import fil.coo.QuizTest;
 import fil.coo.answers.InvalidAnswerException;
-import fil.coo.answers.NumericalAnswer;
-import fil.coo.answers.TextAnswer;
+import fil.coo.answers.impl.NumericalAnswer;
+import fil.coo.answers.impl.TextAnswer;
 import org.apache.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;

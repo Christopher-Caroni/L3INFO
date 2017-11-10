@@ -1,7 +1,7 @@
 package fil.coo.quiz;
 
 import fil.coo.QuizTest;
-import fil.coo.answers.*;
+import fil.coo.answers.impl.*;
 import org.apache.log4j.Logger;
 import org.junit.Test;
 
