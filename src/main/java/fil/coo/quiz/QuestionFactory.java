@@ -7,51 +7,52 @@ import java.io.*;
 public class QuestionFactory {
 
     /**
-     * Method to create one question
-     * @param text String, the question text
-     * @param answer String, the answer text
-     * @param points String, the number of points text
-     * @return Question
-     * @throws IOException
+     * Creates a {@link Question} from raw string inputs
+     *
+     * @param rawQuestion the input text for the question
+     * @param rawAnswer   the input text for the answer
+     * @param rawNbPoints the input text for the number of points of this question
+     * @return a Question created from the 3 parameters
+     * @throws IOException if inputPointText is not a number
      */
-    public Question createQuestion(String text, String answer, String points)
+    public Question createQuestion(String rawQuestion, String rawAnswer, String rawNbPoints)
             throws IOException {
         try {
-            int nbPoints = Integer.parseInt(points);
-            return new Question(text, AnswerFactory.FACTORYANSWER.buildAnswer(answer), nbPoints);
+            int nbPoints = Integer.parseInt(rawNbPoints);
+            return new Question(rawQuestion, AnswerFactory.FACTORYANSWER.buildAnswer(rawAnswer), nbPoints);
         } catch (NumberFormatException e) {
-            throw new IOException("bad format");
+            throw new IOException("rawNbPoints is not a number");
         }
     }
 
     /**
-     * Method to create the quiz with a file text. Create all the questions and add into the quiz.
-     * @param fileName String
-     * @return Quiz
-     * @throws IOException
+     * Creates a {@link Quiz} from a text file.
+     *
+     * @param filePath the path to the quiz in text form.
+     * @return a {@link Quiz} with all the questions and answers read from the text file.
+     * @throws IOException if the file cannot be found or an answer/number of points cannot be found for one question
      */
-    public Quiz createQuestionnaire(String fileName) throws IOException {
+    public Quiz createQuizFromTextFile(String filePath) throws IOException {
         Quiz questionnaire = new Quiz();
-        File source = new File(fileName);
-        BufferedReader in = null;
-        try {
-            in = new BufferedReader(new FileReader(source));
-            String text;
-            // read block of 3 li n e s : text , answer and number of points
-            while ((text = in.readLine()) != null) {
-                String answer = in.readLine();
-                String nbPoints = in.readLine();
-                if (answer == null || nbPoints == null ){
-                    throw new IOException("bad format");
+        File source = new File(filePath);
+
+        try (BufferedReader in = new BufferedReader(new FileReader(source))) {
+            String rawQuestionText;
+
+            // read block of 3 lines : text, answer and number of points
+            while ((rawQuestionText = in.readLine()) != null) {
+                String rawAnswerText = in.readLine();
+                String rawNbPointsText = in.readLine();
+                if (rawAnswerText == null || rawNbPointsText == null) {
+                    throw new IOException("Cannot find text for this question's answer or number of points");
                 }
-                questionnaire.addQuestion(this.createQuestion(text, answer, nbPoints));
+                questionnaire.addQuestion(this.createQuestion(rawQuestionText, rawAnswerText, rawNbPointsText));
             }
+
         } catch (FileNotFoundException e) {
             throw new IOException(e);
         }
-        finally {
-            in.close();
-        }
+
         return questionnaire;
     }
 }

@@ -18,7 +18,7 @@ public class QuestionFactoryTest extends QuizTest {
     @Test
     public void testDummyHasRightAnswerTypes() throws IOException {
         QuestionFactory questionFactory = new QuestionFactory();
-        Quiz questionnaire = questionFactory.createQuestionnaire("resources/dummy.quiz");
+        Quiz questionnaire = questionFactory.createQuizFromTextFile("resources/dummy.quiz");
 
         assertThat(questionnaire.getNbQuestions(), is(7));
 
