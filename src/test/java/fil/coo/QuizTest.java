@@ -1,6 +1,6 @@
 package fil.coo;
 
-import fil.coo.answers.AnswerTest;
+import org.apache.log4j.Logger;
 import org.junit.Rule;
 import org.junit.rules.TestRule;
 import org.junit.rules.TestWatcher;
@@ -30,5 +30,5 @@ public abstract class QuizTest {
         }
     };
 
-    protected abstract org.apache.log4j.Logger getLogger();
+    protected abstract Logger getLogger();
 }
