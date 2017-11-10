@@ -5,8 +5,8 @@ import fil.coo.answers.impl.*;
 import org.apache.log4j.Logger;
 import org.junit.Test;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.instanceOf;
-import static org.junit.Assert.assertThat;
 
 public class AnswerFactoryTest extends QuizTest {
 
