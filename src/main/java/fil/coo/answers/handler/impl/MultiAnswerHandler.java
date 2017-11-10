@@ -1,6 +1,6 @@
-package fil.coo.handler.impl;
+package fil.coo.answers.handler.impl;
 
-import fil.coo.handler.AnswerHandler;
+import fil.coo.answers.handler.AnswerHandler;
 import fil.coo.answers.Answer;
 import fil.coo.answers.InvalidAnswerException;
 import fil.coo.answers.impl.MultiAnswer;

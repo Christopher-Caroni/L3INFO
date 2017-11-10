@@ -1,7 +1,7 @@
 package fil.coo.answers;
 
-import fil.coo.handler.*;
-import fil.coo.handler.impl.*;
+import fil.coo.answers.handler.*;
+import fil.coo.answers.handler.impl.*;
 import org.apache.log4j.Logger;
 
 public class AnswerFactory {

@@ -1,4 +1,4 @@
-package fil.coo.handler;
+package fil.coo.answers.handler;
 
 import fil.coo.answers.Answer;
 import fil.coo.answers.InvalidAnswerException;
