@@ -1,6 +1,8 @@
 package fil.coo.quiz;
 
+import fil.coo.QuizTest;
 import fil.coo.answers.*;
+import org.apache.log4j.Logger;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -8,7 +10,9 @@ import java.io.IOException;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-public class QuestionFactoryTest {
+public class QuestionFactoryTest extends QuizTest {
+
+    private static final Logger logger = Logger.getLogger(QuestionFactoryTest.class.getSimpleName());
 
     @Test
     public void testDummyHasRightAnswerTypes() throws IOException {
@@ -25,4 +29,8 @@ public class QuestionFactoryTest {
         assertTrue(questionnaire.getQuestion(6).getAnswer() instanceof MultipleChoiceAnswer);
     }
 
+    @Override
+    protected Logger getLogger() {
+        return logger;
+    }
 }

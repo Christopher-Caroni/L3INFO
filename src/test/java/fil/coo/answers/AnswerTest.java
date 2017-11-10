@@ -1,13 +1,22 @@
 package fil.coo.answers;
 
+import fil.coo.QuizTest;
+import org.apache.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.fail;
 
-public abstract class AnswerTest {
+public abstract class AnswerTest extends QuizTest {
+
+    private static final Logger logger = Logger.getLogger(AnswerTest.class.getSimpleName());
 
     protected Answer answer;
+
+    @Override
+    protected Logger getLogger() {
+        return logger;
+    }
 
     /**
      * @return an implementation of {@link Answer}. By default, this instance should have empty attributes, or null

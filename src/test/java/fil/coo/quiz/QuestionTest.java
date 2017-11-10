@@ -1,15 +1,19 @@
 package fil.coo.quiz;
 
+import fil.coo.QuizTest;
 import fil.coo.answers.InvalidAnswerException;
 import fil.coo.answers.NumericalAnswer;
 import fil.coo.answers.TextAnswer;
+import org.apache.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
 
-public class QuestionTest {
+public class QuestionTest extends QuizTest {
+
+    private static final Logger logger = Logger.getLogger(QuestionTest.class.getSimpleName());
 
     private int NB_Points2 = 2;
     private int NB_Points5 = 5;
@@ -44,4 +48,8 @@ public class QuestionTest {
         assertEquals(questionWithText.getQuestionText(), QUESTION2);
     }
 
+    @Override
+    protected Logger getLogger() {
+        return logger;
+    }
 }

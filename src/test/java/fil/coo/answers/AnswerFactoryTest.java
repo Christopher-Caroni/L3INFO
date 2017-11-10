@@ -1,12 +1,13 @@
 package fil.coo.answers;
 
+import fil.coo.QuizTest;
 import fil.coo.answers.impl.*;
 import org.apache.log4j.Logger;
 import org.junit.Test;
 
 import static org.junit.Assert.assertTrue;
 
-public class AnswerFactoryTest {
+public class AnswerFactoryTest extends QuizTest {
 
 
     private static final Logger logger = Logger.getLogger(AnswerFactoryTest.class.getSimpleName());
@@ -36,4 +37,8 @@ public class AnswerFactoryTest {
 
     }
 
+    @Override
+    protected Logger getLogger() {
+        return logger;
+    }
 }

@@ -15,6 +15,6 @@ public class NewFileOnRebootAppender extends FileAppender {
     }
 
     private static String prependDate(String filename) {
-        return filename + "_" + LocalDateTime.now().toString();
+        return filename + "_" + LocalDateTime.now().toString().replace(":", ".");
     }
 }
