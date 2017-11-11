@@ -5,6 +5,8 @@ import fil.coo.gui.QuizFrame;
 import fil.coo.quiz.Question;
 import fil.coo.quiz.Quiz;
 
+import javax.swing.*;
+
 public class QuizFrameFactory {
 
     private static final QuizFrameFactory INSTANCE = new QuizFrameFactory();
@@ -20,7 +22,7 @@ public class QuizFrameFactory {
         QuizFrame quizFrame = new QuizFrame(quiz.getNbQuestions());
 
         for (Question question : quiz.getQuestions()) {
-            QuestionPanel questionPanel = QuestionPanelFactory.getInstance().createQuestionPanel(question);
+            QuestionPanel questionPanel = createQuestionPanel(question);
             quizFrame.addQuestionPanel(questionPanel, false);
         }
 
@@ -28,5 +30,10 @@ public class QuizFrameFactory {
         quizFrame.repaint();
 
         return quizFrame;
+    }
+
+    public QuestionPanel createQuestionPanel(Question question) {
+        JPanel answerPanel = question.getAnswer().createAnswerPanel(AnswerPanelFactory.getInstance());
+        return new QuestionPanel(question.getQuestionText(), answerPanel);
     }
 }

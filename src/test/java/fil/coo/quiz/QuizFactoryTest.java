@@ -11,13 +11,13 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.instanceOf;
 import static org.hamcrest.Matchers.is;
 
-public class QuestionFactoryTest extends QuizTest {
+public class QuizFactoryTest extends QuizTest {
 
-    private static final Logger logger = Logger.getLogger(QuestionFactoryTest.class.getSimpleName());
+    private static final Logger logger = Logger.getLogger(QuizFactoryTest.class.getSimpleName());
 
     @Test
     public void testDummyHasRightAnswerTypes() throws IOException {
-        QuestionFactory questionFactory = new QuestionFactory();
+        QuizFactory questionFactory = new QuizFactory();
         Quiz questionnaire = questionFactory.createQuizFromTextFile("resources/dummy.quiz");
 
         assertThat(questionnaire.getNbQuestions(), is(7));

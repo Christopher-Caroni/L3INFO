@@ -24,9 +24,10 @@ public class QuestionPanel extends JPanel {
 
         questionTextArea = new JTextArea(questionText);
         questionTextArea.setLineWrap(true);
-        questionTextArea.setPreferredSize(new Dimension(300, 30));
+        questionTextArea.setPreferredSize(new Dimension(300, 50));
         questionTextArea.setBackground(questionTextPanel.getBackground());
         questionTextArea.setWrapStyleWord(true);
+        questionTextArea.setFocusable(false);
 
         questionTextPanel.setLayout(new FlowLayout());
         questionTextPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));

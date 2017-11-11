@@ -4,7 +4,7 @@ import fil.coo.answers.AnswerFactory;
 
 import java.io.*;
 
-public class QuestionFactory {
+public class QuizFactory {
 
     /**
      * Creates a {@link Question} from raw string inputs
