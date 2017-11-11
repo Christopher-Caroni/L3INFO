@@ -17,15 +17,15 @@ param N_ANNEES := 6;
 /*
   La quantité totale d'engrais bonus disponible
 */
-param KILO_ENGRRAIS_BONUS_DISPO := 500;
+param KILO_ENGRRAIS_BONUS_DISPO >= 0;
 
 /*
   Le rendement en richesse d'un kilo d'engrais bonus
 */
-param RENDEMENT_KILO_ENGRAIS_BONUS := 0.01;
+param RENDEMENT_KILO_ENGRAIS_BONUS >= 0;
 
 /*
-  Les différentes années dépendantes du paramètre N_ANNEES
+  Les années commencant à 1, jusqu'à l'année N_ANNEES.
 */
 set ANNEES := 1 .. N_ANNEES;
 
@@ -33,11 +33,6 @@ set ANNEES := 1 .. N_ANNEES;
   le rendement de chaque legume en tonne/parcelle/an
 */
 param rendement_tonne_parcelle_an {LEGUMES} >= 0;
-
-/*
-  le prix de vente de chaque legume en euro/kg
-*/
-param prix_vente_euro_kg {LEGUMES} >= 0;
 
 /*
   - apport_ou_besoin_net_an[l] > 0: l'apport en richesse du légume l pour un an
@@ -149,15 +144,18 @@ subject to affecte_legume_selon_cycle {p in PARCELLES, l in LEGUMES, a in 2..N_A
 
 data;
 
+param KILO_ENGRRAIS_BONUS_DISPO := 500;
+param RENDEMENT_KILO_ENGRAIS_BONUS := 0.01;
+
 set LEGUMES := fruits feuilles racines gousses engrais_verts;
 set PARCELLES := A B C D E F G;
 
-param :         prix_vente_euro_kg    apport_ou_besoin_net_an      rendement_tonne_parcelle_an :=
-fruits                4.3                  -20.2                          2.7
-feuilles              1.2                  -10.1                          2.6
-racines               2.7                   -5.5                          3.4
-gousses               3.3                    3.5                          0.5
-engrais_verts           0                   25.8                            0;
+param :          apport_ou_besoin_net_an      rendement_tonne_parcelle_an :=
+fruits                  -20.2                          2.7
+feuilles                -10.1                          2.6
+racines                  -5.5                          3.4
+gousses                   3.5                          0.5
+engrais_verts            25.8                            0;
 
 param : richesse_initiale :=
 A						43.2
