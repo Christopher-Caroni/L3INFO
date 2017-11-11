@@ -110,7 +110,7 @@ subject to calcul_richesse_premiere_annee {p in PARCELLE} :
 subject to calcul_richesse_parcelle_annees_suivantes { p in PARCELLE, a in 2..N_ANNEES } :
 	richesse_parcelle_annee[p,a] =
     			     sum {l in LEGUME}
-                  (apport_ou_besoin_net_an[l] * legume_est_affecte_parcelle[l,p,a]) + richesse_parcelle_annee[p, a-1];
+                  (apport_ou_besoin_net_an[l] * legume_est_affecte_parcelle[l, p, a]) + richesse_parcelle_annee[p, a-1];
 
 
 /*
@@ -126,7 +126,7 @@ subject to richesse_positive {p in PARCELLE, a in ANNEE} :
 */
 subject to max_un_legume_par_parcelle {p in PARCELLE, a in ANNEE} :
 	sum{l in LEGUME}
-    legume_est_affecte_parcelle[l,p,a] = 1;
+    legume_est_affecte_parcelle[l, p, a] = 1;
 
 
 /*
@@ -134,21 +134,14 @@ subject to max_un_legume_par_parcelle {p in PARCELLE, a in ANNEE} :
 */
 subject to cultiver_tous_legumes_par_an {l in LEGUME, a in ANNEE} :
 	sum {p in PARCELLE}
-    legume_est_affecte_parcelle[l,p,a] >= 1;
-
-
-/*
-  Verifie, pour chaque legume et chaque parcelle, s'il est possible de les cultiver lors de la première année
-*/
-subject to peut_cultiver_legume_premiere_annee {p in PARCELLE, l in LEGUME} :
-	richesse_initiale[p] + apport_ou_besoin_net_an[l] * legume_est_affecte_parcelle[l,p,1] + kilos_engrais_bonus_utilise[p]*0.01 >= 0;
-
+    legume_est_affecte_parcelle[l, p, a] >= 1;
 
 /*
-  Verifie, pour chaque legume et chaque parcelle, s'il esy possible de les cultiver lors des autres années
+  Pour une année a (avec a>1), et une année précédente a-1, pour une porcelle p, le légume cultivé à l'année a doit être le prochain légume
+  dans le cycle selon le légume cultivé à l'année a-1
 */
-subject to peut_cultiver_legume_autres_annees {p in PARCELLE, l in LEGUME, a in 2..N_ANNEES} :
-	legume_est_affecte_parcelle[next(l),p,a] = legume_est_affecte_parcelle[l,p,a-1];
+subject to affecte_legume_selon_cycle {p in PARCELLE, l in LEGUME, a in 2..N_ANNEES} :
+	legume_est_affecte_parcelle[next(l), p, a] = legume_est_affecte_parcelle[l, p, a-1];
 
 data;
 
