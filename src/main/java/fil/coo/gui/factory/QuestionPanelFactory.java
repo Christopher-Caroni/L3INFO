@@ -17,7 +17,10 @@ public class QuestionPanelFactory {
 
     public QuestionPanel createQuestionPanel(Question question, Answer answer) {
         QuestionPanel questionPanel = new QuestionPanel();
+
+        questionPanel.setQuestion(question.getQuestionText(), false);
         questionPanel.setAnswerPanel(answer.createAnswerPanel(AnswerPanelFactory.getInstance()));
+
         return questionPanel;
     }
 }

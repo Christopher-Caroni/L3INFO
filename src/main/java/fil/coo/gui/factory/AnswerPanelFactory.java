@@ -3,6 +3,7 @@ package fil.coo.gui.factory;
 import fil.coo.answers.impl.*;
 import fil.coo.gui.AnswerPanel;
 
+import javax.swing.*;
 import java.awt.*;
 
 public class AnswerPanelFactory {
@@ -28,13 +29,25 @@ public class AnswerPanelFactory {
     }
 
     public AnswerPanel createAnswerPanel(YesNoAnswer answer) {
-        // TODO
-        return createTextAnswerPanel();
+        AnswerPanel answerPanel = new AnswerPanel();
+
+        JRadioButton yesButton = new JRadioButton("yes");
+        JRadioButton noButton = new JRadioButton("no");
+
+        answerPanel.add(yesButton);
+        answerPanel.add(noButton);
+
+        return answerPanel;
     }
 
     public AnswerPanel createAnswerPanel(NumericalAnswer answer) {
-        // TODO
-        return createTextAnswerPanel();
+        AnswerPanel answerPanel = new AnswerPanel();
+
+        JSpinner spinner = new JSpinner();
+
+        answerPanel.add(spinner);
+
+        return answerPanel;
     }
 
     public AnswerPanel createAnswerPanel(MultipleChoiceAnswer answer) {
