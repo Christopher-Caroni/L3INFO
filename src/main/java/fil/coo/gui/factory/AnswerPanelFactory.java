@@ -1,7 +1,6 @@
 package fil.coo.gui.factory;
 
 import fil.coo.answers.impl.*;
-import fil.coo.gui.AnswerPanel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -18,50 +17,50 @@ public class AnswerPanelFactory {
         return INSTANCE;
     }
 
-    private AnswerPanel createTextAnswerPanel() {
-        AnswerPanel answerPanel = new AnswerPanel();
+    private JPanel createTextJPanel() {
+        JPanel panel = new JPanel();
 
         TextArea textArea = new TextArea();
         textArea.setPreferredSize(new Dimension(200, 40));
 
-        answerPanel.add(textArea);
-        return answerPanel;
+        panel.add(textArea);
+        return panel;
     }
 
-    public AnswerPanel createAnswerPanel(TextAnswer answer) {
-        return createTextAnswerPanel();
+    public JPanel createAnswerPanel(TextAnswer answer) {
+        return createTextJPanel();
     }
 
-    public AnswerPanel createAnswerPanel(YesNoAnswer answer) {
-        AnswerPanel answerPanel = new AnswerPanel();
+    public JPanel createAnswerPanel(YesNoAnswer answer) {
+        JPanel panel = new JPanel();
 
         JRadioButton yesButton = new JRadioButton("yes");
         JRadioButton noButton = new JRadioButton("no");
 
-        answerPanel.add(yesButton);
-        answerPanel.add(noButton);
+        panel.add(yesButton);
+        panel.add(noButton);
 
-        return answerPanel;
+        return panel;
     }
 
-    public AnswerPanel createAnswerPanel(NumericalAnswer answer) {
-        AnswerPanel answerPanel = new AnswerPanel();
+    public JPanel createAnswerPanel(NumericalAnswer answer) {
+        JPanel panel = new JPanel();
 
         JSpinner spinner = new JSpinner();
         spinner.setPreferredSize(new Dimension(100, 40));
 
-        answerPanel.add(spinner);
+        panel.add(spinner);
 
-        return answerPanel;
+        return panel;
     }
 
-    public AnswerPanel createAnswerPanel(MultipleChoiceAnswer answer) {
+    public JPanel createAnswerPanel(MultipleChoiceAnswer answer) {
         // TODO
-        return createTextAnswerPanel();
+        return createTextJPanel();
     }
 
-    public AnswerPanel createAnswerPanel(MultiAnswer answer) {
+    public JPanel createAnswerPanel(MultiAnswer answer) {
         // TODO
-        return createTextAnswerPanel();
+        return createTextJPanel();
     }
 }

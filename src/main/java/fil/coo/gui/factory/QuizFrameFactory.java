@@ -1,6 +1,6 @@
 package fil.coo.gui.factory;
 
-import fil.coo.gui.QuestionPanel;
+import fil.coo.gui.panels.QuestionPanel;
 import fil.coo.gui.QuizFrame;
 import fil.coo.quiz.Question;
 import fil.coo.quiz.Quiz;

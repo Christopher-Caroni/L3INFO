@@ -1,4 +1,4 @@
-package fil.coo.gui;
+package fil.coo.gui.panels;
 
 import javax.swing.*;
 import java.awt.*;
@@ -9,9 +9,9 @@ public class QuestionPanel extends JPanel {
     private JPanel questionTextPanel;
     private JTextArea questionTextArea;
 
-    private AnswerPanel answerPanel;
+    private JPanel answerPanel;
 
-    public QuestionPanel(String questionText, AnswerPanel answerPanel) {
+    public QuestionPanel(String questionText, JPanel answerPanel) {
         initQuestion(questionText);
         initAnswer(answerPanel);
 
@@ -36,7 +36,7 @@ public class QuestionPanel extends JPanel {
         add(questionTextPanel);
     }
 
-    private void initAnswer(AnswerPanel answerPanel) {
+    private void initAnswer(JPanel answerPanel) {
         this.answerPanel = answerPanel;
         this.answerPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 

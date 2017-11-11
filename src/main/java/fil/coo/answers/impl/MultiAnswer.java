@@ -2,9 +2,9 @@ package fil.coo.answers.impl;
 
 import fil.coo.answers.Answer;
 import fil.coo.answers.InvalidAnswerException;
-import fil.coo.gui.AnswerPanel;
 import fil.coo.gui.factory.AnswerPanelFactory;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -52,7 +52,7 @@ public class MultiAnswer extends Answer {
     }
 
     @Override
-    public AnswerPanel createAnswerPanel(AnswerPanelFactory answerPanelFactory) {
+    public JPanel createAnswerPanel(AnswerPanelFactory answerPanelFactory) {
         return answerPanelFactory.createAnswerPanel(this);
     }
 

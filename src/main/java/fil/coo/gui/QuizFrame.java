@@ -1,5 +1,6 @@
 package fil.coo.gui;
 
+import fil.coo.gui.panels.QuestionPanel;
 import org.apache.log4j.Logger;
 
 import javax.swing.*;
