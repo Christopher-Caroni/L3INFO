@@ -1,3 +1,5 @@
+reset;
+option solver gurobi;
 
 /*
   Les légumes suivent un cycle
