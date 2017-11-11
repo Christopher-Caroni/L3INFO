@@ -17,12 +17,15 @@ public class QuizFrameFactory {
     }
 
     public QuizFrame createQuizFrame(Quiz quiz) {
-        QuizFrame quizFrame = new QuizFrame();
+        QuizFrame quizFrame = new QuizFrame(quiz.getNbQuestions());
 
         for (Question question : quiz.getQuestions()) {
             QuestionPanel questionPanel = QuestionPanelFactory.getInstance().createQuestionPanel(question, question.getAnswer());
-            quizFrame.addQuestionPanel(questionPanel);
+            quizFrame.addQuestionPanel(questionPanel, false);
         }
+
+        quizFrame.pack();
+        quizFrame.repaint();
 
         return quizFrame;
     }
