@@ -12,7 +12,8 @@ public class QuizFrame extends JFrame {
 
     private Dimension frameDim;
 
-    private JPanel rootPanel;
+    private JScrollPane scrollPane;
+
     private JPanel questionsPanel;
 
     public QuizFrame(int nbQuestions) {
@@ -29,8 +30,11 @@ public class QuizFrame extends JFrame {
     }
 
     private void setupRootPanel(int nbQuestions) {
-        rootPanel = new JPanel();
+        JPanel rootPanel = new JPanel();
         rootPanel.setLayout(new BorderLayout());
+
+        scrollPane = new JScrollPane(rootPanel);
+        add(scrollPane);
 
         questionsPanel = new JPanel();
         questionsPanel.setLayout(new GridLayout(nbQuestions, 1));
@@ -38,7 +42,6 @@ public class QuizFrame extends JFrame {
         rootPanel.add(Box.createHorizontalGlue(), BorderLayout.LINE_START);
         rootPanel.add(questionsPanel, BorderLayout.CENTER);
         rootPanel.add(Box.createHorizontalGlue(), BorderLayout.LINE_END);
-        add(rootPanel);
     }
 
     protected void setBasicProperties() {
