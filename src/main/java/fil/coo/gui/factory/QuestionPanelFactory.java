@@ -1,6 +1,5 @@
 package fil.coo.gui.factory;
 
-import fil.coo.answers.Answer;
 import fil.coo.gui.QuestionPanel;
 import fil.coo.quiz.Question;
 
@@ -15,11 +14,8 @@ public class QuestionPanelFactory {
         return INSTANCE;
     }
 
-    public QuestionPanel createQuestionPanel(Question question, Answer answer) {
-        QuestionPanel questionPanel = new QuestionPanel();
-
-        questionPanel.setQuestion(question.getQuestionText(), false);
-        questionPanel.setAnswerPanel(answer.createAnswerPanel(AnswerPanelFactory.getInstance()));
+    public QuestionPanel createQuestionPanel(Question question) {
+        QuestionPanel questionPanel = new QuestionPanel(question.getQuestionText(), question.getAnswer().createAnswerPanel(AnswerPanelFactory.getInstance()));
 
         return questionPanel;
     }

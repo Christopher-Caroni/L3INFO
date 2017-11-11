@@ -6,31 +6,40 @@ import java.awt.*;
 public class QuestionPanel extends JPanel {
 
 
-    private JLabel questionLabel;
+    private JPanel questionTextPanel;
+    private JTextArea questionTextArea;
+
     private AnswerPanel answerPanel;
 
-    public QuestionPanel() {
-        questionLabel = new JLabel();
-        answerPanel = new AnswerPanel();
-
-        add(questionLabel);
-        add(answerPanel);
+    public QuestionPanel(String questionText, AnswerPanel answerPanel) {
+        initQuestion(questionText);
+        initAnswer(answerPanel);
 
         setLayout(new GridLayout(1, 2));
+        setBorder(BorderFactory.createLineBorder(Color.RED));
     }
 
-    public void setAnswerPanel(AnswerPanel answerPanel) {
-        if (answerPanel != null) {
-            this.remove(answerPanel);
-        }
+    private void initQuestion(String questionText) {
+        questionTextPanel = new JPanel();
+
+        questionTextArea = new JTextArea(questionText);
+        questionTextArea.setLineWrap(true);
+        questionTextArea.setPreferredSize(new Dimension(300, 30));
+        questionTextArea.setBackground(questionTextPanel.getBackground());
+        questionTextArea.setWrapStyleWord(true);
+
+        questionTextPanel.setLayout(new FlowLayout());
+        questionTextPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+
+
+        questionTextPanel.add(questionTextArea);
+        add(questionTextPanel);
+    }
+
+    private void initAnswer(AnswerPanel answerPanel) {
         this.answerPanel = answerPanel;
-        add(answerPanel);
-    }
+        this.answerPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
-    public void setQuestion(String questionText, boolean refresh) {
-        questionLabel.setText(questionText);
-        if (refresh) {
-            repaint();
-        }
+        add(this.answerPanel);
     }
 }

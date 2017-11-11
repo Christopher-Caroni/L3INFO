@@ -20,7 +20,11 @@ public class AnswerPanelFactory {
 
     private AnswerPanel createTextAnswerPanel() {
         AnswerPanel answerPanel = new AnswerPanel();
-        answerPanel.add(new TextArea());
+
+        TextArea textArea = new TextArea();
+        textArea.setPreferredSize(new Dimension(200, 40));
+
+        answerPanel.add(textArea);
         return answerPanel;
     }
 
@@ -44,6 +48,7 @@ public class AnswerPanelFactory {
         AnswerPanel answerPanel = new AnswerPanel();
 
         JSpinner spinner = new JSpinner();
+        spinner.setPreferredSize(new Dimension(100, 40));
 
         answerPanel.add(spinner);
 

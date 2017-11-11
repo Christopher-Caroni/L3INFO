@@ -11,10 +11,14 @@ public class QuizFrame extends JFrame {
 
     private Dimension frameDim;
 
+    private JPanel rootPanel;
+    private JPanel questionsPanel;
+
     public QuizFrame(int nbQuestions) {
 
-        setBasicProperties(nbQuestions);
+        setBasicProperties();
 
+        setupRootPanel(nbQuestions);
 
 //        pack() must come before setLocationRelativeTo
         pack();
@@ -23,17 +27,30 @@ public class QuizFrame extends JFrame {
         setVisible(true);
     }
 
-    protected void setBasicProperties(int nbQuestions) {
+    private void setupRootPanel(int nbQuestions) {
+        rootPanel = new JPanel();
+        rootPanel.setLayout(new BorderLayout());
+
+        questionsPanel = new JPanel();
+        questionsPanel.setLayout(new GridLayout(nbQuestions, 1));
+
+        rootPanel.add(Box.createHorizontalGlue(), BorderLayout.LINE_START);
+        rootPanel.add(questionsPanel, BorderLayout.CENTER);
+        rootPanel.add(Box.createHorizontalGlue(), BorderLayout.LINE_END);
+        add(rootPanel);
+    }
+
+    protected void setBasicProperties() {
         setTitle("Quiz");
-        frameDim = new Dimension(600, 600);
+        frameDim = new Dimension(800, 800);
         setPreferredSize(frameDim);
 
-        setLayout(new GridLayout(nbQuestions, 1));
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
 
     public void addQuestionPanel(QuestionPanel questionPanel, boolean refresh) {
         logger.debug("Added question panel");
-        add(questionPanel);
+        questionsPanel.add(questionPanel);
 
         if (refresh) {
             pack();

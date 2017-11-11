@@ -20,7 +20,7 @@ public class QuizFrameFactory {
         QuizFrame quizFrame = new QuizFrame(quiz.getNbQuestions());
 
         for (Question question : quiz.getQuestions()) {
-            QuestionPanel questionPanel = QuestionPanelFactory.getInstance().createQuestionPanel(question, question.getAnswer());
+            QuestionPanel questionPanel = QuestionPanelFactory.getInstance().createQuestionPanel(question);
             quizFrame.addQuestionPanel(questionPanel, false);
         }
 
