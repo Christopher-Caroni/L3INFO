@@ -67,7 +67,7 @@ subject to cultiver_tous_legumes_par_an {a in ANNEES, l in LEGUMES} :
   	est_affecte[a, l, p] >= 1;
 
 /*
-Tous les ans, une parcelle doit être cultivée, et par un seul légume au maximum.
+Tous les ans, chaque parcelle doit être cultivée, et par un seul légume au maximum.
 */
 subject to max_un_legume_cultive_par_parcelle {p in PARCELLES, a in ANNEES} :
   sum {l in LEGUMES}

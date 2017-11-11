@@ -20,6 +20,11 @@ param N_ANNEES = 6;
 param KILO_ENGRRAIS_BONUS_DISPO = 500;
 
 /*
+  Le rendement en richesse d'un kilo d'engrais bonus
+*/
+param RENDEMENT_KILO_ENGRAIS_BONUS = 0.01;
+
+/*
   Les différentes années dépendantes du paramètre N_ANNEES
 */
 set ANNEE := 1 .. N_ANNEES;
@@ -35,10 +40,10 @@ param rendement_tonne_parcelle_an {LEGUME};
 param prix_vente_euro_kg {LEGUME};
 
 /*
-  - apport_besoin_net_an[l] > 0: l'apport en richesse du légume l pour un an
-  - apport_besoin_net_an[l] < 0: Le besoin en richese du légume l pour un an
+  - apport_ou_besoin_net_an[l] > 0: l'apport en richesse du légume l pour un an
+  - apport_ou_besoin_net_an[l] < 0: Le besoin en richese du légume l pour un an
 */
-param apport_besoin_net_an {LEGUME};
+param apport_ou_besoin_net_an {LEGUME};
 
 /*
   la richesse initiale de chaque parcelle au début de la première année.
@@ -70,14 +75,14 @@ var richesse_parcelle_annee {PARCELLE, ANNEE};
 /*
   On maximise la richesse de la parcelle la plus pauvre. Voir la première contrainte.
 */
-maximize minimum_richesse_parcelle_sixième_annee :
+maximize minimum_richesse_parcelle_derniere_annee :
 	 minimum_richesse_parcelle;
 
 
 /*
   On calcule la richese de la parcelle la plus pauvre à l'année N_ANNEES (dernière année).
 */
-subject to calcul_minimum_richesse_annee_six {p in PARCELLE}:
+subject to calcul_minimum_richesse_derniere_annee {p in PARCELLE}:
 	minimum_richesse_parcelle <= richesse_parcelle_annee[p, N_ANNEES];
 
 
@@ -90,48 +95,53 @@ subject to engrais_max_premiere_annee :
 
 
 /*
-  Calcul de la richesse des parcelles lors de la première année (avec utilisation d'engrais).
+	Pour l'année initiale, la richesse de toutes les parcelles est égale à la richesse intiale,
+	plus l'apport/besoin net du légume cultivé, plus la richesse apporté par l'engrais bonus utilisé.
 */
-subject to calcul_richesse_parcelle_avec_engrais { p in PARCELLE } :
-	richesse_parcelle_annee[p,1] =
-				     sum {l in LEGUME} (apport_besoin_net_an[l] * legume_est_affecte_parcelle[l,p,1]) + kilos_engrais_bonus_utilise[p] * 0.01
-				     + richesse_initiale[p];
+subject to calcul_richesse_premiere_annee {p in PARCELLE} :
+	richesse_parcelle_annee[p, 1] =
+  				     sum {l in LEGUME}
+                 (apport_ou_besoin_net_an[l] * legume_est_affecte_parcelle[l, p, 1]) + (kilos_engrais_bonus_utilise[p] * RENDEMENT_KILO_ENGRAIS_BONUS) + richesse_initiale[p];
 
 /*
-  Calcul de la richesse des parcelles lors des autres années (sans utilisation d'engrais).
+  Pour chaque année (a>1), la richesse d'une parcelle est égale à la richesse de la parcelle
+  à l'année (a-1) plus l'apport/besoin net du légume cultivé à l'année courante.
 */
-subject to calcul_richesse_parcelle_sans_engrais { p in PARCELLE, a in 2..N_ANNEES } :
+subject to calcul_richesse_parcelle_annees_suivantes { p in PARCELLE, a in 2..N_ANNEES } :
 	richesse_parcelle_annee[p,a] =
-				     sum {l in LEGUME}
-                (apport_besoin_net_an[l] * legume_est_affecte_parcelle[l,p,a]) + richesse_parcelle_annee[p, a-1];
+    			     sum {l in LEGUME}
+                  (apport_ou_besoin_net_an[l] * legume_est_affecte_parcelle[l,p,a]) + richesse_parcelle_annee[p, a-1];
 
 
 /*
-  On verifie que la richesse de la parcelle est positive
+  La richesse d'une parcelle doit toujours être positive, sinon cela sous entend qu'on a cultivé un légume
+  alors que la parcelle n'avait pas assez de richese
 */
 subject to richesse_positive {p in PARCELLE, a in ANNEE} :
 	richesse_parcelle_annee[p, a] >= 0;
 
 
 /*
-  On s'assure qu'un seul legume est planté par parcelle lors d'une même année.
+  Tous les ans, chaque parcelle doit être cultivée, et par un seul légume au maximum.
 */
-subject to un_legume_par_parcelle {p in PARCELLE, a in ANNEE} :
-	sum{l in LEGUME} legume_est_affecte_parcelle[l,p,a] = 1;
+subject to max_un_legume_par_parcelle {p in PARCELLE, a in ANNEE} :
+	sum{l in LEGUME}
+    legume_est_affecte_parcelle[l,p,a] = 1;
 
 
 /*
-  Chaque type de légume doit être cultivé au moins une fois par année.
+  Chaque année, pour tous les légumes, ce légume doit être cultivée au minimum une fois.
 */
-subject to chaque_type_legume_utilise_au_moins_une_fois {l in LEGUME, a in ANNEE} :
-	sum {p in PARCELLE} legume_est_affecte_parcelle[l,p,a] >= 1;
+subject to cultiver_tous_legumes_par_an {l in LEGUME, a in ANNEE} :
+	sum {p in PARCELLE}
+    legume_est_affecte_parcelle[l,p,a] >= 1;
 
 
 /*
   Verifie, pour chaque legume et chaque parcelle, s'il est possible de les cultiver lors de la première année
 */
 subject to peut_cultiver_legume_premiere_annee {p in PARCELLE, l in LEGUME} :
-	richesse_initiale[p] + apport_besoin_net_an[l] * legume_est_affecte_parcelle[l,p,1] + kilos_engrais_bonus_utilise[p]*0.01 >= 0;
+	richesse_initiale[p] + apport_ou_besoin_net_an[l] * legume_est_affecte_parcelle[l,p,1] + kilos_engrais_bonus_utilise[p]*0.01 >= 0;
 
 
 /*
@@ -145,7 +155,7 @@ data;
 set LEGUME := fruits feuilles racines gousses engrais_verts;
 set PARCELLE := A B C D E F G;
 
-param :         prix_vente_euro_kg    apport_besoin_net_an      rendement_tonne_parcelle_an :=
+param :         prix_vente_euro_kg    apport_ou_besoin_net_an      rendement_tonne_parcelle_an :=
 fruits                4.3                  -20.2                          2.7
 feuilles              1.2                  -10.1                          2.6
 racines               2.7                   -5.5                          3.4
