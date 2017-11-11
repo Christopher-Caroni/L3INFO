@@ -131,7 +131,7 @@ subject to cultiver_tous_legumes_par_an {l in LEGUMES, a in ANNEES} :
   dans le cycle selon le légume cultivé à l'année a-1
 */
 subject to affecte_legume_selon_cycle {p in PARCELLES, l in LEGUMES, a in 2..N_ANNEES} :
-	legume_est_affecte_parcelle[next(l), p, a] = legume_est_affecte_parcelle[l, p, a-1];
+	legume_est_affecte_parcelle[l, p, a] = legume_est_affecte_parcelle[prev(l), p, a-1];
 
 
 data;
