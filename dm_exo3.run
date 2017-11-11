@@ -116,19 +116,20 @@ subject to richesse_cycle {a in ANNEES, p in PARCELLES, l in LEGUMES} :
 
 data;
 
-param N_ANNEES := 6;
+param N_ANNEES := 1;
 param kilo_engrais_bonus_dispo := 500;
 param rendement_engrais_richesse_par_kilo = 0.01;
 
 set PARCELLES := A B C D E F G;
 set LEGUMES := fruit feuille racine gousse engrais;
 
-param :     rendement   prix_vente    besoin_richesse  apport_richesse   :=
-fruit         2.7           4.3             20.2              0
-feuille       2.6           1.2             10.1              0
-racine        3.4           2.7             5.5               0
-gousse        0.5           3.3               0             3.5
-engrais         0             0               0            25.8;
+
+param :     rendement_tonne_parcelle_an   prix_vente_euro_kg    besoin_richesse_an  apport_richesse_an   :=
+fruit                2.7                          4.3                  20.2                 0
+feuille              2.6                          1.2                  10.1                 0
+racine               3.4                          2.7                   5.5                 0
+gousse               0.5                          3.3                     0               3.5
+engrais                0                            0                     0              25.8;
 
 param : richesse_initiale :=
 A						43.2
