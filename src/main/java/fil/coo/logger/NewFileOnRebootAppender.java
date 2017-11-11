@@ -1,13 +1,10 @@
 package fil.coo.logger;
 
-import org.apache.log4j.FileAppender;
+import org.apache.log4j.RollingFileAppender;
 
 import java.time.LocalDateTime;
 
-public class NewFileOnRebootAppender extends FileAppender {
-
-    public NewFileOnRebootAppender() {
-    }
+public class NewFileOnRebootAppender extends RollingFileAppender {
 
     @Override
     public void setFile(String file) {
@@ -15,6 +12,12 @@ public class NewFileOnRebootAppender extends FileAppender {
     }
 
     private static String prependDate(String filename) {
-        return filename + "_" + LocalDateTime.now().toString().replace(":", ".");
+        String date = "_" + LocalDateTime.now().toString().replace(":", ".");
+
+        StringBuilder filenameWithDate = new StringBuilder(filename);
+        int extensionIndex = filename.indexOf(".log");
+        filenameWithDate.insert(extensionIndex, date);
+
+        return filenameWithDate.toString();
     }
 }
