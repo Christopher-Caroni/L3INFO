@@ -1,23 +1,17 @@
 package fil.coo.gui.view;
 
-import fil.coo.model.QuestionModel;
-
-import java.awt.*;
-
 /**
  * Defines the behaviour that our question views must implement
  */
 public abstract class AbstractQuestionView implements IView {
 
     protected AbstractAnswerView answerView;
-    private QuestionModel questionModel;
 
     /**
-     * @param questionModel the model from which to create this question
-     * @param answerView    the specific {@link AbstractAnswerView} that this view should hold
+     * @param questionText the model from which to create this question
+     * @param answerView   the specific {@link AbstractAnswerView} that this view should hold
      */
-    public AbstractQuestionView(QuestionModel questionModel, AbstractAnswerView answerView) {
-        this.questionModel = questionModel;
+    public AbstractQuestionView(String questionText, AbstractAnswerView answerView) {
         this.answerView = answerView;
     }
 

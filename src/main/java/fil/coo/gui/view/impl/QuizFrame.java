@@ -11,10 +11,9 @@ public class QuizFrame extends AbstractQuizView {
 
     private static final Logger logger = Logger.getLogger(QuizFrame.class.getSimpleName());
 
-    private JFrame quizFrame;
+    private JFrame rootFrame;
 
     private Dimension frameDim;
-    private JScrollPane scrollPane;
     private JPanel questionsPanel;
     private JPanel mainPanel;
     private JButton validateButton;
@@ -22,20 +21,23 @@ public class QuizFrame extends AbstractQuizView {
     public QuizFrame(int nbQuestions) {
         super(nbQuestions);
 
-        quizFrame = new JFrame();
+        rootFrame = new JFrame();
 
         setBasicProperties();
         setupRootPanel(nbQuestions);
         doFinalPrep();
     }
 
+    /**
+     * Sets properties such as title, layout, dimension...
+     */
     private void setBasicProperties() {
-        quizFrame.setTitle("Quiz");
+        rootFrame.setTitle("Quiz");
         frameDim = new Dimension(800, 800);
-        quizFrame.setPreferredSize(frameDim);
-        quizFrame.setLayout(new BorderLayout());
+        rootFrame.setPreferredSize(frameDim);
+        rootFrame.setLayout(new BorderLayout());
 
-        quizFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        rootFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
 
     /**
@@ -48,10 +50,14 @@ public class QuizFrame extends AbstractQuizView {
         setupValidatePanel();
     }
 
+    /**
+     * Packs the frame and sets its location to the middle of the screen.
+     * This should be called once all the adding of components is finished
+     */
     private void doFinalPrep() {
         //        pack() must come before setLocationRelativeTo
-        quizFrame.pack();
-        quizFrame.setLocationRelativeTo(null);
+        rootFrame.pack();
+        rootFrame.setLocationRelativeTo(null);
     }
 
     /**
@@ -62,7 +68,7 @@ public class QuizFrame extends AbstractQuizView {
         validateButton = new JButton("Validate");
         validatePanel.add(validateButton);
 
-        quizFrame.add(validatePanel, BorderLayout.SOUTH);
+        rootFrame.add(validatePanel, BorderLayout.SOUTH);
     }
 
     /**
@@ -74,8 +80,8 @@ public class QuizFrame extends AbstractQuizView {
         mainPanel = new JPanel();
         mainPanel.setLayout(new BorderLayout());
 
-        scrollPane = new JScrollPane(mainPanel);
-        quizFrame.add(scrollPane, BorderLayout.CENTER);
+        JScrollPane scrollPane = new JScrollPane(mainPanel);
+        rootFrame.add(scrollPane, BorderLayout.CENTER);
 
         setupQuestionsPanel(nbQuestions);
         setupMainPanel();
@@ -102,26 +108,27 @@ public class QuizFrame extends AbstractQuizView {
 
     /**
      * Adds a {@link QuestionPanel} to this frame
-     *  @param questionView the panel to add
-     * @param refresh       if this frame should repaint right away
+     *
+     * @param questionView the panel to add
+     * @param refresh      if this frame should repaint right away
      */
     public void addQuestionPanel(AbstractQuestionView questionView, boolean refresh) {
         logger.debug("Added question panel");
         questionsPanel.add(questionView.getView());
 
         if (refresh) {
-            quizFrame.pack();
-            quizFrame.repaint();
+            rootFrame.pack();
+            rootFrame.repaint();
         }
     }
 
     @Override
     public void setVisible(boolean visible) {
-        quizFrame.setVisible(visible);
+        rootFrame.setVisible(visible);
     }
 
     @Override
     public Component getView() {
-        return quizFrame;
+        return rootFrame;
     }
 }

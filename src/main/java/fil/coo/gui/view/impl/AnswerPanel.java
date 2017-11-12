@@ -9,17 +9,17 @@ import java.awt.*;
 
 public class AnswerPanel extends AbstractAnswerView {
 
-    private JPanel answerPanel;
+    private JPanel rootPanel;
 
     public AnswerPanel(IAnswerController answerController) {
         super(answerController);
 
-        answerPanel = new JPanel();
+        rootPanel = new JPanel();
     }
 
     @Override
     public void add(Component component) {
-        answerPanel.add(component);
+        rootPanel.add(component);
     }
 
     @Override
@@ -30,11 +30,11 @@ public class AnswerPanel extends AbstractAnswerView {
 
     @Override
     public void setBorder(Border border) {
-        answerPanel.setBorder(border);
+        rootPanel.setBorder(border);
     }
 
     @Override
     public Component getView() {
-        return answerPanel;
+        return rootPanel;
     }
 }

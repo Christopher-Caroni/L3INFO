@@ -1,7 +1,7 @@
 package fil.coo.gui.view.impl;
 
-import fil.coo.gui.view.AbstractQuestionView;
 import fil.coo.gui.view.AbstractAnswerView;
+import fil.coo.gui.view.AbstractQuestionView;
 import fil.coo.model.QuestionModel;
 
 import javax.swing.*;
@@ -9,49 +9,76 @@ import java.awt.*;
 
 public class QuestionPanel extends AbstractQuestionView {
 
-    private JPanel questionPanel;
+    private JPanel rootPanel;
 
     private JPanel questionTextPanel;
-    private JTextArea questionTextArea;
 
 
-    public QuestionPanel(QuestionModel questionModel, AbstractAnswerView answerView) {
-        super(questionModel, answerView);
+    public QuestionPanel(String questionText, AbstractAnswerView answerView) {
+        super(questionText, answerView);
 
-        questionPanel = new JPanel();
-
-        initQuestion(questionModel.getQuestionText());
+        initRootPanel();
+        initQuestionView(questionText);
         initAnswerView();
-
-        questionPanel.setLayout(new GridLayout(1, 2));
-        questionPanel.setBorder(BorderFactory.createLineBorder(Color.RED));
     }
 
-    private void initQuestion(String questionText) {
-        questionTextPanel = new JPanel();
+    /**
+     * Initialises the root view: here {@link #rootPanel}
+     */
+    private void initRootPanel() {
+        rootPanel = new JPanel();
+        rootPanel.setLayout(new GridLayout(1, 2));
+        rootPanel.setBorder(BorderFactory.createLineBorder(Color.RED));
+    }
 
-        questionTextArea = new JTextArea(questionText);
+    /**
+     * Initialises the panel holding the question and then adds it to {@link #rootPanel}
+     *
+     * @param questionText the text of the question
+     */
+    private void initQuestionView(String questionText) {
+        initQuestionPanel();
+        initQuestionText(questionText);
+
+        rootPanel.add(questionTextPanel);
+    }
+
+    /**
+     * Initialises the panel that holds the real question as in {@link #initQuestionText(String)}
+     */
+    private void initQuestionPanel() {
+        questionTextPanel = new JPanel();
+        questionTextPanel.setLayout(new FlowLayout());
+        questionTextPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+    }
+
+    /**
+     * Initialises what <b>directly</b> represents the question: {@link JTextArea}
+     * and adds it to {@link #questionTextPanel}
+     *
+     * @param questionText the text of the question
+     */
+    private void initQuestionText(String questionText) {
+        JTextArea questionTextArea = new JTextArea(questionText);
         questionTextArea.setLineWrap(true);
         questionTextArea.setPreferredSize(new Dimension(300, 50));
         questionTextArea.setBackground(questionTextPanel.getBackground());
         questionTextArea.setWrapStyleWord(true);
         questionTextArea.setFocusable(false);
 
-        questionTextPanel.setLayout(new FlowLayout());
-        questionTextPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-
-
         questionTextPanel.add(questionTextArea);
-        questionPanel.add(questionTextPanel);
     }
 
+    /**
+     * Sets up additional treatment of the {@link #answerView} and then adds it to {@link #rootPanel}
+     */
     private void initAnswerView() {
         this.answerView.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        questionPanel.add(this.answerView.getView());
+        rootPanel.add(this.answerView.getView());
     }
 
     @Override
     public Component getView() {
-        return questionPanel;
+        return rootPanel;
     }
 }

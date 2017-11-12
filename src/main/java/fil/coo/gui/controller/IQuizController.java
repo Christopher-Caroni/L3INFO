@@ -20,6 +20,12 @@ public abstract class IQuizController {
      * When the submit button is clicked: validates all user input
      */
     protected void onSubmit() {
+
+        /*
+        TODO
+        refactor the ask() in QuizModel to reuse it here with a list of userAnswers
+         */
+
         List<String> userAnswers = quizView.getUserAnswerInput();
         Iterator<String> userAnswerIterator = userAnswers.iterator();
 
