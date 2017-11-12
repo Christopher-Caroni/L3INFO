@@ -2,8 +2,7 @@ package fil.coo.answers.impl;
 
 import fil.coo.answers.InvalidAnswerException;
 import fil.coo.gui.factory.AnswerPanelFactory;
-
-import javax.swing.*;
+import fil.coo.gui.panels.AnswerPanel;
 
 public class NumericalAnswer extends SingleAnswer {
 
@@ -31,7 +30,7 @@ public class NumericalAnswer extends SingleAnswer {
     }
 
     @Override
-    public JPanel createAnswerPanel(AnswerPanelFactory answerPanelFactory) {
+    public AnswerPanel createAnswerPanel(AnswerPanelFactory answerPanelFactory) {
         return answerPanelFactory.createAnswerPanel(this);
     }
 }

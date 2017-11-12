@@ -1,6 +1,7 @@
 package fil.coo.gui.factory;
 
 import fil.coo.answers.impl.*;
+import fil.coo.gui.panels.AnswerPanel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -17,8 +18,8 @@ public class AnswerPanelFactory {
         return INSTANCE;
     }
 
-    private JPanel createTextJPanel() {
-        JPanel panel = new JPanel();
+    private AnswerPanel createTextJPanel() {
+        AnswerPanel panel = new AnswerPanel();
 
         TextArea textArea = new TextArea();
         textArea.setPreferredSize(new Dimension(200, 40));
@@ -31,8 +32,8 @@ public class AnswerPanelFactory {
         return createTextJPanel();
     }
 
-    public JPanel createAnswerPanel(YesNoAnswer answer) {
-        JPanel panel = new JPanel();
+    public AnswerPanel createAnswerPanel(YesNoAnswer answer) {
+        AnswerPanel panel = new AnswerPanel();
 
         JRadioButton yesButton = new JRadioButton("yes");
         JRadioButton noButton = new JRadioButton("no");
@@ -44,7 +45,7 @@ public class AnswerPanelFactory {
     }
 
     public JPanel createAnswerPanel(NumericalAnswer answer) {
-        JPanel panel = new JPanel();
+        AnswerPanel panel = new AnswerPanel();
 
         JSpinner spinner = new JSpinner();
         spinner.setPreferredSize(new Dimension(100, 40));
@@ -54,12 +55,12 @@ public class AnswerPanelFactory {
         return panel;
     }
 
-    public JPanel createAnswerPanel(MultipleChoiceAnswer answer) {
+    public AnswerPanel createAnswerPanel(MultipleChoiceAnswer answer) {
         // TODO
         return createTextJPanel();
     }
 
-    public JPanel createAnswerPanel(MultiAnswer answer) {
+    public AnswerPanel createAnswerPanel(MultiAnswer answer) {
         // TODO
         return createTextJPanel();
     }

@@ -2,8 +2,8 @@ package fil.coo.answers.impl;
 
 import fil.coo.answers.InvalidAnswerException;
 import fil.coo.gui.factory.AnswerPanelFactory;
+import fil.coo.gui.panels.AnswerPanel;
 
-import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
@@ -75,7 +75,7 @@ public class MultipleChoiceAnswer extends TextAnswer {
     }
 
     @Override
-    public JPanel createAnswerPanel(AnswerPanelFactory answerPanelFactory) {
+    public AnswerPanel createAnswerPanel(AnswerPanelFactory answerPanelFactory) {
         return answerPanelFactory.createAnswerPanel(this);
     }
 }
