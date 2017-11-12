@@ -28,7 +28,7 @@ public class AnswerPanelFactory {
         return panel;
     }
 
-    public JPanel createAnswerPanel(TextAnswer answer) {
+    public AnswerPanel createAnswerPanel(TextAnswer answer) {
         return createTextJPanel();
     }
 
@@ -44,7 +44,7 @@ public class AnswerPanelFactory {
         return panel;
     }
 
-    public JPanel createAnswerPanel(NumericalAnswer answer) {
+    public AnswerPanel createAnswerPanel(NumericalAnswer answer) {
         AnswerPanel panel = new AnswerPanel();
 
         JSpinner spinner = new JSpinner();

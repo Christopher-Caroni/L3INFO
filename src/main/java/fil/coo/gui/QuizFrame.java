@@ -46,8 +46,6 @@ public class QuizFrame extends JFrame {
         //        pack() must come before setLocationRelativeTo
         pack();
         setLocationRelativeTo(null);
-
-        setVisible(true);
     }
 
     /**
