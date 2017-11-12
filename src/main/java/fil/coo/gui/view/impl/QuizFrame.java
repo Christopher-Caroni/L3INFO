@@ -100,20 +100,14 @@ public class QuizFrame extends AbstractQuizView {
         mainPanel.add(Box.createHorizontalGlue(), BorderLayout.LINE_END);
     }
 
-    @Override
-    public void addQuestion(AbstractQuestionView questionView) {
-
-    }
-
     /**
      * Adds a {@link QuestionPanel} to this frame
-     *
-     * @param questionPanel the panel to add
+     *  @param questionView the panel to add
      * @param refresh       if this frame should repaint right away
      */
-    public void addQuestionPanel(QuestionPanel questionPanel, boolean refresh) {
+    public void addQuestionPanel(AbstractQuestionView questionView, boolean refresh) {
         logger.debug("Added question panel");
-        questionsPanel.add(questionPanel.getView());
+        questionsPanel.add(questionView.getView());
 
         if (refresh) {
             quizFrame.pack();

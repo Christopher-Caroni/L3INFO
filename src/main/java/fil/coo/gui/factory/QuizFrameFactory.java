@@ -1,7 +1,7 @@
 package fil.coo.gui.factory;
 
 import fil.coo.gui.view.AbstractQuizView;
-import fil.coo.gui.view.IAnswerView;
+import fil.coo.gui.view.AbstractAnswerView;
 import fil.coo.gui.view.impl.QuestionPanel;
 import fil.coo.gui.view.impl.QuizFrame;
 import fil.coo.model.QuestionModel;
@@ -34,7 +34,7 @@ public class QuizFrameFactory {
     }
 
     public QuestionPanel createQuestionPanel(QuestionModel question) {
-        IAnswerView answerPanel = question.getAnswer().createAnswerPanel(AnswerPanelFactory.getInstance());
+        AbstractAnswerView answerPanel = question.getAnswer().createAnswerPanel(AnswerPanelFactory.getInstance());
         return new QuestionPanel(question, answerPanel);
     }
 

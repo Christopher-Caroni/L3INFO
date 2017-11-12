@@ -20,7 +20,7 @@ public abstract class IQuizController {
      * When the submit button is clicked: validates all user input
      */
     protected void onSubmit() {
-        List<String> userAnswers = quizView.getUserAnswers();
+        List<String> userAnswers = quizView.getUserAnswerInput();
         Iterator<String> userAnswerIterator = userAnswers.iterator();
 
         boolean validInput = true;

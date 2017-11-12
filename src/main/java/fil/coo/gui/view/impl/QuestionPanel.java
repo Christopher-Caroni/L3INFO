@@ -1,7 +1,7 @@
 package fil.coo.gui.view.impl;
 
 import fil.coo.gui.view.AbstractQuestionView;
-import fil.coo.gui.view.IAnswerView;
+import fil.coo.gui.view.AbstractAnswerView;
 import fil.coo.model.QuestionModel;
 
 import javax.swing.*;
@@ -17,7 +17,7 @@ public class QuestionPanel extends AbstractQuestionView {
     private JPanel answerPanel;
 
 
-    public QuestionPanel(QuestionModel questionModel, IAnswerView answerView) {
+    public QuestionPanel(QuestionModel questionModel, AbstractAnswerView answerView) {
         super(questionModel, answerView);
 
         questionPanel = new JPanel();
@@ -28,17 +28,6 @@ public class QuestionPanel extends AbstractQuestionView {
 
         questionPanel.setLayout(new GridLayout(1, 2));
         questionPanel.setBorder(BorderFactory.createLineBorder(Color.RED));
-    }
-
-    @Override
-    public String getUserInput() {
-        // TODO
-        return null;
-    }
-
-    @Override
-    public Component getView() {
-        return questionPanel;
     }
 
     private void initQuestion(String questionText) {
@@ -64,5 +53,10 @@ public class QuestionPanel extends AbstractQuestionView {
         this.answerPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
         questionPanel.add(this.answerPanel);
+    }
+
+    @Override
+    public Component getView() {
+        return questionPanel;
     }
 }

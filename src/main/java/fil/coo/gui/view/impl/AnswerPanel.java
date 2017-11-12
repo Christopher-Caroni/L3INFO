@@ -1,12 +1,12 @@
 package fil.coo.gui.view.impl;
 
 import fil.coo.gui.controller.IAnswerController;
-import fil.coo.gui.view.IAnswerView;
+import fil.coo.gui.view.AbstractAnswerView;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class AnswerPanel extends IAnswerView {
+public class AnswerPanel extends AbstractAnswerView {
 
     private JPanel answerPanel;
 
@@ -19,5 +19,11 @@ public class AnswerPanel extends IAnswerView {
     @Override
     public void add(Component component) {
         answerPanel.add(component);
+    }
+
+    @Override
+    public String getUserInput() {
+        // TODO
+        return null;
     }
 }
