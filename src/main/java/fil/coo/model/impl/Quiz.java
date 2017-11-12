@@ -1,16 +1,17 @@
-package fil.coo.quiz;
+package fil.coo.model.impl;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import fil.coo.model.AnswerModel;
+import fil.coo.model.QuestionModel;
+import fil.coo.model.QuizModel;
 import org.apache.log4j.Logger;
 
-import fil.coo.answers.Answer;
+public class Quiz extends QuizModel {
 
-public class Quiz {
-
-	private List<Question> questions;
+	private List<QuestionModel> questions;
 	private int totalPoints;
 	final static Logger logger = Logger.getLogger(Quiz.class.getSimpleName());
 
@@ -20,7 +21,7 @@ public class Quiz {
 	}
 	
 	/**
-	 * Method to get all the point from the quiz
+	 * Method to get all the point from the model
 	 * @return int the total points
 	 */
 	public int getTotalPoints(){
@@ -38,10 +39,10 @@ public class Quiz {
 	}
 
 	/**
-	 * Method to ask a question and wait a answer
+	 * Method to askSingleQuestion a question and wait a answer
 	 * @param question Question
 	 */
-	public void ask(Question question) {
+	public void askSingleQuestion(QuestionModel question) {
 		logger.info(question.getQuestionText());
 		answerOfUser(question);
 	}
@@ -50,8 +51,8 @@ public class Quiz {
 	 * Method to get the answer of the user and see if is correct
 	 * @param question Question
 	 */
-	public void answerOfUser(Question question) {
-		Answer answer = question.getAnswer();
+	public void answerOfUser(QuestionModel question) {
+		AnswerModel answer = question.getAnswer();
 		Scanner scanner = new Scanner(System.in);
 		String userAnswer = "";
 		
@@ -64,7 +65,7 @@ public class Quiz {
 		scanner.close();
 	}
 
-	private void verifyAnswerOfUser(Question question, Answer answer, String userAnswer) {
+	private void verifyAnswerOfUser(QuestionModel question, AnswerModel answer, String userAnswer) {
 		if (answer.isCorrect(userAnswer)) {
 			logger.info("correct (" + question.getNbPts() + " pts)");
 			totalPoints += question.getNbPts();
@@ -74,11 +75,11 @@ public class Quiz {
 	}
 
 	/**
-	 * Method to ask all the question present in the list
+	 * Method to askSingleQuestion all the question present in the list
 	 */
 	public void askAll() {
-		for (Question question : questions) {
-			this.ask(question);
+		for (QuestionModel question : questions) {
+			this.askSingleQuestion(question);
 		}
 		logger.info("You get "+getTotalPoints()+" points");
 	}
@@ -87,11 +88,23 @@ public class Quiz {
         return questions.size();
     }
 
-    public Question getQuestion(int i) {
+    public QuestionModel getQuestion(int i) {
         return questions.get(i);
     }
 
-    public List<Question> getQuestions() {
+    @Override
+    public boolean validateAnswerType(int questionIndex, String userAnswer) {
+	    // TODO
+        return false;
+    }
+
+    @Override
+    public boolean checkCorrectAnswer(int questionIndex, String userAnswer) {
+	    // TODO
+        return false;
+    }
+
+    public List<QuestionModel> getQuestions() {
 		return questions;
     }
 }

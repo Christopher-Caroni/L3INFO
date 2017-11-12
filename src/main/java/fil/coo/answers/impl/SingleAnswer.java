@@ -16,7 +16,7 @@ public abstract class SingleAnswer extends Answer {
     }
 
     /**
-     * @param answer the answer read from the quiz file, that this instance will represent
+     * @param answer the answer read from the model file, that this instance will represent
      * @throws NullPointerException   if answer is null
      * @throws InvalidAnswerException if the answer does not correspond to this type of {@link SingleAnswer}. See {@link #isValid(String)}
      */

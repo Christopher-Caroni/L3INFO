@@ -20,13 +20,13 @@ public abstract class SingleAnswerTest extends AnswerTest {
     }
 
     /**
-     * @param answer the answer that would be read from the quiz file
+     * @param answer the answer that would be read from the model file
      * @return an instance of the implementing Answer to test
      */
     protected abstract SingleAnswer getSpecificSingleAnswer(String answer) throws NullPointerException, InvalidAnswerException;
 
     /**
-     * @return a default answer for the implementing Answer class. This answer is the one that would be read from the quiz file.
+     * @return a default answer for the implementing Answer class. This answer is the one that would be read from the model file.
      */
     protected abstract String getDefaultAnswer();
 

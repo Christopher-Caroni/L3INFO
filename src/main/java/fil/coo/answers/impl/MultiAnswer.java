@@ -3,7 +3,7 @@ package fil.coo.answers.impl;
 import fil.coo.answers.Answer;
 import fil.coo.answers.InvalidAnswerException;
 import fil.coo.gui.factory.AnswerPanelFactory;
-import fil.coo.gui.panels.AnswerPanel;
+import fil.coo.gui.view.impl.AnswerPanel;
 
 import java.util.ArrayList;
 import java.util.Iterator;

@@ -1,9 +1,10 @@
 package fil.coo;
 
-import fil.coo.gui.QuizFrame;
-import fil.coo.gui.controller.QuizController;
-import fil.coo.quiz.Quiz;
-import fil.coo.quiz.QuizFactory;
+import fil.coo.gui.factory.QuizFrameFactory;
+import fil.coo.gui.view.AbstractQuizView;
+import fil.coo.gui.controller.impl.QuizController;
+import fil.coo.model.impl.Quiz;
+import fil.coo.model.QuizFactory;
 import org.apache.log4j.Logger;
 
 import java.io.IOException;
@@ -31,9 +32,11 @@ public class App {
     private static void dummyQuiz() {
         try {
             Quiz quiz = new QuizFactory().createQuizFromTextFile("resources/dummy.quiz");
-            QuizFrame quizFrame = new QuizFrame(quiz.getNbQuestions());
+            AbstractQuizView quizFrame = QuizFrameFactory.getInstance().createQuizView(quiz);
+
             QuizController quizController = new QuizController(quizFrame, quiz);
             quizController.displayFrame();
+
         } catch (IOException e) {
             e.printStackTrace();
         }

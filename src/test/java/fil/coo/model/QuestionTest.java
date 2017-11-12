@@ -1,9 +1,10 @@
-package fil.coo.quiz;
+package fil.coo.model;
 
 import fil.coo.QuizTest;
 import fil.coo.answers.InvalidAnswerException;
 import fil.coo.answers.impl.NumericalAnswer;
 import fil.coo.answers.impl.TextAnswer;
+import fil.coo.model.impl.Question;
 import org.apache.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;

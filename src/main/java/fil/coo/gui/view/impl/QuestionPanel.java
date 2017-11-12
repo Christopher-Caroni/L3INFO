@@ -1,22 +1,44 @@
-package fil.coo.gui.panels;
+package fil.coo.gui.view.impl;
+
+import fil.coo.gui.view.AbstractQuestionView;
+import fil.coo.gui.view.IAnswerView;
+import fil.coo.model.QuestionModel;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class QuestionPanel extends JPanel {
+public class QuestionPanel extends AbstractQuestionView {
 
+    private JPanel questionPanel;
 
     private JPanel questionTextPanel;
     private JTextArea questionTextArea;
 
     private JPanel answerPanel;
 
-    public QuestionPanel(String questionText, JPanel answerPanel) {
-        initQuestion(questionText);
+
+    public QuestionPanel(QuestionModel questionModel, IAnswerView answerView) {
+        super(questionModel, answerView);
+
+        questionPanel = new JPanel();
+        answerPanel = new JPanel();
+
+        initQuestion(questionModel.getQuestionText());
         initAnswer(answerPanel);
 
-        setLayout(new GridLayout(1, 2));
-        setBorder(BorderFactory.createLineBorder(Color.RED));
+        questionPanel.setLayout(new GridLayout(1, 2));
+        questionPanel.setBorder(BorderFactory.createLineBorder(Color.RED));
+    }
+
+    @Override
+    public String getUserInput() {
+        // TODO
+        return null;
+    }
+
+    @Override
+    public Component getView() {
+        return questionPanel;
     }
 
     private void initQuestion(String questionText) {
@@ -34,13 +56,13 @@ public class QuestionPanel extends JPanel {
 
 
         questionTextPanel.add(questionTextArea);
-        add(questionTextPanel);
+        questionPanel.add(questionTextPanel);
     }
 
     private void initAnswer(JPanel answerPanel) {
         this.answerPanel = answerPanel;
         this.answerPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
-        add(this.answerPanel);
+        questionPanel.add(this.answerPanel);
     }
 }

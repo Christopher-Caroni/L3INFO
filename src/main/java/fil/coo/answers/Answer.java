@@ -1,9 +1,10 @@
 package fil.coo.answers;
 
 import fil.coo.gui.factory.AnswerPanelFactory;
-import fil.coo.gui.panels.AnswerPanel;
+import fil.coo.gui.view.impl.AnswerPanel;
+import fil.coo.model.AnswerModel;
 
-public abstract class Answer {
+public abstract class Answer extends AnswerModel {
 
     public abstract String getPrompt();
 

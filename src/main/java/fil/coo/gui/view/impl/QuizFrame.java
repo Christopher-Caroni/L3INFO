@@ -1,14 +1,17 @@
-package fil.coo.gui;
+package fil.coo.gui.view.impl;
 
-import fil.coo.gui.panels.QuestionPanel;
+import fil.coo.gui.view.AbstractQuestionView;
+import fil.coo.gui.view.AbstractQuizView;
 import org.apache.log4j.Logger;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class QuizFrame extends JFrame {
+public class QuizFrame extends AbstractQuizView {
 
     private static final Logger logger = Logger.getLogger(QuizFrame.class.getSimpleName());
+
+    private JFrame quizFrame;
 
     private Dimension frameDim;
     private JScrollPane scrollPane;
@@ -17,6 +20,9 @@ public class QuizFrame extends JFrame {
     private JButton validateButton;
 
     public QuizFrame(int nbQuestions) {
+        super(nbQuestions);
+
+        quizFrame = new JFrame();
 
         setBasicProperties();
         setupRootPanel(nbQuestions);
@@ -24,12 +30,12 @@ public class QuizFrame extends JFrame {
     }
 
     private void setBasicProperties() {
-        setTitle("Quiz");
+        quizFrame.setTitle("Quiz");
         frameDim = new Dimension(800, 800);
-        setPreferredSize(frameDim);
-        setLayout(new BorderLayout());
+        quizFrame.setPreferredSize(frameDim);
+        quizFrame.setLayout(new BorderLayout());
 
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        quizFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
 
     /**
@@ -44,8 +50,8 @@ public class QuizFrame extends JFrame {
 
     private void doFinalPrep() {
         //        pack() must come before setLocationRelativeTo
-        pack();
-        setLocationRelativeTo(null);
+        quizFrame.pack();
+        quizFrame.setLocationRelativeTo(null);
     }
 
     /**
@@ -56,20 +62,20 @@ public class QuizFrame extends JFrame {
         validateButton = new JButton("Validate");
         validatePanel.add(validateButton);
 
-        add(validatePanel, BorderLayout.SOUTH);
+        quizFrame.add(validatePanel, BorderLayout.SOUTH);
     }
 
     /**
-     * Sets up the scroll pane with the actual quiz
+     * Sets up the scroll pane with the actual model
      *
-     * @param nbQuestions the number of questions in the quiz
+     * @param nbQuestions the number of questions in the model
      */
     private void setupScrollPane(int nbQuestions) {
         mainPanel = new JPanel();
         mainPanel.setLayout(new BorderLayout());
 
         scrollPane = new JScrollPane(mainPanel);
-        add(scrollPane, BorderLayout.CENTER);
+        quizFrame.add(scrollPane, BorderLayout.CENTER);
 
         setupQuestionsPanel(nbQuestions);
         setupMainPanel();
@@ -78,7 +84,7 @@ public class QuizFrame extends JFrame {
     /**
      * Sets up the panel containing the rows of {@link JPanel}s of questions
      *
-     * @param nbQuestions the number of questions in the quiz
+     * @param nbQuestions the number of questions in the model
      */
     private void setupQuestionsPanel(int nbQuestions) {
         questionsPanel = new JPanel();
@@ -94,6 +100,11 @@ public class QuizFrame extends JFrame {
         mainPanel.add(Box.createHorizontalGlue(), BorderLayout.LINE_END);
     }
 
+    @Override
+    public void addQuestion(AbstractQuestionView questionView) {
+
+    }
+
     /**
      * Adds a {@link QuestionPanel} to this frame
      *
@@ -102,11 +113,16 @@ public class QuizFrame extends JFrame {
      */
     public void addQuestionPanel(QuestionPanel questionPanel, boolean refresh) {
         logger.debug("Added question panel");
-        questionsPanel.add(questionPanel);
+        questionsPanel.add(questionPanel.getView());
 
         if (refresh) {
-            pack();
-            repaint();
+            quizFrame.pack();
+            quizFrame.repaint();
         }
+    }
+
+    @Override
+    public void setVisible(boolean visible) {
+        quizFrame.setVisible(visible);
     }
 }

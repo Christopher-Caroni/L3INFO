@@ -1,7 +1,8 @@
-package fil.coo.quiz;
+package fil.coo.model;
 
 import fil.coo.QuizTest;
 import fil.coo.answers.impl.*;
+import fil.coo.model.impl.Quiz;
 import org.apache.log4j.Logger;
 import org.junit.Test;
 
@@ -18,7 +19,7 @@ public class QuizFactoryTest extends QuizTest {
     @Test
     public void testDummyHasRightAnswerTypes() throws IOException {
         QuizFactory questionFactory = new QuizFactory();
-        Quiz questionnaire = questionFactory.createQuizFromTextFile("resources/dummy.quiz");
+        Quiz questionnaire = questionFactory.createQuizFromTextFile("resources/dummy.model");
 
         assertThat(questionnaire.getNbQuestions(), is(7));
 
