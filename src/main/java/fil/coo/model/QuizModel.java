@@ -2,13 +2,29 @@ package fil.coo.model;
 
 import java.util.List;
 
-public abstract class QuizModel {
+public interface QuizModel {
 
-    public abstract boolean validateAnswerType(int questionIndex, String userAnswer);
+    /**
+     * @param questionIndex the index of the question
+     * @param userAnswer    the user's input
+     * @return whether the userAnswer is valid for the answer at questionIndex
+     */
+    boolean validateAnswerType(int questionIndex, String userAnswer);
 
-    public abstract boolean checkCorrectAnswer(int questionIndex, String userAnswer);
+    /**
+     * @param questionIndex the index of the question
+     * @param userAnswer    the user's input
+     * @return whether the userAnswer is the correct answer for the question at questionIndex
+     */
+    boolean checkCorrectAnswer(int questionIndex, String userAnswer);
 
-    public abstract List<QuestionModel> getQuestions();
+    /**
+     * @return all the questions of the quiz
+     */
+    List<QuestionModel> getQuestions();
 
-    public abstract int getNbQuestions();
+    /**
+     * @return the number of questions of the quiz
+     */
+    int getNbQuestions();
 }

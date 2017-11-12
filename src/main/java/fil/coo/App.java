@@ -1,10 +1,10 @@
 package fil.coo;
 
 import fil.coo.gui.factory.QuizFrameFactory;
-import fil.coo.gui.view.AbstractQuizView;
-import fil.coo.gui.controller.impl.QuizController;
+import fil.coo.gui.views.AbstractQuizView;
+import fil.coo.controller.impl.QuizController;
 import fil.coo.model.impl.Quiz;
-import fil.coo.model.QuizFactory;
+import fil.coo.model.factory.QuizFactory;
 import org.apache.log4j.Logger;
 
 import java.io.IOException;

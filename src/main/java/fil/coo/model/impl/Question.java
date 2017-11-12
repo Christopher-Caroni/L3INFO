@@ -1,11 +1,11 @@
 package fil.coo.model.impl;
 
 import fil.coo.model.AnswerModel;
-import fil.coo.model.Prompter;
+import fil.coo.util.Prompter;
 import fil.coo.model.QuestionModel;
 import org.apache.log4j.Logger;
 
-public class Question extends QuestionModel {
+public class Question implements QuestionModel {
 
     private static final Logger logger = Logger.getLogger(Question.class.getSimpleName());
 

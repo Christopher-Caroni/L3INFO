@@ -1,15 +1,15 @@
 package fil.coo.model;
 
-public abstract class QuestionModel {
+public interface QuestionModel {
 
-    public abstract AnswerModel getAnswer();
+    AnswerModel getAnswer();
 
-    public abstract String getQuestionText();
+    String getQuestionText();
 
-    public abstract int getNbPts();
+    int getNbPts();
 
     /**
      * Asks this question
      */
-    public abstract int ask();
+    int ask();
 }

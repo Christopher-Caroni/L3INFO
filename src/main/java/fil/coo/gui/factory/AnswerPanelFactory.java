@@ -1,10 +1,10 @@
 package fil.coo.gui.factory;
 
-import fil.coo.answers.impl.*;
-import fil.coo.gui.view.impl.AnswerPanel;
-
-import javax.swing.*;
-import java.awt.*;
+import fil.coo.model.impl.answers.*;
+import fil.coo.gui.views.impl.AnswerPanel;
+import fil.coo.gui.views.impl.ChoiceAnswerPanel;
+import fil.coo.gui.views.impl.NumericalAnswerPanel;
+import fil.coo.gui.views.impl.TextAnswerPanel;
 
 public class AnswerPanelFactory {
 
@@ -18,53 +18,28 @@ public class AnswerPanelFactory {
         return INSTANCE;
     }
 
-    private AnswerPanel createTextJPanel() {
-        // TODO give it a controller
-        AnswerPanel panel = new AnswerPanel(null);
-
-        TextArea textArea = new TextArea();
-        textArea.setPreferredSize(new Dimension(200, 40));
-
-        panel.add(textArea);
-        return panel;
-    }
-
     public AnswerPanel createAnswerPanel(TextAnswer answer) {
-        return createTextJPanel();
+        // TODO give it a controller
+        return new TextAnswerPanel(null);
     }
 
     public AnswerPanel createAnswerPanel(YesNoAnswer answer) {
         // TODO give it a controller
-        AnswerPanel panel = new AnswerPanel(null);
-
-        JRadioButton yesButton = new JRadioButton("yes");
-        JRadioButton noButton = new JRadioButton("no");
-
-        panel.add(yesButton);
-        panel.add(noButton);
-
-        return panel;
+        return new ChoiceAnswerPanel(null);
     }
 
     public AnswerPanel createAnswerPanel(NumericalAnswer answer) {
         // TODO give it a controller
-        AnswerPanel panel = new AnswerPanel(null);
-
-        JSpinner spinner = new JSpinner();
-        spinner.setPreferredSize(new Dimension(100, 40));
-
-        panel.add(spinner);
-
-        return panel;
+        return new NumericalAnswerPanel(null);
     }
 
     public AnswerPanel createAnswerPanel(MultipleChoiceAnswer answer) {
-        // TODO
-        return createTextJPanel();
+        // TODO give it a controller
+        return new TextAnswerPanel(null);
     }
 
     public AnswerPanel createAnswerPanel(MultiAnswer answer) {
-        // TODO
-        return createTextJPanel();
+        // TODO give it a controller
+        return new ChoiceAnswerPanel(null);
     }
 }

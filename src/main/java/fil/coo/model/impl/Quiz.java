@@ -7,7 +7,7 @@ import org.apache.log4j.Logger;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Quiz extends QuizModel {
+public class Quiz implements QuizModel {
 
     private List<QuestionModel> questions;
     private int totalPoints;

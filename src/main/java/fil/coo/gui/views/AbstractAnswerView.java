@@ -1,0 +1,35 @@
+package fil.coo.gui.views;
+
+import fil.coo.controller.IAnswerController;
+
+import javax.swing.border.Border;
+import java.awt.*;
+
+/**
+ * Defines the behaviour that our answer views must implement
+ */
+public abstract class AbstractAnswerView implements IView {
+
+    private IAnswerController answerController;
+
+    /**
+     * @param answerController the controller to which this instance should send events to
+     */
+    public AbstractAnswerView(IAnswerController answerController) {
+        this.answerController = answerController;
+    }
+
+    /**
+     * Adds a views to this views instance
+     *
+     * @param component the component to add
+     */
+    public abstract void add(Component component);
+
+    /**
+     * @return the user's answer
+     */
+    public abstract String getUserInput();
+
+    public abstract void setBorder(Border border);
+}

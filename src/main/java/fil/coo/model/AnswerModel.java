@@ -1,18 +1,18 @@
 package fil.coo.model;
 
 import fil.coo.gui.factory.AnswerPanelFactory;
-import fil.coo.gui.view.AbstractAnswerView;
+import fil.coo.gui.views.AbstractAnswerView;
 
-public abstract class AnswerModel {
+public interface AnswerModel {
 
-    public abstract AbstractAnswerView createAnswerPanel(AnswerPanelFactory answerPanelFactory);
+    AbstractAnswerView createAnswerPanel(AnswerPanelFactory answerPanelFactory);
 
-    public abstract String getPrompt();
+    String getPrompt();
 
-    public abstract boolean isValid(String userAnswer);
+    boolean isValid(String userAnswer);
 
-    public abstract boolean isCorrect(String userAnswer);
+    boolean isCorrect(String userAnswer);
 
-    public abstract String getCorrectAnswer();
-    
+    String getCorrectAnswer();
+
 }
