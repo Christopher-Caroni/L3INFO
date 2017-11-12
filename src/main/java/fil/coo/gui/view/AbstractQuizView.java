@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * Defines the behaviour that our quiz views must implement
  */
-public abstract class AbstractQuizView {
+public abstract class AbstractQuizView implements IView {
 
     private List<AbstractQuestionView> questionViews;
 

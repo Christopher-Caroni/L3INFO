@@ -14,17 +14,14 @@ public class QuestionPanel extends AbstractQuestionView {
     private JPanel questionTextPanel;
     private JTextArea questionTextArea;
 
-    private JPanel answerPanel;
-
 
     public QuestionPanel(QuestionModel questionModel, AbstractAnswerView answerView) {
         super(questionModel, answerView);
 
         questionPanel = new JPanel();
-        answerPanel = new JPanel();
 
         initQuestion(questionModel.getQuestionText());
-        initAnswer(answerPanel);
+        initAnswerView();
 
         questionPanel.setLayout(new GridLayout(1, 2));
         questionPanel.setBorder(BorderFactory.createLineBorder(Color.RED));
@@ -48,11 +45,9 @@ public class QuestionPanel extends AbstractQuestionView {
         questionPanel.add(questionTextPanel);
     }
 
-    private void initAnswer(JPanel answerPanel) {
-        this.answerPanel = answerPanel;
-        this.answerPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-
-        questionPanel.add(this.answerPanel);
+    private void initAnswerView() {
+        this.answerView.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        questionPanel.add(this.answerView.getView());
     }
 
     @Override

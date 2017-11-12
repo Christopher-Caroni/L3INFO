@@ -7,7 +7,7 @@ import java.awt.*;
 /**
  * Defines the behaviour that our question views must implement
  */
-public abstract class AbstractQuestionView {
+public abstract class AbstractQuestionView implements IView {
 
     protected AbstractAnswerView answerView;
     private QuestionModel questionModel;
@@ -27,10 +27,5 @@ public abstract class AbstractQuestionView {
     public final String getUserInput() {
         return answerView.getUserInput();
     }
-
-    /**
-     * @return the view that this instance represents
-     */
-    public abstract Component getView();
 
 }

@@ -119,4 +119,9 @@ public class QuizFrame extends AbstractQuizView {
     public void setVisible(boolean visible) {
         quizFrame.setVisible(visible);
     }
+
+    @Override
+    public Component getView() {
+        return quizFrame;
+    }
 }

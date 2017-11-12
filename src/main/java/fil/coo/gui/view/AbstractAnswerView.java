@@ -2,12 +2,13 @@ package fil.coo.gui.view;
 
 import fil.coo.gui.controller.IAnswerController;
 
+import javax.swing.border.Border;
 import java.awt.*;
 
 /**
  * Defines the behaviour that our answer views must implement
  */
-public abstract class AbstractAnswerView {
+public abstract class AbstractAnswerView implements IView {
 
     private IAnswerController answerController;
 
@@ -29,4 +30,6 @@ public abstract class AbstractAnswerView {
      * @return the user's answer
      */
     public abstract String getUserInput();
+
+    public abstract void setBorder(Border border);
 }
