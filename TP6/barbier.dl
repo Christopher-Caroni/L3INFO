@@ -1,0 +1,4 @@
+homme(barbier).
+homme(maire).
+rase(barbier,H) :- homme(H), not(rase(H,H)).
+not_rase(X,H) :- homme(X), homme(H), not(rase(X,H)).
