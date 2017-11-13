@@ -1,0 +1,16 @@
+%la EDB
+pere(tom,amy).
+pere(jack,fred).
+mere(grace,amy).
+mere(amy,fred).
+pere(fred,carol3).
+mere(carol2,carol3).
+pere(tony,carol2).
+mere(carol1,carol2).
+
+%le programme (les regles)
+parent (X,Y) :- mere(X,Y).
+parent(X,Y) :- pere(X,Y).
+
+ancetre (X,Y) : - parent (X,Y).
+ancetre (X,Y) :- parent (X,Z) , ancetre(Z,Y).
