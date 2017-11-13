@@ -8,8 +8,8 @@ import java.util.List;
 
 public abstract class IQuizController {
 
-    private final QuizModel quizModel;
-    private final AbstractQuizView quizView;
+    protected final QuizModel quizModel;
+    protected final AbstractQuizView quizView;
 
     public IQuizController(QuizModel quizModel, AbstractQuizView quizView) {
         this.quizModel = quizModel;
