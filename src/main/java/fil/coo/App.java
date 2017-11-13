@@ -34,7 +34,7 @@ public class App {
             Quiz quiz = new QuizFactory().createQuizFromTextFile("resources/dummy.quiz");
             AbstractQuizView quizFrame = QuizFrameFactory.getInstance().createQuizView(quiz);
 
-            QuizController quizController = new QuizController(quizFrame, quiz);
+            QuizController quizController = new QuizController(quiz, quizFrame);
             quizController.displayFrame();
 
         } catch (IOException e) {
