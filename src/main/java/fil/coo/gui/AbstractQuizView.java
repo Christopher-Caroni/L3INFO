@@ -1,4 +1,4 @@
-package fil.coo.gui.views;
+package fil.coo.gui;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,12 +10,13 @@ public abstract class AbstractQuizView implements IView {
 
     private List<AbstractQuestionView> questionViews;
 
-    public AbstractQuizView(int nbQuestions) {
+    public AbstractQuizView() {
+        questionViews = new ArrayList<>();
     }
 
 
     /**
-     * @return a list of the user's input
+     * @return a list of the user's input for each of the {@link AbstractQuestionView} in {@link #questionViews}
      */
     public List<String> getUserAnswerInput() {
         List<String> userAnswers = new ArrayList<>();
@@ -26,7 +27,7 @@ public abstract class AbstractQuizView implements IView {
     }
 
     /**
-     * Adds a {@link AbstractQuestionView} to this instance
+     * Adds a {@link AbstractQuestionView} to this instance and saves it in {@link #questionViews}
      *
      * @param questionView the views to add
      * @param refresh      if this instance should refresh right away

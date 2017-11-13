@@ -2,7 +2,7 @@ package fil.coo.model.impl.answers;
 
 import fil.coo.exception.InvalidAnswerException;
 import fil.coo.gui.factory.AnswerPanelFactory;
-import fil.coo.gui.views.impl.AnswerPanel;
+import fil.coo.gui.impl.AnswerPanel;
 
 public class TextAnswer extends SingleAnswer {
 

@@ -1,7 +1,7 @@
-package fil.coo.gui.views.impl;
+package fil.coo.gui.impl;
 
-import fil.coo.gui.views.AbstractQuestionView;
-import fil.coo.gui.views.AbstractQuizView;
+import fil.coo.gui.AbstractQuestionView;
+import fil.coo.gui.AbstractQuizView;
 import org.apache.log4j.Logger;
 
 import javax.swing.*;
@@ -19,7 +19,7 @@ public class QuizFrame extends AbstractQuizView {
     private JButton validateButton;
 
     public QuizFrame(int nbQuestions) {
-        super(nbQuestions);
+        super();
 
         rootFrame = new JFrame();
 

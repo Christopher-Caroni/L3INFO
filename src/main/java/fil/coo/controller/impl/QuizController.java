@@ -1,6 +1,6 @@
 package fil.coo.controller.impl;
 
-import fil.coo.gui.views.AbstractQuizView;
+import fil.coo.gui.AbstractQuizView;
 import fil.coo.model.QuizModel;
 
 public class QuizController {

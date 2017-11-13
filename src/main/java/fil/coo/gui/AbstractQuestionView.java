@@ -1,4 +1,4 @@
-package fil.coo.gui.views;
+package fil.coo.gui;
 
 /**
  * Defines the behaviour that our question views must implement

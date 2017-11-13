@@ -1,7 +1,7 @@
 package fil.coo;
 
 import fil.coo.gui.factory.QuizFrameFactory;
-import fil.coo.gui.views.AbstractQuizView;
+import fil.coo.gui.AbstractQuizView;
 import fil.coo.controller.impl.QuizController;
 import fil.coo.model.impl.Quiz;
 import fil.coo.model.factory.QuizFactory;

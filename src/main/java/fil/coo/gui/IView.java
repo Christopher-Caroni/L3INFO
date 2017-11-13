@@ -1,4 +1,4 @@
-package fil.coo.gui.views;
+package fil.coo.gui;
 
 import java.awt.*;
 

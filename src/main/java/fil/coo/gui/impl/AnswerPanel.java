@@ -1,7 +1,7 @@
-package fil.coo.gui.views.impl;
+package fil.coo.gui.impl;
 
 import fil.coo.controller.IAnswerController;
-import fil.coo.gui.views.AbstractAnswerView;
+import fil.coo.gui.AbstractAnswerView;
 
 import javax.swing.*;
 import javax.swing.border.Border;

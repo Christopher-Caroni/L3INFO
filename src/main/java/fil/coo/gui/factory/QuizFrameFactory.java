@@ -1,9 +1,9 @@
 package fil.coo.gui.factory;
 
-import fil.coo.gui.views.AbstractQuizView;
-import fil.coo.gui.views.AbstractAnswerView;
-import fil.coo.gui.views.impl.QuestionPanel;
-import fil.coo.gui.views.impl.QuizFrame;
+import fil.coo.gui.AbstractQuizView;
+import fil.coo.gui.AbstractAnswerView;
+import fil.coo.gui.impl.QuestionPanel;
+import fil.coo.gui.impl.QuizFrame;
 import fil.coo.model.QuestionModel;
 import fil.coo.model.QuizModel;
 import org.apache.log4j.Logger;

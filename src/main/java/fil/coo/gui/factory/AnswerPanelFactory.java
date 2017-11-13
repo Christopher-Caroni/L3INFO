@@ -1,10 +1,10 @@
 package fil.coo.gui.factory;
 
 import fil.coo.model.impl.answers.*;
-import fil.coo.gui.views.impl.AnswerPanel;
-import fil.coo.gui.views.impl.ChoiceAnswerPanel;
-import fil.coo.gui.views.impl.NumericalAnswerPanel;
-import fil.coo.gui.views.impl.TextAnswerPanel;
+import fil.coo.gui.impl.AnswerPanel;
+import fil.coo.gui.impl.ChoiceAnswerPanel;
+import fil.coo.gui.impl.NumericalAnswerPanel;
+import fil.coo.gui.impl.TextAnswerPanel;
 
 public class AnswerPanelFactory {
 

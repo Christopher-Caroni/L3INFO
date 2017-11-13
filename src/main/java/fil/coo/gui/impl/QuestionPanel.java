@@ -1,7 +1,7 @@
-package fil.coo.gui.views.impl;
+package fil.coo.gui.impl;
 
-import fil.coo.gui.views.AbstractAnswerView;
-import fil.coo.gui.views.AbstractQuestionView;
+import fil.coo.gui.AbstractAnswerView;
+import fil.coo.gui.AbstractQuestionView;
 
 import javax.swing.*;
 import java.awt.*;

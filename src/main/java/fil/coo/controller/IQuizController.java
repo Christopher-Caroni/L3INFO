@@ -1,6 +1,6 @@
 package fil.coo.controller;
 
-import fil.coo.gui.views.AbstractQuizView;
+import fil.coo.gui.AbstractQuizView;
 import fil.coo.model.QuizModel;
 
 import java.util.Iterator;

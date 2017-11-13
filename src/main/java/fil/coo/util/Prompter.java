@@ -2,6 +2,9 @@ package fil.coo.util;
 
 import java.util.Scanner;
 
+/**
+ * Static instance to access properties that need to be kept alive during the whole app lifecycle.
+ */
 public class Prompter {
 
     private static final Prompter INSTANCE = new Prompter();

@@ -1,4 +1,4 @@
-package fil.coo.gui.views;
+package fil.coo.gui;
 
 import fil.coo.controller.IAnswerController;
 
@@ -20,7 +20,7 @@ public abstract class AbstractAnswerView implements IView {
     }
 
     /**
-     * Adds a views to this views instance
+     * Adds a view to this view's instance
      *
      * @param component the component to add
      */

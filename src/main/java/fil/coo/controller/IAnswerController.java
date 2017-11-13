@@ -3,7 +3,7 @@ package fil.coo.controller;
 public interface IAnswerController {
 
     /**
-     * Immediately validates the user input for this answer
+     * Immediately calls the model to validate the user input for this answer
      *
      * @param input the user's input
      */

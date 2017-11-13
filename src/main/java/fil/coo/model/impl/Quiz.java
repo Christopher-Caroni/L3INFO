@@ -7,14 +7,13 @@ import org.apache.log4j.Logger;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Quiz implements QuizModel {
+public class Quiz extends QuizModel {
 
-    private List<QuestionModel> questions;
+    private static final Logger logger = Logger.getLogger(Quiz.class.getSimpleName());
+
     private int totalPoints;
-    final static Logger logger = Logger.getLogger(Quiz.class.getSimpleName());
 
     public Quiz() {
-        questions = new ArrayList<>();
         totalPoints = 0;
     }
 
@@ -44,10 +43,6 @@ public class Quiz implements QuizModel {
         logger.info("You get " + getPointsWon() + " points");
     }
 
-    public int getNbQuestions() {
-        return questions.size();
-    }
-
     public QuestionModel getQuestion(int i) {
         return questions.get(i);
     }
@@ -62,9 +57,5 @@ public class Quiz implements QuizModel {
     public boolean checkCorrectAnswer(int questionIndex, String userAnswer) {
         // TODO
         return false;
-    }
-
-    public List<QuestionModel> getQuestions() {
-        return questions;
     }
 }
