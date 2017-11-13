@@ -1,10 +1,12 @@
 package fil.coo.gui.factory;
 
-import fil.coo.model.impl.answers.*;
+import fil.coo.gui.AbstractAnswerView;
 import fil.coo.gui.impl.AnswerPanel;
 import fil.coo.gui.impl.ChoiceAnswerPanel;
 import fil.coo.gui.impl.NumericalAnswerPanel;
 import fil.coo.gui.impl.TextAnswerPanel;
+import fil.coo.model.AnswerModel;
+import fil.coo.model.impl.answers.*;
 
 public class AnswerPanelFactory {
 
@@ -18,27 +20,38 @@ public class AnswerPanelFactory {
         return INSTANCE;
     }
 
-    public AnswerPanel createAnswerPanel(TextAnswer answer) {
+    /**
+     * Uses double dispatch to create a specific {@link AnswerPanel} according
+     * to the type of answer
+     *
+     * @param answer the model wrapper for the answer
+     * @return the specific {@link AnswerPanel} that corresponds to the type of the answer
+     */
+    public AbstractAnswerView createAnswerPanel(AnswerModel answer) {
+        return answer.createAnswerPanel(this);
+    }
+
+    public AbstractAnswerView createAnswerPanel(TextAnswer answer) {
         // TODO give it a controller
         return new TextAnswerPanel(null);
     }
 
-    public AnswerPanel createAnswerPanel(YesNoAnswer answer) {
+    public AbstractAnswerView createAnswerPanel(YesNoAnswer answer) {
         // TODO give it a controller
         return new ChoiceAnswerPanel(null);
     }
 
-    public AnswerPanel createAnswerPanel(NumericalAnswer answer) {
+    public AbstractAnswerView createAnswerPanel(NumericalAnswer answer) {
         // TODO give it a controller
         return new NumericalAnswerPanel(null);
     }
 
-    public AnswerPanel createAnswerPanel(MultipleChoiceAnswer answer) {
+    public AbstractAnswerView createAnswerPanel(MultipleChoiceAnswer answer) {
         // TODO give it a controller
         return new TextAnswerPanel(null);
     }
 
-    public AnswerPanel createAnswerPanel(MultiAnswer answer) {
+    public AbstractAnswerView createAnswerPanel(MultiAnswer answer) {
         // TODO give it a controller
         return new ChoiceAnswerPanel(null);
     }

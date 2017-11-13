@@ -1,8 +1,8 @@
 package fil.coo.model.impl.answers;
 
 import fil.coo.exception.InvalidAnswerException;
+import fil.coo.gui.AbstractAnswerView;
 import fil.coo.gui.factory.AnswerPanelFactory;
-import fil.coo.gui.impl.AnswerPanel;
 
 public class NumericalAnswer extends SingleAnswer {
 
@@ -30,7 +30,7 @@ public class NumericalAnswer extends SingleAnswer {
     }
 
     @Override
-    public AnswerPanel createAnswerPanel(AnswerPanelFactory answerPanelFactory) {
+    public AbstractAnswerView createAnswerPanel(AnswerPanelFactory answerPanelFactory) {
         return answerPanelFactory.createAnswerPanel(this);
     }
 }

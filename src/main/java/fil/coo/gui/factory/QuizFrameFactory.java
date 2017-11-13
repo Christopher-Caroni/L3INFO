@@ -34,7 +34,8 @@ public class QuizFrameFactory {
     }
 
     public QuestionPanel createQuestionPanel(QuestionModel question) {
-        AbstractAnswerView answerPanel = question.getAnswer().createAnswerPanel(AnswerPanelFactory.getInstance());
+        AbstractAnswerView answerPanel = AnswerPanelFactory.getInstance().createAnswerPanel(question.getAnswer());
+
         return new QuestionPanel(question.getQuestionText(), answerPanel);
     }
 

@@ -1,9 +1,9 @@
 package fil.coo.model.impl.answers;
 
+import fil.coo.gui.AbstractAnswerView;
 import fil.coo.model.impl.Answer;
 import fil.coo.exception.InvalidAnswerException;
 import fil.coo.gui.factory.AnswerPanelFactory;
-import fil.coo.gui.impl.AnswerPanel;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -52,7 +52,7 @@ public class MultiAnswer extends Answer {
     }
 
     @Override
-    public AnswerPanel createAnswerPanel(AnswerPanelFactory answerPanelFactory) {
+    public AbstractAnswerView createAnswerPanel(AnswerPanelFactory answerPanelFactory) {
         return answerPanelFactory.createAnswerPanel(this);
     }
 
