@@ -3,7 +3,7 @@ package fil.coo.controller;
 import fil.coo.gui.AbstractQuizView;
 import fil.coo.model.QuizModel;
 
-import java.util.Iterator;
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class IQuizController {
@@ -20,25 +20,64 @@ public abstract class IQuizController {
      * When the submit button is clicked: validates all user input
      */
     protected void onSubmit() {
-
         List<String> userAnswers = quizView.getUserAnswerInput();
-        Iterator<String> userAnswerIterator = userAnswers.iterator();
 
-        boolean validInput = true;
-        int i = 0;
-        while (userAnswerIterator.hasNext() && validInput) {
-            validInput = quizModel.validateAnswerType(i, userAnswerIterator.next());
-            i++;
+        List<Integer> invalidAnswers = verifyInvalidInput(userAnswers);
+
+        if (!invalidAnswers.isEmpty()) {
+            refuseSubmissionOnInvalidInput(invalidAnswers);
+        } else {
+            acceptSubmission(userAnswers);
         }
-        if (!validInput) {
-            // TODO error
-            return;
-        }
-        onQuizCompleted();
     }
 
     /**
-     * Displays the wrong answers and number of points won.
+     * @param userAnswers the user's input for all the answers
+     * @return the indexes of the answers with invalid inputs
      */
-    protected abstract void onQuizCompleted();
+    private List<Integer> verifyInvalidInput(List<String> userAnswers) {
+        List<Integer> invalidAnswers = new ArrayList<>();
+        for (int i = 0; i < userAnswers.size(); i++) {
+            String userAnswer = userAnswers.get(i);
+            if (quizModel.validateAnswerType(i, userAnswer)) {
+                invalidAnswers.add(i);
+            }
+        }
+        return invalidAnswers;
+    }
+
+    /**
+     * Prompts the user in the view if any of his inputs are invalid
+     *
+     * @param invalidInputIndexes the indexes of the answers with invalid inputs
+     */
+    protected void refuseSubmissionOnInvalidInput(List<Integer> invalidInputIndexes) {
+        quizView.showInvalidInputs(invalidInputIndexes);
+    }
+
+    /**
+     * Gets the total of points won and asks {@link #quizView} to display it
+     *
+     * @param userAnswers the user's input for all the answers
+     */
+    protected void acceptSubmission(List<String> userAnswers) {
+        int pointsWon = verifyCorrectAnswers(userAnswers);
+        quizView.onSubmissionFinished(pointsWon);
+    }
+
+    /**
+     * Verifies userAnswers against the {@link #quizModel} and counts the total of points won
+     *
+     * @param userAnswers the user's input for all the answers
+     * @return the number of points won
+     */
+    protected int verifyCorrectAnswers(List<String> userAnswers) {
+        int pointsWon = 0;
+        for (int i = 0; i < userAnswers.size(); i++) {
+            if (quizModel.checkCorrectAnswer(i, userAnswers.get(i))) {
+                i++;
+            }
+        }
+        return pointsWon;
+    }
 }

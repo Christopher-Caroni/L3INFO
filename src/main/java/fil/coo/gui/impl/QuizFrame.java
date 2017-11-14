@@ -6,6 +6,7 @@ import org.apache.log4j.Logger;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.List;
 
 public class QuizFrame extends AbstractQuizView {
 
@@ -125,6 +126,16 @@ public class QuizFrame extends AbstractQuizView {
     @Override
     public void setVisible(boolean visible) {
         rootFrame.setVisible(visible);
+    }
+
+    @Override
+    public void showInvalidInputs(List<Integer> invalidInputIndexes) {
+        // TODO
+    }
+
+    @Override
+    public void onSubmissionFinished(int pointsWon) {
+        // TODO
     }
 
     @Override
