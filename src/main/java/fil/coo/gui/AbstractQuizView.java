@@ -1,5 +1,7 @@
 package fil.coo.gui;
 
+import fil.coo.controller.IQuizController;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,8 +11,10 @@ import java.util.List;
 public abstract class AbstractQuizView implements IView {
 
     private List<AbstractQuestionView> questionViews;
+    private IQuizController quizController;
 
-    public AbstractQuizView() {
+    public AbstractQuizView(IQuizController quizController) {
+        this.quizController = quizController;
         questionViews = new ArrayList<>();
     }
 

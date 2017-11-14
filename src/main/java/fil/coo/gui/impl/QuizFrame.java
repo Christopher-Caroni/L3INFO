@@ -1,5 +1,6 @@
 package fil.coo.gui.impl;
 
+import fil.coo.controller.IQuizController;
 import fil.coo.gui.AbstractQuestionView;
 import fil.coo.gui.AbstractQuizView;
 import org.apache.log4j.Logger;
@@ -19,8 +20,8 @@ public class QuizFrame extends AbstractQuizView {
     private JPanel mainPanel;
     private JButton validateButton;
 
-    public QuizFrame(int nbQuestions) {
-        super();
+    public QuizFrame(IQuizController quizController, int nbQuestions) {
+        super(quizController);
 
         rootFrame = new JFrame();
 
