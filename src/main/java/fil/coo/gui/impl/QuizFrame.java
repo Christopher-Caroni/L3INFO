@@ -135,13 +135,13 @@ public class QuizFrame extends AbstractQuizView {
 	}
 
 	@Override
-    public void showInvalidInputs(List<Integer> invalidInputIndexes) {
+	public void showInvalidInputs(List<Integer> invalidInputIndexes) {
 		String msg = "";
-    	for (Integer integer : invalidInputIndexes) {
-    		msg += "[question "+questionViews.get(integer)+" fail]";
+		for (Integer integer : invalidInputIndexes) {
+			msg += "[question " + questionViews.get(integer) + " fail]";
 		}
-    	JOptionPane.showMessageDialog(this.getView(), msg);
-    }
+		JOptionPane.showMessageDialog(this.getView(), msg);
+	}
 
 	@Override
 	public void onSubmissionFinished(int pointsWon) {
