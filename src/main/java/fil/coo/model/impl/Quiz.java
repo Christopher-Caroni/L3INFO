@@ -1,11 +1,10 @@
 package fil.coo.model.impl;
 
-import fil.coo.model.QuestionModel;
-import fil.coo.model.QuizModel;
 import org.apache.log4j.Logger;
 
-import java.util.ArrayList;
-import java.util.List;
+import fil.coo.model.AnswerModel;
+import fil.coo.model.QuestionModel;
+import fil.coo.model.QuizModel;
 
 public class Quiz extends QuizModel {
 
@@ -49,13 +48,17 @@ public class Quiz extends QuizModel {
 
     @Override
     public boolean validateAnswerType(int questionIndex, String userAnswer) {
-        // TODO
-        return false;
+        return getAnswer(questionIndex).isValid(userAnswer);
     }
 
+	
     @Override
     public boolean checkCorrectAnswer(int questionIndex, String userAnswer) {
-        // TODO
-        return false;
+        return getAnswer(questionIndex).isCorrect(userAnswer);
     }
+    
+    private AnswerModel getAnswer(int questionIndex) {
+		return questions.get(questionIndex).getAnswer();
+	}
+    
 }
