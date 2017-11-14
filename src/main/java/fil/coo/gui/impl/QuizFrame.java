@@ -7,6 +7,7 @@ import org.apache.log4j.Logger;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.util.List;
 
 public class QuizFrame extends AbstractQuizView {
@@ -67,10 +68,21 @@ public class QuizFrame extends AbstractQuizView {
      */
     private void setupValidatePanel() {
         JPanel validatePanel = new JPanel();
-        validateButton = new JButton("Validate");
+        initValidateButton();
+
         validatePanel.add(validateButton);
 
         rootFrame.add(validatePanel, BorderLayout.SOUTH);
+    }
+
+    private void initValidateButton() {
+        validateButton = new JButton("Validate");
+        validateButton.addActionListener(new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                quizController.onSubmit();
+            }
+        });
     }
 
     /**

@@ -11,7 +11,7 @@ import java.util.List;
 public abstract class AbstractQuizView implements IView {
 
     private List<AbstractQuestionView> questionViews;
-    private IQuizController quizController;
+    protected IQuizController quizController;
 
     public AbstractQuizView(IQuizController quizController) {
         this.quizController = quizController;

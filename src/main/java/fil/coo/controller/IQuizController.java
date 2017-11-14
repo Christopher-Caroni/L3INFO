@@ -19,7 +19,7 @@ public abstract class IQuizController {
     /**
      * When the submit button is clicked: validates all user input
      */
-    protected void onSubmit() {
+    public void onSubmit() {
         List<String> userAnswers = quizView.getUserAnswerInput();
 
         List<Integer> invalidAnswers = verifyInvalidInput(userAnswers);
