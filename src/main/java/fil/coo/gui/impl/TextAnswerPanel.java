@@ -6,19 +6,20 @@ import java.awt.*;
 
 public class TextAnswerPanel extends AnswerPanel {
 
+	private TextArea textArea; 
+	
     public TextAnswerPanel(IAnswerController answerController) {
         super(answerController);
     }
 
     @Override
     public String getUserInput() {
-        // TODO
-        return null;
+        return textArea.getText();
     }
 
     @Override
     protected void initCustomView() {
-        TextArea textArea = new TextArea();
+    	textArea = new TextArea();
         textArea.setPreferredSize(new Dimension(200, 40));
 
         rootPanel.add(textArea);
