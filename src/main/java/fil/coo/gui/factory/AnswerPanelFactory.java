@@ -2,11 +2,16 @@ package fil.coo.gui.factory;
 
 import fil.coo.gui.AbstractAnswerView;
 import fil.coo.gui.impl.AnswerPanel;
-import fil.coo.gui.impl.ChoiceAnswerPanel;
+import fil.coo.gui.impl.MultiChoiceAnswerPanel;
 import fil.coo.gui.impl.NumericalAnswerPanel;
 import fil.coo.gui.impl.TextAnswerPanel;
+import fil.coo.gui.impl.YesNoAnswerPanel;
 import fil.coo.model.AnswerModel;
-import fil.coo.model.impl.answers.*;
+import fil.coo.model.impl.answers.MultiAnswer;
+import fil.coo.model.impl.answers.MultipleChoiceAnswer;
+import fil.coo.model.impl.answers.NumericalAnswer;
+import fil.coo.model.impl.answers.TextAnswer;
+import fil.coo.model.impl.answers.YesNoAnswer;
 
 public class AnswerPanelFactory {
 
@@ -36,9 +41,14 @@ public class AnswerPanelFactory {
         return new TextAnswerPanel(null);
     }
 
+    public AbstractAnswerView createAnswerPanel(MultipleChoiceAnswer answer) {
+        // TODO give it a controller
+        return new MultiChoiceAnswerPanel(null);
+    }
+    
     public AbstractAnswerView createAnswerPanel(YesNoAnswer answer) {
         // TODO give it a controller
-        return new ChoiceAnswerPanel(null);
+        return new YesNoAnswerPanel(null);
     }
 
     public AbstractAnswerView createAnswerPanel(NumericalAnswer answer) {
@@ -46,13 +56,8 @@ public class AnswerPanelFactory {
         return new NumericalAnswerPanel(null);
     }
 
-    public AbstractAnswerView createAnswerPanel(MultipleChoiceAnswer answer) {
-        // TODO give it a controller
-        return new TextAnswerPanel(null);
-    }
-
     public AbstractAnswerView createAnswerPanel(MultiAnswer answer) {
         // TODO give it a controller
-        return new ChoiceAnswerPanel(null);
+        return new TextAnswerPanel(null);
     }
 }

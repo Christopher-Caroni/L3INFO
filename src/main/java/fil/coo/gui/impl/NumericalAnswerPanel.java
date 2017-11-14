@@ -7,20 +7,21 @@ import java.awt.*;
 
 public class NumericalAnswerPanel extends AnswerPanel {
 
+	private JSpinner spinner;
+	
     public NumericalAnswerPanel(IAnswerController answerController) {
         super(answerController);
     }
 
     @Override
     public String getUserInput() {
-        // TODO
-        return null;
+        return spinner.getToolTipText();
     }
 
     @Override
     protected void initCustomView() {
 
-        JSpinner spinner = new JSpinner();
+        spinner = new JSpinner();
         spinner.setPreferredSize(new Dimension(100, 40));
 
         rootPanel.add(spinner);
