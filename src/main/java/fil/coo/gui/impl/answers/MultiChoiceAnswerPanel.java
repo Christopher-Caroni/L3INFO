@@ -1,4 +1,4 @@
-package fil.coo.gui.impl;
+package fil.coo.gui.impl.answers;
 
 import fil.coo.controller.IAnswerController;
 

@@ -2,10 +2,10 @@ package fil.coo.gui.factory;
 
 import fil.coo.gui.AbstractAnswerView;
 import fil.coo.gui.impl.AnswerPanel;
-import fil.coo.gui.impl.MultiChoiceAnswerPanel;
-import fil.coo.gui.impl.NumericalAnswerPanel;
-import fil.coo.gui.impl.TextAnswerPanel;
-import fil.coo.gui.impl.YesNoAnswerPanel;
+import fil.coo.gui.impl.answers.MultiChoiceAnswerPanel;
+import fil.coo.gui.impl.answers.NumericalAnswerPanel;
+import fil.coo.gui.impl.answers.TextAnswerPanel;
+import fil.coo.gui.impl.answers.YesNoAnswerPanel;
 import fil.coo.model.AnswerModel;
 import fil.coo.model.impl.answers.MultiAnswer;
 import fil.coo.model.impl.answers.MultipleChoiceAnswer;
