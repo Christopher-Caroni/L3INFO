@@ -2,6 +2,8 @@ package fil.coo.gui.impl;
 
 import fil.coo.controller.IAnswerController;
 
+import javax.swing.*;
+
 public class ChoiceAnswerPanel extends AnswerPanel {
 
     public ChoiceAnswerPanel(IAnswerController answerController) {
@@ -16,7 +18,12 @@ public class ChoiceAnswerPanel extends AnswerPanel {
 
     @Override
     protected void initCustomView() {
-        // TODO
+        JRadioButton yesButton = new JRadioButton("yes");
+        JRadioButton noButton = new JRadioButton("no");
+
+        rootPanel.add(yesButton);
+        rootPanel.add(noButton);
+
     }
 
 }
