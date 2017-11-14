@@ -10,15 +10,17 @@ public class MultiChoiceAnswerPanel extends ChoiceAnswerPanel {
 
     private List<JRadioButton> choices;
 
-    public MultiChoiceAnswerPanel(IAnswerController answerController) {
-        super(answerController);
+    public MultiChoiceAnswerPanel(IAnswerController answerController, List<String> possibleAnswers) {
+        super(answerController, possibleAnswers);
     }
 
     @Override
     protected List<JRadioButton> initChoices() {
         List<JRadioButton> jRadioButtons = new ArrayList<>();
 
-        // TODO get model choices
+        for (String possibleAnswer : possibleAnswers) {
+            jRadioButtons.add(new JRadioButton(possibleAnswer));
+        }
 
         return jRadioButtons;
     }

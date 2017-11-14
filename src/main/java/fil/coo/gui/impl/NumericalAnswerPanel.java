@@ -10,7 +10,7 @@ public class NumericalAnswerPanel extends AnswerPanel {
 	private JSpinner spinner;
 	
     public NumericalAnswerPanel(IAnswerController answerController) {
-        super(answerController);
+        super(answerController, null);
     }
 
     @Override

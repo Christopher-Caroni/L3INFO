@@ -78,4 +78,12 @@ public class MultipleChoiceAnswer extends TextAnswer {
     public AbstractAnswerView createAnswerPanel(AnswerPanelFactory answerPanelFactory) {
         return answerPanelFactory.createAnswerPanel(this);
     }
+
+    public List<String> getPossibleAnswers() {
+        List<String> possibleAnswers = new ArrayList();
+        for (TextAnswer textAnswer : getChoices()) {
+            possibleAnswers.add(textAnswer.getCorrectAnswer());
+        }
+        return possibleAnswers;
+    }
 }

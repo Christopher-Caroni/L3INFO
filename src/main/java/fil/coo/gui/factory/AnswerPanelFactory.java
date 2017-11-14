@@ -13,6 +13,9 @@ import fil.coo.model.impl.answers.NumericalAnswer;
 import fil.coo.model.impl.answers.TextAnswer;
 import fil.coo.model.impl.answers.YesNoAnswer;
 
+import java.util.Collections;
+import java.util.List;
+
 public class AnswerPanelFactory {
 
 
@@ -43,7 +46,11 @@ public class AnswerPanelFactory {
 
     public AbstractAnswerView createAnswerPanel(MultipleChoiceAnswer answer) {
         // TODO give it a controller
-        return new MultiChoiceAnswerPanel(null);
+
+        List<String> possibleAnswers = answer.getPossibleAnswers();
+        Collections.shuffle(possibleAnswers);
+
+        return new MultiChoiceAnswerPanel(null, possibleAnswers);
     }
     
     public AbstractAnswerView createAnswerPanel(YesNoAnswer answer) {

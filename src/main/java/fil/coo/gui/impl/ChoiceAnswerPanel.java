@@ -9,12 +9,13 @@ public abstract class ChoiceAnswerPanel extends AnswerPanel {
 
     protected ButtonGroup exclusiveButtonGroup;
 
-    public ChoiceAnswerPanel(IAnswerController answerController) {
-        super(answerController);
+    public ChoiceAnswerPanel(IAnswerController answerController, List<String> possibleAnswers) {
+        super(answerController, possibleAnswers);
     }
 
     @Override
     protected void initCustomView() {
+        exclusiveButtonGroup = new ButtonGroup();
         List<JRadioButton> buttons = initChoices();
         addButtons(buttons);
 

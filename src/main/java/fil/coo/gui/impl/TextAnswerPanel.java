@@ -9,7 +9,7 @@ public class TextAnswerPanel extends AnswerPanel {
 	private TextArea textArea; 
 	
     public TextAnswerPanel(IAnswerController answerController) {
-        super(answerController);
+        super(answerController, null);
     }
 
     @Override
