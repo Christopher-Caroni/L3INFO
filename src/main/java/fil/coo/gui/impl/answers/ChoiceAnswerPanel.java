@@ -39,4 +39,10 @@ public abstract class ChoiceAnswerPanel extends AnswerPanel {
      * @return a list of the {@link JRadioButton} to add to the exclusive choice group
      */
     protected abstract List<JRadioButton> initChoices();
+
+    @Override
+    public String getUserInput() {
+        JRadioButton selectedButton = (JRadioButton) exclusiveButtonGroup.getSelection();
+        return selectedButton.getText();
+    }
 }

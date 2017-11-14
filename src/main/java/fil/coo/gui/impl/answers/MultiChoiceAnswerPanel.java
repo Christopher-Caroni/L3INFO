@@ -25,11 +25,5 @@ public class MultiChoiceAnswerPanel extends ChoiceAnswerPanel {
         return jRadioButtons;
     }
 
-    @Override
-    public String getUserInput() {
-        //TODO
-        return null;
-    }
-
 
 }

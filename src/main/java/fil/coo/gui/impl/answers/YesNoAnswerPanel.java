@@ -29,16 +29,4 @@ public class YesNoAnswerPanel extends ChoiceAnswerPanel {
 		return jRadioButtons;
 	}
 
-	@Override
-	public String getUserInput() {
-		if (yesButton.isSelected()) {
-			return yesButton.getText();
-		}
-		if (noButton.isSelected()) {
-			return noButton.getText();
-		}
-		return null;
-	}
-
-
 }
