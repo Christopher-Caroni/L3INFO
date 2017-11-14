@@ -8,10 +8,12 @@ import java.util.List;
 
 public class MultiChoiceAnswerPanel extends ChoiceAnswerPanel {
 
-    private List<JRadioButton> choices;
+    private final List<String> possibleAnswers;
 
     public MultiChoiceAnswerPanel(IAnswerController answerController, List<String> possibleAnswers) {
-        super(answerController, possibleAnswers);
+        super(answerController, false);
+        this.possibleAnswers = possibleAnswers;
+        initCustomView();
     }
 
     @Override

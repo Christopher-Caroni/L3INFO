@@ -6,23 +6,21 @@ import fil.coo.gui.AbstractAnswerView;
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
-import java.util.List;
 
 /**
  * Wrapper for a {@link JPanel} to further customise according to the specific type of answer.
  */
 public abstract class AnswerPanel extends AbstractAnswerView {
 
-    protected final List<String> possibleAnswers;
     protected JPanel rootPanel;
 
-    public AnswerPanel(IAnswerController answerController, List<String> possibleAnswers) {
+    public AnswerPanel(IAnswerController answerController, boolean initCustomView) {
         super(answerController);
-        this.possibleAnswers = possibleAnswers;
-
         rootPanel = new JPanel();
 
-        initCustomView();
+        if (initCustomView) {
+            initCustomView();
+        }
     }
 
     protected abstract void initCustomView();

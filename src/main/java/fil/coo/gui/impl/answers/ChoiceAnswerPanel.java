@@ -10,8 +10,8 @@ public abstract class ChoiceAnswerPanel extends AnswerPanel {
 
     protected ButtonGroup exclusiveButtonGroup;
 
-    public ChoiceAnswerPanel(IAnswerController answerController, List<String> possibleAnswers) {
-        super(answerController, possibleAnswers);
+    public ChoiceAnswerPanel(IAnswerController answerController, boolean initCustomView) {
+        super(answerController, initCustomView);
     }
 
     @Override
