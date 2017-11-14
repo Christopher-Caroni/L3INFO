@@ -1,17 +1,26 @@
 package fil.coo.gui.impl;
 
-import java.util.List;
-
-import javax.swing.JRadioButton;
-
 import fil.coo.controller.IAnswerController;
 
-public class MultiChoiceAnswerPanel extends AnswerPanel {
+import javax.swing.*;
+import java.util.ArrayList;
+import java.util.List;
 
-	private List<JRadioButton> choices;
-	
+public class MultiChoiceAnswerPanel extends ChoiceAnswerPanel {
+
+    private List<JRadioButton> choices;
+
     public MultiChoiceAnswerPanel(IAnswerController answerController) {
         super(answerController);
+    }
+
+    @Override
+    protected List<JRadioButton> initChoices() {
+        List<JRadioButton> jRadioButtons = new ArrayList<>();
+
+        // TODO get model choices
+
+        return jRadioButtons;
     }
 
     @Override
@@ -20,9 +29,5 @@ public class MultiChoiceAnswerPanel extends AnswerPanel {
         return null;
     }
 
-    @Override
-    protected void initCustomView() {
-
-    }
 
 }
