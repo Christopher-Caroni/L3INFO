@@ -38,4 +38,19 @@ public abstract class AbstractQuizView implements IView {
      * @param visible if this instance should be visible or not
      */
     public abstract void setVisible(boolean visible);
+
+    /**
+     * Shows the user the answers that have invalid inputs
+     *
+     * @param invalidInputIndexes the indexes of the answers with invalid inputs
+     */
+    public abstract void showInvalidInputs(List<Integer> invalidInputIndexes);
+
+    /**
+     * Displays the number of points won
+     * TODO maybe refuse additional input, display incorrect answers...
+     *
+     * @param pointsWon the number of points the user won with his inputs
+     */
+    public abstract void onSubmissionFinished(int pointsWon);
 }

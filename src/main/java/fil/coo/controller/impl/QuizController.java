@@ -4,6 +4,8 @@ import fil.coo.controller.IQuizController;
 import fil.coo.gui.AbstractQuizView;
 import fil.coo.model.QuizModel;
 
+import java.util.List;
+
 public class QuizController extends IQuizController {
 
 
@@ -15,8 +17,4 @@ public class QuizController extends IQuizController {
         quizView.setVisible(true);
     }
 
-    @Override
-    protected void onQuizCompleted() {
-        // TODO
-    }
 }
