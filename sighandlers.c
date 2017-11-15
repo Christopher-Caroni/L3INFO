@@ -46,6 +46,7 @@ void sigchld_handler(int sig) {
   int status;
   struct job_t *job;
 
+sig = sig;
     if (verbose)
     {
       printf("sigchld_handler: entering\n");

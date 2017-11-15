@@ -14,7 +14,8 @@
 void do_pipe(char *cmds[MAXCMDS][MAXARGS], int nbcmd, int bg)
 {
 	int **fd;
-	int pid;
+	pid_t pid;
+  pid_t gid;
 	int i;
   int j;
 	char whole_cmd[MAXLINE];
@@ -63,6 +64,8 @@ void do_pipe(char *cmds[MAXCMDS][MAXARGS], int nbcmd, int bg)
 			assert(0);
 	}
 
+  gid = pid;
+
 	for(i = 1; i<nbcmd- 1; i++){
 		assert(pipe(fd[i]) != -1);
 
@@ -70,7 +73,7 @@ void do_pipe(char *cmds[MAXCMDS][MAXARGS], int nbcmd, int bg)
 			case -1:
   			printf("Error while piping\n");
 		case 0 :
-			setpgid(0, pid);
+			setpgid(0, gid);
 			dup2(fd[i][1], STDOUT_FILENO);
 			dup2(fd[i-1][0], STDIN_FILENO);
 
@@ -88,7 +91,7 @@ void do_pipe(char *cmds[MAXCMDS][MAXARGS], int nbcmd, int bg)
 		case -1:
 			printf("Error while piping\n");
 		case 0 :
-			setpgid(0, pid);
+			setpgid(0, gid);
 			dup2(fd[i-1][0],STDIN_FILENO);
 			for(j=0; j<i; j++){
 				close(fd[j][0]);
@@ -105,10 +108,10 @@ void do_pipe(char *cmds[MAXCMDS][MAXARGS], int nbcmd, int bg)
 	}
 
 	if(bg) {
-		jobs_addjob(pid, BG, whole_cmd);
+		jobs_addjob(gid, BG, whole_cmd);
 	} else {
-		jobs_addjob(pid, FG, whole_cmd);
-		waitfg(pid);
+		jobs_addjob(gid, FG, whole_cmd);
+		waitfg(gid);
 	}
 
 	return;
