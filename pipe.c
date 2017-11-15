@@ -44,7 +44,7 @@ void do_pipe(char *cmds[MAXCMDS][MAXARGS], int nbcmd, int bg)
   if (ch == 0)
   {
     close(fd[0][0]);
-    assert(dup2(fd[0][1], STDOUT_FILENO) != -1);
+    dup2(fd[0][1], STDOUT_FILENO);
     close(fd[0][1]);
 
     execvp(cmds[0][0], cmds[0]);
@@ -55,7 +55,7 @@ void do_pipe(char *cmds[MAXCMDS][MAXARGS], int nbcmd, int bg)
   if (ch == 0)
   {
     close(fd[0][1]);
-    assert(dup2(fd[0][0], STDIN_FILENO) != -1);
+    dup2(fd[0][0], STDIN_FILENO);
     close(fd[0][0]);
 
     execvp(cmds[1][0], cmds[1]);
