@@ -13,13 +13,14 @@
 
 void do_pipe(char *cmds[MAXCMDS][MAXARGS], int nbcmd, int bg)
 {
-  int **fd;
-  int i;
-  int status;
-  pid_t ch;
-  pid_t gid;
+	int **fd;
+	int pid;
+	int i;
   int j;
-	char *finalcmd;
+	char whole_cmd[MAXLINE];
+  int first_cmd;
+
+  first_cmd = 1;
 
   fd = malloc((nbcmd-1)*sizeof(int*));
   for (i=0; i<nbcmd-1; i++)
@@ -27,89 +28,88 @@ void do_pipe(char *cmds[MAXCMDS][MAXARGS], int nbcmd, int bg)
     fd[i] = malloc(2 * sizeof(int));
     assert(fd[i]);
   }
-  assert(fd);
 
-  if (verbose)
-  {
-    for (i=0;i<nbcmd;i++) {
-      j=0;
-      while (cmds[i][j] != NULL)
-      {
-        printf("cmd[%d][%d] :",i , j);
-        printf("%s\n",cmds[i][j]);
-        fflush(stdout);
-        j++;
-      }
-    }
-  }
-
-  status = pipe(fd[0]);
-  assert(status == 0);
-
-  ch = fork();
-  if (ch == 0)
-  {
-    setpgid(ch, ch);
-    close(fd[0][0]);
-    dup2(fd[0][1], STDOUT_FILENO);
-    close(fd[0][1]);
-
-    execvp(cmds[0][0], cmds[0]);
-    exit(EXIT_FAILURE);
-  }
-
-  gid = ch;
-
-  for (i=1;i<nbcmd-1;i++)
-  {
-    status = pipe(fd[i]);
-    assert(status == 0);
-
-    ch = fork();
-    if (ch == 0)
+  for (i=0;i<nbcmd;i++) {
+    j=0;
+    while (cmds[i][j] != NULL)
     {
-      setpgid(ch, gid);
-      close(fd[i][0]);
-
-			dup2(fd[i-1][0], STDIN_FILENO);
-			dup2(fd[i][1], STDOUT_FILENO);
-
-      close(fd[i][1]);
-
-      execvp(cmds[i][0], cmds[i]);
-      exit(EXIT_FAILURE);
+      if (first_cmd)
+      {
+        sprintf(whole_cmd, "%s ", cmds[i][j]);
+      } else {
+        sprintf(whole_cmd + strlen(whole_cmd), "%s ", cmds[i][j]);
+      }
+      first_cmd = 0;
+      j++;
+    }
+    if (i != nbcmd-1)
+    {
+      strcat(whole_cmd, "| ");
     }
   }
 
-  ch = fork();
-  if (ch == 0)
-  {
-    setpgid(ch, gid);
-    close(fd[nbcmd][1]);
-    dup2(fd[nbcmd-1][0], STDIN_FILENO);
-    close(fd[nbcmd-1][0]);
 
-    execvp(cmds[nbcmd][0], cmds[nbcmd]);
-    exit(EXIT_FAILURE);
-  }
+	assert(pipe(fd[0]) != -1);
 
-  for (i=0;i<nbcmd-1;i++)
-  {
-    close(fd[i][0]);
-    close(fd[i][1]);
-  }
+	switch(pid = fork()) {
+		case -1:
+			printf("Error while piping\n");
+		case 0 :
+			setpgid(0, 0);
+			dup2(fd[0][1], STDOUT_FILENO);
+			close(fd[0][1]);
+			close(fd[0][0]);
+			execvp(cmds[0][0], cmds[0]);
+			assert(0);
+	}
 
+	for(i = 1; i<nbcmd- 1; i++){
+		assert(pipe(fd[i]) != -1);
 
-	finalcmd = strcat(cmds[0][0], "|");
-	finalcmd = strcat(finalcmd, cmds[1][0]);
+		switch(fork()){
+			case -1:
+  			printf("Error while piping\n");
+		case 0 :
+			setpgid(0, pid);
+			dup2(fd[i][1], STDOUT_FILENO);
+			dup2(fd[i-1][0], STDIN_FILENO);
 
-  if (bg)
-  {
-    /* TODO bg */
-  } else {
-		jobs_addjob(ch, FG, finalcmd);
-    waitfg(ch);
-  }
+      for(j=0; j<i; j++){
+				close(fd[j][0]);
+				close(fd[j][1]);
+			}
 
-  return;
+			execvp(cmds[i][0],cmds[i]);
+			assert(0);
+		}
+	}
+
+	switch(fork()){
+		case -1:
+			printf("Error while piping\n");
+		case 0 :
+			setpgid(0, pid);
+			dup2(fd[i-1][0],STDIN_FILENO);
+			for(j=0; j<i; j++){
+				close(fd[j][0]);
+				close(fd[j][1]);
+			}
+
+			execvp(cmds[i][0],cmds[i]);
+			assert(0);
+	}
+
+	for(j=0; j<nbcmd-1; j++){
+		close(fd[j][0]);
+		close(fd[j][1]);
+	}
+
+	if(bg) {
+		jobs_addjob(pid, BG, whole_cmd);
+	} else {
+		jobs_addjob(pid, FG, whole_cmd);
+		waitfg(pid);
+	}
+
+	return;
 }
