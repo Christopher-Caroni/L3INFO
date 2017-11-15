@@ -5,7 +5,11 @@
 #include <unistd.h>
 #include <assert.h>
 #include <sys/wait.h>
+#include <string.h>
+
 #include "pipe.h"
+#include "cmd.h"
+#include "jobs.h"
 
 void do_pipe(char *cmds[MAXCMDS][MAXARGS], int nbcmd, int bg)
 {
@@ -13,7 +17,9 @@ void do_pipe(char *cmds[MAXCMDS][MAXARGS], int nbcmd, int bg)
   int i;
   int status;
   pid_t ch;
+  pid_t gid;
   int j;
+	char *finalcmd;
 
   fd = malloc((nbcmd-1)*sizeof(int*));
   for (i=0; i<nbcmd-1; i++)
@@ -26,6 +32,7 @@ void do_pipe(char *cmds[MAXCMDS][MAXARGS], int nbcmd, int bg)
   if (verbose)
   {
     for (i=0;i<nbcmd;i++) {
+      j=0;
       while (cmds[i][j] != NULL)
       {
         printf("cmd[%d][%d] :",i , j);
@@ -33,7 +40,6 @@ void do_pipe(char *cmds[MAXCMDS][MAXARGS], int nbcmd, int bg)
         fflush(stdout);
         j++;
       }
-      j=0;
     }
   }
 
@@ -43,6 +49,7 @@ void do_pipe(char *cmds[MAXCMDS][MAXARGS], int nbcmd, int bg)
   ch = fork();
   if (ch == 0)
   {
+    setpgid(ch, ch);
     close(fd[0][0]);
     dup2(fd[0][1], STDOUT_FILENO);
     close(fd[0][1]);
@@ -51,22 +58,58 @@ void do_pipe(char *cmds[MAXCMDS][MAXARGS], int nbcmd, int bg)
     exit(EXIT_FAILURE);
   }
 
+  gid = ch;
+
+  for (i=1;i<nbcmd-1;i++)
+  {
+    status = pipe(fd[i]);
+    assert(status == 0);
+
+    ch = fork();
+    if (ch == 0)
+    {
+      setpgid(ch, gid);
+      close(fd[i][0]);
+
+			dup2(fd[i-1][0], STDIN_FILENO);
+			dup2(fd[i][1], STDOUT_FILENO);
+
+      close(fd[i][1]);
+
+      execvp(cmds[i][0], cmds[i]);
+      exit(EXIT_FAILURE);
+    }
+  }
+
   ch = fork();
   if (ch == 0)
   {
-    close(fd[0][1]);
-    dup2(fd[0][0], STDIN_FILENO);
-    close(fd[0][0]);
+    setpgid(ch, gid);
+    close(fd[nbcmd][1]);
+    dup2(fd[nbcmd-1][0], STDIN_FILENO);
+    close(fd[nbcmd-1][0]);
 
-    execvp(cmds[1][0], cmds[1]);
+    execvp(cmds[nbcmd][0], cmds[nbcmd]);
     exit(EXIT_FAILURE);
   }
 
-  close(fd[0][0]);
-  close(fd[0][1]);
+  for (i=0;i<nbcmd-1;i++)
+  {
+    close(fd[i][0]);
+    close(fd[i][1]);
+  }
 
-  wait(NULL);
-  wait(NULL);
+
+	finalcmd = strcat(cmds[0][0], "|");
+	finalcmd = strcat(finalcmd, cmds[1][0]);
+
+  if (bg)
+  {
+    /* TODO bg */
+  } else {
+		jobs_addjob(ch, FG, finalcmd);
+    waitfg(ch);
+  }
 
   return;
 }

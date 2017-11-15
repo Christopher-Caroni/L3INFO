@@ -69,9 +69,10 @@ void sigchld_handler(int sig) {
         if (verbose && WIFEXITED(status))
         {
           printf("Child finished naturally %d\n", child_pid);
-        } else {
-          printf("Force kill child %d\n", child_pid);
+        } else if (verbose && !WIFEXITED(status)) {
+          printf("Force kill child %d that exited with status %d\n", child_pid, WEXITSTATUS(status));
         }
+
         jobs_deletejob(child_pid);
       }
     }
