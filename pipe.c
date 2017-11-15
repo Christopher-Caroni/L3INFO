@@ -37,7 +37,7 @@ void do_pipe(char *cmds[MAXCMDS][MAXARGS], int nbcmd, int bg)
     }
   }
 
-  pipe(fd[0]);
+  status = pipe(fd[0]);
   assert(status == 0);
 
   ch = fork();
