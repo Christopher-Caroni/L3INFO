@@ -5,6 +5,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
 
+import static automata.TestND.dotToFile;
+
 /**
  * @author Bruno.Bogaert (at) univ-lille.fr
  */

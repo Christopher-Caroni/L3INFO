@@ -11,7 +11,7 @@ public class TestND {
 	 * Écriture de la représentation graphviz de l'automate dans un fichier
 	 * 
 	 */
-	private static void dotToFile(Automaton a, String fileName) {
+	public static void dotToFile(Automaton a, String fileName) {
 		File f = new File(fileName);
 		try {
 			PrintWriter sortieDot = new PrintWriter(f);

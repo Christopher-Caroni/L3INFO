@@ -12,6 +12,8 @@ public class Constantes {
         a.addNewState("q3");
         a.addNewState("q4");
 
+        a.setInitial("q0");
+
 		/*
 		 * Définition des états initiaux et des états acceptants Le paramètre est
 		 * indifféremment le numéro ou le nom d'un état
