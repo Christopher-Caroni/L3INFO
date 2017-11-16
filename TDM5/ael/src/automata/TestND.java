@@ -50,14 +50,14 @@ public class TestND {
 
 		/* Fabrication de l'automate */
 
-		AutomatonBuilder a = Constantes.buildTransposeOriginal();
+		AutomatonBuilder a = Constantes.buildMinimaliseOriginal();
 		AutomatonBuilder b = new NDAutomaton();
 
 
 //		AutomataUtils.addFlatExp("10*1", a, "exp");
-		AutomataUtils.transpose(a, b);
+//		AutomataUtils.transpose(a, b);
 //		AutomataUtils.determinize(a, b);
-//		AutomataUtils.minimalise(a, b);
+		AutomataUtils.minimalise(a, b);
 
 		/*
 		 * Dessin de l'automate (fabrication d'un fichier Graphviz)
@@ -69,8 +69,8 @@ public class TestND {
 		 * Affichage de l'automate, en mode texte
 		 */
 //        System.out.println("\nPrinting the two automatons");
-		System.out.println(a + "*** END PRINT AUTOMATE ***\n");
-		System.out.println(b + "*** END PRINT AUTOMATE ***\n");
+		System.out.println("*** PRINT AUTOMATE ***\n" + a + "*** END PRINT AUTOMATE ***\n");
+		System.out.println("*** PRINT AUTOMATE ***\n" + b + "*** END PRINT AUTOMATE ***\n");
 
 		/*
 		 * Test de la méthode accept() à réactiver quand vous aurez développé une classe
