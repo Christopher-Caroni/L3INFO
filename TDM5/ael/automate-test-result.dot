@@ -1,6 +1,9 @@
 digraph Automaton { 
   rankdir = LR
-  0 [label="{transpose_{}}",peripheries=2];  start0 [style=invis]
-  start0 -> 0[color="black:white:black"]
+  0 [label="transpose_epsilon"];  1 [label="transpose_a"];  2 [label="transpose_ab"];  3 [label="transpose_abc"];  start3 [style=invis]
+  start3 -> 3[color="black:white:black"]
+  1 -> 0 [label = "a" ]
+  2 -> 1 [label = "b" ]
+  3 -> 2 [label = "c" ]
 }
 

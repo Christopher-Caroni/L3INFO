@@ -118,54 +118,51 @@ public class AutomataUtils {
      */
 
     public static void transpose(Automaton original, AutomatonBuilder mirror) {
-        Set<State> newEndStates = original.getInitialStates();
-        int automateIndex = 0;
-
+        /*
+            All accepting become initial
+            All initial become accepting
+         */
         mirror.clear();
+        final String transposePrefix = "transpose_";
+        Set<State> originalStates = original.getStates();
+        Set<Character> alphabet = original.usedAlphabet();
 
-//        System.out.println("Adding old initial states and end states");
-        for (State endState : newEndStates) {
-            String oldName = endState.getName();
-            String newName = "transpose_" + oldName;
+        addTransposeStates(original, mirror, transposePrefix, originalStates);
+        addReversedTransitions(original, mirror, transposePrefix, originalStates, alphabet);
 
-//            System.out.println("For initial state index; " + automateIndex + " old: \"" + oldName + "\", added \"" + newName + "\"");
-            mirror.addNewState(newName);
-            mirror.setAccepting(newName);
-            addNext(original, mirror, oldName, newName);
-
-            automateIndex++;
-        }
     }
 
-    private static void addNext(Automaton original, AutomatonBuilder mirror, String originalName, String mirrorName) {
-        boolean foundTransitionForOneState = false;
-
-        for (char charInAlphabet : original.usedAlphabet()) {
-            Set<State> transitionSet = original.getTransitionSet(originalName, charInAlphabet);
-
-            if (!transitionSet.isEmpty()) {
-                foundTransitionForOneState = true;
-                // the transition state for the orignal Automaton gives us the PREVIOUS state in the mirror
-                for (State previousState : transitionSet) {
-                    boolean created = false;
-                    String oldName = previousState.getName();
-                    String newName = "transpose_" + oldName;
-
-                    System.out.println("From old automaton found transition: \"" + originalName + "\", \"" + charInAlphabet + "\", \"" + oldName + "\"");
-                        System.out.println("For old: \"" + oldName + "\", trying to add \"" + newName + "\"");
-                    created = mirror.addNewState(newName) != null;
-                        System.out.println("For mirror, adding: \"" + newName + "\", \"" + charInAlphabet + "\", \"" + mirrorName + "\"");
-                    mirror.addTransition(newName, charInAlphabet, mirrorName);
-                    if (created) {
-                        addNext(original, mirror, oldName, newName);
-                    }
+    private static void addReversedTransitions(Automaton original, AutomatonBuilder mirror, String transposePrefix, Set<State> originalStates, Set<Character> alphabet) {
+        for (State previousState : originalStates) {
+            for (Character usedChar : alphabet) {
+                Set<State> transitionSet = original.getTransitionSet(previousState, usedChar);
+                for (State nextState : transitionSet) {
+                    String prevNameInTr = getTransposeName(transposePrefix, previousState);
+                    String nextNameInTr = getTransposeName(transposePrefix, nextState);
+                    mirror.addTransition(nextNameInTr, usedChar, prevNameInTr);
                 }
             }
         }
-        if (!foundTransitionForOneState) {
-            System.out.println("For \"" + originalName + "\" + did not find any transitions, therefore \"" + mirrorName + "\" is accepting");
-            mirror.setInitial(mirrorName);
+    }
+
+    private static void addTransposeStates(Automaton original, AutomatonBuilder mirror, String transposePrefix, Set<State> originalStates) {
+        for (State state : originalStates) {
+            String newName = getTransposeName(transposePrefix, state);
+
+            mirror.addNewState(newName);
+            if (original.isAccepting(state) && original.isInitial(state)) {
+                mirror.setInitial(newName);
+                mirror.setAccepting(newName);
+            } else if (original.isAccepting(state)) {
+                mirror.setInitial(newName);
+            } else if (original.isInitial(state)) {
+                mirror.setAccepting(newName);
+            }
         }
+    }
+
+    private static String getTransposeName(String transposePrefix, State state) {
+        return transposePrefix + state.getName();
     }
 
     /**
