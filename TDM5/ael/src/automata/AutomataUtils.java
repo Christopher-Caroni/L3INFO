@@ -238,7 +238,7 @@ public class AutomataUtils {
         }
     }
 
-    public void minimalise(Automaton a, AutomatonBuilder dest) {
+    public static void minimalise(Automaton a, AutomatonBuilder dest) {
         AutomatonBuilder result = new NDAutomaton();
 
         transpose(a, result);

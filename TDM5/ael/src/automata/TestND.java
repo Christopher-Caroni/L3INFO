@@ -86,7 +86,8 @@ public class TestND {
 
 //		AutomataUtils.addFlatExp("10*1", a, "exp");
 //		AutomataUtils.transpose(a, b);
-		AutomataUtils.determinize(a, b);
+//		AutomataUtils.determinize(a, b);
+		AutomataUtils.minimalise(a, b);
 
 		/*
 		 * Dessin de l'automate (fabrication d'un fichier Graphviz)
