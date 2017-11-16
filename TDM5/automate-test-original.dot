@@ -1,9 +1,0 @@
-digraph Automaton { 
-  rankdir = LR
-  0 [label="epsilon"];  1 [label="a"];  2 [label="ab"];  3 [label="abc",peripheries=2];  start0 [style=invis]
-  start0 -> 0[color="black:white:black"]
-  0 -> 1 [label = "a" ]
-  1 -> 2 [label = "b" ]
-  2 -> 3 [label = "c" ]
-}
-
