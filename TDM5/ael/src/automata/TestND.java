@@ -60,29 +60,32 @@ public class TestND {
 		 * paramètre de la méthode addNewState
 		 */
 
+		a.addNewState("q0");
         a.addNewState("q1");
 		a.addNewState("q2");
 		a.addNewState("q3");
 		a.addNewState("q4");
-        a.addNewState("q5");
 
 		/*
 		 * Définition des états initiaux et des états acceptants Le paramètre est
 		 * indifféremment le numéro ou le nom d'un état
 		 */
+		a.setAccepting("q2");
 		a.setAccepting("q3");
-		a.setAccepting("q4");
-		a.setInitial("q1");
 
 		/*
 		 * Définition des transitions
 		 */
-        a.addTransition("q1", 'a', "q2");
-        a.addTransition("q2", 'b', "q3");
-        a.addTransition("q2", 'b', "q4");
-        a.addTransition("q3", 'a', "q3");
-        a.addTransition("q4", 'a', "q5");
-        a.addTransition("q5", 'b', "q4");
+		a.addTransition("q0", 'a', "q1");
+		a.addTransition("q1", 'b', "q1");
+		a.addTransition("q1", 'a', "q2");
+		a.addTransition("q2", 'a', "q1");
+		a.addTransition("q2", 'b', "q2");
+		a.addTransition("q0", 'b', "q3");
+		a.addTransition("q3", 'b', "q3");
+		a.addTransition("q3", 'a', "q4");
+		a.addTransition("q4", 'a', "q3");
+		a.addTransition("q4", 'b', "q4");
 
 //		AutomataUtils.addFlatExp("10*1", a, "exp");
 //		AutomataUtils.transpose(a, b);
@@ -98,9 +101,9 @@ public class TestND {
 		/*
 		 * Affichage de l'automate, en mode texte
 		 */
-        System.out.println("\nPrinting the two automatons");
-        System.out.println(a);
-        System.out.println(b);
+//        System.out.println("\nPrinting the two automatons");
+		System.out.println(a + "*** END PRINT AUTOMATE ***\n");
+		System.out.println(b + "*** END PRINT AUTOMATE ***\n");
 
 		/*
 		 * Test de la méthode accept() à réactiver quand vous aurez développé une classe

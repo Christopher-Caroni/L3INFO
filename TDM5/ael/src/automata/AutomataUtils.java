@@ -151,10 +151,10 @@ public class AutomataUtils {
                     String oldName = previousState.getName();
                     String newName = "transpose_" + oldName;
 
-//                    System.out.println("From old automaton found transition: \"" + originalName + "\", \"" + charInAlphabet + "\", \"" + oldName + "\"");
-//                        System.out.println("For old: \"" + oldName + "\", trying to add \"" + newName + "\"");
+                    System.out.println("From old automaton found transition: \"" + originalName + "\", \"" + charInAlphabet + "\", \"" + oldName + "\"");
+                        System.out.println("For old: \"" + oldName + "\", trying to add \"" + newName + "\"");
                     created = mirror.addNewState(newName) != null;
-//                        System.out.println("For mirror, adding: \"" + newName + "\", \"" + charInAlphabet + "\", \"" + mirrorName + "\"");
+                        System.out.println("For mirror, adding: \"" + newName + "\", \"" + charInAlphabet + "\", \"" + mirrorName + "\"");
                     mirror.addTransition(newName, charInAlphabet, mirrorName);
                     if (created) {
                         addNext(original, mirror, oldName, newName);
