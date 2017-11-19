@@ -16,7 +16,7 @@ public class AnswerFactoryTest extends QuizTest {
 
     private final String INPUT_TEXT_ANSWER = "Tolkien";
     private final String INPUT_NUMERICAL = "10";
-    private final String INPUT_YES_NO = "oui";
+    private final String INPUT_YES_NO = "vrai";
     private final String INPUT_MULTI = "Frodo ; Pippin ; Merry ; Sam";
     private final String INPUT_MULTIPLE = "Bill | Bourricot | Robert | Jolly Jumper";
 

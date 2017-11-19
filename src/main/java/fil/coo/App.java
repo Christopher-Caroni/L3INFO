@@ -18,6 +18,7 @@ public class App {
 
 
     public static void main(String[] args) {
+       /*
         logger.info("Hello World!");
 
         System.out.print("Hello World with no newline.");
@@ -26,10 +27,23 @@ public class App {
         logger.info("Next line with a newline");
         logger.info("Another line with newline");
 
-        dummyQuiz();
+        */
+
+
+        dummyQuizText();
+        //dummyQuizGraphic();
+    }
+    private static void dummyQuizText() {
+        try {
+            Quiz quiz = new QuizFactory().createQuizFromTextFile("resources/dummy.quiz");
+            quiz.askAll();
+            logger.info("Quiz finished and you won "+quiz.getPointsWon()+" points !");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
-    private static void dummyQuiz() {
+    private static void dummyQuizGraphic() {
         try {
             Quiz quiz = new QuizFactory().createQuizFromTextFile("resources/dummy.quiz");
             AbstractQuizView quizFrame = QuizFrameFactory.getInstance().createQuizView(quiz);

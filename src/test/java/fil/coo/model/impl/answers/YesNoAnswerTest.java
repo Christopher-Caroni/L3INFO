@@ -8,11 +8,11 @@ import static org.junit.Assert.*;
 public class YesNoAnswerTest extends SingleAnswerTest {
 
 
-    private final static String DEFAULT_YES = "oui";
-    private final static String DEFAULT_NO = "non";
-    private final static String EXPECTED_PROMPT = "(oui/non) ";
+    private final static String DEFAULT_YES = "vrai";
+    private final static String DEFAULT_NO = "faux";
+    private final static String EXPECTED_PROMPT = "(vrai/faux) ";
 
-    private static final String[] correctAnswers = new String[]{"yes", "no", "oui", "non", "vrai", "faux"};
+    private static final String[] correctAnswers = new String[]{"vrai", "faux"};
 
 
     protected String getDefaultAnswer() {
