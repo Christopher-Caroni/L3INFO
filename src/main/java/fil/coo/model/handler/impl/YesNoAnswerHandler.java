@@ -8,6 +8,11 @@ import fil.coo.model.impl.answers.YesNoAnswer;
 public class YesNoAnswerHandler extends AnswerHandler {
 
     @Override
+    protected String getCreationClassName() {
+        return YesNoAnswer.class.getSimpleName();
+    }
+
+    @Override
     protected Answer createSpecificAnswer(String answerText) throws InvalidAnswerException {
         return new YesNoAnswer(answerText);
     }

@@ -8,6 +8,11 @@ import fil.coo.model.impl.answers.MultipleChoiceAnswer;
 public class MultipleChoiceAnswerHandler extends AnswerHandler {
 
     @Override
+    protected String getCreationClassName() {
+        return MultipleChoiceAnswer.class.getSimpleName();
+    }
+
+    @Override
     protected Answer createSpecificAnswer(String answerText) throws InvalidAnswerException {
         return new MultipleChoiceAnswer(answerText);
     }

@@ -8,6 +8,11 @@ import fil.coo.model.impl.answers.MultiAnswer;
 public class MultiAnswerHandler extends AnswerHandler {
 
     @Override
+    protected String getCreationClassName() {
+        return MultiAnswer.class.getSimpleName();
+    }
+
+    @Override
     protected Answer createSpecificAnswer(String answerText) throws InvalidAnswerException {
         return new MultiAnswer(answerText);
     }
