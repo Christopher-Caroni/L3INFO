@@ -43,6 +43,9 @@ public abstract class ChoiceAnswerPanel extends AnswerPanel {
     @Override
     public String getUserInput() {
         JRadioButton selectedButton = (JRadioButton) exclusiveButtonGroup.getSelection();
+        if (selectedButton == null) {
+            return "";
+        }
         return selectedButton.getText();
     }
 }

@@ -22,4 +22,7 @@ public abstract class AbstractQuestionView implements IView {
         return answerView.getUserInput();
     }
 
+    public String getAnswerNameType() {
+        return answerView.getClass().getSimpleName();
+    }
 }

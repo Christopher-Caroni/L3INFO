@@ -126,7 +126,7 @@ public class QuizFrame extends AbstractQuizView {
 	 * @param refresh
 	 *            if this frame should repaint right away
 	 */
-	public void addQuestionPanel(AbstractQuestionView questionView, boolean refresh) {
+	public void addQuestionConcreteView(AbstractQuestionView questionView, boolean refresh) {
 		logger.debug("Added question panel");
 		questionsPanel.add(questionView.getView());
 
@@ -145,7 +145,7 @@ public class QuizFrame extends AbstractQuizView {
 	public void showInvalidInputs(List<Integer> invalidInputIndexes) {
 		String msg = "";
 		for (Integer integer : invalidInputIndexes) {
-			msg += "[question " + questionViews.get(integer) + " fail]";
+			msg += "[question " + integer + " fail]\n";
 		}
 		JOptionPane.showMessageDialog(this.getView(), msg);
 	}

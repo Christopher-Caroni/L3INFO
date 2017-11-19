@@ -16,7 +16,7 @@ public class NumericalAnswerPanel extends AnswerPanel {
 
     @Override
     public String getUserInput() {
-        return spinner.getToolTipText();
+        return String.valueOf(spinner.getValue());
     }
 
     @Override

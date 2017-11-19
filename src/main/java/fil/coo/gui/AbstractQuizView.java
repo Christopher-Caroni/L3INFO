@@ -1,6 +1,7 @@
 package fil.coo.gui;
 
 import fil.coo.controller.IQuizController;
+import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,6 +11,8 @@ import java.util.Optional;
  * Defines the behaviour that our quiz views must implement
  */
 public abstract class AbstractQuizView implements IView {
+
+    private static final Logger logger = Logger.getLogger(AbstractQuizView.class.getSimpleName());
 
     protected List<AbstractQuestionView> questionViews;
     protected Optional<IQuizController> quizController;
@@ -26,10 +29,11 @@ public abstract class AbstractQuizView implements IView {
         List<String> userAnswers = new ArrayList<>();
         for (AbstractQuestionView questionView : questionViews) {
             userAnswers.add(questionView.getUserInput());
+            logger.debug("For " + questionView.getAnswerNameType() + " Got user input: \"" + questionView.getUserInput() + "\"");
         }
         return userAnswers;
     }
-    
+
 
     /**
      * Adds a {@link AbstractQuestionView} to this instance and saves it in {@link #questionViews}
@@ -37,7 +41,12 @@ public abstract class AbstractQuizView implements IView {
      * @param questionView the views to add
      * @param refresh      if this instance should refresh right away
      */
-    public abstract void addQuestionPanel(AbstractQuestionView questionView, boolean refresh);
+    public void addQuestionView(AbstractQuestionView questionView, boolean refresh) {
+        this.questionViews.add(questionView);
+        addQuestionConcreteView(questionView, refresh);
+    }
+
+    protected abstract void addQuestionConcreteView(AbstractQuestionView questionView, boolean refresh);
 
     /**
      * @param visible if this instance should be visible or not
