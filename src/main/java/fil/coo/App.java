@@ -1,5 +1,6 @@
 package fil.coo;
 
+import fil.coo.controller.IQuizController;
 import fil.coo.controller.impl.QuizController;
 import fil.coo.gui.AbstractQuizView;
 import fil.coo.gui.factory.QuizFrameFactory;

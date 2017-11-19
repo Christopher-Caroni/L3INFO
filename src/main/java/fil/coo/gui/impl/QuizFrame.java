@@ -7,7 +7,6 @@ import org.apache.log4j.Logger;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.util.List;
 
 public class QuizFrame extends AbstractQuizView {
@@ -21,8 +20,8 @@ public class QuizFrame extends AbstractQuizView {
     private JPanel mainPanel;
     private JButton validateButton;
 
-    public QuizFrame(IQuizController quizController, int nbQuestions) {
-        super(quizController);
+    public QuizFrame(int nbQuestions) {
+        super();
 
         rootFrame = new JFrame();
 
@@ -77,12 +76,7 @@ public class QuizFrame extends AbstractQuizView {
 
     private void initValidateButton() {
         validateButton = new JButton("Validate");
-        validateButton.addActionListener(new AbstractAction() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                quizController.onSubmit();
-            }
-        });
+        validateButton.addActionListener(e -> quizController.ifPresent(IQuizController::onSubmit));
     }
 
     /**
@@ -143,12 +137,13 @@ public class QuizFrame extends AbstractQuizView {
 
     @Override
     public void showInvalidInputs(List<Integer> invalidInputIndexes) {
-        // TODO
+        logger.info("TODO showInvalidInputs");
     }
 
     @Override
     public void onSubmissionFinished(int pointsWon) {
         // TODO
+        logger.info("TODO onSubmissionFinished");
     }
 
     @Override

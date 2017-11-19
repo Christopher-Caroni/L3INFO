@@ -4,6 +4,7 @@ import fil.coo.controller.IQuizController;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Defines the behaviour that our quiz views must implement
@@ -11,10 +12,9 @@ import java.util.List;
 public abstract class AbstractQuizView implements IView {
 
     private List<AbstractQuestionView> questionViews;
-    protected IQuizController quizController;
+    protected Optional<IQuizController> quizController;
 
-    public AbstractQuizView(IQuizController quizController) {
-        this.quizController = quizController;
+    public AbstractQuizView() {
         questionViews = new ArrayList<>();
     }
 
@@ -57,4 +57,8 @@ public abstract class AbstractQuizView implements IView {
      * @param pointsWon the number of points the user won with his inputs
      */
     public abstract void onSubmissionFinished(int pointsWon);
+
+    public void attachController(IQuizController quizController) {
+        this.quizController = Optional.of(quizController);
+    }
 }

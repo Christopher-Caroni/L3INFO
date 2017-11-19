@@ -14,6 +14,8 @@ public abstract class IQuizController {
     public IQuizController(QuizModel quizModel, AbstractQuizView quizView) {
         this.quizModel = quizModel;
         this.quizView = quizView;
+
+        this.quizView.attachController(this);
     }
 
     /**
