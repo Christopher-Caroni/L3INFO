@@ -145,7 +145,7 @@ public class QuizFrame extends AbstractQuizView {
 	public void showInvalidInputs(List<Integer> invalidInputIndexes) {
 		String msg = "";
 		for (Integer integer : invalidInputIndexes) {
-			msg += "[question " + integer + " fail]\n";
+			msg += "[question " + (integer+1) + " invalid type of answer]\n";
 		}
 		JOptionPane.showMessageDialog(this.getView(), msg);
 	}

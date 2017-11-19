@@ -50,12 +50,12 @@ public abstract class IQuizController {
         List<Integer> invalidAnswers = new ArrayList<>();
         for (int i = 0; i < userAnswers.size(); i++) {
             String userAnswer = userAnswers.get(i);
-            String message = "Checking valid answer at index " + i + " + with answer + \"" + userAnswers.get(i) + "\" ";
+            String message = "Checking valid answer at index " + i + " with answer + \"" + userAnswers.get(i) + "\" ";
             if (quizModel.validateAnswerType(i, userAnswer)) {
-                invalidAnswers.add(i);
                 message += "CORRECT";
                 logger.debug(message);
             } else {
+                invalidAnswers.add(i);
                 message += "FALSE";
                 logger.debug(message);
             }
