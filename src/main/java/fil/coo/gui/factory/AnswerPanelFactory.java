@@ -2,16 +2,19 @@ package fil.coo.gui.factory;
 
 import fil.coo.gui.AbstractAnswerView;
 import fil.coo.gui.impl.AnswerPanel;
-import fil.coo.gui.impl.MultiChoiceAnswerPanel;
-import fil.coo.gui.impl.NumericalAnswerPanel;
-import fil.coo.gui.impl.TextAnswerPanel;
-import fil.coo.gui.impl.YesNoAnswerPanel;
+import fil.coo.gui.impl.answers.MultiChoiceAnswerPanel;
+import fil.coo.gui.impl.answers.NumericalAnswerPanel;
+import fil.coo.gui.impl.answers.TextAnswerPanel;
+import fil.coo.gui.impl.answers.YesNoAnswerPanel;
 import fil.coo.model.AnswerModel;
 import fil.coo.model.impl.answers.MultiAnswer;
 import fil.coo.model.impl.answers.MultipleChoiceAnswer;
 import fil.coo.model.impl.answers.NumericalAnswer;
 import fil.coo.model.impl.answers.TextAnswer;
 import fil.coo.model.impl.answers.YesNoAnswer;
+
+import java.util.Collections;
+import java.util.List;
 
 public class AnswerPanelFactory {
 
@@ -43,7 +46,11 @@ public class AnswerPanelFactory {
 
     public AbstractAnswerView createAnswerPanel(MultipleChoiceAnswer answer) {
         // TODO give it a controller
-        return new MultiChoiceAnswerPanel(null);
+
+        List<String> possibleAnswers = answer.getPossibleAnswers();
+        Collections.shuffle(possibleAnswers);
+
+        return new MultiChoiceAnswerPanel(null, possibleAnswers);
     }
     
     public AbstractAnswerView createAnswerPanel(YesNoAnswer answer) {
