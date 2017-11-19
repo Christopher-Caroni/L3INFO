@@ -13,15 +13,15 @@ public class YesNoAnswerPanel extends ChoiceAnswerPanel {
 	private JRadioButton noButton;
 
 	public YesNoAnswerPanel(IAnswerController answerController) {
-		super(answerController, Arrays.asList("yes", "no"));
+		super(answerController, Arrays.asList("vrai", "faux"));
 	}
 
 	@Override
 	protected List<JRadioButton> initChoices() {
 		List<JRadioButton> jRadioButtons = new ArrayList<>();
 
-        yesButton = new JRadioButton("yes");
-        noButton = new JRadioButton("no");
+        yesButton = new JRadioButton("vrai");
+        noButton = new JRadioButton("faux");
 
 		jRadioButtons.add(yesButton);
 		jRadioButtons.add(noButton);

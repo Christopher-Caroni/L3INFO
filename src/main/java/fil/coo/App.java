@@ -30,8 +30,8 @@ public class App {
         */
 
 
-        dummyQuizText();
-        //dummyQuizGraphic();
+        //dummyQuizText();
+        dummyQuizGraphic();
     }
     private static void dummyQuizText() {
         try {
