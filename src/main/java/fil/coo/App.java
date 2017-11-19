@@ -1,13 +1,17 @@
 package fil.coo;
 
-import fil.coo.gui.factory.QuizFrameFactory;
-import fil.coo.gui.AbstractQuizView;
 import fil.coo.controller.impl.QuizController;
-import fil.coo.model.impl.Quiz;
+import fil.coo.gui.AbstractQuizView;
+import fil.coo.gui.factory.QuizFrameFactory;
 import fil.coo.model.factory.QuizFactory;
+import fil.coo.model.impl.Quiz;
+import fil.coo.options.QuizOptions;
+import org.apache.commons.cli.CommandLine;
 import org.apache.log4j.Logger;
 
 import java.io.IOException;
+
+import static fil.coo.options.QuizOptions.NO_GUI;
 
 /**
  * Hello world!
@@ -16,29 +20,58 @@ public class App {
 
     private static final Logger logger = Logger.getLogger(App.class.getSimpleName());
 
+    private final CommandLine lineOptions;
+    private final Quiz quiz;
 
     public static void main(String[] args) {
-        logger.info("Hello World!");
+        String[] dummyArgs = new String[]{"resources/dummy.quiz"};
 
-        System.out.print("Hello World with no newline.");
-        logger.debug("Hello World with no newline.");
+        App app = null;
+        try {
+            app = new App(dummyArgs);
+        } catch (IOException e) {
+            logger.info(e.getMessage());
+            return;
+        }
 
-        logger.info("Next line with a newline");
-        logger.info("Another line with newline");
-
-        dummyQuiz();
+        app.run();
     }
 
-    private static void dummyQuiz() {
-        try {
-            Quiz quiz = new QuizFactory().createQuizFromTextFile("resources/dummy.quiz");
-            AbstractQuizView quizFrame = QuizFrameFactory.getInstance().createQuizView(quiz);
 
-            QuizController quizController = new QuizController(quiz, quizFrame);
-            quizController.displayFrame();
+    public App(String[] args) throws IOException {
+        lineOptions = QuizOptions.generateCommandLine(args);
+        quiz = createQuiz();
+    }
 
-        } catch (IOException e) {
-            e.printStackTrace();
+    protected Quiz createQuiz() throws IOException {
+        String quizFile = getQuizPath();
+        return new QuizFactory().createQuizFromTextFile(quizFile);
+    }
+
+    private String getQuizPath() throws IOException {
+        if (lineOptions.getArgList().size() > 1) {
+            throw new IOException("Ambiguous quiz file specified");
+        } else if (lineOptions.getArgList().size() != 1) {
+            throw new IOException("No file specified");
+        }
+        return lineOptions.getArgList().get(0);
+    }
+
+    private void run() {
+        if (lineOptions.hasOption(NO_GUI)) {
+            // TODO
+            logger.info("No gui option to be implemented");
+        } else {
+            runGui();
         }
     }
+
+    private void runGui() {
+        AbstractQuizView quizFrame = QuizFrameFactory.getInstance().createQuizView(quiz);
+
+        QuizController quizController = new QuizController(quiz, quizFrame);
+        quizController.displayFrame();
+    }
+
+
 }
