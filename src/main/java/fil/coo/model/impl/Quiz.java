@@ -39,7 +39,7 @@ public class Quiz extends QuizModel {
         for (QuestionModel question : questions) {
             totalPoints += question.ask();
         }
-        logger.info("You get " + getPointsWon() + " points");
+        logger.info("Quiz finished and you won " + getPointsWon() + " points");
     }
 
     public QuestionModel getQuestion(int i) {

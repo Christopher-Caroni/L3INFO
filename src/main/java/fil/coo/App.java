@@ -37,7 +37,6 @@ public class App {
         try {
             Quiz quiz = new QuizFactory().createQuizFromTextFile("resources/dummy.quiz");
             quiz.askAll();
-            logger.info("Quiz finished and you won "+quiz.getPointsWon()+" points !");
         } catch (IOException e) {
             e.printStackTrace();
         }
