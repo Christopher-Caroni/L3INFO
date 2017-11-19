@@ -20,8 +20,8 @@ public class YesNoAnswerPanel extends ChoiceAnswerPanel {
 	protected List<JRadioButton> initChoices() {
 		List<JRadioButton> jRadioButtons = new ArrayList<>();
 
-        yesButton = new JRadioButton("yes");
-        noButton = new JRadioButton("no");
+        yesButton = new JRadioButton("vrai");
+        noButton = new JRadioButton("faux");
 
 		jRadioButtons.add(yesButton);
 		jRadioButtons.add(noButton);

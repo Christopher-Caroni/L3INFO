@@ -11,7 +11,7 @@ import java.util.Optional;
  */
 public abstract class AbstractQuizView implements IView {
 
-    private List<AbstractQuestionView> questionViews;
+    protected List<AbstractQuestionView> questionViews;
     protected Optional<IQuizController> quizController;
 
     public AbstractQuizView() {
@@ -29,6 +29,7 @@ public abstract class AbstractQuizView implements IView {
         }
         return userAnswers;
     }
+    
 
     /**
      * Adds a {@link AbstractQuestionView} to this instance and saves it in {@link #questionViews}

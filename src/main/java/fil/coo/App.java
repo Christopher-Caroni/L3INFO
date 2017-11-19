@@ -1,6 +1,5 @@
 package fil.coo;
 
-import fil.coo.controller.IQuizController;
 import fil.coo.controller.impl.QuizController;
 import fil.coo.gui.AbstractQuizView;
 import fil.coo.gui.factory.QuizFrameFactory;
@@ -21,8 +20,8 @@ public class App {
 
     private static final Logger logger = Logger.getLogger(App.class.getSimpleName());
 
-    private final CommandLine lineOptions;
-    private final Quiz quiz;
+    private CommandLine lineOptions;
+    private Quiz quiz;
 
     public static void main(String[] args) {
         String[] dummyArgs = new String[]{"resources/dummy.quiz"};

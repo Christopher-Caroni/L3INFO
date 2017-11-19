@@ -6,7 +6,7 @@ import fil.coo.gui.factory.AnswerPanelFactory;
 
 public class YesNoAnswer extends SingleAnswer {
 
-    private static final String[] possibleAnswers = new String[]{"yes", "no", "oui", "non", "vrai", "faux"};
+    private static final String[] possibleAnswers = new String[]{"vrai", "faux"};
 
     public YesNoAnswer(String answer) throws NullPointerException, InvalidAnswerException {
         super(answer, true);
@@ -18,11 +18,10 @@ public class YesNoAnswer extends SingleAnswer {
     }
 
     public String getPrompt() {
-        return "(oui/non) ";
+        return "(vrai/faux) ";
     }
 
     protected boolean checkUserAnswerIsValid(String userAnswer) {
-        boolean found;
         for (String possibleAnswer : possibleAnswers) {
             if (possibleAnswer.equalsIgnoreCase(userAnswer)) {
                 return true;
