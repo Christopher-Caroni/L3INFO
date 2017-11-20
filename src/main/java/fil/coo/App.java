@@ -24,7 +24,7 @@ public class App {
     private Quiz quiz;
 
     public static void main(String[] args) {
-        String[] dummyArgs = new String[]{"resources/dummy.quiz", "-n"};
+        String[] dummyArgs = new String[]{"resources/dummy.quiz"};
 
         App app = null;
         try {

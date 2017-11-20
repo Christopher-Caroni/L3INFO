@@ -4,6 +4,7 @@ import fil.coo.controller.IAnswerController;
 import fil.coo.gui.impl.AnswerPanel;
 
 import javax.swing.*;
+import java.util.Enumeration;
 import java.util.List;
 
 public abstract class ChoiceAnswerPanel extends AnswerPanel {
@@ -42,10 +43,17 @@ public abstract class ChoiceAnswerPanel extends AnswerPanel {
 
     @Override
     public String getUserInput() {
-        JRadioButton selectedButton = (JRadioButton) exclusiveButtonGroup.getSelection();
-        if (selectedButton == null) {
-            return "";
+        return getSelectedButtonText(exclusiveButtonGroup);
+    }
+
+    private String getSelectedButtonText(ButtonGroup buttonGroup) {
+        for (Enumeration<AbstractButton> buttons = buttonGroup.getElements(); buttons.hasMoreElements();) {
+            AbstractButton button = buttons.nextElement();
+
+            if (button.isSelected()) {
+                return button.getText();
+            }
         }
-        return selectedButton.getText();
+        return "";
     }
 }
