@@ -6,7 +6,8 @@ import fil.coo.gui.factory.AnswerPanelFactory;
 
 public class TextAnswer extends SingleAnswer {
 
-    private final static String[] yesNoAnswerText = new String[]{"vrai", "faux"};
+    private final static String[] yesNoAnswerText = new String[]{"vrai", "faux", "oui", "non", "yes", "no", "true",
+            "false"};
 
     public TextAnswer(String answer, boolean save) throws NullPointerException, InvalidAnswerException {
         super(answer, save);
@@ -42,7 +43,7 @@ public class TextAnswer extends SingleAnswer {
         return answerPanelFactory.createAnswerPanel(this);
     }
 
-    public String toString(){
+    public String toString() {
         return this.answer;
     }
 
