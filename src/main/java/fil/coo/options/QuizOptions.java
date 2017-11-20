@@ -9,6 +9,8 @@ public class QuizOptions {
 
     public static final String NO_GUI = "text";
 
+    public static final String DUMMY_ARGS = "dummy";
+
     private QuizOptions() {
     }
 
@@ -29,8 +31,14 @@ public class QuizOptions {
                 .longOpt(NO_GUI)
                 .build();
 
+        Option dummyArgs = Option.builder("d")
+                .desc("Use dummy arguments")
+                .longOpt(DUMMY_ARGS)
+                .build();
+
         Options options = new Options();
         options.addOption(noGui);
+        options.addOption(dummyArgs);
 
         return options;
     }

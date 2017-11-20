@@ -11,6 +11,7 @@ import org.apache.log4j.Logger;
 
 import java.io.IOException;
 
+import static fil.coo.options.QuizOptions.DUMMY_ARGS;
 import static fil.coo.options.QuizOptions.NO_GUI;
 
 /**
@@ -24,11 +25,9 @@ public class App {
     private Quiz quiz;
 
     public static void main(String[] args) {
-        String[] dummyArgs = new String[]{"resources/dummy.quiz"};
-
         App app = null;
         try {
-            app = new App(dummyArgs);
+            app = new App(args);
         } catch (IOException e) {
             logger.info(e.getMessage());
             return;
@@ -40,6 +39,9 @@ public class App {
 
     public App(String[] args) throws IOException {
         lineOptions = QuizOptions.generateCommandLine(args);
+        if (lineOptions.hasOption(DUMMY_ARGS)) {
+            lineOptions = QuizOptions.generateCommandLine(getDummyArgs());
+        }
         quiz = createQuiz();
     }
 
@@ -76,5 +78,9 @@ public class App {
         quizController.displayFrame();
     }
 
+
+    private String[] getDummyArgs() {
+        return new String[]{"resources/dummy.quiz"};
+    }
 
 }
