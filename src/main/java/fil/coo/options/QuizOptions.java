@@ -7,7 +7,7 @@ public class QuizOptions {
 
     private static Logger logger = Logger.getLogger(QuizOptions.class.getSimpleName());
 
-    public static final String NO_GUI = "no-gui";
+    public static final String NO_GUI = "text";
 
     private QuizOptions() {
     }
@@ -24,7 +24,7 @@ public class QuizOptions {
     }
 
     private static Options generateOptions() {
-        Option noGui = Option.builder("n")
+        Option noGui = Option.builder("t")
                 .desc("Use terminal instead of GUI")
                 .longOpt(NO_GUI)
                 .build();
