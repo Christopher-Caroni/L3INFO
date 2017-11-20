@@ -24,7 +24,7 @@ public class App {
     private Quiz quiz;
 
     public static void main(String[] args) {
-        String[] dummyArgs = new String[]{"resources/dummy.quiz"};
+        String[] dummyArgs = new String[]{"resources/dummy.quiz", "-n"};
 
         App app = null;
         try {
@@ -59,11 +59,14 @@ public class App {
 
     private void run() {
         if (lineOptions.hasOption(NO_GUI)) {
-            // TODO
-            logger.info("No gui option to be implemented");
+            runCommandLine();
         } else {
             runGui();
         }
+    }
+
+    private void runCommandLine() {
+        quiz.askAll();
     }
 
     private void runGui() {
