@@ -38,4 +38,6 @@ public abstract class QuizModel {
     public final int getNbQuestions() {
         return questions.size();
     }
+
+    public abstract List<Integer> getPoints();
 }

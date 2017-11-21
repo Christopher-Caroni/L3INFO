@@ -27,7 +27,7 @@ public abstract class IQuizController {
     public void onSubmit() {
         logger.debug("received onSubmit");
 
-        List<String> userAnswers = quizView.getUserAnswerInput();
+        final List<String> userAnswers = quizView.getUserAnswerInput();
         if (userAnswers.isEmpty()) {
             logger.debug("Received empty user answers");
             return;
@@ -38,7 +38,7 @@ public abstract class IQuizController {
         if (!invalidAnswers.isEmpty()) {
             refuseSubmissionOnInvalidInput(invalidAnswers);
         } else {
-            acceptSubmission(userAnswers);
+            acceptSubmission(userAnswers, quizModel.getPoints());
         }
     }
 
@@ -46,7 +46,7 @@ public abstract class IQuizController {
      * @param userAnswers the user's input for all the answers
      * @return the indexes of the answers with invalid inputs
      */
-    private List<Integer> verifyInvalidInput(List<String> userAnswers) {
+    private List<Integer> verifyInvalidInput(final List<String> userAnswers) {
         List<Integer> invalidAnswers = new ArrayList<>();
         for (int i = 0; i < userAnswers.size(); i++) {
             String userAnswer = userAnswers.get(i);
@@ -69,7 +69,7 @@ public abstract class IQuizController {
      * @param invalidInputIndexes the indexes of the answers with invalid inputs
      */
 
-    protected void refuseSubmissionOnInvalidInput(List<Integer> invalidInputIndexes) {
+    protected void refuseSubmissionOnInvalidInput(final List<Integer> invalidInputIndexes) {
         quizView.showInvalidInputs(invalidInputIndexes);
     }
 
@@ -77,9 +77,10 @@ public abstract class IQuizController {
      * Gets the total of points won and asks {@link #quizView} to display it
      *
      * @param userAnswers the user's input for all the answers
+     * @param points
      */
-    protected void acceptSubmission(List<String> userAnswers) {
-        int pointsWon = verifyCorrectAnswers(userAnswers);
+    protected void acceptSubmission(final List<String> userAnswers, List<Integer> points) {
+        int pointsWon = verifyCorrectAnswers(userAnswers, points);
         quizView.onSubmissionFinished(pointsWon);
     }
 
@@ -87,16 +88,17 @@ public abstract class IQuizController {
      * Verifies userAnswers against the {@link #quizModel} and counts the total of points won
      *
      * @param userAnswers the user's input for all the answers
+     * @param points
      * @return the number of points won
      */
-    protected int verifyCorrectAnswers(List<String> userAnswers) {
+    protected int verifyCorrectAnswers(final List<String> userAnswers, List<Integer> points) {
         int pointsWon = 0;
         for (int i = 0; i < userAnswers.size(); i++) {
             String message = "Checking correct answer at index " + i + " + with answer + \"" + userAnswers.get(i) + "\" ";
             if (quizModel.checkCorrectAnswer(i, userAnswers.get(i))) {
                 message += "CORRECT";
                 logger.debug(message);
-                i++;
+                pointsWon += points.get(i);
             } else {
                 message += "FALSE";
                 logger.debug(message);
