@@ -53,8 +53,6 @@ Vous pouvez voir ci-dessous l'UML des différents test:
 
 ![image](diagrams/tests.png)
 
-#Précision de code :
-
 ## MVC
 
 Pour la réalisation graphique nous avons décider de créer une architecture `MVC` (Modele View Controller). Le but est de séparer le projet en 3 étapes :
@@ -69,4 +67,4 @@ Vous pouvez voir ci-dessous les classes présentes dans notre mvc ci-dessous :
 
 
 
-![image](diagrams/mvc.png)
+![image](diagrams/mvc_illlustration.png)
