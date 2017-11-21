@@ -67,4 +67,4 @@ Vous pouvez voir ci-dessous les classes présentes dans notre mvc ci-dessous :
 
 
 
-![image](diagrams/mvc_illlustration.png)
+![image](diagrams/mvc_illustration.png)
