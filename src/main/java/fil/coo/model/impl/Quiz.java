@@ -8,6 +8,7 @@ import fil.coo.model.QuizModel;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Quiz extends QuizModel {
 
@@ -62,11 +63,9 @@ public class Quiz extends QuizModel {
 
     @Override
     public List<Integer> getPoints() {
-        List<Integer> points = new ArrayList<>();
-        for(QuestionModel questionModel : questions) {
-            points.add(questionModel.getNbPts());
-        }
-        return points;
+        return questions.stream()
+                .map(QuestionModel::getNbPts)
+                .collect(Collectors.toList());
     }
 
     private AnswerModel getAnswer(int questionIndex) {
