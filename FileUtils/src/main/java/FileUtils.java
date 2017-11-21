@@ -19,6 +19,7 @@ public class FileUtils {
      *
      * @param testingDirPath the name of your testing directory you want to create
      * @param files          the list of filenames to create in testDirName
+     * @param resetFolder    if the folder should be emptied beforehand
      * @throws IOException the error, if encountered, while manipulating the directory or files
      */
     public static void setupTestDir(Path testingDirPath, List<String> files, boolean resetFolder) throws IOException {
@@ -54,7 +55,7 @@ public class FileUtils {
      *
      * @param file the file to delete
      */
-    private static void deleteFile(File file) {
+    public static void deleteFile(File file) {
         boolean delete = file.delete();
         logger.debug("deleted dir \"" + file.toString() + "\" : " + delete);
     }
@@ -64,7 +65,7 @@ public class FileUtils {
      *
      * @param testingDir the folder to delete the contents of
      */
-    private static void deleteContentsOfDirectory(File testingDir) {
+    public static void deleteContentsOfDirectory(File testingDir) {
         verifyFileIsDirectory(testingDir);
 
         String[] entries = testingDir.list();
