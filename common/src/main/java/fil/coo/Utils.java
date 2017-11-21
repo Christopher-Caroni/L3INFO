@@ -1,3 +1,5 @@
+package fil.coo;
+
 import org.apache.log4j.Logger;
 
 import java.io.File;
@@ -7,11 +9,11 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 
-public class FileUtils {
+public class Utils {
 
-    private static Logger logger = Logger.getLogger(FileUtils.class.getSimpleName());
+    private static Logger logger = Logger.getLogger(Utils.class.getSimpleName());
 
-    private FileUtils() {
+    private Utils() {
     }
 
     /**
