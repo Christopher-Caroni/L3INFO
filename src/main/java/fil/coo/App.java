@@ -37,6 +37,7 @@ public class App {
     }
 
 
+
     public App(String[] args) throws IOException {
         lineOptions = QuizOptions.generateCommandLine(args);
         if (lineOptions.hasOption(DUMMY_ARGS)) {
