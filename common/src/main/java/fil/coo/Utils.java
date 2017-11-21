@@ -24,14 +24,17 @@ public class Utils {
      * @param resetFolder    if the folder should be emptied beforehand
      * @throws IOException the error, if encountered, while manipulating the directory or files
      */
-    public static void setupTestDir(Path testingDirPath, List<String> files, boolean resetFolder) throws IOException {
+    public static Path setupTestDir(Path testingDirPath, List<String> files, boolean resetFolder) throws IOException {
+        Path newPath = null;
         if (resetFolder) {
             verifyExistingFolder(testingDirPath);
-            createTestingFolder(testingDirPath);
+            newPath = createTestingFolder(testingDirPath);
+        } else {
+            newPath = testingDirPath;
         }
 
         createTempFiles(testingDirPath, files);
-
+        return newPath;
     }
 
     /**
@@ -69,6 +72,22 @@ public class Utils {
      */
     public static void deleteContentsOfDirectory(File testingDir) {
         verifyFileIsDirectory(testingDir);
+
+        String[] entries = testingDir.list();
+        for (String s : entries) {
+            File currentFile = new File(testingDir.getPath(), s);
+            deleteFile(currentFile);
+        }
+    }
+
+    /**
+     * Deletes the contents of a folder
+     *
+     * @param testingDirPath the folder to delete the contents of
+     */
+    public static void deleteContentsOfDirectory(Path testingDirPath) {
+        verifyPathLeadsToDirectory(testingDirPath);
+        File testingDir = new File(testingDirPath.toString());
 
         String[] entries = testingDir.list();
         for (String s : entries) {
