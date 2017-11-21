@@ -44,9 +44,10 @@ public class Utils {
      */
     private static void verifyExistingFolder(Path testDirPath) {
         File testingDir = new File(testDirPath.normalize().toString());
-        verifyFileIsDirectory(testingDir);
-
         if (testingDir.exists()) {
+
+            verifyFileIsDirectory(testingDir);
+
             logger.debug("test folder exists, will delete");
             deleteContentsOfDirectory(testingDir);
             deleteFile(testingDir);
@@ -144,7 +145,7 @@ public class Utils {
 
     private static void verifyFileIsDirectory(File dir) {
         if (!dir.isDirectory()) {
-            throw new IllegalArgumentException("testingDir is not a directory");
+            throw new IllegalArgumentException(dir.getAbsolutePath() + " is not a directory");
         }
     }
 }
