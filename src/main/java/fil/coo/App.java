@@ -37,6 +37,12 @@ public class App {
     }
 
 
+    /**
+     * Parses the arguments with the options specified in {@link QuizOptions} and loads the quiz.
+     *
+     * @param args the program arguments
+     * @throws IOException if the file could not be loaded
+     */
     public App(String[] args) throws IOException {
         lineOptions = QuizOptions.generateCommandLine(args);
         if (lineOptions.hasOption(DUMMY_ARGS)) {
@@ -45,11 +51,25 @@ public class App {
         quiz = createQuiz();
     }
 
+
+    /**
+     * Finds the appropriate argument that specifies the path to the quiz file and creates a {@link Quiz} using
+     * {@link QuizFactory}
+     *
+     * @return a {@link Quiz}
+     * @throws IOException
+     */
     protected Quiz createQuiz() throws IOException {
         String quizFile = getQuizPath();
         return new QuizFactory().createQuizFromTextFile(quizFile);
     }
 
+    /**
+     * Looks at the leftover arguments from {@link #lineOptions} and if there is only one, uses it as the path
+     *
+     * @return the path to the quiz
+     * @throws IOException if it could not determine the path
+     */
     private String getQuizPath() throws IOException {
         if (lineOptions.getArgList().size() > 1) {
             throw new IOException("Ambiguous quiz file specified");
@@ -59,6 +79,9 @@ public class App {
         return lineOptions.getArgList().get(0);
     }
 
+    /**
+     * Runs the GUI or text version of the quiz
+     */
     private void run() {
         if (lineOptions.hasOption(NO_GUI)) {
             runCommandLine();
@@ -67,10 +90,18 @@ public class App {
         }
     }
 
+    /**
+     * Runs the text version of the quiz.
+     *
+     * @see Quiz#askAll()
+     */
     private void runCommandLine() {
         quiz.askAll();
     }
 
+    /**
+     * Runs the GUI version of the quiz using {@link QuizFrameFactory}
+     */
     private void runGui() {
         AbstractQuizView quizFrame = QuizFrameFactory.getInstance().createQuizView(quiz);
 
@@ -78,7 +109,9 @@ public class App {
         quizController.displayFrame();
     }
 
-
+    /**
+     * @return a dummy array of arguments that will load the quiz at "resources/dummy.quiz"
+     */
     private String[] getDummyArgs() {
         return new String[]{"resources/dummy.quiz"};
     }
