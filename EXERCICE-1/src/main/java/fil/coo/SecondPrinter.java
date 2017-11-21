@@ -17,10 +17,16 @@ public class SecondPrinter {
         timer = new Timer(1000, new PrintActionListener());
     }
 
+    /**
+     * Start the {@link Timer}
+     */
     public void start() {
         timer.start();
     }
 
+    /**
+     * Print the currently date
+     */
     public void printCurrentSecond() {
         System.out.println(Calendar.getInstance().getTime());
     }

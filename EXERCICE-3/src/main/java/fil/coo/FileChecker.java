@@ -8,9 +8,9 @@ import java.io.FilenameFilter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FileChecker {
+public class FileChecker implements FileListener{
 
-    private static final String FOLDER_PATH = "/plugins";
+    private static final String FOLDER_PATH = "plugins";
     private Timer timer;
     private FilenameFilter filenameFilter;
     private List<FileListener> listeners;
@@ -59,14 +59,16 @@ public class FileChecker {
 
         for (String filename : filenames) {
             if (!(memory.contains(filename))) {
-                fireAdded();
+                fireAdded(filename);
             }
         }
     }
 
-    private void fireAdded() {
-        //TODO
+    private void fireAdded(String filename) {
+        FileEvent event = new FileEvent(filename);
+
     }
+
 
 
     private void checkRemovedFiles(List<String> filenames) {
@@ -79,6 +81,16 @@ public class FileChecker {
 
     private void fireRemoved() {
         //TODO
+    }
+
+    @Override
+    public void fileAdded(FileEvent e) {
+
+    }
+
+    @Override
+    public void fileRemoved(FileEvent e) {
+
     }
 
     private class FileActionLister implements ActionListener {
