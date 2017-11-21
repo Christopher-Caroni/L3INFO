@@ -6,6 +6,10 @@ import fil.coo.model.AnswerModel;
 import fil.coo.model.QuestionModel;
 import fil.coo.model.QuizModel;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 public class Quiz extends QuizModel {
 
     private static final Logger logger = Logger.getLogger(Quiz.class.getSimpleName());
@@ -56,7 +60,14 @@ public class Quiz extends QuizModel {
     public boolean checkCorrectAnswer(int questionIndex, String userAnswer) {
         return getAnswer(questionIndex).isCorrect(userAnswer);
     }
-    
+
+    @Override
+    public List<Integer> getPoints() {
+        return questions.stream()
+                .map(QuestionModel::getNbPts)
+                .collect(Collectors.toList());
+    }
+
     private AnswerModel getAnswer(int questionIndex) {
 		return questions.get(questionIndex).getAnswer();
 	}
