@@ -12,7 +12,7 @@ import java.util.List;
 public class FileChecker implements FileListener {
 
     private static final String REPOSITORY_PATH = "plugins";
-    
+
     private Timer timer;
     private final FilenameFilter filenameFilter;
     private List<FileListener> listeners;
@@ -67,7 +67,7 @@ public class FileChecker implements FileListener {
     private void checkNewFiles(List<String> currentFiles) {
         for (String filename : currentFiles) {
             if (!(memory.contains(filename))) {
-                fireAdded(filename);
+                fireFileAdded(filename);
             }
         }
     }
@@ -81,17 +81,18 @@ public class FileChecker implements FileListener {
     private void checkRemovedFiles(List<String> currentFiles) {
         for (String preExistingFile : memory) {
             if (!(currentFiles.contains(preExistingFile))) {
-                fireRemoved();
+                fireFileRemoved(preExistingFile);
             }
         }
     }
 
-    private void fireAdded(String filename) {
-        FileEvent event = new FileEvent(filename);
+    private void fireFileAdded(String addedFile) {
+        FileEvent event = new FileEvent(addedFile);
         // TODO notify
     }
 
-    private void fireRemoved() {
+    private void fireFileRemoved(String deletedFile) {
+        FileEvent event = new FileEvent(deletedFile);
         //TODO
     }
 
@@ -111,5 +112,13 @@ public class FileChecker implements FileListener {
         public void actionPerformed(ActionEvent actionEvent) {
             checkChangedFiles();
         }
+    }
+
+    public void subscribeFileListener(FileListener listener) {
+        this.listeners.add(listener);
+    }
+
+    public void unsubscribeFileListener(FileListener listener) {
+        this.listeners.remove(listener);
     }
 }
