@@ -17,6 +17,7 @@ public class Quiz extends QuizModel {
     private int totalPoints;
 
     public Quiz() {
+        super();
         totalPoints = 0;
     }
 
