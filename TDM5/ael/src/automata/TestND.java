@@ -50,14 +50,17 @@ public class TestND {
 
 		/* Fabrication de l'automate */
 
-		AutomatonBuilder a = Constantes.buildMinimaliseOriginal();
+        AutomatonBuilder a = Constantes.buildTransposeOriginal();
+//        A CHANGER POUR TESTER
+//        AutomatonBuilder a = Constantes.buildMinimaliseOriginal();
 		AutomatonBuilder b = new NDAutomaton();
 
 
-//		AutomataUtils.addFlatExp("10*1", a, "exp");
-//		AutomataUtils.transpose(a, b);
-//		AutomataUtils.determinize(a, b);
-		AutomataUtils.minimalise(a, b);
+        AutomataUtils.transpose(a, b);
+//        A CHANGER POUR TESTER
+//        AutomataUtils.minimalise(a, b);
+
+
 
 		/*
 		 * Dessin de l'automate (fabrication d'un fichier Graphviz)
