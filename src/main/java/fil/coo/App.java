@@ -12,6 +12,7 @@ import org.apache.log4j.Logger;
 import java.io.IOException;
 
 import static fil.coo.options.QuizOptions.DUMMY_ARGS;
+import static fil.coo.options.QuizOptions.HELP;
 import static fil.coo.options.QuizOptions.NO_GUI;
 
 /**
@@ -21,7 +22,9 @@ public class App {
 
     private static final Logger logger = Logger.getLogger(App.class.getSimpleName());
 
+    private QuizOptions quizOptions;
     private CommandLine lineOptions;
+
     private Quiz quiz;
 
     public static void main(String[] args) {
@@ -44,10 +47,16 @@ public class App {
      * @throws IOException if the file could not be loaded
      */
     public App(String[] args) throws IOException {
-        lineOptions = QuizOptions.generateCommandLine(args);
+        quizOptions = new QuizOptions();
+        lineOptions = quizOptions.generateCommandLine(args);
         if (lineOptions.hasOption(DUMMY_ARGS)) {
-            lineOptions = QuizOptions.generateCommandLine(getDummyArgs());
+            lineOptions = quizOptions.generateCommandLine(getDummyArgs());
         }
+        if (lineOptions.hasOption(HELP)) {
+            checkHelpRequest();
+            System.exit(0);
+        }
+
         quiz = createQuiz();
     }
 
@@ -87,6 +96,12 @@ public class App {
             runCommandLine();
         } else {
             runGui();
+        }
+    }
+
+    private void checkHelpRequest() {
+        if (lineOptions.hasOption(HELP)) {
+            quizOptions.displayHelp();
         }
     }
 
