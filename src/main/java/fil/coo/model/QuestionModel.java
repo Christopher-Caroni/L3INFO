@@ -41,7 +41,6 @@ public abstract class QuestionModel {
 
     /**
      * Asks this question
-     * TODO should this be here in in subclass? It doesn't need to be known by any class outside of the command line version of the quiz
      */
     public abstract int ask();
 }

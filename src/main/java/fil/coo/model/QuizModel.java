@@ -1,5 +1,7 @@
 package fil.coo.model;
 
+import fil.coo.model.impl.Question;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,5 +41,19 @@ public abstract class QuizModel {
         return questions.size();
     }
 
+    /**
+     *
+     * @return a list of the points of the questions of the same indices in {@link #questions}
+     */
     public abstract List<Integer> getPoints();
+
+
+    /**
+     * Adds a question to this quiz
+     *
+     * @param question the question to add
+     */
+    public void addQuestion(QuestionModel question) {
+        this.questions.add(question);
+    }
 }

@@ -29,15 +29,6 @@ public class Quiz extends QuizModel {
     }
 
     /**
-     * Adds a question to this quiz
-     *
-     * @param question the question to add
-     */
-    public void addQuestion(Question question) {
-        this.questions.add(question);
-    }
-
-    /**
      * Asks all the questions in this quiz
      */
     public void askAll() {
