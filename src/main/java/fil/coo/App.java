@@ -6,14 +6,12 @@ import fil.coo.gui.factory.QuizFrameFactory;
 import fil.coo.model.factory.QuizFactory;
 import fil.coo.model.impl.Quiz;
 import fil.coo.options.QuizOptions;
-import org.apache.commons.cli.CommandLine;
 import org.apache.log4j.Logger;
 
 import java.io.IOException;
 
 import static fil.coo.options.QuizOptions.DUMMY_ARGS;
-import static fil.coo.options.QuizOptions.HELP;
-import static fil.coo.options.QuizOptions.NO_GUI;
+import static fil.coo.options.QuizOptions.TEXT_MODE;
 
 /**
  * Hello world!
@@ -23,7 +21,6 @@ public class App {
     private static final Logger logger = Logger.getLogger(App.class.getSimpleName());
 
     private QuizOptions quizOptions;
-    private CommandLine lineOptions;
 
     private Quiz quiz;
 
@@ -47,61 +44,41 @@ public class App {
      * @throws IOException if the file could not be loaded
      */
     public App(String[] args) throws IOException {
-        quizOptions = new QuizOptions();
-        lineOptions = quizOptions.generateCommandLine(args);
-        if (lineOptions.hasOption(DUMMY_ARGS)) {
-            lineOptions = quizOptions.generateCommandLine(getDummyArgs());
-        }
-        if (lineOptions.hasOption(HELP)) {
-            checkHelpRequest();
-            System.exit(0);
-        }
+        parseOptions(args);
 
         quiz = createQuiz();
     }
 
+    protected void parseOptions(String[] args) {
+        quizOptions = new QuizOptions(args);
+        quizOptions.checkExclusiveOptions();
 
-    /**
-     * Finds the appropriate argument that specifies the path to the quiz file and creates a {@link Quiz} using
-     * {@link QuizFactory}
-     *
-     * @return a {@link Quiz}
-     * @throws IOException
-     */
-    protected Quiz createQuiz() throws IOException {
-        String quizFile = getQuizPath();
-        return new QuizFactory().createQuizFromTextFile(quizFile);
+        if (quizOptions.hasOption(DUMMY_ARGS)) {
+            quizOptions = new QuizOptions(getDummyArgs());
+        }
     }
 
+
     /**
-     * Looks at the leftover arguments from {@link #lineOptions} and if there is only one, uses it as the path
+     * Creates a {@link Quiz} using the path to the quiz file found by {@link QuizOptions#getQuizPath()}
+     * {@link QuizFactory}
      *
-     * @return the path to the quiz
-     * @throws IOException if it could not determine the path
+     * @return a new {@link Quiz}
+     * @throws IOException if there was a user error in the quiz path
      */
-    private String getQuizPath() throws IOException {
-        if (lineOptions.getArgList().size() > 1) {
-            throw new IOException("Ambiguous quiz file specified");
-        } else if (lineOptions.getArgList().size() != 1) {
-            throw new IOException("No file specified");
-        }
-        return lineOptions.getArgList().get(0);
+    protected Quiz createQuiz() throws IOException {
+        String quizFile = quizOptions.getQuizPath();
+        return new QuizFactory().createQuizFromTextFile(quizFile);
     }
 
     /**
      * Runs the GUI or text version of the quiz
      */
     private void run() {
-        if (lineOptions.hasOption(NO_GUI)) {
+        if (quizOptions.hasOption(TEXT_MODE)) {
             runCommandLine();
         } else {
             runGui();
-        }
-    }
-
-    private void checkHelpRequest() {
-        if (lineOptions.hasOption(HELP)) {
-            quizOptions.displayHelp();
         }
     }
 
