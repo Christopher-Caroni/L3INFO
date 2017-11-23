@@ -60,7 +60,7 @@ public class Quiz extends QuizModel {
                 .collect(Collectors.toList());
     }
 
-    private AnswerModel getAnswer(int questionIndex) {
+    protected AnswerModel getAnswer(int questionIndex) {
 		return questions.get(questionIndex).getAnswer();
 	}
     

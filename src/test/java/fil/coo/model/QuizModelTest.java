@@ -69,6 +69,14 @@ public abstract class QuizModelTest {
 
     protected class MockAnswer implements AnswerModel {
 
+        private final boolean shouldReturnValid;
+        private final boolean shouldReturnCorrect;
+
+        public MockAnswer(boolean shouldReturnValid, boolean shouldReturnCorrect) {
+            this.shouldReturnValid = shouldReturnValid;
+            this.shouldReturnCorrect = shouldReturnCorrect;
+        }
+
         @Override
         public AbstractAnswerView createAnswerPanel(AnswerPanelFactory answerPanelFactory) {
             return null;
@@ -81,12 +89,12 @@ public abstract class QuizModelTest {
 
         @Override
         public boolean isValid(String userAnswer) {
-            return false;
+            return shouldReturnValid;
         }
 
         @Override
         public boolean isCorrect(String userAnswer) {
-            return false;
+            return shouldReturnCorrect;
         }
 
         @Override
