@@ -22,13 +22,13 @@ public abstract class AnswerPanel extends AbstractAnswerView {
     protected abstract void initCustomView();
 
     @Override
-    public void add(Component component) {
-        rootPanel.add(component);
+    public void setBorder(Border border) {
+        rootPanel.setBorder(border);
     }
 
     @Override
-    public void setBorder(Border border) {
-        rootPanel.setBorder(border);
+    public Border getBorder() {
+        return rootPanel.getBorder();
     }
 
     @Override

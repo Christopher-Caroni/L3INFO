@@ -19,12 +19,6 @@ public abstract class AbstractAnswerView implements IView {
         this.answerController = answerController;
     }
 
-    /**
-     * Adds a view to this view's instance
-     *
-     * @param component the component to add
-     */
-    public abstract void add(Component component);
 
     /**
      * @return the user's answer
@@ -34,4 +28,6 @@ public abstract class AbstractAnswerView implements IView {
     public abstract void setUserInput(String input);
 
     public abstract void setBorder(Border border);
+
+    public abstract Border getBorder();
 }
