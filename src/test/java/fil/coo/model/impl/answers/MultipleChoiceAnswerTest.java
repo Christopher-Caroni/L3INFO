@@ -68,7 +68,6 @@ public class MultipleChoiceAnswerTest extends SingleAnswerTest {
         assertFalse(singleAnswer.isValid(""));
         assertFalse(singleAnswer.isValid("-1"));
         assertFalse(singleAnswer.isValid("1"));
-        assertFalse(singleAnswer.isValid("answer"));
     }
 
     @Test

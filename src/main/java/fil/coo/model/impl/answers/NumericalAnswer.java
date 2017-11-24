@@ -7,7 +7,7 @@ import fil.coo.gui.factory.AnswerPanelFactory;
 public class NumericalAnswer extends SingleAnswer {
 
     public NumericalAnswer(String answer) throws NullPointerException, InvalidAnswerException {
-        super(answer, true);
+        super(answer);
     }
 
     @Override

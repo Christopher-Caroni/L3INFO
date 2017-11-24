@@ -36,7 +36,7 @@ public class QuestionTest extends QuizTest {
         numericalAnswer = new NumericalAnswer(INPUT_ANSWER_1);
         questionWithNumericalAnswer = new Question(INPUT_QUESTION_1, numericalAnswer, NB_POINTS_NUMERICAL_QUESTION);
 
-        textAnswer = new TextAnswer(INPUT_ANSWER_2, true);
+        textAnswer = new TextAnswer(INPUT_ANSWER_2);
         questionWithTextAnswer = new Question(INPUT_QUESTION_2, textAnswer, NB_POINTS_TEXT_QUESTION);
     }
 

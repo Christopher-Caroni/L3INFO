@@ -9,8 +9,8 @@ public class TextAnswer extends SingleAnswer {
     private final static String[] yesNoAnswerText = new String[]{"vrai", "faux", "oui", "non", "yes", "no", "true",
             "false"};
 
-    public TextAnswer(String answer, boolean save) throws NullPointerException, InvalidAnswerException {
-        super(answer, save);
+    public TextAnswer(String answer) throws InvalidAnswerException {
+        super(answer);
     }
 
     @Override
@@ -44,7 +44,7 @@ public class TextAnswer extends SingleAnswer {
     }
 
     public String toString() {
-        return this.answer;
+        return this.correctAnswer;
     }
 
 }

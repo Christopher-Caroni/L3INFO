@@ -18,13 +18,13 @@ public class MultiAnswer extends Answer {
 
     public MultiAnswer(String allAnswers) throws InvalidAnswerException {
         super(allAnswers);
-        answers = new ArrayList<TextAnswer>();
+        answers = new ArrayList<>();
         for (String oneAnswer : allAnswers.split(" ; ")) {
             if (!("".equals(oneAnswer))) {
-                answers.add(new TextAnswer(oneAnswer, true));
+                answers.add(new TextAnswer(oneAnswer));
             }
         }
-        if (answers.size() == 0) {
+        if (answers.isEmpty()) {
             throw new InvalidAnswerException();
         }
     }

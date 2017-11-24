@@ -64,7 +64,7 @@ public abstract class Answer implements AnswerModel {
      */
     protected abstract boolean checkUserAnswerIsCorrect(String userAnswer);
 
-    private void verifyUserInputNotNull(String input) throws NullPointerException {
+    protected void verifyUserInputNotNull(String input) throws NullPointerException {
         if (input == null) {
             throw new NullPointerException("User's answer cannot be null");
         }

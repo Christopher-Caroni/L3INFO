@@ -9,7 +9,7 @@ public class YesNoAnswer extends SingleAnswer {
     private static final String[] possibleAnswers = new String[]{"vrai", "faux"};
 
     public YesNoAnswer(String answer) throws NullPointerException, InvalidAnswerException {
-        super(answer, true);
+        super(answer);
     }
 
     @Override

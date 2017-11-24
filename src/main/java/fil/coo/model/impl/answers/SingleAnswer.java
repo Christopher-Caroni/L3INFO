@@ -1,18 +1,25 @@
 package fil.coo.model.impl.answers;
 
-import fil.coo.model.impl.Answer;
 import fil.coo.exception.InvalidAnswerException;
+import fil.coo.model.impl.Answer;
 
+/**
+ * This type of answer has one single correct answer. This correct answer is given as the input in the constructor
+ */
 public abstract class SingleAnswer extends Answer {
 
-    protected String answer;
+    protected String correctAnswer;
 
 
-    public SingleAnswer(String answer, boolean save) throws NullPointerException, InvalidAnswerException {
-        super(answer);
-        if (save) {
-            initAnswer(answer);
-        }
+    /**
+     * Calls super constructor and then saves input to {@link #correctAnswer}
+     *
+     * @param input the correct answer
+     * @throws InvalidAnswerException if the input does not correspond to this type of answer
+     */
+    public SingleAnswer(String input) throws InvalidAnswerException {
+        super(input);
+        saveCorrectAnswer(input);
     }
 
     /**
@@ -20,12 +27,10 @@ public abstract class SingleAnswer extends Answer {
      * @throws NullPointerException   if answer is null
      * @throws InvalidAnswerException if the answer does not correspond to this type of {@link SingleAnswer}. See {@link #isValid(String)}
      */
-    protected void initAnswer(String answer) throws NullPointerException, InvalidAnswerException {
-        if (answer == null) {
-            throw new NullPointerException();
-        }
+    protected void saveCorrectAnswer(String answer) throws NullPointerException, InvalidAnswerException {
+        verifyUserInputNotNull(answer);
         if (this.isValid(answer)) {
-            setAnswer(answer);
+            setCorrectAnswer(answer);
         } else {
             throw new InvalidAnswerException();
         }
@@ -33,14 +38,14 @@ public abstract class SingleAnswer extends Answer {
 
     @Override
     protected boolean checkUserAnswerIsCorrect(String userAnswer) {
-        return answer.equals(userAnswer);
+        return correctAnswer.equals(userAnswer);
     }
 
     public String getCorrectAnswer() {
-        return answer;
+        return correctAnswer;
     }
 
-    public void setAnswer(String answer) {
-        this.answer = answer;
+    public void setCorrectAnswer(String correctAnswer) {
+        this.correctAnswer = correctAnswer;
     }
 }

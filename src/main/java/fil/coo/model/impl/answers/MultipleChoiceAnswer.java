@@ -6,7 +6,6 @@ import fil.coo.gui.factory.AnswerPanelFactory;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -18,25 +17,30 @@ public class MultipleChoiceAnswer extends TextAnswer {
 
     private List<TextAnswer> choices;
 
-    public MultipleChoiceAnswer(String answer) throws NullPointerException, InvalidAnswerException {
-        super(answer, false);
-        saveChoices(answer);
-        initAnswer(choices.get(0).getCorrectAnswer());
+    /**
+     * Takes in multiple {@link TextAnswer} inputs separated by a "|". The correct answer then overwritten from the super
+     * constructor with the first {@link TextAnswer}
+     *
+     * @param choices the possible choices
+     * @throws InvalidAnswerException if the input does not correspond to this type of answer
+     */
+    public MultipleChoiceAnswer(String choices) throws InvalidAnswerException {
+        super(choices);
+        saveChoices();
+        saveCorrectAnswer(this.choices.get(0).getCorrectAnswer());
     }
-
 
     /**
      * Parses answer and saves the possible choices in {@link #choices}.
      * The choices are delimited by {@link #REGEX_SPLIT}
      *
-     * @param answer the string containing the choices that user will select from.
      * @throws InvalidAnswerException if one or more of the possible answers is not a {@link TextAnswer} according to {@link TextAnswer#isValid(String)}
      */
-    private void saveChoices(String answer) throws InvalidAnswerException {
+    private void saveChoices() throws InvalidAnswerException {
         choices = new ArrayList<>();
-        String[] possibleChoices = answer.split(REGEX_SPLIT);
+        String[] possibleChoices = correctAnswer.split(REGEX_SPLIT);
         for (String oneChoice : possibleChoices) {
-            choices.add(new TextAnswer(oneChoice, true));
+            choices.add(new TextAnswer(oneChoice));
         }
     }
 
@@ -55,14 +59,19 @@ public class MultipleChoiceAnswer extends TextAnswer {
     }
 
 
+    /**
+     * Any {@link TextAnswer} input is considered valid
+     *
+     * @param userAnswer the user's answer
+     * @return if the input would be accepted by {@link TextAnswer}
+     */
     @Override
     protected boolean checkUserAnswerIsValid(String userAnswer) {
-        boolean found = false;
-        Iterator<TextAnswer> textAnswerIterator = choices.iterator();
-        while (textAnswerIterator.hasNext() && !found) {
-            found = textAnswerIterator.next().isCorrect(userAnswer);
+        try {
+            return new TextAnswer(userAnswer).isValid(userAnswer);
+        } catch (InvalidAnswerException e) {
+            return false;
         }
-        return found;
     }
 
     @Override
