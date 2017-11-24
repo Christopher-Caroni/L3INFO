@@ -4,42 +4,54 @@ import fil.coo.controller.IAnswerController;
 import fil.coo.gui.impl.AnswerPanel;
 
 import javax.swing.*;
+import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
 
 public abstract class ChoiceAnswerPanel extends AnswerPanel {
 
+    private final List<String> possibleAnswers;
     protected ButtonGroup exclusiveButtonGroup;
+    protected List<JRadioButton> jRadioButtons;
 
-    public ChoiceAnswerPanel(IAnswerController answerController, boolean initCustomView) {
-        super(answerController, initCustomView);
+    public ChoiceAnswerPanel(IAnswerController answerController, List<String> possibleAnswers) {
+        super(answerController);
+        this.possibleAnswers = possibleAnswers;
+        initCustomView();
     }
 
     @Override
     protected void initCustomView() {
         exclusiveButtonGroup = new ButtonGroup();
-        List<JRadioButton> buttons = initChoices();
-        addButtons(buttons);
+        jRadioButtons = new ArrayList<>();
+        addChoices();
+        addButtons();
 
     }
 
     /**
      * Adds buttons to the exclusive group {@link #exclusiveButtonGroup} and the {@link #rootPanel}
-     *
-     * @param buttons
      */
-    private void addButtons(List<JRadioButton> buttons) {
-        for (JRadioButton button : buttons) {
+    private void addButtons() {
+        for (JRadioButton button : jRadioButtons) {
             exclusiveButtonGroup.add(button);
             rootPanel.add(button);
         }
     }
 
-    /**
-     *
-     * @return a list of the {@link JRadioButton} to add to the exclusive choice group
-     */
-    protected abstract List<JRadioButton> initChoices();
+    @Override
+    public final void setUserInput(String input) {
+        for (JRadioButton jRadioButton : jRadioButtons) {
+            boolean matches = input.equalsIgnoreCase(jRadioButton.getText());
+            jRadioButton.setSelected(matches);
+        }
+    }
+
+    protected void addChoices() {
+        for (String possibleAnswer : possibleAnswers) {
+            jRadioButtons.add(new JRadioButton(possibleAnswer));
+        }
+    }
 
     @Override
     public String getUserInput() {
@@ -47,7 +59,7 @@ public abstract class ChoiceAnswerPanel extends AnswerPanel {
     }
 
     private String getSelectedButtonText(ButtonGroup buttonGroup) {
-        for (Enumeration<AbstractButton> buttons = buttonGroup.getElements(); buttons.hasMoreElements();) {
+        for (Enumeration<AbstractButton> buttons = buttonGroup.getElements(); buttons.hasMoreElements(); ) {
             AbstractButton button = buttons.nextElement();
 
             if (button.isSelected()) {

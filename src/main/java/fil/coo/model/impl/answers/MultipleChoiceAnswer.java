@@ -89,7 +89,7 @@ public class MultipleChoiceAnswer extends TextAnswer {
     }
 
     public List<String> getPossibleAnswers() {
-        List<String> possibleAnswers = new ArrayList();
+        List<String> possibleAnswers = new ArrayList<>();
         for (TextAnswer textAnswer : getChoices()) {
             possibleAnswers.add(textAnswer.getCorrectAnswer());
         }

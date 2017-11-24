@@ -11,12 +11,19 @@ public class NumericalAnswerPanel extends AnswerPanel {
 	private JSpinner spinner;
 	
     public NumericalAnswerPanel(IAnswerController answerController) {
-        super(answerController, true);
+        super(answerController);
+
+        initCustomView();
     }
 
     @Override
     public String getUserInput() {
         return String.valueOf(spinner.getValue());
+    }
+
+    @Override
+    public void setUserInput(String input) {
+        spinner.setValue(Integer.parseInt(input));
     }
 
     @Override

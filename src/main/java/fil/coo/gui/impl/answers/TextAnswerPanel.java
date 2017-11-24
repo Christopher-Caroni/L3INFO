@@ -10,12 +10,19 @@ public class TextAnswerPanel extends AnswerPanel {
 	private TextArea textArea; 
 	
     public TextAnswerPanel(IAnswerController answerController) {
-        super(answerController, true);
+        super(answerController);
+
+        initCustomView();
     }
 
     @Override
     public String getUserInput() {
         return textArea.getText();
+    }
+
+    @Override
+    public void setUserInput(String input) {
+        textArea.setText(input);
     }
 
     @Override

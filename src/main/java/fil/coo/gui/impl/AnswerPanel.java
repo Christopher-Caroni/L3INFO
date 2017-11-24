@@ -14,13 +14,9 @@ public abstract class AnswerPanel extends AbstractAnswerView {
 
     protected JPanel rootPanel;
 
-    public AnswerPanel(IAnswerController answerController, boolean initCustomView) {
+    public AnswerPanel(IAnswerController answerController) {
         super(answerController);
         rootPanel = new JPanel();
-
-        if (initCustomView) {
-            initCustomView();
-        }
     }
 
     protected abstract void initCustomView();

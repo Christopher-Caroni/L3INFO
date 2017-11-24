@@ -55,7 +55,11 @@ public class AnswerPanelFactory {
     
     public AbstractAnswerView createAnswerPanel(YesNoAnswer answer) {
         // TODO give it a controller
-        return new YesNoAnswerPanel(null);
+
+        List<String> possibleAnswers = answer.getPossibleAnswers();
+        Collections.shuffle(possibleAnswers);
+
+        return new YesNoAnswerPanel(null, possibleAnswers);
     }
 
     public AbstractAnswerView createAnswerPanel(NumericalAnswer answer) {

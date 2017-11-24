@@ -31,5 +31,7 @@ public abstract class AbstractAnswerView implements IView {
      */
     public abstract String getUserInput();
 
+    public abstract void setUserInput(String input);
+
     public abstract void setBorder(Border border);
 }

@@ -4,6 +4,9 @@ import fil.coo.exception.InvalidAnswerException;
 import fil.coo.gui.AbstractAnswerView;
 import fil.coo.gui.factory.AnswerPanelFactory;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class YesNoAnswer extends SingleAnswer {
 
     private static final String[] possibleAnswers = new String[]{"vrai", "faux"};
@@ -35,4 +38,7 @@ public class YesNoAnswer extends SingleAnswer {
         return answerPanelFactory.createAnswerPanel(this);
     }
 
+    public List<String> getPossibleAnswers() {
+        return Arrays.asList("yes", "no");
+    }
 }
