@@ -3,6 +3,7 @@ package fil.coo.model.impl.answers;
 import fil.coo.exception.InvalidAnswerException;
 import fil.coo.gui.AbstractAnswerView;
 import fil.coo.gui.factory.AnswerPanelFactory;
+import fil.coo.model.impl.ChoiceAnswer;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -11,7 +12,7 @@ import java.util.List;
 /**
  * User has to choose one correct answer out of several propositions
  */
-public class MultipleChoiceAnswer extends TextAnswer {
+public class MultipleChoiceAnswer extends TextAnswer implements ChoiceAnswer {
 
     private static final String REGEX_SPLIT = " \\| ";
 
@@ -88,6 +89,7 @@ public class MultipleChoiceAnswer extends TextAnswer {
         return answerPanelFactory.createAnswerPanel(this);
     }
 
+    @Override
     public List<String> getPossibleAnswers() {
         List<String> possibleAnswers = new ArrayList<>();
         for (TextAnswer textAnswer : getChoices()) {

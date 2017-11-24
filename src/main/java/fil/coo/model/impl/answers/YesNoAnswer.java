@@ -3,11 +3,12 @@ package fil.coo.model.impl.answers;
 import fil.coo.exception.InvalidAnswerException;
 import fil.coo.gui.AbstractAnswerView;
 import fil.coo.gui.factory.AnswerPanelFactory;
+import fil.coo.model.impl.ChoiceAnswer;
 
 import java.util.Arrays;
 import java.util.List;
 
-public class YesNoAnswer extends SingleAnswer {
+public class YesNoAnswer extends SingleAnswer implements ChoiceAnswer {
 
     private static final String[] possibleAnswers = new String[]{"vrai", "faux"};
 
