@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
 
-public abstract class ChoiceAnswerPanel extends AnswerPanel {
+public class ChoiceAnswerPanel extends AnswerPanel {
 
     private final List<String> possibleAnswers;
     protected ButtonGroup exclusiveButtonGroup;
