@@ -1,7 +1,7 @@
 package fil.coo.model.factory;
 
 import fil.coo.model.impl.Question;
-import fil.coo.model.impl.Quiz;
+import fil.coo.model.impl.CLIQuiz;
 
 import java.io.*;
 
@@ -27,14 +27,14 @@ public class QuizFactory {
     }
 
     /**
-     * Creates a {@link Quiz} from a text file.
+     * Creates a {@link CLIQuiz} from a text file.
      *
      * @param filePath the path to the model in text form.
-     * @return a {@link Quiz} with all the questions and answers read from the text file.
+     * @return a {@link CLIQuiz} with all the questions and answers read from the text file.
      * @throws IOException if the file cannot be found or an answer/number of points cannot be found for one question
      */
-    public Quiz createQuizFromTextFile(String filePath) throws IOException {
-        Quiz questionnaire = new Quiz();
+    public CLIQuiz createQuizFromTextFile(String filePath) throws IOException {
+        CLIQuiz questionnaire = new CLIQuiz();
         File source = new File(filePath);
 
         try (BufferedReader in = new BufferedReader(new FileReader(source))) {

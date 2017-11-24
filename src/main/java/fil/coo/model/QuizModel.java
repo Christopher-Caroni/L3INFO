@@ -4,6 +4,7 @@ import fil.coo.model.impl.Question;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public abstract class QuizModel {
 
@@ -18,14 +19,23 @@ public abstract class QuizModel {
      * @param userAnswer    the user's input
      * @return whether the userAnswer is valid for the answer at questionIndex
      */
-    public abstract boolean validateAnswerType(int questionIndex, String userAnswer);
+    public boolean validateAnswerType(int questionIndex, String userAnswer) {
+        return getAnswer(questionIndex).isValid(userAnswer);
+    }
 
     /**
      * @param questionIndex the index of the question
      * @param userAnswer    the user's input
      * @return whether the userAnswer is the correct answer for the question at questionIndex
      */
-    public abstract boolean checkCorrectAnswer(int questionIndex, String userAnswer);
+    public boolean checkCorrectAnswer(int questionIndex, String userAnswer) {
+        return getAnswer(questionIndex).isCorrect(userAnswer);
+    }
+
+
+    protected AnswerModel getAnswer(int questionIndex) {
+        return questions.get(questionIndex).getAnswer();
+    }
 
     /**
      * @return all the questions of the quiz
@@ -45,7 +55,16 @@ public abstract class QuizModel {
      *
      * @return a list of the points of the questions of the same indices in {@link #questions}
      */
-    public abstract List<Integer> getPoints();
+    public List<Integer> getPoints() {
+        return questions.stream()
+                .map(QuestionModel::getNbPts)
+                .collect(Collectors.toList());
+    }
+
+
+    public QuestionModel getQuestion(int i) {
+        return questions.get(i);
+    }
 
 
     /**

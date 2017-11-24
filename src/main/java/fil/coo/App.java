@@ -4,7 +4,7 @@ import fil.coo.controller.impl.QuizController;
 import fil.coo.gui.AbstractQuizView;
 import fil.coo.gui.factory.QuizFrameFactory;
 import fil.coo.model.factory.QuizFactory;
-import fil.coo.model.impl.Quiz;
+import fil.coo.model.impl.CLIQuiz;
 import fil.coo.options.QuizOptions;
 import org.apache.log4j.Logger;
 
@@ -22,7 +22,7 @@ public class App {
 
     private QuizOptions quizOptions;
 
-    private Quiz quiz;
+    private CLIQuiz quiz;
 
     public static void main(String[] args) {
         App app = null;
@@ -60,13 +60,13 @@ public class App {
 
 
     /**
-     * Creates a {@link Quiz} using the path to the quiz file found by {@link QuizOptions#getQuizPath()}
+     * Creates a {@link CLIQuiz} using the path to the quiz file found by {@link QuizOptions#getQuizPath()}
      * {@link QuizFactory}
      *
-     * @return a new {@link Quiz}
+     * @return a new {@link CLIQuiz}
      * @throws IOException if there was a user error in the quiz path
      */
-    protected Quiz createQuiz() throws IOException {
+    protected CLIQuiz createQuiz() throws IOException {
         String quizFile = quizOptions.getQuizPath();
         return new QuizFactory().createQuizFromTextFile(quizFile);
     }
@@ -85,7 +85,7 @@ public class App {
     /**
      * Runs the text version of the quiz.
      *
-     * @see Quiz#askAll()
+     * @see CLIQuiz#askAll()
      */
     private void runCommandLine() {
         quiz.askAll();
