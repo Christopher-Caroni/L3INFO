@@ -1,6 +1,11 @@
 package fil.coo.model;
 
+
+import org.apache.log4j.Logger;
+
 public abstract class QuestionModel {
+
+    private static final Logger logger = org.apache.log4j.Logger.getLogger(QuestionModel.class.getSimpleName());
 
     protected AnswerModel answer;
     protected int nbPoints;
@@ -39,8 +44,18 @@ public abstract class QuestionModel {
         return nbPoints;
     }
 
+
     /**
-     * Asks this question
+     * @param userAnswer the user's answer
+     * @return if the user's answer is correct
      */
-    public abstract int ask();
+    protected boolean verifyCorrectAnswer(String userAnswer) {
+        boolean correct = answer.isCorrect(userAnswer);
+        if (correct) {
+            logger.info("correct (" + getNbPts() + " pts)");
+        } else {
+            logger.info("wrong, the right answer was : " + answer.getCorrectAnswer());
+        }
+        return correct;
+    }
 }

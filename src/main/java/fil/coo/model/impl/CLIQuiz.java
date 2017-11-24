@@ -5,7 +5,7 @@ import org.apache.log4j.Logger;
 import fil.coo.model.QuestionModel;
 import fil.coo.model.QuizModel;
 
-public class CLIQuiz extends QuizModel {
+public class CLIQuiz extends QuizModel<CLIQuestion> {
 
     private static final Logger logger = Logger.getLogger(CLIQuiz.class.getSimpleName());
 
@@ -27,7 +27,7 @@ public class CLIQuiz extends QuizModel {
      * Asks all the questions in this quiz
      */
     public void askAll() {
-        for (QuestionModel question : questions) {
+        for (CLIQuestion question : questions) {
             totalPoints += question.ask();
         }
         logger.info("Quiz finished and you won " + getPointsWon() + " points");

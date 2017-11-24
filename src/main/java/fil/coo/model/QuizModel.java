@@ -1,14 +1,12 @@
 package fil.coo.model;
 
-import fil.coo.model.impl.Question;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public abstract class QuizModel {
+public abstract class QuizModel<Q extends QuestionModel> {
 
-    protected List<QuestionModel> questions;
+    protected List<Q> questions;
 
     public QuizModel() {
         questions = new ArrayList<>();
@@ -40,7 +38,7 @@ public abstract class QuizModel {
     /**
      * @return all the questions of the quiz
      */
-    public final List<QuestionModel> getQuestions() {
+    public final List<Q> getQuestions() {
         return questions;
     }
 
@@ -72,7 +70,7 @@ public abstract class QuizModel {
      *
      * @param question the question to add
      */
-    public void addQuestion(QuestionModel question) {
+    public void addQuestion(Q question) {
         this.questions.add(question);
     }
 }

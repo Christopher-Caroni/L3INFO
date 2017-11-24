@@ -24,7 +24,7 @@ public class QuizFrameFactory {
      * @param quizModel
      * @return
      */
-    public AbstractQuizView createQuizView(QuizModel quizModel) {
+    public AbstractQuizView createQuizView(QuizModel<? extends QuestionModel> quizModel) {
         AbstractQuizView quizFrame = new QuizFrame(quizModel.getNbQuestions());
         for (QuestionModel question : quizModel.getQuestions()) {
             QuestionPanel questionPanel = createQuestionPanel(question);

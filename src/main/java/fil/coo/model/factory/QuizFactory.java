@@ -1,6 +1,7 @@
 package fil.coo.model.factory;
 
-import fil.coo.model.impl.Question;
+import fil.coo.model.impl.CLIQuestion;
+import fil.coo.model.impl.SimpleQuestion;
 import fil.coo.model.impl.CLIQuiz;
 
 import java.io.*;
@@ -8,7 +9,7 @@ import java.io.*;
 public class QuizFactory {
 
     /**
-     * Creates a {@link Question} from raw string inputs
+     * Creates a {@link SimpleQuestion} from raw string inputs
      *
      * @param rawQuestion the input text for the question
      * @param rawAnswer   the input text for the answer
@@ -16,11 +17,11 @@ public class QuizFactory {
      * @return a Question created from the 3 parameters
      * @throws IOException if inputPointText is not a number
      */
-    public Question createQuestion(String rawQuestion, String rawAnswer, String rawNbPoints)
+    public SimpleQuestion createQuestion(String rawQuestion, String rawAnswer, String rawNbPoints)
             throws IOException {
         try {
             int nbPoints = Integer.parseInt(rawNbPoints);
-            return new Question(rawQuestion, AnswerFactory.FACTORYANSWER.buildAnswer(rawAnswer), nbPoints);
+            return new SimpleQuestion(rawQuestion, AnswerFactory.FACTORYANSWER.buildAnswer(rawAnswer), nbPoints);
         } catch (NumberFormatException e) {
             throw new IOException("rawNbPoints is not a number");
         }
@@ -47,7 +48,8 @@ public class QuizFactory {
                 if (rawAnswerText == null || rawNbPointsText == null) {
                     throw new IOException("Cannot find text for this question's answer or number of points");
                 }
-                questionnaire.addQuestion(this.createQuestion(rawQuestionText, rawAnswerText, rawNbPointsText));
+                SimpleQuestion question = this.createQuestion(rawQuestionText, rawAnswerText, rawNbPointsText);
+                questionnaire.addQuestion(new CLIQuestion(question));
             }
 
         } catch (FileNotFoundException e) {

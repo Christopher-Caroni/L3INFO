@@ -20,13 +20,13 @@ public class QuestionTest extends QuizTest {
 
     private String INPUT_QUESTION_1 = "5+5= ?";
     private String INPUT_ANSWER_1 = "10";
-    private Question questionWithNumericalAnswer;
+    private SimpleQuestion questionWithNumericalAnswer;
     private NumericalAnswer numericalAnswer;
     private int NB_POINTS_NUMERICAL_QUESTION = 2;
 
     private String INPUT_QUESTION_2 = "Quel est la capital de le France ?";
     private String INPUT_ANSWER_2 = "Paris";
-    private Question questionWithTextAnswer;
+    private SimpleQuestion questionWithTextAnswer;
     private TextAnswer textAnswer;
     private int NB_POINTS_TEXT_QUESTION = 5;
 
@@ -34,10 +34,10 @@ public class QuestionTest extends QuizTest {
     @Before
     public void setUp() throws InvalidAnswerException {
         numericalAnswer = new NumericalAnswer(INPUT_ANSWER_1);
-        questionWithNumericalAnswer = new Question(INPUT_QUESTION_1, numericalAnswer, NB_POINTS_NUMERICAL_QUESTION);
+        questionWithNumericalAnswer = new SimpleQuestion(INPUT_QUESTION_1, numericalAnswer, NB_POINTS_NUMERICAL_QUESTION);
 
         textAnswer = new TextAnswer(INPUT_ANSWER_2);
-        questionWithTextAnswer = new Question(INPUT_QUESTION_2, textAnswer, NB_POINTS_TEXT_QUESTION);
+        questionWithTextAnswer = new SimpleQuestion(INPUT_QUESTION_2, textAnswer, NB_POINTS_TEXT_QUESTION);
     }
 
     @Test

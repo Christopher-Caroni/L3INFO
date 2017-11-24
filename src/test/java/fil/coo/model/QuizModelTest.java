@@ -1,8 +1,11 @@
 package fil.coo.model;
 
 import fil.coo.gui.AbstractAnswerView;
+import fil.coo.gui.Mocks;
 import fil.coo.gui.factory.AnswerPanelFactory;
+import fil.coo.model.impl.CLIQuestion;
 import fil.coo.model.impl.CLIQuiz;
+import fil.coo.model.impl.SimpleQuestion;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -117,7 +120,24 @@ public abstract class QuizModelTest {
         Assert.assertThat(concreteQuiz.getAnswer(0), sameInstance(mockAnswer));
     }
 
-    protected class MockQuestion extends QuestionModel {
+
+    @Test
+    public void testVerifyCorrectAnswerWhenOK() {
+        Mocks.MockAnswer mockAnswer = new Mocks.MockAnswer(true);
+        SimpleQuestion question = new SimpleQuestion("", mockAnswer, 0);
+        boolean result = question.verifyCorrectAnswer("dummy_input");
+        assertThat(result, is(true));
+    }
+
+    @Test
+    public void testVerifyCorrectAnswerWhenNotOK() {
+        Mocks.MockAnswer mockAnswer = new Mocks.MockAnswer(false);
+        SimpleQuestion question = new SimpleQuestion("", mockAnswer, 0);
+        boolean result = question.verifyCorrectAnswer("dummy_input");
+        assertThat(result, is(false));
+    }
+
+    protected class MockQuestion extends CLIQuestion {
 
         /**
          * @param text     the question text
