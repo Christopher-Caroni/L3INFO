@@ -11,7 +11,7 @@ public class NumericalAnswerPanelTest extends AnswerPanelTest {
 
     @Override
     protected AbstractAnswerView getSpecificAnswerView() {
-        return new NumericalAnswerPanel(null);
+        return new NumericalAnswerPanel();
     }
 
     @Override

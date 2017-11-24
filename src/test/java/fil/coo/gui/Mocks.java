@@ -1,6 +1,5 @@
 package fil.coo.gui;
 
-import fil.coo.controller.IAnswerController;
 import fil.coo.gui.factory.AnswerPanelFactory;
 import fil.coo.model.AnswerModel;
 import fil.coo.model.QuizModel;
@@ -32,11 +31,8 @@ public class Mocks {
 
         private String input;
 
-        /**
-         * @param answerController the controller to which this instance should send events to
-         */
-        public MockAnswerView(IAnswerController answerController) {
-            super(answerController);
+        public MockAnswerView() {
+            super();
             this.input = "";
         }
 

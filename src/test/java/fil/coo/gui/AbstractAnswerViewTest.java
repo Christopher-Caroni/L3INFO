@@ -1,11 +1,7 @@
 package fil.coo.gui;
 
-import fil.coo.controller.IAnswerController;
 import org.junit.Before;
 import org.junit.Test;
-
-import javax.swing.border.Border;
-import java.awt.*;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;

@@ -1,6 +1,5 @@
 package fil.coo.gui.impl.answers;
 
-import fil.coo.controller.IAnswerController;
 import fil.coo.gui.impl.AnswerPanel;
 
 import java.awt.*;
@@ -9,8 +8,8 @@ public class TextAnswerPanel extends AnswerPanel {
 
 	private TextArea textArea; 
 	
-    public TextAnswerPanel(IAnswerController answerController) {
-        super(answerController);
+    public TextAnswerPanel() {
+        super();
 
         initCustomView();
     }

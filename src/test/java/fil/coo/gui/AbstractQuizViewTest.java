@@ -24,7 +24,7 @@ public abstract class AbstractQuizViewTest {
         List<String> inputs = abstractQuizView.getUserAnswerInput();
         assertThat(inputs.size(), is(0));
 
-        Mocks.MockAnswerView mockAnswerView = new Mocks.MockAnswerView(null);
+        Mocks.MockAnswerView mockAnswerView = new Mocks.MockAnswerView();
         Mocks.MockQuestionView mockQuestionView = new Mocks.MockQuestionView("", mockAnswerView);
         abstractQuizView.addQuestionView(mockQuestionView, false);
 

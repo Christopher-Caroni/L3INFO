@@ -16,7 +16,7 @@ public class ChoiceAnswerPanelTest extends AnswerPanelTest {
 
     @Override
     protected AbstractAnswerView getSpecificAnswerView() {
-        return new ChoiceAnswerPanel(null, DUMMY_POSSIBLE_ANSWERS);
+        return new ChoiceAnswerPanel( DUMMY_POSSIBLE_ANSWERS);
     }
 
     @Override

@@ -12,7 +12,7 @@ public abstract class AbstractQuestionViewTest {
 
     @Before
     public void setupQuestionPanel() {
-        this.abstractQuestionView = getSpecificQuestionView("", new Mocks.MockAnswerView(null));
+        this.abstractQuestionView = getSpecificQuestionView("", new Mocks.MockAnswerView());
     }
 
     protected abstract AbstractQuestionView getSpecificQuestionView(String questionText, AbstractAnswerView abstractAnswerView);

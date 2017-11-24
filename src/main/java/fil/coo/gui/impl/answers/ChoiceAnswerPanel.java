@@ -1,6 +1,5 @@
 package fil.coo.gui.impl.answers;
 
-import fil.coo.controller.IAnswerController;
 import fil.coo.gui.impl.AnswerPanel;
 
 import javax.swing.*;
@@ -14,8 +13,8 @@ public class ChoiceAnswerPanel extends AnswerPanel {
     protected ButtonGroup exclusiveButtonGroup;
     protected List<JRadioButton> jRadioButtons;
 
-    public ChoiceAnswerPanel(IAnswerController answerController, List<String> possibleAnswers) {
-        super(answerController);
+    public ChoiceAnswerPanel(List<String> possibleAnswers) {
+        super();
         this.possibleAnswers = possibleAnswers;
         initCustomView();
     }

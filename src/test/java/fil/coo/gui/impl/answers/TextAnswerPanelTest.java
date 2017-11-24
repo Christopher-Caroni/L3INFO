@@ -11,7 +11,7 @@ public class TextAnswerPanelTest extends AnswerPanelTest {
 
     @Override
     protected AbstractAnswerView getSpecificAnswerView() {
-        return new TextAnswerPanel(null);
+        return new TextAnswerPanel();
     }
 
     @Override

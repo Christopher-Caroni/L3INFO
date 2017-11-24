@@ -39,35 +39,29 @@ public class AnswerPanelFactory {
     }
 
     public AbstractAnswerView createAnswerPanel(TextAnswer answer) {
-        // TODO give it a controller
-        return new TextAnswerPanel(null);
+        return new TextAnswerPanel();
     }
 
     public AbstractAnswerView createAnswerPanel(MultipleChoiceAnswer answer) {
-        // TODO give it a controller
 
         List<String> possibleAnswers = answer.getPossibleAnswers();
         Collections.shuffle(possibleAnswers);
 
-        return new ChoiceAnswerPanel(null, possibleAnswers);
+        return new ChoiceAnswerPanel(possibleAnswers);
     }
     
     public AbstractAnswerView createAnswerPanel(YesNoAnswer answer) {
-        // TODO give it a controller
-
         List<String> possibleAnswers = answer.getPossibleAnswers();
         Collections.shuffle(possibleAnswers);
 
-        return new ChoiceAnswerPanel(null, possibleAnswers);
+        return new ChoiceAnswerPanel(possibleAnswers);
     }
 
     public AbstractAnswerView createAnswerPanel(NumericalAnswer answer) {
-        // TODO give it a controller
-        return new NumericalAnswerPanel(null);
+        return new NumericalAnswerPanel();
     }
 
     public AbstractAnswerView createAnswerPanel(MultiAnswer answer) {
-        // TODO give it a controller
-        return new TextAnswerPanel(null);
+        return new TextAnswerPanel();
     }
 }

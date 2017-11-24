@@ -1,6 +1,5 @@
 package fil.coo.gui.impl;
 
-import fil.coo.controller.IAnswerController;
 import fil.coo.gui.AbstractAnswerView;
 
 import javax.swing.*;
@@ -14,8 +13,8 @@ public abstract class AnswerPanel extends AbstractAnswerView {
 
     protected JPanel rootPanel;
 
-    public AnswerPanel(IAnswerController answerController) {
-        super(answerController);
+    public AnswerPanel() {
+        super();
         rootPanel = new JPanel();
     }
 
