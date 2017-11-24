@@ -43,10 +43,16 @@ public abstract class AbstractQuizView implements IView {
      */
     public void addQuestionView(AbstractQuestionView questionView, boolean refresh) {
         this.questionViews.add(questionView);
-        addQuestionConcreteView(questionView, refresh);
+        addQuestionViewToThisView(questionView, refresh);
     }
 
-    protected abstract void addQuestionConcreteView(AbstractQuestionView questionView, boolean refresh);
+    /**
+     * Adds questionView to this actual view
+     *
+     * @param questionView the view of the question
+     * @param refresh      if this instance should repaint right after
+     */
+    protected abstract void addQuestionViewToThisView(AbstractQuestionView questionView, boolean refresh);
 
     /**
      * @param visible if this instance should be visible or not
