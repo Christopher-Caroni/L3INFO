@@ -33,7 +33,7 @@ public abstract class IQuizController {
             return;
         }
 
-        List<Integer> invalidAnswers = verifyInvalidInput(userAnswers);
+        List<Integer> invalidAnswers = getInvalidInputIndexes(userAnswers);
 
         if (!invalidAnswers.isEmpty()) {
             refuseSubmissionOnInvalidInput(invalidAnswers);
@@ -46,7 +46,7 @@ public abstract class IQuizController {
      * @param userAnswers the user's input for all the answers
      * @return the indexes of the answers with invalid inputs
      */
-    private List<Integer> verifyInvalidInput(final List<String> userAnswers) {
+    protected List<Integer> getInvalidInputIndexes(final List<String> userAnswers) {
         List<Integer> invalidAnswers = new ArrayList<>();
         for (int i = 0; i < userAnswers.size(); i++) {
             String userAnswer = userAnswers.get(i);

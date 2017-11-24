@@ -21,7 +21,7 @@ public abstract class IQuizControllerTest {
             .sum();
 
     protected QuizModel quizModel;
-    protected AbstractQuizView abstractQuizView;
+    protected Mocks.MockQuizView abstractQuizView;
     protected IQuizController quizController;
 
     @Before
@@ -34,7 +34,7 @@ public abstract class IQuizControllerTest {
     protected abstract IQuizController getSpecificQuizController(QuizModel quizModel, AbstractQuizView abstractQuizView);
 
     @Test
-    public void testCorrectAnswers() {
+    public void testCorrectAnswersWhenOK() {
         int pointsWon = quizController.verifyCorrectAnswers(abstractQuizView.getUserAnswerInput(), quizModel.getPoints());
         assertThat(pointsWon, is(total));
 
@@ -46,4 +46,72 @@ public abstract class IQuizControllerTest {
         assertThat(pointsWon, is(0));
     }
 
+    @Test
+    public void testCorrectAnswersWhenNotOK() {
+        this.quizModel = new Mocks.MockQuizModel(points, false);
+        this.abstractQuizView = new Mocks.MockQuizView(inputs);
+        this.quizController = getSpecificQuizController(quizModel, abstractQuizView);
+
+        int pointsWon = quizController.verifyCorrectAnswers(abstractQuizView.getUserAnswerInput(), quizModel.getPoints());
+        assertThat(pointsWon, is(0));
+    }
+
+    @Test
+    public void testAcceptSubmissionCallsOnSubmissionFinishedInView() {
+        assertThat(abstractQuizView.onSubmissionFinishedCallCount, is(0));
+        quizController.acceptSubmission(abstractQuizView.getUserAnswerInput(), quizModel.getPoints());
+
+        assertThat(abstractQuizView.onSubmissionFinishedCallCount, is(1));
+    }
+
+    @Test
+    public void testRefuseSubmissionCallsShowInvalidInputsInView() {
+        assertThat(abstractQuizView.showInValidInputsCallCount, is(0));
+
+        quizController.refuseSubmissionOnInvalidInput(null);
+        assertThat(abstractQuizView.showInValidInputsCallCount, is(1));
+    }
+
+    @Test
+    public void testVerifyInvalidInputWithNone() {
+        List<Integer> invalidInputIndexes = quizController.getInvalidInputIndexes(abstractQuizView.getUserAnswerInput());
+        assertThat(invalidInputIndexes.isEmpty(), is(true));
+    }
+
+    @Test
+    public void testVerifyInvalidInputWithAll() {
+        this.quizModel = new Mocks.MockQuizModel(points, false);
+        this.quizController = getSpecificQuizController(quizModel, abstractQuizView);
+
+        List<Integer> invalidInputIndexes = quizController.getInvalidInputIndexes(abstractQuizView.getUserAnswerInput());
+        assertThat(invalidInputIndexes.size(), is(inputs.size()));
+        for (int indexCount = 0; indexCount < inputs.size(); indexCount++) {
+            assertThat(invalidInputIndexes.get(indexCount), is(indexCount));
+        }
+    }
+
+    @Test
+    public void testOnSubmitWhenOK() {
+        assertThat(abstractQuizView.onSubmissionFinishedCallCount, is(0));
+        assertThat(abstractQuizView.showInValidInputsCallCount, is(0));
+
+        quizController.onSubmit();
+        assertThat(abstractQuizView.onSubmissionFinishedCallCount, is(1));
+        assertThat(abstractQuizView.showInValidInputsCallCount, is(0));
+
+    }
+
+    @Test
+    public void testOnSubmitWhenNotOK() {
+        this.quizModel = new Mocks.MockQuizModel(points, false);
+        this.quizController = getSpecificQuizController(quizModel, abstractQuizView);
+
+        assertThat(abstractQuizView.onSubmissionFinishedCallCount, is(0));
+        assertThat(abstractQuizView.showInValidInputsCallCount, is(0));
+
+        quizController.onSubmit();
+        assertThat(abstractQuizView.onSubmissionFinishedCallCount, is(0));
+        assertThat(abstractQuizView.showInValidInputsCallCount, is(1));
+
+    }
 }

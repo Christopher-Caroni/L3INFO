@@ -72,7 +72,6 @@ public class Mocks {
         private boolean correctOrValid;
 
         /**
-         *
          * @param points
          * @param correctOrValid make all queries to correct/valid return this
          */
@@ -130,8 +129,13 @@ public class Mocks {
 
         private List<String> inputs;
 
+        public int onSubmissionFinishedCallCount;
+        public int showInValidInputsCallCount;
+
         public MockQuizView(List<String> inputs) {
             this.inputs = inputs;
+            onSubmissionFinishedCallCount = 0;
+            showInValidInputsCallCount = 0;
         }
 
         @Override
@@ -151,17 +155,18 @@ public class Mocks {
 
         @Override
         public void showInvalidInputs(List<Integer> invalidInputIndexes) {
-
+            this.showInValidInputsCallCount++;
         }
 
         @Override
         public void onSubmissionFinished(int pointsWon) {
-
+            this.onSubmissionFinishedCallCount++;
         }
 
         @Override
         public Component getView() {
             return null;
         }
+
     }
 }
