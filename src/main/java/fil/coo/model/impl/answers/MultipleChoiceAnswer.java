@@ -52,8 +52,14 @@ public class MultipleChoiceAnswer extends TextAnswer implements ChoiceAnswer {
     public String getPrompt() {
         StringBuilder prompt = new StringBuilder("(");
         Collections.shuffle(choices);
-        for (TextAnswer answer : choices) {
-            prompt.append(" ").append(answer.getCorrectAnswer()).append(" ");
+        for (int i = 0; i < choices.size(); i++) {
+            if (i < choices.size() - 1) {
+                prompt.append(choices.get(i).getCorrectAnswer())
+                        .append(" | ");
+            } else {
+                prompt.append(choices.get(i).getCorrectAnswer());
+            }
+
         }
         prompt.append(")");
         return prompt.toString();

@@ -4,6 +4,10 @@ import fil.coo.exception.InvalidAnswerException;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
+import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.*;
 
 public class MultipleChoiceAnswerTest extends SingleAnswerTest {
@@ -80,5 +84,25 @@ public class MultipleChoiceAnswerTest extends SingleAnswerTest {
     public void testWhenIsNotCorrect() throws NullPointerException, InvalidAnswerException {
         MultipleChoiceAnswer answer = new MultipleChoiceAnswer(DEFAULT_ANSWER_VALUE);
         assertFalse(answer.isCorrect(INCORRECT_ANSWER));
+    }
+
+    @Test
+    public void testGetPossibleAnswers() throws InvalidAnswerException {
+        MultipleChoiceAnswer answer = new MultipleChoiceAnswer(DEFAULT_ANSWER_VALUE);
+        boolean containsResult = answer.getPossibleAnswers().containsAll(Arrays.asList(DEFAULT_ANSWER_LIST));
+        assertThat(containsResult, is(true));
+    }
+
+    @Test
+    public void testGetPrompt() throws InvalidAnswerException {
+        MultipleChoiceAnswer answer = new MultipleChoiceAnswer(DEFAULT_ANSWER_VALUE);
+        String prompt = answer.getPrompt();
+        String trimPrompt = prompt.substring(1, prompt.length() - 1).trim();
+
+        ArrayList<String> strings = new ArrayList<>(Arrays.asList(trimPrompt.split("\\s*\\|\\s*")));
+        strings.removeIf(String::isEmpty);
+
+        boolean containsResult = strings.containsAll(Arrays.asList(DEFAULT_ANSWER_LIST));
+        assertThat(containsResult, is(true));
     }
 }
