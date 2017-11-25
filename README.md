@@ -29,7 +29,8 @@ plus d'aide à la compréhension de l'architecture du projet.
 - Télécharger l'archive à l'aide de la commande `git clone`
 -  Compiler avec la commande `mvn package` ou `mvn clean install`
 - Vous pouvez générer la javadoc avec la commande `mvn javadoc:javadoc`
-- Pour lancer le programme, exécuter la commande  `java -jar COO-Quiz-1.0-SNAPSHOT.jar <fichier quiz>` dans le dossier `target`
+- Pour lancer le programme, exécuter la commande  `java -jar COO-QUIZ-VERSION.jar <quiz_file> [-t | d]` dans le dossier `target` avec les arguments adéquat
+- Pour voir les utilisations des arguments faites `java -jar COO-QUIZ-VERSION.jar -h`
 
 # Diposition des classes :
 
