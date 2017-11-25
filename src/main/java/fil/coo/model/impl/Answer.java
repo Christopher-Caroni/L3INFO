@@ -5,10 +5,8 @@ import fil.coo.model.AnswerModel;
 
 public abstract class Answer implements AnswerModel {
 
-    public Answer(String answer) throws NullPointerException, InvalidAnswerException {
-        if (answer == null) {
-            throw new NullPointerException();
-        }
+    public Answer(String answer) throws InvalidAnswerException {
+        verifyUserInputNotNull(answer);
         if (!isQuizTextValid(answer)) {
             throw new InvalidAnswerException();
         }
