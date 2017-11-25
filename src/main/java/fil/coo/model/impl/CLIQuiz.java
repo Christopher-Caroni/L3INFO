@@ -1,10 +1,12 @@
 package fil.coo.model.impl;
 
+import fil.coo.model.QuizModel;
 import org.apache.log4j.Logger;
 
-import fil.coo.model.QuestionModel;
-import fil.coo.model.QuizModel;
-
+/**
+ * Extends {@link QuizModel} with {@link CLIQuestion} to
+ * ask the whole quiz to the user in the CLI via {@link CLIQuestion#ask()}
+ */
 public class CLIQuiz extends QuizModel<CLIQuestion> {
 
     private static final Logger logger = Logger.getLogger(CLIQuiz.class.getSimpleName());

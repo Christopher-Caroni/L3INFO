@@ -3,6 +3,9 @@ package fil.coo.model;
 
 import org.apache.log4j.Logger;
 
+/**
+ * Specifies what a bare question is made of: a question, an answer a a number of points
+ */
 public abstract class QuestionModel {
 
     private static final Logger logger = org.apache.log4j.Logger.getLogger(QuestionModel.class.getSimpleName());

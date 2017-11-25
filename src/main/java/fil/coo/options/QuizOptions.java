@@ -1,18 +1,23 @@
 package fil.coo.options;
 
+import fil.coo.App;
 import org.apache.commons.cli.*;
 import org.apache.log4j.Logger;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * Specific options that may be used in conjunction with {@link App}.
+ * The presence of options may be verified with {@link #hasOption(String)} using the global Strings prefixed with "OPTION"
+ */
 public class QuizOptions {
 
     private static Logger logger = Logger.getLogger(QuizOptions.class.getSimpleName());
 
-    public static final String TEXT_MODE = "text";
-    public static final String DUMMY_ARGS = "dummy";
-    private static final String HELP = "help";
+    public static final String OPTION_TEXT_MODE = "text";
+    public static final String OPTION_DUMMY_ARGS = "dummy";
+    private static final String OPTION_HELP = "help";
 
     private ArrayList<Option> optionList;
     private CommandLine commandLine;
@@ -22,19 +27,19 @@ public class QuizOptions {
         optionList = new ArrayList<>();
         optionList.add(Option.builder("t")
                 .desc("Use terminal instead of GUI")
-                .longOpt(TEXT_MODE)
+                .longOpt(OPTION_TEXT_MODE)
                 .build()
         );
 
         optionList.add(Option.builder("d")
-                .desc("Use dummy arguments")
-                .longOpt(DUMMY_ARGS)
+                .desc("Use dummy arguments: opens the quiz in resources/dummy.quiz in the GUI")
+                .longOpt(OPTION_DUMMY_ARGS)
                 .build()
         );
 
         optionList.add(Option.builder("h")
                 .desc("Show help")
-                .longOpt(HELP)
+                .longOpt(OPTION_HELP)
                 .build()
         );
 
@@ -71,15 +76,16 @@ public class QuizOptions {
     }
 
     /**
-     * Checks for exclusive options, exits if finds any
+     * Checks for any options that prevent and must be treated before the program runs. Exits with {@link System#exit(int)} after
+     * any processing
      */
-    public void checkExclusiveOptions() {
-        if (commandLine.hasOption(HELP)) {
+    public void checkPreExecutionOptions() {
+        if (commandLine.hasOption(OPTION_HELP)) {
             displayHelp();
             System.exit(0);
         }
 
-        if (commandLine.hasOption(DUMMY_ARGS) && commandLine.hasOption(TEXT_MODE)) {
+        if (hasOption(OPTION_DUMMY_ARGS) && hasOption(OPTION_TEXT_MODE)) {
             logger.info("Cannot use use dummy arguments and use text mode at the same time.");
             System.exit(1);
         }
@@ -100,9 +106,9 @@ public class QuizOptions {
      */
     public String getQuizPath() throws IOException {
         if (commandLine.getArgList().size() > 1) {
-            throw new IOException("Ambiguous quiz file specified");
+            throw new IOException("Ambiguous quiz file specified. This program only accepts one non-option argument as the quiz file");
         } else if (commandLine.getArgList().size() != 1) {
-            throw new IOException("No file specified");
+            throw new IOException("No quiz file specified");
         }
         return commandLine.getArgList().get(0);
     }

@@ -53,7 +53,7 @@ public class QuizFactory {
             }
 
         } catch (FileNotFoundException e) {
-            throw new IOException(e);
+            throw new IOException("The quiz file \"" + filePath + "\" does not exist");
         }
 
         return questionnaire;

@@ -10,8 +10,8 @@ import org.apache.log4j.Logger;
 
 import java.io.IOException;
 
-import static fil.coo.options.QuizOptions.DUMMY_ARGS;
-import static fil.coo.options.QuizOptions.TEXT_MODE;
+import static fil.coo.options.QuizOptions.OPTION_DUMMY_ARGS;
+import static fil.coo.options.QuizOptions.OPTION_TEXT_MODE;
 
 /**
  * Hello world!
@@ -51,9 +51,9 @@ public class App {
 
     protected void parseOptions(String[] args) {
         quizOptions = new QuizOptions(args);
-        quizOptions.checkExclusiveOptions();
+        quizOptions.checkPreExecutionOptions();
 
-        if (quizOptions.hasOption(DUMMY_ARGS)) {
+        if (quizOptions.hasOption(OPTION_DUMMY_ARGS)) {
             quizOptions = new QuizOptions(getDummyArgs());
         }
     }
@@ -75,7 +75,7 @@ public class App {
      * Runs the GUI or text version of the quiz
      */
     private void run() {
-        if (quizOptions.hasOption(TEXT_MODE)) {
+        if (quizOptions.hasOption(OPTION_TEXT_MODE)) {
             runCommandLine();
         } else {
             runGui();

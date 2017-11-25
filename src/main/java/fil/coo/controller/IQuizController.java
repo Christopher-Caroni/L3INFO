@@ -7,6 +7,11 @@ import org.apache.log4j.Logger;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Interfaces between the view and the model to react to user events in the GUI.
+ * Specifically reacts to a user submission. Any extra features may be added by extending this class and binding
+ * the view to the new methods
+ */
 public abstract class IQuizController {
 
     private static final Logger logger = Logger.getLogger(IQuizController.class.getSimpleName());
@@ -22,7 +27,8 @@ public abstract class IQuizController {
     }
 
     /**
-     * When the submit button is clicked: validates all user input
+     * When the submit button is clicked: validates all user input, checks the correct answers, tells the view
+     * to display any error of the user, or whether he won
      */
     public void onSubmit() {
         logger.debug("received onSubmit");
@@ -105,5 +111,9 @@ public abstract class IQuizController {
             }
         }
         return pointsWon;
+    }
+
+    public void displayFrame() {
+        quizView.setVisible(true);
     }
 }

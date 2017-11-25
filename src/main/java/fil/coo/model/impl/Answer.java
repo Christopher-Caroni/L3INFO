@@ -3,6 +3,9 @@ package fil.coo.model.impl;
 import fil.coo.exception.InvalidAnswerException;
 import fil.coo.model.AnswerModel;
 
+/**
+ * Adds common functionality to all of the answers used in this project
+ */
 public abstract class Answer implements AnswerModel {
 
     public Answer(String answer) throws InvalidAnswerException {
@@ -54,7 +57,6 @@ public abstract class Answer implements AnswerModel {
     }
 
     /**
-     *
      * The implementing class' verification if userAnswer is actually the correct answer
      *
      * @param userAnswer the user's answer

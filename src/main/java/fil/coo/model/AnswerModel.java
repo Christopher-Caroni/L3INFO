@@ -5,6 +5,9 @@ import fil.coo.gui.factory.AnswerPanelFactory;
 import fil.coo.gui.impl.AnswerPanel;
 import fil.coo.model.impl.Answer;
 
+/**
+ * Common methods for all types of answers
+ */
 public interface AnswerModel {
 
     /**

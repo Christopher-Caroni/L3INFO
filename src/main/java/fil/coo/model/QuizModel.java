@@ -4,6 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Specifies the essence of a Quiz: a list of {@link QuestionModel}
+ *
+ * @param <Q> a subtype of {@link QuestionModel}
+ */
 public abstract class QuizModel<Q extends QuestionModel> {
 
     protected List<Q> questions;
@@ -50,7 +55,6 @@ public abstract class QuizModel<Q extends QuestionModel> {
     }
 
     /**
-     *
      * @return a list of the points of the questions of the same indices in {@link #questions}
      */
     public List<Integer> getPoints() {
