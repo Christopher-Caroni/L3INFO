@@ -81,4 +81,4 @@ Dans cet uml, on affiche aussi les dépendances entres les différentes classes.
 `AnswerModel` et `AbstractAnswerView`. Ceci est parce que l'on a besoin de créer une vue spécifique selon la type de réponse qu'on attend de l'utilisateur.  
 Ceci viole en quelque sorte le principe OCP mais on a limitée les dépendances à un stricte minimum. On utilise le `double dispatch` pour savoir quelle classe de vue
 il faut créer pour un modèle spécifique. Après, dans notre `AnswerPanelFactory`, la classe qui gère la construction de ces vues, nous utilisons que les méthodes abstraites
-ou des interfaces des super-classes ces réponses. La seule dépendance est donc en réalité à cause du double dispatch et nos vues ne dépendent donc pas vraiement de nos modèles.
+ou des interfaces des super-classes ces réponses pour accéder aux données. La seule dépendance est donc en réalité à cause du double dispatch et nos vues ne dépendent donc pas vraiement de nos modèles.
