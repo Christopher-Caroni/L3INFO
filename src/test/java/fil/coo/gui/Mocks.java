@@ -4,6 +4,7 @@ import fil.coo.gui.factory.AnswerPanelFactory;
 import fil.coo.model.AnswerModel;
 import fil.coo.model.QuestionModel;
 import fil.coo.model.QuizModel;
+import fil.coo.model.impl.CLIQuestion;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -84,28 +85,35 @@ public class Mocks {
 
         @Override
         protected AnswerModel getAnswer(int questionIndex) {
-            return new MockAnswer(correctOrValid);
+            return new MockAnswer(correctOrValid, correctOrValid);
         }
     }
 
-    public static class MockQuestion extends QuestionModel {
+    public static class MockQuestion extends CLIQuestion {
 
         /**
          * @param text     the question text
          * @param answer   the answer
          * @param nbPoints the number of points
          */
-        public MockQuestion(String text, AnswerModel answer, int nbPoints) {
+        public MockQuestion(String text, MockAnswer answer, int nbPoints) {
             super(text, answer, nbPoints);
+        }
+
+        @Override
+        public int ask() {
+            return 0;
         }
     }
 
     public static class MockAnswer implements AnswerModel {
 
-        private boolean correctOrValid;
+        private final boolean shouldReturnValid;
+        private final boolean shouldReturnCorrect;
 
-        public MockAnswer(boolean correctOrValid) {
-            this.correctOrValid = correctOrValid;
+        public MockAnswer(boolean shouldReturnValid, boolean shouldReturnCorrect) {
+            this.shouldReturnValid = shouldReturnValid;
+            this.shouldReturnCorrect = shouldReturnCorrect;
         }
 
         @Override
@@ -120,12 +128,12 @@ public class Mocks {
 
         @Override
         public boolean isValid(String userAnswer) {
-            return correctOrValid;
+            return shouldReturnValid;
         }
 
         @Override
         public boolean isCorrect(String userAnswer) {
-            return correctOrValid;
+            return shouldReturnCorrect;
         }
 
         @Override

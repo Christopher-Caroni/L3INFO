@@ -2,6 +2,8 @@ package fil.coo.model;
 
 import fil.coo.gui.AbstractAnswerView;
 import fil.coo.gui.Mocks;
+import fil.coo.gui.Mocks.MockAnswer;
+import fil.coo.gui.Mocks.MockQuestion;
 import fil.coo.gui.factory.AnswerPanelFactory;
 import fil.coo.model.impl.CLIQuestion;
 import fil.coo.model.impl.CLIQuiz;
@@ -122,71 +124,18 @@ public abstract class QuizModelTest {
 
     @Test
     public void testVerifyCorrectAnswerWhenOK() {
-        Mocks.MockAnswer mockAnswer = new Mocks.MockAnswer(true);
-        Mocks.MockQuestion question = new Mocks.MockQuestion("", mockAnswer, 0);
+        MockAnswer mockAnswer = new MockAnswer(false, true);
+        MockQuestion question = new MockQuestion("", mockAnswer, 0);
         boolean result = question.verifyCorrectAnswer("dummy_input");
         assertThat(result, is(true));
     }
 
     @Test
     public void testVerifyCorrectAnswerWhenNotOK() {
-        Mocks.MockAnswer mockAnswer = new Mocks.MockAnswer(false);
-        Mocks.MockQuestion question = new Mocks.MockQuestion("", mockAnswer, 0);
+        MockAnswer mockAnswer = new MockAnswer(true, false);
+        MockQuestion question = new MockQuestion("", mockAnswer, 0);
         boolean result = question.verifyCorrectAnswer("dummy_input");
         assertThat(result, is(false));
-    }
-
-    protected class MockQuestion extends CLIQuestion {
-
-        /**
-         * @param text     the question text
-         * @param answer   the answer
-         * @param nbPoints the number of points
-         */
-        public MockQuestion(String text, MockAnswer answer, int nbPoints) {
-            super(text, answer, nbPoints);
-        }
-
-        @Override
-        public int ask() {
-            return 0;
-        }
-    }
-
-    protected class MockAnswer implements AnswerModel {
-
-        private final boolean shouldReturnValid;
-        private final boolean shouldReturnCorrect;
-
-        public MockAnswer(boolean shouldReturnValid, boolean shouldReturnCorrect) {
-            this.shouldReturnValid = shouldReturnValid;
-            this.shouldReturnCorrect = shouldReturnCorrect;
-        }
-
-        @Override
-        public AbstractAnswerView createAnswerPanel(AnswerPanelFactory answerPanelFactory) {
-            return null;
-        }
-
-        @Override
-        public String getPrompt() {
-            return null;
-        }
-
-        @Override
-        public boolean isValid(String userAnswer) {
-            return shouldReturnValid;
-        }
-
-        @Override
-        public boolean isCorrect(String userAnswer) {
-            return shouldReturnCorrect;
-        }
-
-        @Override
-        public String getCorrectAnswer() {
-            return null;
-        }
     }
 
 }
