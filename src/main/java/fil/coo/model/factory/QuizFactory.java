@@ -8,7 +8,7 @@ import java.io.*;
 public class QuizFactory {
 
     /**
-     * Creates a {@link SimpleQuestion} from raw string inputs
+     * Creates a {@link CLIQuestion} from raw string inputs
      *
      * @param rawQuestion the input text for the question
      * @param rawAnswer   the input text for the answer

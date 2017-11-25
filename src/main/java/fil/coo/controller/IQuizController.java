@@ -83,7 +83,7 @@ public abstract class IQuizController {
      * Gets the total of points won and asks {@link #quizView} to display it
      *
      * @param userAnswers the user's input for all the answers
-     * @param points
+     * @param points      the list of points whose indices correspond to the indices of the questions
      */
     protected void acceptSubmission(final List<String> userAnswers, List<Integer> points) {
         int pointsWon = verifyCorrectAnswers(userAnswers, points);
@@ -94,7 +94,7 @@ public abstract class IQuizController {
      * Verifies userAnswers against the {@link #quizModel} and counts the total of points won
      *
      * @param userAnswers the user's input for all the answers
-     * @param points
+     * @param points      the list of points whose indices correspond to the indices of the questions
      * @return the number of points won
      */
     protected int verifyCorrectAnswers(final List<String> userAnswers, List<Integer> points) {

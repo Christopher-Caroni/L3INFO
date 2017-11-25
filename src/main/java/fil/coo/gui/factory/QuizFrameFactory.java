@@ -21,8 +21,8 @@ public class QuizFrameFactory {
     }
 
     /**
-     * @param quizModel
-     * @return
+     * @param quizModel the model to construct the view from
+     * @return a {@link QuizFrame}
      */
     public AbstractQuizView createQuizView(QuizModel<? extends QuestionModel> quizModel) {
         AbstractQuizView quizFrame = new QuizFrame(quizModel.getNbQuestions());

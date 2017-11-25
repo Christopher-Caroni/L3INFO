@@ -22,9 +22,6 @@ public abstract class AbstractQuestionView implements IView {
         return answerView.getUserInput();
     }
 
-    /**
-     * @return the user's input for this question's answer
-     */
     public final void setUserInput(String input) {
         answerView.setUserInput(input);
     }
