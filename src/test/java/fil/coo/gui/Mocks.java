@@ -2,6 +2,7 @@ package fil.coo.gui;
 
 import fil.coo.gui.factory.AnswerPanelFactory;
 import fil.coo.model.AnswerModel;
+import fil.coo.model.QuestionModel;
 import fil.coo.model.QuizModel;
 
 import javax.swing.*;
@@ -84,6 +85,18 @@ public class Mocks {
         @Override
         protected AnswerModel getAnswer(int questionIndex) {
             return new MockAnswer(correctOrValid);
+        }
+    }
+
+    public static class MockQuestion extends QuestionModel {
+
+        /**
+         * @param text     the question text
+         * @param answer   the answer
+         * @param nbPoints the number of points
+         */
+        public MockQuestion(String text, AnswerModel answer, int nbPoints) {
+            super(text, answer, nbPoints);
         }
     }
 

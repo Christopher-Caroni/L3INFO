@@ -1,7 +1,6 @@
 package fil.coo.model.factory;
 
 import fil.coo.model.impl.CLIQuestion;
-import fil.coo.model.impl.SimpleQuestion;
 import fil.coo.model.impl.CLIQuiz;
 
 import java.io.*;
@@ -17,11 +16,11 @@ public class QuizFactory {
      * @return a Question created from the 3 parameters
      * @throws IOException if inputPointText is not a number
      */
-    public SimpleQuestion createQuestion(String rawQuestion, String rawAnswer, String rawNbPoints)
+    public CLIQuestion createQuestion(String rawQuestion, String rawAnswer, String rawNbPoints)
             throws IOException {
         try {
             int nbPoints = Integer.parseInt(rawNbPoints);
-            return new SimpleQuestion(rawQuestion, AnswerFactory.FACTORYANSWER.buildAnswer(rawAnswer), nbPoints);
+            return new CLIQuestion(rawQuestion, AnswerFactory.FACTORYANSWER.buildAnswer(rawAnswer), nbPoints);
         } catch (NumberFormatException e) {
             throw new IOException("rawNbPoints is not a number");
         }
@@ -48,8 +47,7 @@ public class QuizFactory {
                 if (rawAnswerText == null || rawNbPointsText == null) {
                     throw new IOException("Cannot find text for this question's answer or number of points");
                 }
-                SimpleQuestion question = this.createQuestion(rawQuestionText, rawAnswerText, rawNbPointsText);
-                questionnaire.addQuestion(new CLIQuestion(question));
+                questionnaire.addQuestion(this.createQuestion(rawQuestionText, rawAnswerText, rawNbPointsText));
             }
 
         } catch (FileNotFoundException e) {

@@ -5,7 +5,6 @@ import fil.coo.gui.Mocks;
 import fil.coo.gui.factory.AnswerPanelFactory;
 import fil.coo.model.impl.CLIQuestion;
 import fil.coo.model.impl.CLIQuiz;
-import fil.coo.model.impl.SimpleQuestion;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -124,7 +123,7 @@ public abstract class QuizModelTest {
     @Test
     public void testVerifyCorrectAnswerWhenOK() {
         Mocks.MockAnswer mockAnswer = new Mocks.MockAnswer(true);
-        SimpleQuestion question = new SimpleQuestion("", mockAnswer, 0);
+        Mocks.MockQuestion question = new Mocks.MockQuestion("", mockAnswer, 0);
         boolean result = question.verifyCorrectAnswer("dummy_input");
         assertThat(result, is(true));
     }
@@ -132,7 +131,7 @@ public abstract class QuizModelTest {
     @Test
     public void testVerifyCorrectAnswerWhenNotOK() {
         Mocks.MockAnswer mockAnswer = new Mocks.MockAnswer(false);
-        SimpleQuestion question = new SimpleQuestion("", mockAnswer, 0);
+        Mocks.MockQuestion question = new Mocks.MockQuestion("", mockAnswer, 0);
         boolean result = question.verifyCorrectAnswer("dummy_input");
         assertThat(result, is(false));
     }

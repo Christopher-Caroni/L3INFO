@@ -2,6 +2,7 @@ package fil.coo.model.impl;
 
 import fil.coo.QuizTest;
 import fil.coo.exception.InvalidAnswerException;
+import fil.coo.gui.Mocks;
 import fil.coo.model.impl.answers.NumericalAnswer;
 import fil.coo.model.impl.answers.TextAnswer;
 import org.apache.log4j.Logger;
@@ -20,13 +21,13 @@ public class QuestionTest extends QuizTest {
 
     private String INPUT_QUESTION_1 = "5+5= ?";
     private String INPUT_ANSWER_1 = "10";
-    private SimpleQuestion questionWithNumericalAnswer;
+    private Mocks.MockQuestion questionWithNumericalAnswer;
     private NumericalAnswer numericalAnswer;
     private int NB_POINTS_NUMERICAL_QUESTION = 2;
 
     private String INPUT_QUESTION_2 = "Quel est la capital de le France ?";
     private String INPUT_ANSWER_2 = "Paris";
-    private SimpleQuestion questionWithTextAnswer;
+    private Mocks.MockQuestion questionWithTextAnswer;
     private TextAnswer textAnswer;
     private int NB_POINTS_TEXT_QUESTION = 5;
 
@@ -34,10 +35,10 @@ public class QuestionTest extends QuizTest {
     @Before
     public void setUp() throws InvalidAnswerException {
         numericalAnswer = new NumericalAnswer(INPUT_ANSWER_1);
-        questionWithNumericalAnswer = new SimpleQuestion(INPUT_QUESTION_1, numericalAnswer, NB_POINTS_NUMERICAL_QUESTION);
+        questionWithNumericalAnswer = new Mocks.MockQuestion(INPUT_QUESTION_1, numericalAnswer, NB_POINTS_NUMERICAL_QUESTION);
 
         textAnswer = new TextAnswer(INPUT_ANSWER_2);
-        questionWithTextAnswer = new SimpleQuestion(INPUT_QUESTION_2, textAnswer, NB_POINTS_TEXT_QUESTION);
+        questionWithTextAnswer = new Mocks.MockQuestion(INPUT_QUESTION_2, textAnswer, NB_POINTS_TEXT_QUESTION);
     }
 
     @Test

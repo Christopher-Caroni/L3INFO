@@ -21,10 +21,6 @@ public class CLIQuestion extends QuestionModel {
         super(text, answer, nbPoints);
     }
 
-    public CLIQuestion(SimpleQuestion question) {
-        super(question.getQuestionText(), question.getAnswer(), question.getNbPts());
-    }
-
     /**
      * Displays the question prompt and gets the user's answer.
      * Will loop on this question while the user input is not a valid type of answer
