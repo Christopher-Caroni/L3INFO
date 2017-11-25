@@ -27,7 +27,7 @@ public class QuestionPanel extends AbstractQuestionView {
     private void initRootPanel() {
         rootPanel = new JPanel();
         rootPanel.setLayout(new GridLayout(1, 2));
-        rootPanel.setBorder(BorderFactory.createLineBorder(Color.RED));
+        rootPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
     }
 
     /**
@@ -48,7 +48,7 @@ public class QuestionPanel extends AbstractQuestionView {
     private void initQuestionPanel() {
         questionTextPanel = new JPanel();
         questionTextPanel.setLayout(new FlowLayout());
-        questionTextPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+//        questionTextPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
     }
 
     /**
@@ -72,7 +72,7 @@ public class QuestionPanel extends AbstractQuestionView {
      * Sets up additional treatment of the {@link #answerView} and then adds it to {@link #rootPanel}
      */
     private void initAnswerView() {
-        this.answerView.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+//        this.answerView.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         rootPanel.add(this.answerView.getView());
     }
 
