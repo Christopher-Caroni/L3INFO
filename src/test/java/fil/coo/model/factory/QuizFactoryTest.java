@@ -32,6 +32,18 @@ public class QuizFactoryTest extends QuizTest {
         assertThat(questionnaire.getQuestion(6).getAnswer(), instanceOf(MultipleChoiceAnswer.class));
     }
 
+    @Test(expected = IOException.class)
+    public void testMissingPonyDetected() throws IOException {
+        QuizFactory questionFactory = new QuizFactory();
+        CLIQuiz questionnaire = questionFactory.createQuizFromTextFile("resources/missingPony.quiz");
+    }
+
+    @Test(expected = IOException.class)
+    public void testMissingPointsForDetected() throws IOException {
+        QuizFactory questionFactory = new QuizFactory();
+        CLIQuiz questionnaire = questionFactory.createQuizFromTextFile("resources/missingPointsForFrodo.quiz");
+    }
+
     @Override
     protected Logger getLogger() {
         return logger;
