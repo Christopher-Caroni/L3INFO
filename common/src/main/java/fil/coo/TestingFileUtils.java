@@ -9,40 +9,57 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 
-public class Utils {
+public class TestingFileUtils {
 
-    private static Logger logger = Logger.getLogger(Utils.class.getSimpleName());
+    private static Logger logger = Logger.getLogger(TestingFileUtils.class.getSimpleName());
 
-    private Utils() {
+    private TestingFileUtils() {
+    }
+
+
+    /**
+     * Creates the directory denoted by testingDirPath
+     *
+     * @param testingDirPath the path to the folder to create
+     * @param resetFolder    if an existing directory with the same path should be erased beforehand
+     * @return the path to the newly created folder
+     * @throws IOException the error, if encountered, while manipulating the directory
+     */
+    public static Path setupTestDir(Path testingDirPath, boolean resetFolder) throws IOException {
+        if (testingDirPath == null) {
+            throw new IllegalArgumentException("Cannot create a null directory");
+        }
+
+        if (resetFolder) {
+            verifyAndDeletedExistingFolder(testingDirPath);
+        }
+        return createTestingFolder(testingDirPath);
     }
 
     /**
-     * Creates a test dir testDirName and the files from files
+     * Creates the directory denoted by testingDirPath and fills it with files that have the names from filenamesToCreate
      *
      * @param testingDirPath the name of your testing directory you want to create
-     * @param files          the list of filenames to create in testDirName
+     * @param filenamesToCreate          the list of filenames to create in testDirName, can be empty
      * @param resetFolder    if the folder should be emptied beforehand
      * @throws IOException the error, if encountered, while manipulating the directory or files
      */
-    public static Path setupTestDir(Path testingDirPath, List<String> files, boolean resetFolder) throws IOException {
-        Path newPath = null;
-        if (resetFolder) {
-            verifyExistingFolder(testingDirPath);
-            newPath = createTestingFolder(testingDirPath);
-        } else {
-            newPath = testingDirPath;
+    public static Path setupTestDir(Path testingDirPath, List<String> filenamesToCreate, boolean resetFolder) throws IOException {
+        if (filenamesToCreate == null) {
+            throw new IllegalArgumentException("Cannot create null files");
         }
 
-        createTempFiles(testingDirPath, files);
+        Path newPath = setupTestDir(testingDirPath, resetFolder);
+        createTempFiles(newPath, filenamesToCreate);
         return newPath;
     }
 
     /**
-     * If the directory exists, empty it, delete it and then recreate it
+     * If the directory exists, empties and deletes it
      *
      * @param testDirPath the path to the folder to check
      */
-    private static void verifyExistingFolder(Path testDirPath) {
+    private static void verifyAndDeletedExistingFolder(Path testDirPath) {
         File testingDir = new File(testDirPath.normalize().toString());
         if (testingDir.exists()) {
 

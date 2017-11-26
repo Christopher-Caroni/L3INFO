@@ -40,7 +40,7 @@ public class DirectoryInspectorTest {
         List<String> files = Arrays.asList(FILENAME_STARTS_WITH_C, FILENAME_ENDS_WITH_CLASS);
 
         try {
-            tempRootDirPath = Utils.setupTestDir(Paths.get("testing"), files, true);
+            tempRootDirPath = TestingFileUtils.setupTestDir(Paths.get("testing"), files, true);
         } catch (IOException e) {
             logger.debug(e);
         }
@@ -51,7 +51,7 @@ public class DirectoryInspectorTest {
 
     @After
     public void deleteTempFilesAndFolder() {
-        Utils.deleteContentsOfDirectory(tempRootDirPath);
+        TestingFileUtils.deleteContentsOfDirectory(tempRootDirPath);
     }
 
 
