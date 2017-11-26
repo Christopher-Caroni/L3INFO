@@ -52,6 +52,7 @@ public class DirectoryInspectorTest {
     @After
     public void deleteTempFilesAndFolder() {
         TestingFileUtils.deleteContentsOfDirectory(tempRootDirPath);
+        TestingFileUtils.deleteFile(tempRootDirPath);
     }
 
 

@@ -83,6 +83,11 @@ public class TestingFileUtils {
         logger.debug("deleted dir \"" + file.toString() + "\" : " + delete);
     }
 
+    public static void deleteFile(Path tempRootDirPath) {
+        File testingDir = new File(tempRootDirPath.normalize().toString());
+        deleteFile(testingDir);
+    }
+
     /**
      * Deletes the contents of a folder
      *
