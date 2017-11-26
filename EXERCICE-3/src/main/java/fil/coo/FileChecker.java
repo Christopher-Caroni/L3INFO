@@ -1,17 +1,17 @@
 package fil.coo;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FilenameFilter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class FileChecker implements FileListener {
+public class FileChecker {
 
     private static final String REPOSITORY_PATH = "plugins";
+
+    private static final int CHECK_DELAY = 1000;
 
     private Timer timer;
     private final FilenameFilter filenameFilter;
@@ -25,15 +25,22 @@ public class FileChecker implements FileListener {
         initTimer();
     }
 
-    private void initTimer() {
-        timer = new Timer(1000, new FileActionLister());
-    }
-
     private void initList() {
         listeners = new ArrayList<>();
         memory = new ArrayList<>();
     }
 
+    /**
+     * Initializes {@link #timer} to call {@link #checkChangedFiles()} every {@link #CHECK_DELAY} milliseconds
+     */
+    private void initTimer() {
+        timer = new Timer(CHECK_DELAY, e -> checkChangedFiles());
+    }
+
+
+    /**
+     * Starts repeatedly checking {@link #REPOSITORY_PATH} with {@link #timer}
+     */
     public void start() {
         timer.start();
     }
@@ -51,15 +58,16 @@ public class FileChecker implements FileListener {
 
 
     /**
-     * @return the list of current files in {@link #REPOSITORY_PATH}
+     * @return the list of current files in {@link #REPOSITORY_PATH} or an empty list if an IO error occurs
      */
     private List<String> getCurrentContents() {
         File dir = new File(REPOSITORY_PATH);
-        return Arrays.asList(dir.list(this.filenameFilter));
+        String[] list = dir.list(this.filenameFilter);
+        return list == null ? new ArrayList<>() : Arrays.asList(list);
     }
 
     /**
-     * Iterates over currentFiles and calls {@link #fileAdded(FileEvent)} if the file did NOT exist
+     * Iterates over currentFiles and calls {@link #fireFileAdded(String)} if the file did NOT exist
      * previously
      *
      * @param currentFiles the list of files currently in {@link #REPOSITORY_PATH}
@@ -73,7 +81,7 @@ public class FileChecker implements FileListener {
     }
 
     /**
-     * Iterates over {@link #memory} and calls {@link #fileRemoved(FileEvent)}} if the file did exist
+     * Iterates over {@link #memory} and calls {@link #fireFileRemoved(String)}} if the file did exist
      * previously
      *
      * @param currentFiles the list of files currently in {@link #REPOSITORY_PATH}
@@ -86,39 +94,45 @@ public class FileChecker implements FileListener {
         }
     }
 
+    /**
+     * Notifies all listeners in {@link #listeners} about an added file
+     *
+     * @param addedFile the filename of the added file
+     */
     private void fireFileAdded(String addedFile) {
         FileEvent event = new FileEvent(addedFile);
-        // TODO notify
-    }
-
-    private void fireFileRemoved(String deletedFile) {
-        FileEvent event = new FileEvent(deletedFile);
-        //TODO
-    }
-
-    @Override
-    public void fileAdded(FileEvent e) {
-
-    }
-
-    @Override
-    public void fileRemoved(FileEvent e) {
-
-    }
-
-    private class FileActionLister implements ActionListener {
-
-        @Override
-        public void actionPerformed(ActionEvent actionEvent) {
-            checkChangedFiles();
+        for (FileListener listener : listeners) {
+            listener.fileAdded(event);
         }
     }
 
-    public void subscribeFileListener(FileListener listener) {
+    /**
+     * Notifies all listeners in {@link #listeners} about a deleted file
+     *
+     * @param deletedFile the filename of the deleted file
+     */
+    private void fireFileRemoved(String deletedFile) {
+        FileEvent event = new FileEvent(deletedFile);
+        for (FileListener listener : listeners) {
+            listener.fileRemoved(event);
+        }
+    }
+
+    /**
+     * Subscribes listener to events fired by this instance
+     *
+     * @param listener the instance that will receive to events
+     */
+    public void addFileListener(FileListener listener) {
         this.listeners.add(listener);
     }
 
-    public void unsubscribeFileListener(FileListener listener) {
+    /**
+     * Unsubscribres the listener from events fired by this instance
+     *
+     * @param listener the instance that will stop receiving events
+     */
+    public void removeFileListener(FileListener listener) {
         this.listeners.remove(listener);
     }
 }
