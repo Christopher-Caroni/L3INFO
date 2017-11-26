@@ -2,9 +2,10 @@ package fil.coo;
 
 import java.io.File;
 import java.io.FilenameFilter;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class DirectoryInspector {
 
@@ -19,19 +20,26 @@ public class DirectoryInspector {
     }
 
     private void initCFilter() {
-        startsWithCFilter = (file, s) -> s.startsWith("C") || s.startsWith("c");
+        startsWithCFilter = (dir, s) -> s.startsWith("C") || s.startsWith("c");
     }
 
     private void initClassFilter() {
-        classFilter = (file, s) -> s.endsWith(".class");
+        classFilter = (dir, s) -> s.endsWith(".class");
     }
 
+    /**
+     * @return all the files that start with "C" or an empty list if an {@link IOException} occurs
+     */
     public List<String> getFilesThatStartWithC() {
-        return Arrays.asList(directory.list(startsWithCFilter));
+        String[] list = directory.list(startsWithCFilter);
+        return list == null ? new ArrayList<>() : Arrays.asList(list);
     }
 
+    /**
+     * @return all the files that end with ".class" or an empty list if an {@link IOException} occurs
+     */
     public List<String> getClassFiles() {
-        return Arrays.asList(directory.list(classFilter));
-
+        String[] list = directory.list(classFilter);
+        return list == null ? new ArrayList<>() : Arrays.asList(list);
     }
 }
