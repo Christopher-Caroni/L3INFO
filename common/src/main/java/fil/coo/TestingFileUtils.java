@@ -39,9 +39,9 @@ public class TestingFileUtils {
     /**
      * Creates the directory denoted by testingDirPath and fills it with files that have the names from filenamesToCreate
      *
-     * @param testingDirPath the name of your testing directory you want to create
-     * @param filenamesToCreate          the list of filenames to create in testDirName, can be empty
-     * @param resetFolder    if the folder should be emptied beforehand
+     * @param testingDirPath    the name of your testing directory you want to create
+     * @param filenamesToCreate the list of filenames to create in testDirName, can be empty
+     * @param resetFolder       if the folder should be emptied beforehand
      * @throws IOException the error, if encountered, while manipulating the directory or files
      */
     public static Path setupTestDir(Path testingDirPath, List<String> filenamesToCreate, boolean resetFolder) throws IOException {
@@ -169,5 +169,15 @@ public class TestingFileUtils {
         if (!dir.isDirectory()) {
             throw new IllegalArgumentException(dir.getAbsolutePath() + " is not a directory");
         }
+    }
+
+    /**
+     * Deletes the contents and the directory denoted by dirPath
+     *
+     * @param dirPath that path to the directory to empty and delete
+     */
+    public static void deleteDirectory(Path dirPath) {
+        deleteContentsOfDirectory(dirPath);
+        deleteFile(dirPath);
     }
 }
