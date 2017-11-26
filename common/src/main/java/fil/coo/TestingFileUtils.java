@@ -65,11 +65,11 @@ public class TestingFileUtils {
 
             verifyFileIsDirectory(testingDir);
 
-            logger.debug("test folder exists, will delete");
+            logger.debug("\"" + testDirPath.toString() + "\" exists, will delete");
             deleteContentsOfDirectory(testingDir);
             deleteFile(testingDir);
         } else {
-            logger.debug("testDirPath does not point to an existing folder");
+            logger.debug("no need to delete: \"" + testDirPath.toString() + "\" does not point to an existing folder");
         }
     }
 
@@ -86,6 +86,18 @@ public class TestingFileUtils {
     public static void deleteFile(Path tempRootDirPath) {
         File testingDir = new File(tempRootDirPath.normalize().toString());
         deleteFile(testingDir);
+    }
+
+    public static void deleteFileInDirectory(Path rootTestingFolder, String fileToCreate) {
+        verifyPathLeadsToDirectory(rootTestingFolder);
+
+        File file = new File(rootTestingFolder.normalize().toString() + "/" + fileToCreate);
+        if (!file.exists()) {
+            logger.debug("File does not exist, cannot delete");
+        } else {
+            boolean delete = file.delete();
+            logger.debug("deleted file in dir \"" + file.toString() + "\" : " + delete);
+        }
     }
 
     /**
@@ -140,7 +152,7 @@ public class TestingFileUtils {
         verifyPathLeadsToDirectory(testingDirPath);
 
         for (String file : files) {
-            createFile(testingDirPath, file);
+            createFileInDirectory(testingDirPath, file);
         }
     }
 
@@ -151,13 +163,13 @@ public class TestingFileUtils {
      * @param file           the name of the file to create
      * @throws IOException the error, if encountered, while creating the file
      */
-    private static void createFile(Path testingDirPath, String file) throws IOException {
+    public static void createFileInDirectory(Path testingDirPath, String file) throws IOException {
         verifyPathLeadsToDirectory(testingDirPath);
 
         String prefix = testingDirPath.normalize().toString() + "/";
 
-        Path startsWithCPath = Files.createFile(Paths.get(prefix + file));
-        logger.debug("created test file StartsWithC at \"" + startsWithCPath.toAbsolutePath().toString() + "\"");
+        Path pathToNewFile = Files.createFile(Paths.get(prefix + file));
+        logger.debug("created file at \"" + pathToNewFile.toAbsolutePath().toString() + "\"");
     }
 
     private static void verifyPathLeadsToDirectory(Path dirPath) {

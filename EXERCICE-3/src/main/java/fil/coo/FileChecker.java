@@ -1,24 +1,29 @@
 package fil.coo;
 
+import org.apache.log4j.Logger;
+
 import javax.swing.*;
 import java.io.File;
 import java.io.FilenameFilter;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 
 public class FileChecker {
 
-    private static final String REPOSITORY_PATH = "plugins";
+    private static final Logger logger = Logger.getLogger(FileChecker.class.getSimpleName());
 
     private static final int CHECK_DELAY = 1000;
 
     private Timer timer;
+    private String directoryToWatch;
     private final FilenameFilter filenameFilter;
     private List<FileListener> listeners;
     private List<String> memory;
 
-    public FileChecker(FilenameFilter filenameFilter) {
+    public FileChecker(String directoryToWatch, FilenameFilter filenameFilter) {
+        this.directoryToWatch = directoryToWatch;
         this.filenameFilter = filenameFilter;
 
         initList();
@@ -39,10 +44,11 @@ public class FileChecker {
 
 
     /**
-     * Starts repeatedly checking {@link #REPOSITORY_PATH} with {@link #timer}
+     * Starts repeatedly checking {@link #directoryToWatch} with {@link #timer}
      */
     public void start() {
         timer.start();
+        logger.debug("Started watching directory: " + directoryToWatch);
     }
 
     /**
@@ -58,10 +64,10 @@ public class FileChecker {
 
 
     /**
-     * @return the list of current files in {@link #REPOSITORY_PATH} or an empty list if an IO error occurs
+     * @return the list of current files in {@link #directoryToWatch} or an empty list if an IO error occurs
      */
     private List<String> getCurrentContents() {
-        File dir = new File(REPOSITORY_PATH);
+        File dir = new File(directoryToWatch);
         String[] list = dir.list(this.filenameFilter);
         return list == null ? new ArrayList<>() : Arrays.asList(list);
     }
@@ -70,11 +76,12 @@ public class FileChecker {
      * Iterates over currentFiles and calls {@link #fireFileAdded(String)} if the file did NOT exist
      * previously
      *
-     * @param currentFiles the list of files currently in {@link #REPOSITORY_PATH}
+     * @param currentFiles the list of files currently in {@link #directoryToWatch}
      */
     private void checkNewFiles(List<String> currentFiles) {
         for (String filename : currentFiles) {
             if (!(memory.contains(filename))) {
+                memory.add(filename);
                 fireFileAdded(filename);
             }
         }
@@ -84,12 +91,15 @@ public class FileChecker {
      * Iterates over {@link #memory} and calls {@link #fireFileRemoved(String)}} if the file did exist
      * previously
      *
-     * @param currentFiles the list of files currently in {@link #REPOSITORY_PATH}
+     * @param currentFiles the list of files currently in {@link #directoryToWatch}
      */
     private void checkRemovedFiles(List<String> currentFiles) {
-        for (String preExistingFile : memory) {
-            if (!(currentFiles.contains(preExistingFile))) {
+
+        for (Iterator<String> it = memory.iterator(); it.hasNext();) {
+            String preExistingFile = it.next();
+            if (!currentFiles.contains(preExistingFile)) {
                 fireFileRemoved(preExistingFile);
+                it.remove();
             }
         }
     }
@@ -100,6 +110,8 @@ public class FileChecker {
      * @param addedFile the filename of the added file
      */
     private void fireFileAdded(String addedFile) {
+        logger.debug("Notifying about added file: " + addedFile);
+
         FileEvent event = new FileEvent(addedFile);
         for (FileListener listener : listeners) {
             listener.fileAdded(event);
@@ -112,6 +124,8 @@ public class FileChecker {
      * @param deletedFile the filename of the deleted file
      */
     private void fireFileRemoved(String deletedFile) {
+        logger.debug("Notifying about deleted file: " + deletedFile);
+
         FileEvent event = new FileEvent(deletedFile);
         for (FileListener listener : listeners) {
             listener.fileRemoved(event);

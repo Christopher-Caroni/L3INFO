@@ -8,7 +8,9 @@ import org.junit.Test;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.concurrent.TimeUnit;
 
+import static org.awaitility.Awaitility.await;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.nullValue;
@@ -38,9 +40,10 @@ public class FileCheckerTest {
 
     private void setupFileChecker() {
         // accept all files
-        fileChecker = new FileChecker((dir, name) -> true);
+        fileChecker = new FileChecker(rootTestingFolder.normalize().toString(), (dir, name) -> true);
         mockFileListener = new MockFileListener();
         fileChecker.addFileListener(mockFileListener);
+        fileChecker.start();
     }
 
     @After
@@ -49,16 +52,45 @@ public class FileCheckerTest {
     }
 
     @Test
-    public void testDetectFileAdded() {
+    public void testDetectFileAdded() throws IOException {
+        final String fileToCreate = "testFile";
         assertThat(mockFileListener.fileAddedCounter, is(0));
         assertThat(mockFileListener.lastEvent, is(nullValue()));
 
-        // TODO
+        TestingFileUtils.createFileInDirectory(rootTestingFolder, fileToCreate);
+
+
+        await().atMost(3, TimeUnit.SECONDS)
+                .until(() -> mockFileListener.fileAddedCounter == 1);
+
+        assertThat(mockFileListener.fileAddedCounter, is(1));
+        assertThat(mockFileListener.lastEvent.getSource(), is(fileToCreate));
     }
 
     @Test
-    public void testDetectFileDeleted() {
-        // TODO
+    public void testDetectFileDeleted() throws IOException {
+        final String fileToCreate = "testFile";
+
+        assertThat(mockFileListener.fileAddedCounter, is(0));
+        assertThat(mockFileListener.fileDeletedCounter, is(0));
+        assertThat(mockFileListener.lastEvent, is(nullValue()));
+
+
+//        We need the file to be deleted to already by in the memory to be considered as deleted
+//        when the event happens, otherwise the filechecker didn't even know it existed
+        TestingFileUtils.createFileInDirectory(rootTestingFolder, fileToCreate);
+        await().atMost(3, TimeUnit.SECONDS)
+                .until(() -> mockFileListener.fileAddedCounter == 1);
+        assertThat(mockFileListener.fileAddedCounter, is(1));
+        assertThat(mockFileListener.fileDeletedCounter, is(0));
+        assertThat(mockFileListener.lastEvent.getSource(), is(fileToCreate));
+
+        TestingFileUtils.deleteFileInDirectory(rootTestingFolder, fileToCreate);
+        await().atMost(3, TimeUnit.SECONDS)
+                .until(() -> mockFileListener.fileDeletedCounter == 1);
+        assertThat(mockFileListener.fileAddedCounter, is(1));
+        assertThat(mockFileListener.fileDeletedCounter, is(1));
+        assertThat(mockFileListener.lastEvent.getSource(), is(fileToCreate));
     }
 
 
