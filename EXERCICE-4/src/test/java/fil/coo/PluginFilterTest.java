@@ -11,9 +11,10 @@ import static org.junit.Assert.*;
 public class PluginFilterTest {
 
     protected PluginFilter pluginFilter;
-    protected static final String CLASS_FOLDER_NAME = "resources";
-    protected  static final String CLASS_FILE_NAME = "CesarCode.class";
-    protected  static final String WRONG_FILE_NAME = "fake";
+    private static final String GOOD_CLASS_FILE_NAME = "CesarCode.class";
+    private static final String CLASS_FOLDER_NAME = "resources";
+    private  static final String CLASS_FILE_NAME = "fake.class";
+    private  static final String WRONG_FILE_NAME = "fake";
     private File folder;
 
 
@@ -34,5 +35,19 @@ public class PluginFilterTest {
         boolean accepted = pluginFilter.accept(folder, WRONG_FILE_NAME);
         assertThat(accepted, is(false));
     }
+
+
+    @Test
+    public void testAcceptClassCharged(){
+        boolean accepted = pluginFilter.accept(folder, GOOD_CLASS_FILE_NAME);
+        assertThat(accepted, is(true));
+    }
+
+    @Test
+    public void testNotAcceptClassNotCharged(){
+        boolean accepted = pluginFilter.accept(folder, CLASS_FILE_NAME);
+        assertThat(accepted, is(false));
+    }
+
 
 }

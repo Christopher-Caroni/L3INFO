@@ -11,6 +11,7 @@ public class PluginFilter implements FilenameFilter {
     @Override
     public boolean accept(File file, String s) {
         // TODO
+        
         return s.endsWith(".class");
     }
 
