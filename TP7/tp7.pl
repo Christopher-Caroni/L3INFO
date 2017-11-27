@@ -63,6 +63,7 @@ fdsQ5([ [[a,b],[c]], [[b,d],[e,f]],[[b],[f]],[[f],[g,h]],[[d],[i,j]] ]).
 
 % 3NF de R
 % schemaQ4(R), fdsQ5(F), threenf(R,F,R3NF).
+% Resultat : false
 
 % Q6
 schemaQ6([a, b, c, d, e]).
@@ -70,8 +71,13 @@ fdsQ6([ [[a,b],[c]], [[c,d],[e]],[[d,e],[b]] ]).
 
 % is AB candidate key?
 % schemaQ6(R), fdsQ6(F), candkey(R,F,[a,b]).
+% Resultat: false
 % is ABD candidate key?
 % schemaQ6(R), fdsQ6(F), candkey(R,F,[a,b,d]).
+% Resultat: true
+% R = [a, b, c, d, e],
+% F = [[[a, b], [c]], [[c, d], [e]], [[d, e], [b]]] .
+
 
 % Q7
 schemaQ7([courseno,secno,offeringdept,credithours,courselevel, instructorssn,semester,year, dayshours,roomno, noofstudents]).
@@ -81,9 +87,11 @@ fdsQ7([ [[courseno],[offeringdept, credithours, courselevel]], [[courseno, secno
 
 % clé de R
 % schemaQ7(R), fdsQ7(F), candkey(R,F,K).
+% Resultat: K = [semester, year, dayshours, roomno] .
 
 % 3NF de R
 % schemaQ7(R), fdsQ7(F), threenf(R,F,R3NF).
+% Resultat: R3NF = [[courseno, courselevel, credithours, offeringdept], [courseno, secno, semester, year, dayshours, noofstudents, roomno], [roomno, dayshours, semester, year, courseno, instructorssn|...]] .
 
 % Q8
 schemaQ8([propertyid,countyname,lotno,area,price,taxrate]).
@@ -92,6 +100,13 @@ decompQ8([[propertyis,area,lotno],[area,countyname],[area,price],[countyname,tax
 
 % tests if decompQ8 is a lossless decomposition of schemaQ8
 % schemaQ8(R), fdsQ8(F), decompQ8(D), ljd(R,F,D).
+/* Resultat:
+[[b,1,1],[b,1,2],[a,3],[a,4],[b,1,5],[b,1,6]]
+[[b,2,1],[a,2],[b,2,3],[a,4],[b,2,5],[a,6]]
+[[b,3,1],[b,3,2],[b,3,3],[a,4],[a,5],[b,3,6]]
+[[b,4,1],[a,2],[b,4,3],[b,4,4],[b,4,5],[a,6]]
+false.
+*/
 
 
 % Q9
@@ -149,9 +164,7 @@ fdsQ12([ [[a,b],[c]], [[c,d],[e]],[[d,e],[b]] ]).
 schemaQ12_2([courseno,secno,offeringdept,credithours,courselevel,
 instructorssn,semester,year, dayshours,roomno,
 noofstudents]).
-fdsQ12_2([ [[courseno,[offeringdept, credithours, courselevel]],
- [[courseno, secno, semester, year],[dayshours, roomno, noofstudents, instructorssn]],
- [[roomno, dayshours, semester, year],[instructorssn, courseno, secno]] ]).
+fdsQ12_2([ [[courseno],[offeringdept, credithours, courselevel]], [[courseno, secno, semester, year],[dayshours, roomno, noofstudents, instructorssn]], [[roomno, dayshours, semester, year],[instructorssn, courseno, secno]] ]).
 
  % prints all the candidate keys of R
  % schemaQ12_2(R), fdsQ12_2(F), candkey(R,F,K).
