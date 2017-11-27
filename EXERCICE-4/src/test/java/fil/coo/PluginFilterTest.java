@@ -13,6 +13,7 @@ public class PluginFilterTest {
     protected PluginFilter pluginFilter;
     protected static final String CLASS_FOLDER_NAME = "resources";
     protected  static final String CLASS_FILE_NAME = "CesarCode.class";
+    protected  static final String WRONG_FILE_NAME = "fake";
     private File folder;
 
 
@@ -28,5 +29,10 @@ public class PluginFilterTest {
         assertThat(accepted, is(true));
     }
 
+    @Test
+    public void testNotAccept(){
+        boolean accepted = pluginFilter.accept(folder, WRONG_FILE_NAME);
+        assertThat(accepted, is(false));
+    }
 
 }
