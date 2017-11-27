@@ -1,6 +1,7 @@
 package fil.coo;
 
 import org.apache.log4j.Logger;
+import plugins.CesarCode;
 
 import java.io.File;
 import java.io.FilenameFilter;
@@ -18,15 +19,17 @@ public class PluginFilter implements FilenameFilter {
     @Override
     public boolean accept(File file, String s) {
         // TODO
-
         return endWithClass(s) && canBeInstantiate(s);
     }
 
     private boolean canBeInstantiate(String s) {
-        String className = s.substring(0, s.length()-EXTENSION_CLASS.length());
+
+        CesarCode cesarCode = new CesarCode();
+
+        String className = s.substring(0, s.length() - EXTENSION_CLASS.length());
         try {
-            Class<?> c = Class.forName("plugins."+className);
-        } catch (ClassNotFoundException e) {
+            Class<?> c = Class.forName("plugins." + className);
+        } catch (ClassNotFoundException | ClassFormatError e) {
             logger.debug(e);
             return false;
         }
