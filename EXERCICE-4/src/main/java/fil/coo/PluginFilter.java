@@ -5,6 +5,7 @@ import plugins.CesarCode;
 
 import java.io.File;
 import java.io.FilenameFilter;
+import java.lang.reflect.Constructor;
 
 /**
  * An implementation of {@link FilenameFilter} that only accepts compiled java .class files
@@ -19,21 +20,41 @@ public class PluginFilter implements FilenameFilter {
     @Override
     public boolean accept(File file, String s) {
         // TODO
-        return endWithClass(s) && canBeInstantiate(s);
+
+        Class<?> aClass = canBeInstantiate(s);
+        boolean classExists = aClass != null;
+
+
+        return endWithClass(s) && classExists && canGetConstructor(aClass);
     }
 
-    private boolean canBeInstantiate(String s) {
+    private boolean canGetConstructor(Class<?> s) {
 
-        CesarCode cesarCode = new CesarCode();
-
-        String className = s.substring(0, s.length() - EXTENSION_CLASS.length());
         try {
-            Class<?> c = Class.forName("plugins." + className);
-        } catch (ClassNotFoundException | ClassFormatError e) {
-            logger.debug(e);
+            Constructor<?> constructor = s.getConstructor(null);
+        } catch (NoSuchMethodException e) {
             return false;
         }
+
         return true;
+    }
+
+    private Class<?> canBeInstantiate(String s) {
+        Class<?> c;
+        try {
+            c = Class.forName("plugins." + getClassName(s));
+        } catch (ClassNotFoundException | ClassFormatError e) {
+            logger.debug(e);
+            return null;
+        }
+        return c;
+    }
+
+    private String getClassName(String s) {
+        if(!(s.length() > EXTENSION_CLASS.length())){
+            return null;
+        }
+        return s.substring(0, s.length() - EXTENSION_CLASS.length());
     }
 
     private boolean endWithClass(String s) {

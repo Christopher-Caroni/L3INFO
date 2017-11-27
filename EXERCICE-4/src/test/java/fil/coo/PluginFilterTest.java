@@ -13,8 +13,8 @@ public class PluginFilterTest {
     protected PluginFilter pluginFilter;
     private static final String GOOD_CLASS_FILE_NAME = "CesarCode.class";
     private static final String CLASS_FOLDER_NAME = "resources/plugins";
-    private  static final String CLASS_FILE_NAME = "fake.class";
-    private  static final String WRONG_FILE_NAME = "fake";
+    private static final String CLASS_FILE_NAME = "fake.class";
+    private static final String WRONG_FILE_NAME = "fake";
     private File folder;
 
 
@@ -26,7 +26,7 @@ public class PluginFilterTest {
 
 
     @Test
-    public void testAcceptClassCharged(){
+    public void testAcceptClassCharged() {
         boolean accepted = pluginFilter.accept(folder, GOOD_CLASS_FILE_NAME);
 
         assertThat(accepted, is(true));
@@ -34,13 +34,13 @@ public class PluginFilterTest {
 
 
     @Test
-    public void testNotAccept(){
+    public void testNotAccept() {
         boolean accepted = pluginFilter.accept(folder, WRONG_FILE_NAME);
         assertThat(accepted, is(false));
     }
 
     @Test
-    public void testNotAcceptClassNotCharged(){
+    public void testNotAcceptClassNotCharged() {
         boolean accepted = pluginFilter.accept(folder, CLASS_FILE_NAME);
         assertThat(accepted, is(false));
     }
