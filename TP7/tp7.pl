@@ -6,27 +6,37 @@ fds2([ [[a],[c,d]], [[e],[a,h]] ]).
 % test equivalence
 % repQ1() :- schema(R), fds1(F1), fds2(F2), equiv(R,F1,F2).
 
+%Resultat: true
+%R = [a, c, d, e, h],
+%F1 = [[[a], [c]], [[a, c], [d]], [[e], [a, d]], [[e], [h]]],
+%F2 = [[[a], [c, d]], [[e], [a, h]]] .
+
 % Q2
 schemaQ2([ename,ssn,bdate,address,dnumber,dname,dmgrssn]).
 fdsQ2([ [[ssn],[ename,bdate,address, dnumber]], [[dnumber],[dname, dmgrssn]] ]).
 
 % cloture de ssn
 % schemaQ2(R), fdsQ2(F), xplus(R,F,[ssn], Xplus).
+% Resultat: Xplus = [address, bdate, dmgrssn, dname, dnumber, ename, ssn].
 
 % cloture de dnumber
 % schemaQ2(R), fdsQ2(F), xplus(R,F,[dnumber], Xplus).
+% Resultat: Xplus = [dmgrssn, dname, dnumber].
 
 
 % Q3
 % couverture minimale des dependances de Q2
 % schemaQ2(R),fdsQ2(F),mincover(R,F,MinF).
 
-% résultat:
-% MinF = [[[dnumber], [dmgrssn, dname]], [[ssn], [address, bdate, dnumber, ename]]]
+% Resultat: MinF = [[[dnumber], [dmgrssn, dname]], [[ssn], [address, bdate, dnumber, ename]]]
+
 
 % test equivalence
-% repQ3() :- schemaQ2(R),fdsQ2(F),mincover(R,F,MinF), equiv(R,F,MinF).
+% repQ3() :- schemaQ2(R),fdsQ2(F), equiv(R,F,[[[dnumber], [dmgrssn, dname]], [[ssn], [address, bdate, dnumber, ename]]]).
 
+% Resultat: true
+%R = [ename, ssn, bdate, address, dnumber, dname, dmgrssn],
+%F = [[[ssn], [ename, bdate, address, dnumber]], [[dnumber], [dname, dmgrssn]]] .
 
 % Q4
 schemaQ4([a, b, c, d, e, f, g, h, i]).
@@ -34,15 +44,22 @@ fdsQ4([ [[a,b],[c]], [[a],[d, e]],[[b],[f]],[[f],[g,h]],[[d],[i,j]] ]).
 
 % clé de R
 % schemaQ4(R), fdsQ4(F), superkey(R,F,K).
+% Resultat: false
 
 % 3NF de R
 % schemaQ4(R), fdsQ4(F), threenf(R,F,R3NF).
+
+% Resultat: true
+% R = [a, b, c, d, e, f, g, h, i],
+% F = [[[a, b], [c]], [[a], [d, e]], [[b], [f]], [[f], [g, h]], [[d], [i, j]]],
+% R3NF = [[a, d, e], [a, b, c], [b, f], [d, i, j], [f, g, h]]
 
 % Q5
 fdsQ5([ [[a,b],[c]], [[b,d],[e,f]],[[b],[f]],[[f],[g,h]],[[d],[i,j]] ]).
 
 % clé de R
 % schemaQ4(R), fdsQ5(F), superkey(R,F,K).
+% Résultat: false
 
 % 3NF de R
 % schemaQ4(R), fdsQ5(F), threenf(R,F,R3NF).
