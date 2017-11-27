@@ -144,3 +144,7 @@ fdsQ12_2([ [[courseno,[offeringdept, credithours, courselevel]],
 
  % returns in D a decomposition of R into BCNF.
  % schemaQ12_2(R), fdsQ12_2(F), bcnf(R,F,D).
+
+ % Q13
+ schemaQ13([a,b,c,d,e,f,h,i]).
+ fdsQ13([ [[a,b],[c]], [[a],[d,e]],[[b],[f]] ,[[f],[g,h]] ,[[d],[i,j]] ]).
