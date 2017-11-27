@@ -20,7 +20,7 @@ public class PluginFilter implements FilenameFilter {
     private boolean canBeInstantiate(String s) {
         String className = s.substring(0, s.length()-EXTENSION_CLASS.length());
         try {
-            Class<?> c = Class.forName(s);
+            Class<?> c = Class.forName("plugins."+className);
         } catch (ClassNotFoundException e) {
             return false;
         }
