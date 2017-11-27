@@ -192,4 +192,18 @@ public class TestingFileUtils {
         deleteContentsOfDirectory(dirPath);
         deleteFile(dirPath);
     }
+
+    public static void copyFileToDir(Path filePath, Path destPath) throws IOException {
+        if (filePath == null) {
+            throw new IllegalArgumentException("Cannot copy with null path");
+        }
+
+        File fileToCopy = new File(filePath.toAbsolutePath().toString());
+        if (!fileToCopy.isFile()) {
+            throw new UnsupportedOperationException(filePath.toAbsolutePath().toString() + " is not a file");
+        }
+
+        Files.copy(filePath, destPath);
+    }
+
 }
