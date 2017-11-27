@@ -40,6 +40,7 @@ public class PluginFilterTest {
     @Test
     public void testAcceptClassCharged(){
         boolean accepted = pluginFilter.accept(folder, GOOD_CLASS_FILE_NAME);
+
         assertThat(accepted, is(true));
     }
 

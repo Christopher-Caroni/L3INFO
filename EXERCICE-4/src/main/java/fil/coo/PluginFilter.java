@@ -1,5 +1,7 @@
 package fil.coo;
 
+import org.apache.log4j.Logger;
+
 import java.io.File;
 import java.io.FilenameFilter;
 
@@ -8,7 +10,10 @@ import java.io.FilenameFilter;
  */
 public class PluginFilter implements FilenameFilter {
 
+    private Logger logger = Logger.getLogger(PluginFilter.class.getSimpleName());
+
     private static final String EXTENSION_CLASS = ".class";
+
 
     @Override
     public boolean accept(File file, String s) {
@@ -22,6 +27,7 @@ public class PluginFilter implements FilenameFilter {
         try {
             Class<?> c = Class.forName("plugins."+className);
         } catch (ClassNotFoundException e) {
+            logger.debug(e);
             return false;
         }
         return true;
