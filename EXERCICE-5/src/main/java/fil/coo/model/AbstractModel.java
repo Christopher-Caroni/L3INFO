@@ -20,6 +20,7 @@ public abstract class AbstractModel implements PluginListener {
     public AbstractModel() {
         pluginSupplier = new SimplePluginSupplier(REPO_DIR);
         pluginSupplier.addPluginListener(this);
+        pluginSupplier.start();
     }
 
     public abstract String applyPlugin(String pluginIndex);

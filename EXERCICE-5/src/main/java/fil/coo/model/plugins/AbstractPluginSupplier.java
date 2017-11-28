@@ -8,7 +8,6 @@ import org.apache.log4j.Logger;
 import plugin.Plugin;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Uses a {@link FileChecker} associated with a {@link PluginFilter} to
@@ -20,20 +19,23 @@ public class AbstractPluginSupplier extends PluginObservable implements FileList
     private static final String EXTENSION_CLASS = ".class";
     private static final String PLUGIN_PACKAGE = "plugins.";
 
+    /**
+     * The directory this instance is watching. Given in the constructor
+     */
+    private final String dirToWatch;
     protected FileChecker fileChecker;
 
     /**
-     * Initializes {@link #fileChecker} to the dir dirToWatch
-     * and starts the periodic checking
+     * Initializes {@link #fileChecker} to the dir dirToWatch.
      *
      * @param dirToWatch the directory to watch plugins for
      */
     public AbstractPluginSupplier(String dirToWatch) {
+        this.dirToWatch = dirToWatch;
         pluginListeners = new ArrayList<>();
 
         fileChecker = new FileChecker(dirToWatch, new PluginFilter());
         fileChecker.addFileListener(this);
-        fileChecker.start();
     }
 
     @Override
@@ -84,6 +86,14 @@ public class AbstractPluginSupplier extends PluginObservable implements FileList
             return null;
         }
         return instantiatedClass;
+    }
+
+    /**
+     * Starts watching {@link #dirToWatch}
+     */
+    public void start() {
+        logger.debug("Started watching " + dirToWatch);
+        fileChecker.start();
     }
 
 
