@@ -5,22 +5,26 @@ import java.util.List;
 
 public class CustomJMenuBar extends JMenuBar {
 
-    private JMenuBar menuBar;
     private JMenu menuFile;
     private JMenu menuTools;
     private JMenu menuHelp;
 
     private List<CustomJMenuItem> itemsMenu;
 
+
+    public CustomJMenuBar() {
+        setupJMenuBar();
+    }
+
+
     /**
      * Add and set the different {@link JMenu} on the {@link JMenuBar}
      */
     private void setupJMenuBar() {
-        menuBar  = new JMenuBar();
         setJMenu();
-        menuBar.add(menuFile);
-        menuBar.add(menuTools);
-        menuBar.add(menuHelp);
+        this.add(menuFile);
+        this.add(menuTools);
+        this.add(menuHelp);
 
     }
 
