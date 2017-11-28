@@ -11,6 +11,10 @@ public class CustomJMenuItem extends JMenuItem {
         this.id = id;
     }
 
+    public CustomJMenuItem(String label) {
+        super(label);
+    }
+
     public String getID() {
         return id;
     }

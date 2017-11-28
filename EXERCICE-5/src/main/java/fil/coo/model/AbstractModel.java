@@ -37,6 +37,7 @@ public abstract class AbstractModel implements PluginListener {
         Plugin plugin = getPluginInstance(pluginEvent);
         if (plugin != null) {
             this.plugins.add(plugin);
+            abstractController.notifyPluginAdded(plugin);
         } else {
             logger.debug("Could not instantiate plugin" + pluginEvent.getSource());
         }

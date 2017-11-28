@@ -2,7 +2,7 @@ package fil.coo.controller;
 
 import fil.coo.model.AbstractModel;
 import fil.coo.view.AbstractView;
-import fil.coo.view.impl.CustomJMenuItem;
+import plugin.Plugin;
 
 public abstract class AbstractController {
 
@@ -13,9 +13,8 @@ public abstract class AbstractController {
     public AbstractController() {
     }
 
-    public void onPluginRequest(CustomJMenuItem source) {
-        // TODO
-        String result = model.applyPlugin(0, view.getText());
+    public void onPluginRequest(int pluginIndex) {
+        String result = model.applyPlugin(pluginIndex, view.getText());
         view.updateText(result);
     }
 
@@ -26,5 +25,9 @@ public abstract class AbstractController {
 
     public void setView(AbstractView view) {
         this.view = view;
+    }
+
+    public void notifyPluginAdded(Plugin plugin) {
+        this.view.addPlugin(plugin.getLabel());
     }
 }

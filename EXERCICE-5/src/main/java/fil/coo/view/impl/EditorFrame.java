@@ -48,7 +48,7 @@ public class EditorFrame extends AbstractView {
     }
 
     private void setupJMenuBar() {
-        menuBar = new CustomJMenuBar();
+        menuBar = new CustomJMenuBar(controller);
         rootFrame.setJMenuBar(menuBar);
     }
 
@@ -83,6 +83,10 @@ public class EditorFrame extends AbstractView {
         return textArea.getText();
     }
 
+    @Override
+    public void addPlugin(String label) {
+        menuBar.addPlugin(label);
+    }
 
 
 }

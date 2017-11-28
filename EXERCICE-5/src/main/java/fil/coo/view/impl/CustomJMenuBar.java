@@ -1,5 +1,7 @@
 package fil.coo.view.impl;
 
+import fil.coo.controller.AbstractController;
+
 import javax.swing.*;
 import java.util.List;
 
@@ -9,10 +11,13 @@ public class CustomJMenuBar extends JMenuBar {
     private JMenu menuTools;
     private JMenu menuHelp;
 
+
     private List<CustomJMenuItem> itemsMenu;
+    private AbstractController controller;
 
 
-    public CustomJMenuBar() {
+    public CustomJMenuBar(AbstractController controller) {
+        this.controller = controller;
         setupJMenuBar();
     }
 
@@ -35,5 +40,14 @@ public class CustomJMenuBar extends JMenuBar {
         menuFile = new JMenu("File");
         menuTools = new JMenu("Tools");
         menuHelp = new JMenu("Help");
+    }
+
+    public void addPlugin(String label) {
+        CustomJMenuItem pluginItem = new CustomJMenuItem(label);
+        itemsMenu.add(pluginItem);
+
+        pluginItem.addActionListener(actionEvent -> this.controller.onPluginRequest(itemsMenu.size()));
+
+        menuTools.add(pluginItem);
     }
 }
