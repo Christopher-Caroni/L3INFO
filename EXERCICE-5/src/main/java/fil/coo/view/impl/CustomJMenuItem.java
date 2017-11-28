@@ -1,4 +1,4 @@
-package fil.coo.view;
+package fil.coo.view.impl;
 
 import javax.swing.*;
 
