@@ -24,10 +24,16 @@ public class PluginFilter implements FilenameFilter {
      */
     @Override
     public boolean accept(File dir, String filename) {
+        logger.debug("Testing if accept " + filename + " in dir " + dir.getAbsolutePath());
+
         if (!fileCanBeClass(filename)) {
             return false;
         }
-        return isClassInstanceAPlugin(filename);
+
+        boolean result = isClassInstanceAPlugin(filename);
+        logger.debug("Accept is: " + result);
+
+        return result;
     }
 
     /**

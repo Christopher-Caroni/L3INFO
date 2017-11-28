@@ -68,6 +68,8 @@ public class FileChecker {
      */
     private List<String> getCurrentContents() {
         File dir = new File(directoryToWatch);
+        logger.debug("listing files in dir: " + dir.getAbsolutePath());
+
         String[] list = dir.list(this.filenameFilter);
         return list == null ? new ArrayList<>() : Arrays.asList(list);
     }
