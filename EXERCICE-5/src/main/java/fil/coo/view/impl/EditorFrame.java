@@ -13,7 +13,7 @@ public class EditorFrame extends AbstractView {
     private CustomJMenuBar menuBar;
 
     private JScrollPane mainPanel;
-    private JTextArea textField;
+    private JTextArea textArea;
 
     public EditorFrame() {
         rootFrame = new JFrame();
@@ -53,8 +53,8 @@ public class EditorFrame extends AbstractView {
      * set up the {@link JScrollPane} to write on our editor
      */
     private void setupScrollPane() {
-        textField = new JTextArea();
-        mainPanel = new JScrollPane(textField);
+        textArea = new JTextArea();
+        mainPanel = new JScrollPane(textArea);
         rootFrame.add(mainPanel);
     }
 
@@ -74,5 +74,12 @@ public class EditorFrame extends AbstractView {
     public void setVisible(boolean visible) {
         rootFrame.setVisible(visible);
     }
+
+    @Override
+    public String getText() {
+        return textArea.getText();
+    }
+
+
 
 }

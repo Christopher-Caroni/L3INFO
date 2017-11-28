@@ -23,7 +23,9 @@ public abstract class AbstractModel implements PluginListener {
         pluginSupplier.start();
     }
 
-    public abstract String applyPlugin(String pluginIndex);
+    public String applyPlugin(int pluginIndex, String source) {
+        return plugins.get(pluginIndex).transform(source);
+    }
 
 
     @Override
