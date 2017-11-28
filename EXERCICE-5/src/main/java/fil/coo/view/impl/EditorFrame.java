@@ -1,6 +1,7 @@
 package fil.coo.view.impl;
 
 import fil.coo.view.AbstractView;
+import fil.coo.view.CustomJMenuBar;
 import fil.coo.view.CustomJMenuItem;
 
 import javax.swing.*;
@@ -12,11 +13,7 @@ public class EditorFrame extends AbstractView {
     private JFrame rootFrame;
     private Dimension frameDim;
 
-    private JMenuBar menuBar;
-    private JMenu menuFile;
-    private JMenu menuTools;
-    private JMenu menuHelp;
-    private List<CustomJMenuItem> itemsMenu;
+    private CustomJMenuBar menuBar;
 
     private JScrollPane mainPanel;
     private JTextArea textField;
@@ -34,7 +31,7 @@ public class EditorFrame extends AbstractView {
      */
     private void setBasicProperties() {
         rootFrame.setTitle("Extendable Editor");
-        frameDim = new Dimension(1000, 1000);
+        frameDim = new Dimension(700, 500);
         rootFrame.setPreferredSize(frameDim);
         rootFrame.setLayout(new BorderLayout());
 
@@ -51,6 +48,11 @@ public class EditorFrame extends AbstractView {
         setupScrollPane();
     }
 
+    private void setupJMenuBar() {
+        menuBar = new CustomJMenuBar();
+        rootFrame.setJMenuBar(menuBar);
+    }
+
     /**
      * set up the {@link JScrollPane} to write on our editor
      */
@@ -58,28 +60,6 @@ public class EditorFrame extends AbstractView {
         textField = new JTextArea();
         mainPanel = new JScrollPane(textField);
         rootFrame.add(mainPanel);
-    }
-
-    /**
-     * Add and set the different {@link JMenu} on the {@link JMenuBar}
-     */
-    private void setupJMenuBar() {
-        menuBar  = new JMenuBar();
-        setJMenu();
-        menuBar.add(menuFile);
-        menuBar.add(menuTools);
-        menuBar.add(menuHelp);
-
-        rootFrame.setJMenuBar(menuBar);
-    }
-
-    /**
-     * Initialize the different {@link JMenu}
-     */
-    private void setJMenu() {
-        menuFile = new JMenu("File");
-        menuTools = new JMenu("Tools");
-        menuHelp = new JMenu("Help");
     }
 
     /**
