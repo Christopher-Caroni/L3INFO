@@ -1,9 +1,8 @@
-package fil.coo;
+package fil.coo.controller;
 
-import plugin.Plugin;
-
-import javax.swing.*;
-import java.util.HashMap;
+import fil.coo.model.AbstractModel;
+import fil.coo.view.AbstractView;
+import fil.coo.view.CustomJMenuItem;
 
 public class AbstractController {
 

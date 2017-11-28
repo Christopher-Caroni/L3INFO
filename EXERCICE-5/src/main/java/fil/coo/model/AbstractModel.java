@@ -1,5 +1,9 @@
-package fil.coo;
+package fil.coo.model;
 
+import fil.coo.FileChecker;
+import fil.coo.FileEvent;
+import fil.coo.FileListener;
+import fil.coo.PluginFilter;
 import plugin.Plugin;
 
 import java.util.List;
