@@ -14,18 +14,17 @@ import java.util.List;
  * Uses a {@link FileChecker} associated with a {@link PluginFilter} to
  * notify observers about added or removed plugins the the concerned directory
  */
-public class AbstractPluginSupplier implements FileListener {
+public class AbstractPluginSupplier extends PluginObservable implements FileListener {
 
     private static final Logger logger = Logger.getLogger(AbstractPluginSupplier.class.getSimpleName());
     private static final String EXTENSION_CLASS = ".class";
     private static final String PLUGIN_PACKAGE = "plugins.";
 
-    protected List<PluginListener> pluginListeners;
-
     protected FileChecker fileChecker;
 
     /**
-     * Starts {@link #fileChecker} in dirToWatch
+     * Initializes {@link #fileChecker} to the dir dirToWatch
+     * and starts the periodic checking
      *
      * @param dirToWatch the directory to watch plugins for
      */
@@ -85,35 +84,6 @@ public class AbstractPluginSupplier implements FileListener {
             return null;
         }
         return instantiatedClass;
-    }
-
-    /**
-     * Notifies all {@link #pluginListeners} about the added plugin
-     *
-     * @param pluginClass the class of the added plugin
-     */
-    private void firePluginAdded(Class<Plugin> pluginClass) {
-        logger.debug("Notifying about deleted file: " + pluginClass);
-
-        PluginEvent event = new PluginEvent(pluginClass);
-        for (PluginListener listener : pluginListeners) {
-            listener.onPluginAdded(event);
-        }
-    }
-
-
-    /**
-     * Notifies all {@link #pluginListeners} about the removed plugin
-     *
-     * @param pluginClass the class of the removed plugin
-     */
-    private void firePluginRemoved(Class<Plugin> pluginClass) {
-        logger.debug("Notifying about deleted file: " + pluginClass);
-
-        PluginEvent event = new PluginEvent(pluginClass);
-        for (PluginListener listener : pluginListeners) {
-            listener.onPluginRemoved(event);
-        }
     }
 
 

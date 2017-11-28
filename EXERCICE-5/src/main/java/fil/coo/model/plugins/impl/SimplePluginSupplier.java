@@ -12,5 +12,5 @@ public class SimplePluginSupplier extends AbstractPluginSupplier {
     public SimplePluginSupplier(String dirToWatch) {
         super(dirToWatch);
     }
-    
+
 }
