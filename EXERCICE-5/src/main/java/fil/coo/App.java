@@ -3,6 +3,7 @@ package fil.coo;
 import fil.coo.controller.AbstractController;
 import fil.coo.controller.impl.SimpleController;
 import fil.coo.model.AbstractModel;
+import fil.coo.model.plugins.PluginEvent;
 import fil.coo.model.plugins.impl.SimpleModel;
 import fil.coo.view.AbstractView;
 import fil.coo.view.impl.EditorFrame;
@@ -15,8 +16,12 @@ public class App {
         AbstractModel model = new SimpleModel(controller);
         AbstractView editor = new EditorFrame(controller);
 
-
+        controller.setView(editor);
+        controller.setModel(model);
 
         editor.setVisible(true);
+
+        model.onPluginAdded(new PluginEvent(DummyPlugin.class));
     }
+
 }

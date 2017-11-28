@@ -3,6 +3,7 @@ package fil.coo.view.impl;
 import fil.coo.controller.AbstractController;
 
 import javax.swing.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class CustomJMenuBar extends JMenuBar {
@@ -18,6 +19,7 @@ public class CustomJMenuBar extends JMenuBar {
 
     public CustomJMenuBar(AbstractController controller) {
         this.controller = controller;
+        itemsMenu = new ArrayList<>();
         setupJMenuBar();
     }
 

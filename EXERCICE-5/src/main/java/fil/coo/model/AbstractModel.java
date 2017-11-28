@@ -8,6 +8,7 @@ import fil.coo.model.plugins.impl.SimplePluginSupplier;
 import org.apache.log4j.Logger;
 import plugin.Plugin;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class AbstractModel implements PluginListener {
@@ -21,6 +22,7 @@ public abstract class AbstractModel implements PluginListener {
 
     public AbstractModel(AbstractController controller) {
         this.abstractController = controller;
+        this.plugins = new ArrayList<>();
 
         pluginSupplier = new SimplePluginSupplier(REPO_DIR);
         pluginSupplier.addPluginListener(this);
