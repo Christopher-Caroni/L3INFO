@@ -32,7 +32,7 @@ public class PluginFilter implements FilenameFilter {
 
     /**
      * @param filename the name of the file to be treated
-     * @return if filename ends with {b@link #EXTENSION_CLASS}, is long enough for an actual class name and starts
+     * @return if filename ends with {@link #EXTENSION_CLASS}, is long enough for an actual class name and starts
      * with an uppercase
      */
     private boolean fileCanBeClass(String filename) {
