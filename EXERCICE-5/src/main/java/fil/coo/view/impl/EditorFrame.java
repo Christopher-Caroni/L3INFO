@@ -1,12 +1,9 @@
 package fil.coo.view.impl;
 
 import fil.coo.view.AbstractView;
-import fil.coo.view.CustomJMenuBar;
-import fil.coo.view.CustomJMenuItem;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.List;
 
 public class EditorFrame extends AbstractView {
 
@@ -19,7 +16,6 @@ public class EditorFrame extends AbstractView {
     private JTextArea textField;
 
     public EditorFrame() {
-
         rootFrame = new JFrame();
         setBasicProperties();
         setupRootPanel();
@@ -79,8 +75,4 @@ public class EditorFrame extends AbstractView {
         rootFrame.setVisible(visible);
     }
 
-    public static void main(String[] args) {
-        EditorFrame e = new EditorFrame();
-        e.setVisible(true);
-    }
 }
