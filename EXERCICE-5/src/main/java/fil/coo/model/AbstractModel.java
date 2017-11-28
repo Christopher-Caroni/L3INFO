@@ -1,5 +1,6 @@
 package fil.coo.model;
 
+import fil.coo.controller.AbstractController;
 import fil.coo.model.plugins.AbstractPluginSupplier;
 import fil.coo.model.plugins.PluginEvent;
 import fil.coo.model.plugins.PluginListener;
@@ -16,8 +17,11 @@ public abstract class AbstractModel implements PluginListener {
 
     protected List<Plugin> plugins;
     protected AbstractPluginSupplier pluginSupplier;
+    protected AbstractController abstractController;
 
-    public AbstractModel() {
+    public AbstractModel(AbstractController controller) {
+        this.abstractController = controller;
+
         pluginSupplier = new SimplePluginSupplier(REPO_DIR);
         pluginSupplier.addPluginListener(this);
         pluginSupplier.start();

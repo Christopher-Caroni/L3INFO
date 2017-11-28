@@ -10,10 +10,7 @@ public abstract class AbstractController {
 
     protected AbstractView view;
 
-    public AbstractController(AbstractModel model, AbstractView view) {
-        this.model = model;
-        this.view = view;
-        this.view.attachController(this);
+    public AbstractController() {
     }
 
     public void onPluginRequest(CustomJMenuItem source) {
@@ -23,4 +20,11 @@ public abstract class AbstractController {
     }
 
 
+    public void setModel(AbstractModel model) {
+        this.model = model;
+    }
+
+    public void setView(AbstractView view) {
+        this.view = view;
+    }
 }

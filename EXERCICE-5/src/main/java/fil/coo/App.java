@@ -10,10 +10,12 @@ import fil.coo.view.impl.EditorFrame;
 public class App {
 
     public static void main(String[] args) {
-        AbstractModel model = new SimpleModel();
-        AbstractView editor = new EditorFrame();
+        AbstractController controller = new SimpleController();
 
-        AbstractController controller = new SimpleController(model, editor);
+        AbstractModel model = new SimpleModel(controller);
+        AbstractView editor = new EditorFrame(controller);
+
+
 
         editor.setVisible(true);
     }

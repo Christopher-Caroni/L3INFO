@@ -9,6 +9,10 @@ public abstract class AbstractView {
 
     protected AbstractController controller;
 
+    public AbstractView(AbstractController controller) {
+        this.controller = controller;
+    }
+
     /**
      * @param text what will be change on the on the ScrollPanel
      */
@@ -21,7 +25,4 @@ public abstract class AbstractView {
 
     public abstract String getText();
 
-    public void attachController(AbstractController abstractController) {
-        this.controller = abstractController;
-    }
 }

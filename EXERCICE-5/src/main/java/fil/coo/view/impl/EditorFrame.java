@@ -1,5 +1,6 @@
 package fil.coo.view.impl;
 
+import fil.coo.controller.AbstractController;
 import fil.coo.view.AbstractView;
 
 import javax.swing.*;
@@ -15,7 +16,9 @@ public class EditorFrame extends AbstractView {
     private JScrollPane mainPanel;
     private JTextArea textArea;
 
-    public EditorFrame() {
+    public EditorFrame(AbstractController controller) {
+        super(controller);
+
         rootFrame = new JFrame();
         setBasicProperties();
         setupRootPanel();
