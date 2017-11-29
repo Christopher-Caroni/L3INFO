@@ -102,9 +102,40 @@ void rapide_seq(bloc_t bloc_init) {
     } while (!pile_vide(&p));
 }
 
-void *worker(void *)
+void *worker(void *arg)
 {
-  
+
+  pile *p = (pile *) arg;
+  int i, nb_blocs;
+  bloc_t block;
+  bloc_t blocks[2];
+
+  pthread_mutex_lock(&p->mut);
+
+  if(pile_vide(p))
+  {
+    pthread_cond_wait(&p->full, &p->mut);
+  }
+
+
+  block = depile(p);
+  /*
+  bloc_t b1 = {block.debut, (block.fin-block.debut)/2};
+  bloc_t b2 = {(block.fin-block.debut)/2, block.fin};
+  */
+
+  nb_blocs = rapide_decoupebloc(block,blocks);
+
+  for (i = 0; i < nb_blocs; i++){
+    empile(p, blocks[i]);
+  }
+
+  empile(p, blocks[0]);
+  empile(p,blocks[1]);
+
+  pthread_cond_signal(&p->full);
+  pthread_mutex_unlock(&p->mut);
+  return NULL;
 }
 
 
@@ -114,15 +145,17 @@ void rapide_multith(bloc_t bloc_init, unsigned int nb_threads)
   unsigned int i;
 
   pthread_t *tid;
-  tid = malloc(nb_thread * sizeof(pthread_t));
+  tid = malloc(nb_threads * sizeof(pthread_t));
+
+  empile(&p, bloc_init);
 
   for (i=0;i<nb_threads;i++)
   {
-    pthread_create(&tid[i], NULL, worker, NULL);
+    pthread_create(&tid[i], NULL, worker, &p);
   }
 
 
-  for (i=0;i<n_thread;i++)
+  for (i=0;i<nb_threads;i++)
   {
     pthread_join(tid[i], NULL);
   }
@@ -141,6 +174,6 @@ void rapide(pos_t taille, unsigned int nb_threads) {
 
     assert(nb_threads > 1);
 
-    rapide_multith(bloc_init, nb_threads);
+    rapide_multith(bloc, nb_threads);
     return;
 }

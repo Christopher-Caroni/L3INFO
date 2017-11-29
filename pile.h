@@ -21,6 +21,9 @@ typedef struct bloc_s {
 typedef struct pile_s {
     unsigned int dessus;
     bloc_t contenu[TAILLE_PILE];
+    pthread_cond_t full;
+    pthread_mutex_t mut;
+    pthread_cond_t empty;
 }   pile;
 
 void   init_pile (pile *);
