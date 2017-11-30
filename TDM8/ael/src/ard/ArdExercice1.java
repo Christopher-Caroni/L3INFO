@@ -2,12 +2,12 @@ package ard;
 
 import java.io.Reader;
 
-public class ArdNew extends Ard {
+public class ArdExercice1 extends Ard {
 
 
     private String expandedExpression;
 
-    public ArdNew(Reader in) {
+    public ArdExercice1(Reader in) {
         super(in);
         expandedExpression = "";
     }

@@ -7,7 +7,7 @@ import java.io.StringReader;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-public class ArdNewTest {
+public class ArdExercice1Test {
 
     @Test
     public void testExpandSimple() throws SyntaxException, ParserException {
@@ -39,7 +39,7 @@ public class ArdNewTest {
     }
 
     private String getParseResult(String input) throws SyntaxException, ParserException {
-        ArdNew ardNew = new ArdNew(new StringReader(input));
+        ArdExercice1 ardNew = new ArdExercice1(new StringReader(input));
         ardNew.parse();
         return ardNew.getExpandedExpression();
     }

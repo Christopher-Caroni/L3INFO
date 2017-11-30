@@ -10,7 +10,7 @@ public class TestARD {
         System.out.print("mot ? > ");
         while (input.hasNextLine()) {
             String word = input.nextLine();
-            ArdNew parser = new ArdNew(new StringReader(word));
+            ArdExercice1 parser = new ArdExercice1(new StringReader(word));
             try {
                 parser.parse();
                 System.out.println("OK:" + parser.getExpandedExpression());
