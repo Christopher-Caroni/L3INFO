@@ -1,4 +1,9 @@
-package ard;
+package exercices;
+
+import ard.Ard;
+import ard.ErrorType;
+import ard.ParserException;
+import ard.SyntaxException;
 
 import java.io.Reader;
 

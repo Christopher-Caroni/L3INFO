@@ -1,5 +1,7 @@
-package ard;
+package exercices;
 
+import ard.ParserException;
+import ard.SyntaxException;
 import org.junit.Test;
 
 import java.io.StringReader;

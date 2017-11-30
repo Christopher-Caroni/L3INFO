@@ -1,5 +1,7 @@
 package ard;
 
+import exercices.ArdExercice1;
+
 import java.io.StringReader;
 import java.util.Scanner;
 
