@@ -11,13 +11,13 @@ import java.util.ArrayList;
 
 /**
  * Uses a {@link FileChecker} associated with a {@link PluginFilter} to
- * notify observers about added or removed plugins the the concerned directory
+ * notify observers about added or removed plugin the the concerned directory
  */
 public class AbstractPluginSupplier extends PluginObservable implements FileListener {
 
     private static final Logger logger = Logger.getLogger(AbstractPluginSupplier.class.getSimpleName());
     private static final String EXTENSION_CLASS = ".class";
-    private static final String PLUGIN_PACKAGE = "plugins.";
+    private static final String PLUGIN_PACKAGE = "plugin.";
 
     /**
      * The directory this instance is watching. Given in the constructor
@@ -28,7 +28,7 @@ public class AbstractPluginSupplier extends PluginObservable implements FileList
     /**
      * Initializes {@link #fileChecker} to the dir dirToWatch.
      *
-     * @param dirToWatch the directory to watch plugins for
+     * @param dirToWatch the directory to watch plugin for
      */
     public AbstractPluginSupplier(String dirToWatch) {
         this.dirToWatch = dirToWatch;

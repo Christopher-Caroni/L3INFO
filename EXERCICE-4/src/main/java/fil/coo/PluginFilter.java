@@ -13,7 +13,7 @@ public class PluginFilter implements FilenameFilter {
 
     private Logger logger = Logger.getLogger(PluginFilter.class.getSimpleName());
 
-    private static final String PLUGIN_PACKAGE = "plugins.";
+    private static final String PLUGIN_PACKAGE = "plugin.";
     private static final String EXTENSION_CLASS = ".class";
 
 
@@ -63,7 +63,10 @@ public class PluginFilter implements FilenameFilter {
 
         Class<?> instantiatedClass;
         try {
-            instantiatedClass = Class.forName(PLUGIN_PACKAGE + getClassNameFromFile(filename));
+            String fullClassName = PLUGIN_PACKAGE + getClassNameFromFile(filename);
+            logger.debug("Using full class name: \"" + fullClassName + "\"");
+
+            instantiatedClass = Class.forName(fullClassName);
         } catch (ClassNotFoundException | ClassFormatError e) {
             logger.debug(e);
             return null;
@@ -76,8 +79,9 @@ public class PluginFilter implements FilenameFilter {
      * @return if classz has an empty constructor
      */
     private boolean canGetConstructor(Class<?> classz) {
+        Constructor<?> constructor;
         try {
-            Constructor<?> constructor = classz.getConstructor(null);
+            constructor = classz.getConstructor();
         } catch (NoSuchMethodException e) {
             return false;
         }

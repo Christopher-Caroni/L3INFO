@@ -5,8 +5,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.File;
-import java.io.FilenameFilter;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -78,7 +76,7 @@ public class FileCheckerTest {
         assertThat(mockFileListener.lastEvent, is(nullValue()));
 
 
-//        We need the file to be deleted to already by in the memory to be considered as deleted
+//        We need the file that will be deleted to have already been in the memory to be considered as deleted
 //        when the event happens, otherwise the filechecker didn't even know it existed
         TestingFileUtils.createFileInDirectory(rootTestingFolder, fileToCreate);
         await().atMost(3, TimeUnit.SECONDS)

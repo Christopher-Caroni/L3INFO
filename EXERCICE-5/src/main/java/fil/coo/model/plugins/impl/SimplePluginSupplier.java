@@ -7,7 +7,7 @@ public class SimplePluginSupplier extends AbstractPluginSupplier {
     /**
      * Starts {@link #fileChecker} in dirToWatch
      *
-     * @param dirToWatch the directory to watch plugins for
+     * @param dirToWatch the directory to watch plugin for
      */
     public SimplePluginSupplier(String dirToWatch) {
         super(dirToWatch);
