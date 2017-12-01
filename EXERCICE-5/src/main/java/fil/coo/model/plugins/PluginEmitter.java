@@ -5,9 +5,12 @@ import plugin.Plugin;
 
 import java.util.List;
 
-public abstract class PluginObservable {
+/**
+ * This class is the "observable" that will emit {@link PluginEvent}s to listeners
+ */
+public abstract class PluginEmitter {
 
-    private static final Logger logger = Logger.getLogger(PluginObservable.class.getSimpleName());
+    private static final Logger logger = Logger.getLogger(PluginEmitter.class.getSimpleName());
 
     protected List<PluginListener> pluginListeners;
 
@@ -16,7 +19,7 @@ public abstract class PluginObservable {
      *
      * @param pluginClass the class of the added plugin
      */
-    protected void firePluginAdded(Class<Plugin> pluginClass) {
+    protected void firePluginAdded(Class<? extends Plugin> pluginClass) {
         logger.debug("Notifying about deleted file: " + pluginClass);
 
         PluginEvent event = new PluginEvent(pluginClass);
@@ -31,7 +34,7 @@ public abstract class PluginObservable {
      *
      * @param pluginClass the class of the removed plugin
      */
-    protected void firePluginRemoved(Class<Plugin> pluginClass) {
+    protected void firePluginRemoved(Class<? extends Plugin> pluginClass) {
         logger.debug("Notifying about deleted file: " + pluginClass);
 
         PluginEvent event = new PluginEvent(pluginClass);

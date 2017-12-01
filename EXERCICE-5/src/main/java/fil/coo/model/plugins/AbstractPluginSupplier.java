@@ -11,18 +11,22 @@ import java.util.ArrayList;
 
 /**
  * Uses a {@link FileChecker} associated with a {@link PluginFilter} to
- * notify observers about added or removed plugin the the concerned directory
+ * detect added or removed plugins in the concerned directory.
+ * Once these changes are detected, by extending {@link PluginEmitter},
+ * it emits {@link PluginEvent}s to all observers.
  */
-public class AbstractPluginSupplier extends PluginObservable implements FileListener {
+public class AbstractPluginSupplier extends PluginEmitter implements FileListener {
 
     private static final Logger logger = Logger.getLogger(AbstractPluginSupplier.class.getSimpleName());
-    private static final String EXTENSION_CLASS = ".class";
+
+
+    private static final String CLASS_FILENAME_EXTENSION = ".class";
     private static final String PLUGIN_PACKAGE = "plugin.";
 
     /**
      * The directory this instance is watching. Given in the constructor
      */
-    private final String dirToWatch;
+    protected final String dirToWatch;
     protected FileChecker fileChecker;
 
     /**
@@ -40,35 +44,36 @@ public class AbstractPluginSupplier extends PluginObservable implements FileList
 
     @Override
     public void fileAdded(FileEvent event) {
-        Class<Plugin> pluginClass = getPluginClass(event);
+        Class<? extends Plugin> pluginClass = getPluginClass(event);
         firePluginAdded(pluginClass);
     }
 
     @Override
     public void fileRemoved(FileEvent event) {
-        Class<Plugin> pluginClass = getPluginClass(event);
+        Class<? extends Plugin> pluginClass = getPluginClass(event);
         firePluginRemoved(pluginClass);
     }
 
     /**
-     * Extracts a {@link Plugin} {@link Class} instance from the filename of the plugin
+     * Extracts the {@link Class} of a {@link Plugin} from the filename of the plugin
      *
      * @param event the event containing the filename
-     * @return an instance of the {@link Plugin} {@link Class}
+     * @return the {@link Class} of the {@link Plugin}
      */
-    private Class<Plugin> getPluginClass(FileEvent event) {
-        String pluginClassName = extractPluginClassName((String) event.getSource());
+    private Class<? extends Plugin> getPluginClass(FileEvent event) {
+        String pluginClassName = extractPluginClassName((String) event.getSource(), PLUGIN_PACKAGE);
         return getPluginClassInstance(pluginClassName);
     }
 
     /**
      * Transforms a filename to a class name. Example: "CesarCode.class" to "CesarCode"
      *
-     * @param filename the filename of the plugin
+     * @param filename    the filename of the plugin
+     * @param packageName the name of the package this plugin is expected to be in
      * @return the class name of the plugin
      */
-    private String extractPluginClassName(String filename) {
-        return filename.substring(0, filename.length() - EXTENSION_CLASS.length());
+    private String extractPluginClassName(String filename, String packageName) {
+        return packageName + filename.substring(0, filename.length() - CLASS_FILENAME_EXTENSION.length());
     }
 
     /**
@@ -77,15 +82,13 @@ public class AbstractPluginSupplier extends PluginObservable implements FileList
      *
      * @return an instance of {@link Plugin }{@link Class}
      */
-    private Class<Plugin> getPluginClassInstance(String pluginClassName) {
-        Class<Plugin> instantiatedClass;
+    private Class<? extends Plugin> getPluginClassInstance(String pluginClassName) {
         try {
-            instantiatedClass = (Class<Plugin>) Class.forName(PLUGIN_PACKAGE + pluginClassName);
+            return (Class<? extends Plugin>) Class.forName(pluginClassName);
         } catch (ClassNotFoundException | ClassFormatError e) {
             logger.debug(e);
             return null;
         }
-        return instantiatedClass;
     }
 
     /**

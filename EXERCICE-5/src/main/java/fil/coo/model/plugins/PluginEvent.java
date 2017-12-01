@@ -4,6 +4,9 @@ import plugin.Plugin;
 
 import java.util.EventObject;
 
+/**
+ * Contains the {@link Class} of the {@link Plugin}
+ */
 public class PluginEvent extends EventObject {
 
     public PluginEvent(Class<? extends Plugin> pluginClass) {
