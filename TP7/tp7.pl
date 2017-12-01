@@ -178,3 +178,52 @@ fdsQ12_2([ [[courseno],[offeringdept, credithours, courselevel]], [[courseno, se
  % Q13
  schemaQ13([a,b,c,d,e,f,h,i]).
  fdsQ13([ [[a,b],[c]], [[a],[d,e]],[[b],[f]] ,[[f],[g,h]] ,[[d],[i,j]] ]).
+ d1([r1,r2,r3,r4,r5]).
+r1([a,b,c]).
+r2([a,d,e]).
+r3([b,f]).
+r4([f,g,h]).
+r5([d,i,j]).
+
+
+% schema(R), fds(F), d1(D), fpd(R,F,D).
+
+
+% schema(R), fds(F), decomp(D), ljd(R,F,D).
+% [[b,1,1],[b,1,2],[b,1,3],[b,1,4],[b,1,5],[b,1,6],[b,1,7],[b,1,8],[b,1,9],[b,1,10]]
+% [[b,2,1],[b,2,2],[b,2,3],[b,2,4],[b,2,5],[b,2,6],[b,2,7],[b,2,8],[b,2,9],[b,2,10]]
+% [[b,3,1],[b,3,2],[b,3,3],[b,3,4],[b,3,5],[b,3,6],[b,3,7],[b,3,8],[b,3,9],[b,3,10]]
+% [[b,4,1],[b,4,2],[b,4,3],[b,4,4],[b,4,5],[b,4,6],[b,4,7],[b,4,8],[b,4,9],[b,4,10]]
+% [[b,5,1],[b,5,2],[b,5,3],[b,5,4],[b,5,5],[b,5,6],[b,5,7],[b,5,8],[b,5,9],[b,5,10]]
+
+% Q14
+schemaQ14([m,y,p,mp,c]).
+
+fdsQ14([ [[m],[m,p]],
+      [[m,y],[p]],
+      [[mp],[c]] ]).
+
+
+
+
+%schema(R), fds(F), candkey(R,F,[m]).
+%false.
+
+%schema(R), fds(F), candkey(R,F,[m,y]).
+%false.
+
+%schema(R), fds(F), candkey(R,F,[m,c]).
+%false.
+
+%schema(R), fds(F), is3NF(R,F).
+%false.
+
+%schema(R), fds(F), isBCNF(R,F).
+%false.
+
+
+%d([ [[m,y,p],[m,mp,class]] ]).
+
+%schema(R), fds(F), d(D), ljd(R,F,D).
+%[[b,1,1],[b,1,2],[b,1,3],[b,1,4],[b,1,5]].
+
