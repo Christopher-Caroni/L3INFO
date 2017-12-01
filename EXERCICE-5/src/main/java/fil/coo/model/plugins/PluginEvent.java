@@ -12,5 +12,10 @@ public class PluginEvent extends EventObject {
     public PluginEvent(Class<? extends Plugin> pluginClass) {
         super(pluginClass);
     }
+    
+    public Class<? extends Plugin> getPluginClass() {
+        return (Class<? extends Plugin>) getSource();
+    }
+
 
 }

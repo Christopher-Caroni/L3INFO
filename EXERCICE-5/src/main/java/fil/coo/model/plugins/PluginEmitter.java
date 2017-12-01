@@ -61,4 +61,8 @@ public abstract class PluginEmitter {
     public void removePluginListener(PluginListener pluginListener) {
         this.pluginListeners.remove(pluginListener);
     }
+
+    protected List<PluginListener> getPluginListeners() {
+        return pluginListeners;
+    }
 }
