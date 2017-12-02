@@ -6,7 +6,7 @@ import fil.coo.model.plugins.PluginEmitterTest;
 public class SimplePluginSupplierTest extends PluginEmitterTest {
 
     @Override
-    protected PluginEmitter getPluginEmitter(String dirToWatch) {
+    protected PluginEmitter getPluginEmitter(String dirToWatch) throws Exception {
         return new SimplePluginSupplier(dirToWatch);
     }
 }

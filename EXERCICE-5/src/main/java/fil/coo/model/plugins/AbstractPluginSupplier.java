@@ -34,7 +34,7 @@ public class AbstractPluginSupplier extends PluginEmitter implements FileListene
      *
      * @param dirToWatch the directory to watch plugin for
      */
-    public AbstractPluginSupplier(String dirToWatch) {
+    public AbstractPluginSupplier(String dirToWatch) throws Exception {
         this.dirToWatch = dirToWatch;
         pluginListeners = new ArrayList<>();
 

@@ -8,7 +8,7 @@ public class SimplePluginObserver implements FileListener {
 
     private FileChecker fileChecker;
 
-    public SimplePluginObserver() {
+    public SimplePluginObserver() throws Exception {
         fileChecker = new FileChecker("resources", new PluginFilter());
         fileChecker.addFileListener(this);
     }
@@ -27,7 +27,7 @@ public class SimplePluginObserver implements FileListener {
         fileChecker.start();
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         SimplePluginObserver simplePluginObserver = new SimplePluginObserver();
         simplePluginObserver.start();
         while (true) ;

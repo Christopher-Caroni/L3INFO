@@ -10,7 +10,7 @@ import fil.coo.view.impl.EditorFrame;
 
 public class App {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         AbstractController controller = new SimpleController();
 
         AbstractModel model = new SimpleModel(controller);

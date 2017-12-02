@@ -17,14 +17,14 @@ public abstract class PluginEmitterTest {
     private MockPluginListener mockPluginListener;
 
     @Before
-    public void setup() {
-        pluginEmitter = getPluginEmitter(null);
+    public void setup() throws Exception {
+        pluginEmitter = getPluginEmitter("resources");
         mockPluginListener = new MockPluginListener();
 
         pluginEmitter.addPluginListener(mockPluginListener);
     }
 
-    protected abstract PluginEmitter getPluginEmitter(String dirToWatch);
+    protected abstract PluginEmitter getPluginEmitter(String dirToWatch) throws Exception;
 
     @Test
     public void testAddListener() {

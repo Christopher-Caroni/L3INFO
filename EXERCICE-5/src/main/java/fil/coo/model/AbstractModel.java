@@ -20,7 +20,7 @@ public abstract class AbstractModel implements PluginListener {
     protected AbstractPluginSupplier pluginSupplier;
     protected AbstractController abstractController;
 
-    public AbstractModel(AbstractController controller) {
+    public AbstractModel(AbstractController controller) throws Exception {
         this.abstractController = controller;
         this.plugins = new ArrayList<>();
 

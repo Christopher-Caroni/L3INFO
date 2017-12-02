@@ -18,16 +18,27 @@ public class FileChecker {
 
     private Timer timer;
     private String directoryToWatch;
+    private File dirFile;
+
     private final FilenameFilter filenameFilter;
     private List<FileListener> listeners;
     private List<String> memory;
 
-    public FileChecker(String directoryToWatch, FilenameFilter filenameFilter) {
-        this.directoryToWatch = directoryToWatch;
+    public FileChecker(String directoryToWatch, FilenameFilter filenameFilter) throws Exception {
+        initDir(directoryToWatch);
+
         this.filenameFilter = filenameFilter;
 
         initList();
         initTimer();
+    }
+
+    private void initDir(String directoryToWatch) throws Exception {
+        this.directoryToWatch = directoryToWatch;
+        dirFile = new File(directoryToWatch);
+        if (!dirFile.isDirectory()) {
+            throw new Exception("\"" + directoryToWatch + "\" is not a directory");
+        }
     }
 
     private void initList() {
@@ -67,10 +78,9 @@ public class FileChecker {
      * @return the list of current files in {@link #directoryToWatch} or an empty list if an IO error occurs
      */
     private List<String> getCurrentContents() {
-        File dir = new File(directoryToWatch);
-        logger.debug("listing files in dir: " + dir.getAbsolutePath());
+        logger.debug("listing files in dir: " + dirFile.getAbsolutePath());
 
-        String[] list = dir.list(this.filenameFilter);
+        String[] list = dirFile.list(this.filenameFilter);
         return list == null ? new ArrayList<>() : Arrays.asList(list);
     }
 

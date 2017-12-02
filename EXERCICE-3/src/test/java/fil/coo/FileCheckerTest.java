@@ -1,6 +1,7 @@
 package fil.coo;
 
 import org.apache.log4j.Logger;
+import org.awaitility.Awaitility;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -10,7 +11,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.concurrent.TimeUnit;
 
-import static org.awaitility.Awaitility.await;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.nullValue;
@@ -25,20 +25,21 @@ public class FileCheckerTest {
     protected MockFileListener mockFileListener;
 
     @Before
-    public void setup() {
+    public void setup() throws Exception {
         setupTestDir();
         setupFileChecker();
     }
 
-    private void setupTestDir() {
+    private void setupTestDir() throws IOException {
         try {
             rootTestingFolder = TestingFileUtils.setupTestDir(Paths.get("testing"), true);
         } catch (IOException e) {
             logger.debug(e);
+            throw e;
         }
     }
 
-    private void setupFileChecker() {
+    private void setupFileChecker() throws Exception {
         // accept all files
         fileChecker = new FileChecker(rootTestingFolder.normalize().toString(), (dir, name) -> true);
         mockFileListener = new MockFileListener();
@@ -60,7 +61,8 @@ public class FileCheckerTest {
         TestingFileUtils.createFileInDirectory(rootTestingFolder, fileToCreate);
 
 
-        await().atMost(3, TimeUnit.SECONDS)
+        Awaitility.await()
+                .atMost(3, TimeUnit.SECONDS)
                 .until(() -> mockFileListener.fileAddedCounter == 1);
 
         assertThat(mockFileListener.fileAddedCounter, is(1));
@@ -79,15 +81,21 @@ public class FileCheckerTest {
 //        We need the file that will be deleted to have already been in the memory to be considered as deleted
 //        when the event happens, otherwise the filechecker didn't even know it existed
         TestingFileUtils.createFileInDirectory(rootTestingFolder, fileToCreate);
-        await().atMost(3, TimeUnit.SECONDS)
+        Awaitility.await()
+                .atMost(3, TimeUnit.SECONDS)
                 .until(() -> mockFileListener.fileAddedCounter == 1);
+
         assertThat(mockFileListener.fileAddedCounter, is(1));
         assertThat(mockFileListener.fileDeletedCounter, is(0));
         assertThat(mockFileListener.lastEvent.getSource(), is(fileToCreate));
 
+
+        /* DELETE */
         TestingFileUtils.deleteFileInDirectory(rootTestingFolder, fileToCreate);
-        await().atMost(3, TimeUnit.SECONDS)
+        Awaitility.await()
+                .atMost(3, TimeUnit.SECONDS)
                 .until(() -> mockFileListener.fileDeletedCounter == 1);
+
         assertThat(mockFileListener.fileAddedCounter, is(1));
         assertThat(mockFileListener.fileDeletedCounter, is(1));
         assertThat(mockFileListener.lastEvent.getSource(), is(fileToCreate));

@@ -9,7 +9,7 @@ public class SimplePluginSupplier extends AbstractPluginSupplier {
      *
      * @param dirToWatch the directory to watch plugin for
      */
-    public SimplePluginSupplier(String dirToWatch) {
+    public SimplePluginSupplier(String dirToWatch) throws Exception {
         super(dirToWatch);
     }
 

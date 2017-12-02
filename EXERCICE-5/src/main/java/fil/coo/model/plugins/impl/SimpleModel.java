@@ -4,7 +4,7 @@ import fil.coo.controller.AbstractController;
 import fil.coo.model.AbstractModel;
 
 public class SimpleModel extends AbstractModel {
-    public SimpleModel(AbstractController controller) {
+    public SimpleModel(AbstractController controller) throws Exception {
         super(controller);
     }
 }
