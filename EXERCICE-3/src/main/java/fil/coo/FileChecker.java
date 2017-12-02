@@ -5,6 +5,7 @@ import org.apache.log4j.Logger;
 import javax.swing.*;
 import java.io.File;
 import java.io.FilenameFilter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
@@ -24,7 +25,7 @@ public class FileChecker {
     private List<FileListener> listeners;
     private List<String> memory;
 
-    public FileChecker(String directoryToWatch, FilenameFilter filenameFilter) throws Exception {
+    public FileChecker(String directoryToWatch, FilenameFilter filenameFilter) throws IOException {
         initDir(directoryToWatch);
 
         this.filenameFilter = filenameFilter;
@@ -33,11 +34,16 @@ public class FileChecker {
         initTimer();
     }
 
-    private void initDir(String directoryToWatch) throws Exception {
+    private void initDir(String directoryToWatch) throws IOException {
+        if (directoryToWatch == null) {
+            throw new NullPointerException("filepath is null");
+        }
+
         this.directoryToWatch = directoryToWatch;
         dirFile = new File(directoryToWatch);
+
         if (!dirFile.isDirectory()) {
-            throw new Exception("\"" + directoryToWatch + "\" is not a directory");
+            throw new IOException("\"" + directoryToWatch + "\" is not a directory");
         }
     }
 

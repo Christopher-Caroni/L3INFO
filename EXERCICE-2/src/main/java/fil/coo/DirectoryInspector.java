@@ -17,19 +17,24 @@ public class DirectoryInspector {
     private FilenameFilter classFilter;
     private File directory;
 
-    public DirectoryInspector(String filePath) throws Exception {
+    public DirectoryInspector(String filePath) throws IOException {
         initCFilter();
         initClassFilter();
         initDir(filePath);
     }
 
-    private void initDir(String filePath) throws Exception {
-        directory = new File(filePath);
-        if (directory.isDirectory()) {
-            logger.debug("Watching " + directory.getAbsolutePath());
-        } else {
-            throw new Exception("\"" + filePath + "\" is not a directory");
+    private void initDir(String filePath) throws IOException {
+        if (filePath == null) {
+            throw new NullPointerException("filepath is null");
         }
+
+
+        directory = new File(filePath);
+        if (!directory.isDirectory()) {
+            throw new IOException("\"" + filePath + "\" is not a directory");
+        }
+
+        logger.debug("Watching " + directory.getAbsolutePath());
     }
 
     private void initCFilter() {

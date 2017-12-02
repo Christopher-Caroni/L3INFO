@@ -30,7 +30,6 @@ public class DirectoryInspectorTest {
      */
     private Path tempRootDirPath;
 
-
     /**
      * Creates a temp dir in the default system temporary directory and temporary files in our temp dir.
      */
@@ -41,12 +40,13 @@ public class DirectoryInspectorTest {
 
         try {
             tempRootDirPath = TestingFileUtils.setupTestDir(Paths.get("testing"), files, true);
+            logger.debug("created test dir: " + tempRootDirPath.toAbsolutePath().toString());
         } catch (IOException e) {
             logger.debug(e);
         }
 
 
-        directoryInspector = new DirectoryInspector(tempRootDirPath.toString());
+        directoryInspector = new DirectoryInspector(tempRootDirPath.toAbsolutePath().toString());
     }
 
     @After
@@ -55,6 +55,15 @@ public class DirectoryInspectorTest {
         TestingFileUtils.deleteFile(tempRootDirPath);
     }
 
+    @Test(expected = NullPointerException.class)
+    public void testDoesNotAcceptNullDir() throws Exception {
+        DirectoryInspector directoryInspector = new DirectoryInspector(null);
+    }
+
+    @Test(expected = IOException.class)
+    public void testDoesNotAcceptNonDir() throws Exception {
+        DirectoryInspector directoryInspector = new DirectoryInspector("pom.xml");
+    }
 
     @Test
     public void getFilesThatStartWithC() throws Exception {

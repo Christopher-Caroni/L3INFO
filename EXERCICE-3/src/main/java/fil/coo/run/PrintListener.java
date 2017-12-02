@@ -10,11 +10,11 @@ public class PrintListener implements FileListener {
 
     @Override
     public void fileAdded(FileEvent event) {
-        logger.info("New .class detected: " + event.getSource());
+        logger.info("New .class detected: \"" + event.getSource() + "\"");
     }
 
     @Override
     public void fileRemoved(FileEvent event) {
-        logger.info(".class deleted: " + event.getSource());
+        logger.info(".class deleted: \"" + event.getSource() + "\"");
     }
 }

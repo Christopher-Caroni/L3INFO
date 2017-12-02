@@ -52,6 +52,16 @@ public class FileCheckerTest {
         TestingFileUtils.deleteDirectory(rootTestingFolder);
     }
 
+    @Test(expected = NullPointerException.class)
+    public void testDoesNotAcceptNullDir() throws IOException {
+        FileChecker fileChecker = new FileChecker(null, (dir, name) -> true);
+    }
+
+    @Test(expected = IOException.class)
+    public void testDoesNotAcceptNonDir() throws IOException {
+        FileChecker fileChecker = new FileChecker("pom.xml", (dir, name) -> true);
+    }
+
     @Test
     public void testDetectFileAdded() throws IOException {
         final String fileToCreate = "testFile";
