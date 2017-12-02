@@ -1,5 +1,6 @@
-package fil.coo;
+package fil.coo.run;
 
+import fil.coo.FileChecker;
 import org.apache.log4j.Logger;
 
 public class Exercice3 {
@@ -28,6 +29,8 @@ public class Exercice3 {
         fileChecker.addFileListener(printListener);
 
         fileChecker.start();
+
+        while (true) ;
     }
 
     private static String getResourceDir(String[] args) throws IllegalArgumentException {

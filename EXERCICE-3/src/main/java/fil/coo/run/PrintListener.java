@@ -1,5 +1,7 @@
-package fil.coo;
+package fil.coo.run;
 
+import fil.coo.FileEvent;
+import fil.coo.FileListener;
 import org.apache.log4j.Logger;
 
 public class PrintListener implements FileListener {
