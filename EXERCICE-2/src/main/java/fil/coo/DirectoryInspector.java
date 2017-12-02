@@ -1,5 +1,7 @@
 package fil.coo;
 
+import org.apache.log4j.Logger;
+
 import java.io.File;
 import java.io.FilenameFilter;
 import java.io.IOException;
@@ -9,14 +11,25 @@ import java.util.List;
 
 public class DirectoryInspector {
 
+    private static final Logger logger = Logger.getLogger(DirectoryInspector.class.getSimpleName());
+
     private FilenameFilter startsWithCFilter;
     private FilenameFilter classFilter;
     private File directory;
 
-    public DirectoryInspector(String filePath) {
+    public DirectoryInspector(String filePath) throws Exception {
         initCFilter();
         initClassFilter();
+        initDir(filePath);
+    }
+
+    private void initDir(String filePath) throws Exception {
         directory = new File(filePath);
+        if (directory.isDirectory()) {
+            logger.debug("Watching " + directory.getAbsolutePath());
+        } else {
+            throw new Exception("\"" + filePath + "\" is not a directory");
+        }
     }
 
     private void initCFilter() {

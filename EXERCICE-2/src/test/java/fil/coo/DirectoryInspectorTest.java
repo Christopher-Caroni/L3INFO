@@ -35,7 +35,7 @@ public class DirectoryInspectorTest {
      * Creates a temp dir in the default system temporary directory and temporary files in our temp dir.
      */
     @Before
-    public void setupTestDir() {
+    public void setupTestDir() throws Exception {
 
         List<String> files = Arrays.asList(FILENAME_STARTS_WITH_C, FILENAME_ENDS_WITH_CLASS);
 
