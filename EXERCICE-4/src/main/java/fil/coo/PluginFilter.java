@@ -27,6 +27,7 @@ public class PluginFilter implements FilenameFilter {
         logger.debug("Testing if accept \"" + filename + "\" in dir \"" + dir.getAbsolutePath() + "\"");
 
         if (!fileCanBeClass(filename)) {
+            logger.debug("\"" + filename + "\" is not qualified to be a class");
             return false;
         }
 

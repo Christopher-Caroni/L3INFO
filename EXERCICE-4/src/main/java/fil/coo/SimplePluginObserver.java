@@ -2,14 +2,16 @@ package fil.coo;
 
 import org.apache.log4j.Logger;
 
+import java.io.IOException;
+
 public class SimplePluginObserver implements FileListener {
 
     private static final Logger logger = Logger.getLogger(SimplePluginObserver.class.getSimpleName());
 
     private FileChecker fileChecker;
 
-    public SimplePluginObserver() throws Exception {
-        fileChecker = new FileChecker("resources", new PluginFilter());
+    public SimplePluginObserver(String dirToWatch) throws IOException {
+        fileChecker = new FileChecker(dirToWatch, new PluginFilter());
         fileChecker.addFileListener(this);
     }
 
@@ -23,13 +25,7 @@ public class SimplePluginObserver implements FileListener {
         logger.info("Plugin " + event.getSource() + " removed");
     }
 
-    private void start() {
+    public void start() {
         fileChecker.start();
-    }
-
-    public static void main(String[] args) throws Exception {
-        SimplePluginObserver simplePluginObserver = new SimplePluginObserver();
-        simplePluginObserver.start();
-        while (true) ;
     }
 }
