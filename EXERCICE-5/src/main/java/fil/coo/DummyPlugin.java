@@ -5,16 +5,16 @@ import plugin.Plugin;
 public class DummyPlugin implements Plugin {
     @Override
     public String transform(String source) {
-        return null;
+        return source;
     }
 
     @Override
     public String getLabel() {
-        return null;
+        return "Dummy Plugin";
     }
 
     @Override
     public String helpMessage() {
-        return null;
+        return "Does not do anything";
     }
 }

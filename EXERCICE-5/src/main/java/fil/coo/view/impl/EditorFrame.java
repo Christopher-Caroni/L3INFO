@@ -48,7 +48,7 @@ public class EditorFrame extends AbstractView {
     }
 
     private void setupJMenuBar() {
-        menuBar = new CustomJMenuBar(controller);
+        menuBar = new CustomJMenuBar();
         rootFrame.setJMenuBar(menuBar);
     }
 
@@ -71,6 +71,7 @@ public class EditorFrame extends AbstractView {
 
     @Override
     public void updateText(String text) {
+        this.textArea.setText(text);
     }
 
     @Override
@@ -85,8 +86,16 @@ public class EditorFrame extends AbstractView {
 
     @Override
     public void addPlugin(String label) {
+        if (label == null) {
+            throw new RuntimeException("Cannot add a plugin with a null label");
+        }
+
         menuBar.addPlugin(label);
     }
 
-
+    @Override
+    public void setController(AbstractController controller) {
+        super.setController(controller);
+        this.menuBar.setController(controller);
+    }
 }

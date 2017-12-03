@@ -2,9 +2,12 @@ package fil.coo.controller;
 
 import fil.coo.model.AbstractModel;
 import fil.coo.view.AbstractView;
+import org.apache.log4j.Logger;
 import plugin.Plugin;
 
 public abstract class AbstractController {
+
+    private static final Logger logger = Logger.getLogger(AbstractController.class.getSimpleName());
 
     protected AbstractModel model;
 
@@ -19,7 +22,11 @@ public abstract class AbstractController {
     }
 
     public void onPluginRequest(int pluginIndex) {
+        logger.debug("Got request for plugin: " + pluginIndex);
+
         String result = model.applyPlugin(pluginIndex, view.getText());
+        logger.debug("Result of transformation: " + result);
+
         view.updateText(result);
     }
 
@@ -33,6 +40,10 @@ public abstract class AbstractController {
     }
 
     public void notifyPluginAdded(Plugin plugin) {
+        if (plugin.getLabel() == null) {
+            throw new RuntimeException("Cannot add a plugin with a null label");
+        }
+
         this.view.addPlugin(plugin.getLabel());
     }
 }

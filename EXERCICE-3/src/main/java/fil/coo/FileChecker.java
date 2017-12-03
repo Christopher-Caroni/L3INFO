@@ -87,7 +87,7 @@ public class FileChecker {
      * @return the list of current files in {@link #directoryToWatch} or an empty list if an IO error occurs
      */
     protected List<String> getCurrentContents() {
-        logger.debug("listing files in dir: " + dirFile.getAbsolutePath());
+//        logger.debug("listing files in dir: " + dirFile.getAbsolutePath());
         return getFileContents();
     }
 
@@ -137,7 +137,7 @@ public class FileChecker {
      * @param addedFile the filename of the added file
      */
     protected void fireFileAdded(String addedFile) {
-        logger.debug("Notifying about added file: " + addedFile);
+        logger.debug("Notifying about added file: \"" + addedFile + "\"");
 
         FileEvent event = new FileEvent(addedFile);
         for (FileListener listener : listeners) {
@@ -151,7 +151,7 @@ public class FileChecker {
      * @param deletedFile the filename of the deleted file
      */
     protected void fireFileRemoved(String deletedFile) {
-        logger.debug("Notifying about deleted file: " + deletedFile);
+        logger.debug("Notifying about deleted file: \"" + deletedFile + "\"");
 
         FileEvent event = new FileEvent(deletedFile);
         for (FileListener listener : listeners) {

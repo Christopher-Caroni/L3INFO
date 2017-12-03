@@ -30,6 +30,8 @@ public abstract class AbstractModel implements PluginListener {
     }
 
     public String applyPlugin(int pluginIndex, String source) {
+        logger.debug("Applying plugin: " + pluginIndex + ", " + plugins.get(pluginIndex).getLabel());
+
         return plugins.get(pluginIndex).transform(source);
     }
 

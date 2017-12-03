@@ -20,7 +20,7 @@ public abstract class PluginEmitter {
      * @param pluginClass the class of the added plugin
      */
     protected void firePluginAdded(Class<? extends Plugin> pluginClass) {
-        logger.debug("Notifying about added plugin: " + pluginClass);
+        logger.debug("Notifying about added plugin: \"" + pluginClass + "\"");
 
         PluginEvent event = new PluginEvent(pluginClass);
         for (PluginListener listener : pluginListeners) {
@@ -35,7 +35,7 @@ public abstract class PluginEmitter {
      * @param pluginClass the class of the removed plugin
      */
     protected void firePluginRemoved(Class<? extends Plugin> pluginClass) {
-        logger.debug("Notifying about deleted plugin: " + pluginClass);
+        logger.debug("Notifying about deleted plugin: \"" + pluginClass + "\"");
 
         PluginEvent event = new PluginEvent(pluginClass);
         for (PluginListener listener : pluginListeners) {
