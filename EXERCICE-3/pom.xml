@@ -46,6 +46,17 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
                 <version>3.0.2</version>
+
+                <!--CREATE A JAR FROM THE TEST SOURCES SO THAT THEY CAN BE USED IN EXERCICE 5-->
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>test-jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+
+                <!--NORMAL JAR BUILD FOR THE MAIN SOURCES-->
                 <configuration>
                     <archive>
                         <manifest>

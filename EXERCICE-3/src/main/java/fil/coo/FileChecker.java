@@ -15,15 +15,15 @@ public class FileChecker {
 
     private static final Logger logger = Logger.getLogger(FileChecker.class.getSimpleName());
 
-    private static final int CHECK_DELAY = 1000;
+    protected static final int CHECK_DELAY = 1000;
 
-    private Timer timer;
-    private String directoryToWatch;
-    private File dirFile;
+    protected Timer timer;
+    protected String directoryToWatch;
+    protected File dirFile;
 
-    private final FilenameFilter filenameFilter;
-    private List<FileListener> listeners;
-    private List<String> memory;
+    protected final FilenameFilter filenameFilter;
+    protected List<FileListener> listeners;
+    protected List<String> memory;
 
     public FileChecker(String directoryToWatch, FilenameFilter filenameFilter) throws IOException {
         initDir(directoryToWatch);
@@ -40,11 +40,19 @@ public class FileChecker {
         }
 
         this.directoryToWatch = directoryToWatch;
-        dirFile = new File(directoryToWatch);
+        dirFile = createDirFile(directoryToWatch);
 
         if (!dirFile.isDirectory()) {
             throw new IOException(dirFile.getAbsolutePath() + "\" is not a directory");
         }
+    }
+
+    /**
+     * @param directoryToWatch the path to the directory
+     * @return a {@link File} created from directoryToWatch
+     */
+    protected File createDirFile(String directoryToWatch) {
+        return new File(directoryToWatch);
     }
 
     /**
@@ -80,7 +88,13 @@ public class FileChecker {
      */
     protected List<String> getCurrentContents() {
         logger.debug("listing files in dir: " + dirFile.getAbsolutePath());
+        return getFileContents();
+    }
 
+    /**
+     * @return the contents of {@link #dirFile}
+     */
+    protected List<String> getFileContents() {
         String[] list = dirFile.list(this.filenameFilter);
         return list == null ? new ArrayList<>() : Arrays.asList(list);
     }
@@ -108,7 +122,7 @@ public class FileChecker {
      */
     protected void checkRemovedFiles(List<String> currentFiles) {
 
-        for (Iterator<String> it = memory.iterator(); it.hasNext();) {
+        for (Iterator<String> it = memory.iterator(); it.hasNext(); ) {
             String preExistingFile = it.next();
             if (!currentFiles.contains(preExistingFile)) {
                 fireFileRemoved(preExistingFile);
