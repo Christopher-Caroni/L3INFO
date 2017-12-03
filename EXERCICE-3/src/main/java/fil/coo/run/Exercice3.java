@@ -3,6 +3,8 @@ package fil.coo.run;
 import fil.coo.FileChecker;
 import org.apache.log4j.Logger;
 
+import static fil.coo.SingleDirArg.getResourceDir;
+
 public class Exercice3 {
 
     private static final Logger logger = Logger.getLogger(Exercice3.class.getSimpleName());
@@ -31,13 +33,6 @@ public class Exercice3 {
         fileChecker.start();
 
         while (true) ;
-    }
-
-    private static String getResourceDir(String[] args) throws IllegalArgumentException {
-        if (args.length != 1) {
-            throw new IllegalArgumentException("This program only accepts one argument which is the directory to watch");
-        }
-        return args[0];
     }
 
 }
