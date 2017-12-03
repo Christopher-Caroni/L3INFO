@@ -30,4 +30,50 @@
 
     </dependencies>
 
+
+    <build>
+
+        <!--WE NEED OUR 'resources' folder to be in the classpath for the tests to run-->
+        <!--since we use generateed .class files-->
+        <resources>
+            <resource>
+                <directory>${basedir}/repository</directory>
+            </resource>
+        </resources>
+
+        <plugins>
+
+            <!--CUSTOM JAVADOC-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>2.10.4</version>
+                <configuration>
+                    <reportOutputDirectory>${project.build.directory}/docs</reportOutputDirectory>
+                    <destDir>docs</destDir>
+                    <nohelp>true</nohelp>
+                </configuration>
+            </plugin>
+
+
+            <!--GENERATE JAR-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.0.2</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                            <classpathPrefix>lib/</classpathPrefix>
+                            <mainClass>fil.coo.App</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+
+
+        </plugins>
+    </build>
+
 </project>

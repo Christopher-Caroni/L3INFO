@@ -31,7 +31,7 @@ public class DirectoryInspector {
 
         directory = new File(filePath);
         if (!directory.isDirectory()) {
-            throw new IOException("\"" + filePath + "\" is not a directory");
+            throw new IOException(directory.getAbsolutePath() + "\" is not a directory");
         }
 
         logger.debug("Watching " + directory.getAbsolutePath());

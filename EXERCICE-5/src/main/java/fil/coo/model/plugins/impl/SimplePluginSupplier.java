@@ -2,6 +2,8 @@ package fil.coo.model.plugins.impl;
 
 import fil.coo.model.plugins.AbstractPluginSupplier;
 
+import java.io.IOException;
+
 public class SimplePluginSupplier extends AbstractPluginSupplier {
 
     /**
@@ -9,7 +11,7 @@ public class SimplePluginSupplier extends AbstractPluginSupplier {
      *
      * @param dirToWatch the directory to watch plugin for
      */
-    public SimplePluginSupplier(String dirToWatch) throws Exception {
+    public SimplePluginSupplier(String dirToWatch) throws IOException {
         super(dirToWatch);
     }
 

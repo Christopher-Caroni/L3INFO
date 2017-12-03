@@ -6,7 +6,7 @@ import fil.coo.view.AbstractView;
 
 public class SimpleController extends AbstractController {
 
-    public SimpleController() {
-        super();
+    public SimpleController(AbstractModel model, AbstractView view) {
+        super(model, view);
     }
 }

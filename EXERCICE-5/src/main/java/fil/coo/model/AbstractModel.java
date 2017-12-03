@@ -8,23 +8,23 @@ import fil.coo.model.plugins.impl.SimplePluginSupplier;
 import org.apache.log4j.Logger;
 import plugin.Plugin;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public abstract class AbstractModel implements PluginListener {
 
     private static final Logger logger = Logger.getLogger(AbstractModel.class.getSimpleName());
-    private static final String REPO_DIR = "repository";
 
     protected List<Plugin> plugins;
     protected AbstractPluginSupplier pluginSupplier;
-    protected AbstractController abstractController;
+    protected AbstractController controller;
 
-    public AbstractModel(AbstractController controller) throws Exception {
-        this.abstractController = controller;
+    public AbstractModel(String pluginRepository) throws IOException {
         this.plugins = new ArrayList<>();
 
-        pluginSupplier = new SimplePluginSupplier(REPO_DIR);
+        pluginSupplier = new SimplePluginSupplier(pluginRepository);
         pluginSupplier.addPluginListener(this);
         pluginSupplier.start();
     }
@@ -36,10 +36,10 @@ public abstract class AbstractModel implements PluginListener {
 
     @Override
     public void onPluginAdded(PluginEvent pluginEvent) {
-        Plugin plugin = getPluginInstance(pluginEvent);
+        final Plugin plugin = getPluginInstance(pluginEvent);
         if (plugin != null) {
             this.plugins.add(plugin);
-            abstractController.notifyPluginAdded(plugin);
+            controller.notifyPluginAdded(plugin);
         } else {
             logger.debug("Could not instantiate plugin" + pluginEvent.getSource());
         }
@@ -63,5 +63,9 @@ public abstract class AbstractModel implements PluginListener {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public void setController(AbstractController controller) {
+        this.controller = controller;
     }
 }

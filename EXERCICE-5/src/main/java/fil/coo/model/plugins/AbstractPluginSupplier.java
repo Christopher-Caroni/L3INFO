@@ -7,6 +7,7 @@ import fil.coo.PluginFilter;
 import org.apache.log4j.Logger;
 import plugin.Plugin;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -34,7 +35,7 @@ public class AbstractPluginSupplier extends PluginEmitter implements FileListene
      *
      * @param dirToWatch the directory to watch plugin for
      */
-    public AbstractPluginSupplier(String dirToWatch) throws Exception {
+    public AbstractPluginSupplier(String dirToWatch) throws IOException {
         this.dirToWatch = dirToWatch;
         pluginListeners = new ArrayList<>();
 
@@ -95,7 +96,7 @@ public class AbstractPluginSupplier extends PluginEmitter implements FileListene
      * Starts watching {@link #dirToWatch}
      */
     public void start() {
-        logger.debug("Started watching " + dirToWatch);
+        logger.debug("Asking fileChecker to start watching dir");
         fileChecker.start();
     }
 

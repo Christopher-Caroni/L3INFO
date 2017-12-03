@@ -16,8 +16,8 @@ public class EditorFrame extends AbstractView {
     private JScrollPane mainPanel;
     private JTextArea textArea;
 
-    public EditorFrame(AbstractController controller) {
-        super(controller);
+    public EditorFrame() {
+        super();
 
         rootFrame = new JFrame();
         setBasicProperties();

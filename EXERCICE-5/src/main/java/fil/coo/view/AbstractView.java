@@ -2,15 +2,14 @@ package fil.coo.view;
 
 import fil.coo.controller.AbstractController;
 
-import javax.swing.*;
+import java.util.Optional;
 
 public abstract class AbstractView {
 
 
     protected AbstractController controller;
 
-    public AbstractView(AbstractController controller) {
-        this.controller = controller;
+    public AbstractView() {
     }
 
     /**
@@ -26,4 +25,8 @@ public abstract class AbstractView {
     public abstract String getText();
 
     public abstract void addPlugin(String label);
+
+    public void setController(AbstractController controller) {
+        this.controller = controller;
+    }
 }

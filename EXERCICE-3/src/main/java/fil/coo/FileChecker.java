@@ -27,10 +27,10 @@ public class FileChecker {
 
     public FileChecker(String directoryToWatch, FilenameFilter filenameFilter) throws IOException {
         initDir(directoryToWatch);
-
+        this.listeners = new ArrayList<>();
+        this.memory = new ArrayList<>();
         this.filenameFilter = filenameFilter;
 
-        initList();
         initTimer();
     }
 
@@ -43,13 +43,8 @@ public class FileChecker {
         dirFile = new File(directoryToWatch);
 
         if (!dirFile.isDirectory()) {
-            throw new IOException("\"" + directoryToWatch + "\" is not a directory");
+            throw new IOException(dirFile.getAbsolutePath() + "\" is not a directory");
         }
-    }
-
-    private void initList() {
-        listeners = new ArrayList<>();
-        memory = new ArrayList<>();
     }
 
     /**
@@ -64,14 +59,14 @@ public class FileChecker {
      * Starts repeatedly checking {@link #directoryToWatch} with {@link #timer}
      */
     public void start() {
+        logger.debug("Started watching directory: " + dirFile.getAbsolutePath());
         timer.start();
-        logger.debug("Started watching directory: " + directoryToWatch);
     }
 
     /**
      * Checks for changes in the repository folder
      */
-    private void checkChangedFiles() {
+    protected void checkChangedFiles() {
 
         List<String> filenames = getCurrentContents();
 
@@ -83,7 +78,7 @@ public class FileChecker {
     /**
      * @return the list of current files in {@link #directoryToWatch} or an empty list if an IO error occurs
      */
-    private List<String> getCurrentContents() {
+    protected List<String> getCurrentContents() {
         logger.debug("listing files in dir: " + dirFile.getAbsolutePath());
 
         String[] list = dirFile.list(this.filenameFilter);
@@ -96,7 +91,7 @@ public class FileChecker {
      *
      * @param currentFiles the list of files currently in {@link #directoryToWatch}
      */
-    private void checkNewFiles(List<String> currentFiles) {
+    protected void checkNewFiles(List<String> currentFiles) {
         for (String filename : currentFiles) {
             if (!(memory.contains(filename))) {
                 memory.add(filename);
@@ -111,7 +106,7 @@ public class FileChecker {
      *
      * @param currentFiles the list of files currently in {@link #directoryToWatch}
      */
-    private void checkRemovedFiles(List<String> currentFiles) {
+    protected void checkRemovedFiles(List<String> currentFiles) {
 
         for (Iterator<String> it = memory.iterator(); it.hasNext();) {
             String preExistingFile = it.next();
@@ -127,7 +122,7 @@ public class FileChecker {
      *
      * @param addedFile the filename of the added file
      */
-    private void fireFileAdded(String addedFile) {
+    protected void fireFileAdded(String addedFile) {
         logger.debug("Notifying about added file: " + addedFile);
 
         FileEvent event = new FileEvent(addedFile);
@@ -141,7 +136,7 @@ public class FileChecker {
      *
      * @param deletedFile the filename of the deleted file
      */
-    private void fireFileRemoved(String deletedFile) {
+    protected void fireFileRemoved(String deletedFile) {
         logger.debug("Notifying about deleted file: " + deletedFile);
 
         FileEvent event = new FileEvent(deletedFile);

@@ -10,7 +10,12 @@ public abstract class AbstractController {
 
     protected AbstractView view;
 
-    public AbstractController() {
+    public AbstractController(AbstractModel model, AbstractView view) {
+        this.model = model;
+        this.view = view;
+
+        this.model.setController(this);
+        this.view.setController(this);
     }
 
     public void onPluginRequest(int pluginIndex) {

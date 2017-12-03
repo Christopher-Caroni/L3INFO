@@ -7,17 +7,28 @@ import fil.coo.model.plugins.PluginEvent;
 import fil.coo.model.plugins.impl.SimpleModel;
 import fil.coo.view.AbstractView;
 import fil.coo.view.impl.EditorFrame;
+import org.apache.log4j.Level;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+
+import java.io.IOException;
 
 public class App {
 
-    public static void main(String[] args) throws Exception {
-        AbstractController controller = new SimpleController();
+    private static final Logger logger = Logger.getLogger(App.class.getSimpleName());
 
-        AbstractModel model = new SimpleModel(controller);
-        AbstractView editor = new EditorFrame(controller);
+    public static void main(String[] args) {
 
-        controller.setView(editor);
-        controller.setModel(model);
+        AbstractModel model = null;
+        try {
+            model = new SimpleModel("repository");
+        } catch (IOException e) {
+            logger.info(e.getMessage());
+            System.exit(1);
+        }
+        AbstractView editor = new EditorFrame();
+
+        AbstractController controller = new SimpleController(model, editor);
 
         editor.setVisible(true);
 
