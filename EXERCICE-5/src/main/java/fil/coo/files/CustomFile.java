@@ -13,7 +13,6 @@ public class CustomFile extends File {
         super(pathname);
     }
 
-
     /**
      * Calls {@link File#list(FilenameFilter)} but will not test the any filenames in filesToIgnore
      *
@@ -25,6 +24,8 @@ public class CustomFile extends File {
         String[] contents = super.list();
         if (contents == null) {
             return new ArrayList<>();
+        } else if (filesToIgnore == null) {
+            return Arrays.asList(contents);
         }
 
         List<String> ogFiles = Arrays.asList(contents);
