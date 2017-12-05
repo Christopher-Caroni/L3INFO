@@ -7,7 +7,7 @@ import java.io.IOException;
 
 import static org.junit.Assert.*;
 
-public class SimplePluginSupplierTestSecond extends AbstractPluginSupplierTest {
+public class SimplePluginSupplierTestForSupplier extends AbstractPluginSupplierTest {
 
     @Override
     protected AbstractPluginSupplier getPluginSupplier(String repository) throws IOException {
