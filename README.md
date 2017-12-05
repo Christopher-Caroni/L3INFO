@@ -8,7 +8,7 @@ Bienvenue sur notre TP Plugins
 
 # Composition du TP :
 
-- `6 modules Maven` représenter les différents exercices du tp
+- `6 modules Maven` représentant les différents exercices du TP dont un commun à tous
 - Dans chaque modules, le code source se trouve dans `src/main`
 - De même pour les tests unitaire dans `src/test`
 - Les différents UML dans `/diagrams`. Attention: tous les diagrammes ne sont pas présentés dans ce readme car elles n'apportent pas forcément
