@@ -53,12 +53,12 @@ public class CustomJMenuBar extends JMenuBar {
         if (label == null) {
             throw new RuntimeException("Cannot add a plugin with a null label");
         }
-        logger.debug("Adding plugin with label " + label);
+        logger.debug("Adding plugin with label: \"" + label + "\"");
 
-        CustomJMenuItem pluginMenuItem = new CustomJMenuItem(label);
+        CustomJMenuItem pluginMenuItem = new CustomJMenuItem(label, itemsMenu.size());
         itemsMenu.add(pluginMenuItem);
 
-        pluginMenuItem.addActionListener(actionEvent -> this.controller.onPluginRequest(itemsMenu.size() - 1));
+        pluginMenuItem.addActionListener(actionEvent -> this.controller.onPluginRequest(pluginMenuItem.getID()));
         menuTools.add(pluginMenuItem);
     }
 

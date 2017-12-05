@@ -24,7 +24,10 @@ public abstract class AbstractController {
     public void onPluginRequest(int pluginIndex) {
         logger.debug("Got request for plugin: " + pluginIndex);
 
-        String result = model.applyPlugin(pluginIndex, view.getText());
+        String original = view.getText();
+        logger.debug("Original text is: \"" + original + "\"");
+
+        String result = model.applyPlugin(pluginIndex, original);
         logger.debug("Result of transformation: " + result);
 
         view.updateText(result);
