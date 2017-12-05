@@ -2,8 +2,6 @@ package fil.coo.view;
 
 import fil.coo.controller.AbstractController;
 
-import java.util.Optional;
-
 public abstract class AbstractView {
 
 
@@ -24,11 +22,11 @@ public abstract class AbstractView {
 
     public abstract String getText();
 
-    public abstract void addPlugin(String label);
+    public abstract void addPlugin(String pluginID, String label);
 
     public void setController(AbstractController controller) {
         this.controller = controller;
     }
 
-    public abstract void removePlugin(String label);
+    public abstract void removePlugin(String pluginID);
 }

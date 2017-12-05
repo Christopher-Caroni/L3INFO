@@ -4,14 +4,14 @@ import javax.swing.*;
 
 public class CustomJMenuItem extends JMenuItem {
 
-    private int id;
+    private String id;
 
-    public CustomJMenuItem(String label, int id) {
+    public CustomJMenuItem(String label, String id) {
         super(label);
         this.id = id;
     }
 
-    public int getID() {
+    public String getID() {
         return id;
     }
 }

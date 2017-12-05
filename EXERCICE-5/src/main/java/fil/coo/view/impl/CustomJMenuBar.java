@@ -49,16 +49,16 @@ public class CustomJMenuBar extends JMenuBar {
         menuHelp = new JMenu("Help");
     }
 
-    public void addPlugin(String label) {
+    public void addPlugin(String pluginID, String label) {
         if (label == null) {
             throw new RuntimeException("Cannot add a plugin with a null label");
         }
         logger.debug("Adding plugin with label: \"" + label + "\"");
 
-        CustomJMenuItem pluginMenuItem = new CustomJMenuItem(label, itemsMenu.size());
+        CustomJMenuItem pluginMenuItem = new CustomJMenuItem(label, pluginID);
         itemsMenu.add(pluginMenuItem);
 
-        pluginMenuItem.addActionListener(actionEvent -> this.controller.onPluginRequest(pluginMenuItem.getID()));
+        pluginMenuItem.addActionListener(actionEvent -> this.controller.onPluginRequest(pluginID));
         menuTools.add(pluginMenuItem);
     }
 
@@ -66,21 +66,22 @@ public class CustomJMenuBar extends JMenuBar {
         this.controller = controller;
     }
 
-    public void removePlugin(String label) {
-        int pluginIndex = getPluginIndexFromLabel(label);
+    public void removePlugin(String pluginID) {
+        int pluginIndex = getPluginIndexFromID(pluginID);
         if (pluginIndex == -1) {
             throw new RuntimeException("Cannot remove plugin because does not exist");
         }
-        
+
+        String labelRemoved = itemsMenu.get(pluginIndex).getText();
         menuTools.remove(itemsMenu.get(pluginIndex));
         itemsMenu.remove(pluginIndex);
-        logger.debug("Removed plugin with label: \"" + label + "\"");
+        logger.debug("Removed plugin with label: \"" + labelRemoved + "\"");
     }
 
-    private int getPluginIndexFromLabel(String label) {
+    private int getPluginIndexFromID(String pluginID) {
         for (int i = 0; i < itemsMenu.size(); i++) {
             CustomJMenuItem item = itemsMenu.get(i);
-            if (item.getText().equalsIgnoreCase(label)) {
+            if (item.getID().equalsIgnoreCase(pluginID)) {
                 return i;
             }
         }
