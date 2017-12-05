@@ -1,6 +1,7 @@
 package fil.coo.model;
 
 import fil.coo.controller.AbstractController;
+import fil.coo.exception.PluginAlreadyExistsException;
 import fil.coo.exception.PluginNotFoundException;
 import fil.coo.model.plugins.AbstractPluginSupplier;
 import fil.coo.model.plugins.PluginEvent;
@@ -41,32 +42,36 @@ public abstract class AbstractModel implements PluginListener {
 
     @Override
     public void onPluginAdded(PluginEvent pluginEvent) {
-        final Plugin plugin = getPluginInstance(pluginEvent);
-        if (plugin != null && getIDFromPlugin(plugin) == null) {
-            String pluginID = UUID.randomUUID().toString();
-            this.pluginMap.put(pluginID, plugin);
-            controller.notifyPluginAdded(pluginID, plugin);
-        } else {
-            logger.debug("Plugin already exists or could not instantiate plugin" + pluginEvent.getSource());
+        final Plugin plugin;
+        try {
+            plugin = getPluginInstance(pluginEvent);
+            verifyPluginDoesNotExist(plugin);
+            addPlugin(plugin);
+        } catch (PluginNotFoundException | PluginAlreadyExistsException e) {
+            logger.debug(e.getMessage());
         }
+    }
+
+    private void verifyPluginDoesNotExist(Plugin plugin) throws PluginAlreadyExistsException {
+        if (getIDFromPlugin(plugin) != null) {
+            throw new PluginAlreadyExistsException("This plugin has already been loaded");
+        }
+    }
+
+    private void addPlugin(Plugin plugin) {
+        String pluginID = UUID.randomUUID().toString();
+        this.pluginMap.put(pluginID, plugin);
+        controller.notifyPluginAdded(pluginID, plugin);
     }
 
     @Override
     public void onPluginRemoved(PluginEvent pluginEvent) {
         try {
-            Plugin plugin = extractPlugin(pluginEvent);
+            Plugin plugin = getPluginInstance(pluginEvent);
             removePlugin(plugin);
         } catch (PluginNotFoundException e) {
             logger.debug(e);
         }
-    }
-
-    protected Plugin extractPlugin(PluginEvent pluginEvent) throws PluginNotFoundException {
-        Plugin plugin = getPluginInstance(pluginEvent);
-        if (plugin == null) {
-            throw new PluginNotFoundException("Could not instantiate plugin" + pluginEvent.getSource());
-        }
-        return plugin;
     }
 
     protected void removePlugin(Plugin plugin) throws PluginNotFoundException {
@@ -88,14 +93,13 @@ public abstract class AbstractModel implements PluginListener {
         return null;
     }
 
-    protected Plugin getPluginInstance(PluginEvent pluginEvent) {
+    protected Plugin getPluginInstance(PluginEvent pluginEvent) throws PluginNotFoundException {
         Class<Plugin> pluginClass = (Class<Plugin>) pluginEvent.getSource();
         try {
             return pluginClass.newInstance();
         } catch (InstantiationException | IllegalAccessException e) {
-            logger.debug(e);
+            throw new PluginNotFoundException(e);
         }
-        return null;
     }
 
     public void setController(AbstractController controller) {
