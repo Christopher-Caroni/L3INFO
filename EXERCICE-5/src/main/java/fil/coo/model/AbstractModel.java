@@ -1,6 +1,7 @@
 package fil.coo.model;
 
 import fil.coo.controller.AbstractController;
+import fil.coo.exception.PluginNotFoundException;
 import fil.coo.model.plugins.AbstractPluginSupplier;
 import fil.coo.model.plugins.PluginEvent;
 import fil.coo.model.plugins.PluginListener;
@@ -9,7 +10,9 @@ import org.apache.log4j.Logger;
 import plugin.Plugin;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 
 public abstract class AbstractModel implements PluginListener {
 
@@ -50,21 +53,33 @@ public abstract class AbstractModel implements PluginListener {
 
     @Override
     public void onPluginRemoved(PluginEvent pluginEvent) {
-        Plugin plugin = getPluginInstance(pluginEvent);
-        if (plugin != null) {
-
-            String pluginID = getIDFromPlugin(plugin);
-            if (pluginID == null) {
-                throw new RuntimeException("Cannot find id for the removed plugin");
-            }
-            this.pluginMap.remove(pluginID);
-            controller.notifyPluginRemoved(pluginID);
-        } else {
-            logger.debug("Could not instantiate plugin" + pluginEvent.getSource());
+        try {
+            Plugin plugin = extractPlugin(pluginEvent);
+            removePlugin(plugin);
+        } catch (PluginNotFoundException e) {
+            logger.debug(e);
         }
     }
 
-    private String getIDFromPlugin(Plugin plugin) {
+    protected Plugin extractPlugin(PluginEvent pluginEvent) throws PluginNotFoundException {
+        Plugin plugin = getPluginInstance(pluginEvent);
+        if (plugin == null) {
+            throw new PluginNotFoundException("Could not instantiate plugin" + pluginEvent.getSource());
+        }
+        return plugin;
+    }
+
+    protected void removePlugin(Plugin plugin) throws PluginNotFoundException {
+        String pluginID = getIDFromPlugin(plugin);
+        if (pluginID == null) {
+            throw new PluginNotFoundException("Cannot find id for the removed plugin");
+        }
+
+        this.pluginMap.remove(pluginID);
+        controller.notifyPluginRemoved(pluginID);
+    }
+
+    protected String getIDFromPlugin(Plugin plugin) {
         for (Map.Entry<String, Plugin> entry : pluginMap.entrySet()) {
             if (entry.getValue().getClass() == plugin.getClass()) {
                 return entry.getKey();
@@ -73,12 +88,12 @@ public abstract class AbstractModel implements PluginListener {
         return null;
     }
 
-    private Plugin getPluginInstance(PluginEvent pluginEvent) {
+    protected Plugin getPluginInstance(PluginEvent pluginEvent) {
         Class<Plugin> pluginClass = (Class<Plugin>) pluginEvent.getSource();
         try {
             return pluginClass.newInstance();
         } catch (InstantiationException | IllegalAccessException e) {
-            e.printStackTrace();
+            logger.debug(e);
         }
         return null;
     }
