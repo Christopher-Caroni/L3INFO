@@ -44,7 +44,7 @@ Lors de la réalisation de notre tp, nous avons continuer de déveloper en `TDD`
 Par le biais du fichier `.gitlab-ci.yml`,vous pouvez voir ci-dessous que les tests sont executés correctement :</p>
 
 Master branch:
-[![pipeline status](https://gitlab-etu.fil.univ-lille1.fr/caroni/COO-Pool/badges/master/pipeline.svg)](https://gitlab-etu.fil.univ-lille1.fr/caroni/COO-Pool/commits/master)
+[![pipeline status](https://gitlab-etu.fil.univ-lille1.fr/caroni/COO-Plugins/badges/master/pipeline.svg)](https://gitlab-etu.fil.univ-lille1.fr/caroni/COO-Plugins/commits/master)
 
 Vous pouvez voir ci-dessous l'UML des différents test: 
 
