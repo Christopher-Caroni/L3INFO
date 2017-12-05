@@ -39,9 +39,7 @@ L'architecture principale de ce projet se définit grâce à la structure MVC qu
 
 # Tests :
 
-Lors de la réalisation de notre tp, nous avons continuer de déveloper en `TDD` (Test Driven Developement).
-
-Vous pouvez voir ci-dessous l'UML des différents test: 
+Vous pouvez voir ci-dessous l'UML des différents tests: 
 
 
 ![image](diagrams/tests.png)
