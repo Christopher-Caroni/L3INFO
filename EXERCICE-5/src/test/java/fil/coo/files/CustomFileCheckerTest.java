@@ -1,7 +1,7 @@
 package fil.coo.files;
 
-import fil.coo.FileChecker;
 import fil.coo.AbstractFileCheckerTest;
+import fil.coo.FileChecker;
 import org.apache.log4j.Logger;
 
 import java.io.FilenameFilter;
