@@ -62,7 +62,7 @@ public class AbstractPluginSupplier extends PluginEmitter implements FileListene
      * @param event the event containing the filename
      * @return the {@link Class} of the {@link Plugin}
      */
-    private Class<? extends Plugin> getPluginClass(FileEvent event) {
+    protected Class<? extends Plugin> getPluginClass(FileEvent event) {
         String pluginClassName = extractPluginClassName((String) event.getSource(), PLUGIN_PACKAGE);
         return getPluginClassInstance(pluginClassName);
     }
@@ -74,7 +74,7 @@ public class AbstractPluginSupplier extends PluginEmitter implements FileListene
      * @param packageName the name of the package this plugin is expected to be in
      * @return the class name of the plugin
      */
-    private String extractPluginClassName(String filename, String packageName) {
+    protected String extractPluginClassName(String filename, String packageName) {
         return packageName + filename.substring(0, filename.length() - CLASS_FILENAME_EXTENSION.length());
     }
 
@@ -84,7 +84,7 @@ public class AbstractPluginSupplier extends PluginEmitter implements FileListene
      *
      * @return an instance of {@link Plugin }{@link Class}
      */
-    private Class<? extends Plugin> getPluginClassInstance(String pluginClassName) {
+    protected Class<? extends Plugin> getPluginClassInstance(String pluginClassName) {
         try {
             return (Class<? extends Plugin>) Class.forName(pluginClassName);
         } catch (ClassNotFoundException | ClassFormatError e) {
