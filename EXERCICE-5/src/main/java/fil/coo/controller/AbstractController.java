@@ -49,4 +49,9 @@ public abstract class AbstractController {
 
         this.view.addPlugin(plugin.getLabel());
     }
+
+    public void notifyPluginRemoved(Plugin plugin)
+    {
+        this.view.removePlugin(plugin.getLabel());
+    }
 }

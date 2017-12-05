@@ -25,7 +25,7 @@ public class App {
         } catch (IOException | IllegalArgumentException e) {
             logger.info("Error in specified repository");
             logger.info("Usage: java -jar XXX.jar <repository>");
-            logger.info("!! The repository directory must be in the classpath for the plugins to be instanciated");
+            logger.info("!! The repository directory must be in the classpath for the plugins to be instantiated");
             System.exit(1);
         }
         AbstractView editor = new EditorFrame();

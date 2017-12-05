@@ -29,4 +29,6 @@ public abstract class AbstractView {
     public void setController(AbstractController controller) {
         this.controller = controller;
     }
+
+    public abstract void removePlugin(String label);
 }

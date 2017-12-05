@@ -98,4 +98,9 @@ public class EditorFrame extends AbstractView {
         super.setController(controller);
         this.menuBar.setController(controller);
     }
+
+    @Override
+    public void removePlugin(String label) {
+        this.menuBar.removePlugin(label);
+    }
 }

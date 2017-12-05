@@ -65,4 +65,25 @@ public class CustomJMenuBar extends JMenuBar {
     public void setController(AbstractController controller) {
         this.controller = controller;
     }
+
+    public void removePlugin(String label) {
+        int pluginIndex = getPluginIndexFromLabel(label);
+        if (pluginIndex == -1) {
+            throw new RuntimeException("Cannot remove plugin because does not exist");
+        }
+        
+        menuTools.remove(itemsMenu.get(pluginIndex));
+        itemsMenu.remove(pluginIndex);
+        logger.debug("Removed plugin with label: \"" + label + "\"");
+    }
+
+    private int getPluginIndexFromLabel(String label) {
+        for (int i = 0; i < itemsMenu.size(); i++) {
+            CustomJMenuItem item = itemsMenu.get(i);
+            if (item.getText().equalsIgnoreCase(label)) {
+                return i;
+            }
+        }
+        return -1;
+    }
 }
