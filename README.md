@@ -20,7 +20,6 @@ plus d'aide à la compréhension de l'architecture du projet.
 - Télécharger l'archive à l'aide de la commande `git clone`
 - Compiler les différents modules avec la commande `mvn package` ou `mvn clean install`
 - Vous pouvez générer la javadoc avec la commande `mvn javadoc:javadoc`
-
 - Pour lancer le programme, déplacer vous dans le module `EXERCICE-5`
 - Exécuter la commande suivante `java -jar target/EXERCICE-5-1.0-SNAPSHOT.jar repository`
 
@@ -44,7 +43,7 @@ Lors de la réalisation de notre tp, nous avons continuer de déveloper en `TDD`
 Par le biais du fichier `.gitlab-ci.yml`,vous pouvez voir ci-dessous que les tests sont executés correctement :</p>
 
 Master branch:
-[![pipeline status](https://gitlab-etu.fil.univ-lille1.fr/caroni/COO-Plugins/badges/master/pipeline.svg)](https://gitlab-etu.fil.univ-lille1.fr/caroni/COO-Plugins/commits/master)
+[![pipeline status](https://gitlab-etu.fil.univ-lille1.fr/caroni/COO-PLUGINS/badges/master/pipeline.svg)](https://gitlab-etu.fil.univ-lille1.fr/caroni/COO-PLUGINS/commits/master)
 
 Vous pouvez voir ci-dessous l'UML des différents test: 
 
