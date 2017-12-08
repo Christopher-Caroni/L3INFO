@@ -3,10 +3,9 @@ package fil.coo.model;
 import fil.coo.controller.AbstractController;
 import fil.coo.exception.PluginAlreadyExistsException;
 import fil.coo.exception.PluginNotFoundException;
-import fil.coo.model.plugins.AbstractPluginSupplier;
+import fil.coo.model.plugins.impl.PluginSupplier;
 import fil.coo.model.plugins.PluginEvent;
 import fil.coo.model.plugins.PluginListener;
-import fil.coo.model.plugins.impl.SimplePluginSupplier;
 import org.apache.log4j.Logger;
 import plugin.Plugin;
 
@@ -21,13 +20,13 @@ public abstract class AbstractModel implements PluginListener {
 
     protected Map<String, Plugin> pluginMap;
 
-    protected AbstractPluginSupplier pluginSupplier;
+    protected PluginSupplier pluginSupplier;
     protected AbstractController controller;
 
     public AbstractModel(String pluginRepository) throws IOException {
         this.pluginMap = new HashMap<>();
 
-        pluginSupplier = new SimplePluginSupplier(pluginRepository);
+        pluginSupplier = new PluginSupplier(pluginRepository);
         pluginSupplier.addPluginListener(this);
         pluginSupplier.start();
     }

@@ -1,9 +1,10 @@
-package fil.coo.model.plugins;
+package fil.coo.model.plugins.impl;
 
 import fil.coo.FileChecker;
 import fil.coo.FileEvent;
 import fil.coo.FileListener;
 import fil.coo.PluginFilter;
+import fil.coo.model.plugins.AbstractPluginEmitter;
 import org.apache.log4j.Logger;
 import plugin.Plugin;
 
@@ -12,13 +13,12 @@ import java.util.ArrayList;
 
 /**
  * Uses a {@link FileChecker} associated with a {@link PluginFilter} to
- * detect added or removed plugins in the concerned directory.
- * Once these changes are detected, by extending {@link PluginEmitter},
- * it emits {@link PluginEvent}s to all observers.
+ * detect added or removed plugins in the concerned directory.<br>
+ * This class also extends {@link AbstractPluginEmitter} to then notify listeners about the detected plugins
  */
-public class AbstractPluginSupplier extends PluginEmitter implements FileListener {
+public class PluginSupplier extends AbstractPluginEmitter implements FileListener {
 
-    private static final Logger logger = Logger.getLogger(AbstractPluginSupplier.class.getSimpleName());
+    private static final Logger logger = Logger.getLogger(PluginSupplier.class.getSimpleName());
 
 
     private static final String CLASS_FILENAME_EXTENSION = ".class";
@@ -35,7 +35,7 @@ public class AbstractPluginSupplier extends PluginEmitter implements FileListene
      *
      * @param dirToWatch the directory to watch plugin for
      */
-    public AbstractPluginSupplier(String dirToWatch) throws IOException {
+    public PluginSupplier(String dirToWatch) throws IOException {
         this.dirToWatch = dirToWatch;
         pluginListeners = new ArrayList<>();
 

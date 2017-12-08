@@ -8,9 +8,9 @@ import java.util.List;
 /**
  * This class is the "observable" that will emit {@link PluginEvent}s to listeners
  */
-public abstract class PluginEmitter {
+public abstract class AbstractPluginEmitter {
 
-    private static final Logger logger = Logger.getLogger(PluginEmitter.class.getSimpleName());
+    private static final Logger logger = Logger.getLogger(AbstractPluginEmitter.class.getSimpleName());
 
     protected List<PluginListener> pluginListeners;
 

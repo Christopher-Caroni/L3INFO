@@ -1,6 +1,9 @@
-package fil.coo.model.plugins;
+package fil.coo.model.plugins.impl;
 
 import fil.coo.FileEvent;
+import fil.coo.model.plugins.AbstractPluginEmitter;
+import fil.coo.model.plugins.AbstractPluginEmitterTest;
+import fil.coo.model.plugins.impl.PluginSupplier;
 import org.junit.Before;
 import org.junit.Test;
 import plugin.Plugin;
@@ -11,21 +14,24 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.junit.Assert.assertThat;
 
-public abstract class AbstractPluginSupplierTest {
+public class PluginSupplierTest extends AbstractPluginEmitterTest {
 
     public static final String CESAR_CODE = "CesarCode";
     public static final String CESAR_CODE_CLASS = CESAR_CODE + ".class";
     public static final String PLUGIN_PACKAGE = "plugin.";
 
 
-    protected AbstractPluginSupplier pluginSupplier;
+    protected PluginSupplier pluginSupplier;
 
     @Before
     public void setupSupplier() throws IOException {
-        this.pluginSupplier = getPluginSupplier("repository");
+        this.pluginSupplier = new PluginSupplier("repository");
     }
 
-    protected abstract AbstractPluginSupplier getPluginSupplier(String repository) throws IOException;
+    @Override
+    protected AbstractPluginEmitter getPluginEmitter(String dirToWatch) throws IOException {
+        return new PluginSupplier(dirToWatch);
+    }
 
     @Test
     public void testGetPluginClassReturnsGoodInstance() {
@@ -54,5 +60,4 @@ public abstract class AbstractPluginSupplierTest {
 
         assertThat(result, is(expectedName));
     }
-
 }

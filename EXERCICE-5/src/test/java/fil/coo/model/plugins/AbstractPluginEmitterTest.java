@@ -5,26 +5,28 @@ import org.junit.Before;
 import org.junit.Test;
 import plugin.Plugin;
 
+import java.io.IOException;
+
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.nullValue;
 
-public abstract class PluginEmitterTest {
+public abstract class AbstractPluginEmitterTest {
 
-    private static final Logger logger = Logger.getLogger(PluginEmitterTest.class.getSimpleName());
+    private static final Logger logger = Logger.getLogger(AbstractPluginEmitterTest.class.getSimpleName());
 
-    protected PluginEmitter pluginEmitter;
+    protected AbstractPluginEmitter pluginEmitter;
     private MockPluginListener mockPluginListener;
 
     @Before
-    public void setup() throws Exception {
+    public void setup() throws IOException {
         pluginEmitter = getPluginEmitter("repository");
         mockPluginListener = new MockPluginListener();
 
         pluginEmitter.addPluginListener(mockPluginListener);
     }
 
-    protected abstract PluginEmitter getPluginEmitter(String dirToWatch) throws Exception;
+    protected abstract AbstractPluginEmitter getPluginEmitter(String dirToWatch) throws IOException;
 
     @Test
     public void testAddListener() {
