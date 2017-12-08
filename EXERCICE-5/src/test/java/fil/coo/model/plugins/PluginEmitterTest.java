@@ -18,7 +18,7 @@ public abstract class PluginEmitterTest {
 
     @Before
     public void setup() throws Exception {
-        pluginEmitter = getPluginEmitter("resources");
+        pluginEmitter = getPluginEmitter("repository");
         mockPluginListener = new MockPluginListener();
 
         pluginEmitter.addPluginListener(mockPluginListener);

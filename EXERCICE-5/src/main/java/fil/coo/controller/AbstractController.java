@@ -21,10 +21,13 @@ public abstract class AbstractController {
         this.view.setController(this);
     }
 
-    public void onPluginRequest(int pluginIndex) {
-        logger.debug("Got request for plugin: " + pluginIndex);
+    public void onPluginRequest(String pluginID) {
+        logger.debug("Got request for plugin: " + pluginID);
 
-        String result = model.applyPlugin(pluginIndex, view.getText());
+        String original = view.getText();
+        logger.debug("Original text is: \"" + original + "\"");
+
+        String result = model.applyPlugin(pluginID, original);
         logger.debug("Result of transformation: " + result);
 
         view.updateText(result);
@@ -39,11 +42,19 @@ public abstract class AbstractController {
         this.view = view;
     }
 
-    public void notifyPluginAdded(Plugin plugin) {
-        if (plugin.getLabel() == null) {
-            throw new RuntimeException("Cannot add a plugin with a null label");
+    public void notifyPluginAdded(String pluginID, Plugin plugin) {
+        if (pluginID == null || pluginID.equals("")) {
+            throw new RuntimeException("Cannot add a plugin with a bad ID");
         }
 
-        this.view.addPlugin(plugin.getLabel());
+        this.view.addPlugin(pluginID, plugin.getLabel());
+    }
+
+    public void notifyPluginRemoved(String pluginID)
+    {
+        if (pluginID == null || pluginID.equals("")) {
+            throw new RuntimeException("Cannot remove a plugin with a bad ID");
+        }
+        this.view.removePlugin(pluginID);
     }
 }

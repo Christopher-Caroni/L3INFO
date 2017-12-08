@@ -7,8 +7,6 @@ import fil.coo.model.plugins.PluginEvent;
 import fil.coo.model.plugins.impl.SimpleModel;
 import fil.coo.view.AbstractView;
 import fil.coo.view.impl.EditorFrame;
-import org.apache.log4j.Level;
-import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 import java.io.IOException;
@@ -27,7 +25,7 @@ public class App {
         } catch (IOException | IllegalArgumentException e) {
             logger.info("Error in specified repository");
             logger.info("Usage: java -jar XXX.jar <repository>");
-            logger.info("!! The repository directory must be in the classpath for the plugins to be instanciated");
+            logger.info("!! The repository directory must be in the classpath for the plugins to be instantiated");
             System.exit(1);
         }
         AbstractView editor = new EditorFrame();

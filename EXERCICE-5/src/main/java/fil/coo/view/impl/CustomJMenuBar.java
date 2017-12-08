@@ -49,20 +49,42 @@ public class CustomJMenuBar extends JMenuBar {
         menuHelp = new JMenu("Help");
     }
 
-    public void addPlugin(String label) {
+    public void addPlugin(String pluginID, String label) {
         if (label == null) {
             throw new RuntimeException("Cannot add a plugin with a null label");
         }
-        logger.debug("Adding plugin with label " + label);
+        logger.debug("Adding plugin with label: \"" + label + "\"");
 
-        CustomJMenuItem pluginMenuItem = new CustomJMenuItem(label);
+        CustomJMenuItem pluginMenuItem = new CustomJMenuItem(label, pluginID);
         itemsMenu.add(pluginMenuItem);
 
-        pluginMenuItem.addActionListener(actionEvent -> this.controller.onPluginRequest(itemsMenu.size() - 1));
+        pluginMenuItem.addActionListener(actionEvent -> this.controller.onPluginRequest(pluginID));
         menuTools.add(pluginMenuItem);
     }
 
     public void setController(AbstractController controller) {
         this.controller = controller;
+    }
+
+    public void removePlugin(String pluginID) {
+        int pluginIndex = getPluginIndexFromID(pluginID);
+        if (pluginIndex == -1) {
+            throw new RuntimeException("Cannot remove plugin because does not exist");
+        }
+
+        String labelRemoved = itemsMenu.get(pluginIndex).getText();
+        menuTools.remove(itemsMenu.get(pluginIndex));
+        itemsMenu.remove(pluginIndex);
+        logger.debug("Removed plugin with label: \"" + labelRemoved + "\"");
+    }
+
+    private int getPluginIndexFromID(String pluginID) {
+        for (int i = 0; i < itemsMenu.size(); i++) {
+            CustomJMenuItem item = itemsMenu.get(i);
+            if (item.getID().equalsIgnoreCase(pluginID)) {
+                return i;
+            }
+        }
+        return -1;
     }
 }

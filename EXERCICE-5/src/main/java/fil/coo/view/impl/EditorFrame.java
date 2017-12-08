@@ -85,17 +85,25 @@ public class EditorFrame extends AbstractView {
     }
 
     @Override
-    public void addPlugin(String label) {
-        if (label == null) {
-            throw new RuntimeException("Cannot add a plugin with a null label");
+    public void addPlugin(String pluginID, String label) {
+        if (pluginID == null || pluginID.equals("") || label == null) {
+            throw new RuntimeException("Cannot remove a plugin with bad ID or bad label");
         }
 
-        menuBar.addPlugin(label);
+        menuBar.addPlugin(pluginID, label);
     }
 
     @Override
     public void setController(AbstractController controller) {
         super.setController(controller);
         this.menuBar.setController(controller);
+    }
+
+    @Override
+    public void removePlugin(String pluginID) {
+        if (pluginID == null || pluginID.equals("")) {
+            throw new RuntimeException("Cannot remove a plugin with bad ID");
+        }
+        this.menuBar.removePlugin(pluginID);
     }
 }
