@@ -1,4 +1,4 @@
-package fil.coo.view.impl;
+package fil.coo.view;
 
 import fil.coo.controller.AbstractController;
 import org.apache.log4j.Logger;

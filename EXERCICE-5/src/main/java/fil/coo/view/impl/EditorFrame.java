@@ -2,6 +2,7 @@ package fil.coo.view.impl;
 
 import fil.coo.controller.AbstractController;
 import fil.coo.view.AbstractView;
+import fil.coo.view.CustomJMenuBar;
 
 import javax.swing.*;
 import java.awt.*;

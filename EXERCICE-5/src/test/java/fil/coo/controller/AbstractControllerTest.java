@@ -45,5 +45,7 @@ public abstract class AbstractControllerTest {
         assertThat(view.getText(), is(MOCK_PLUGIN_RESULT));
     }
 
+    // TODO test all methods
+
 
 }

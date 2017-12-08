@@ -37,5 +37,7 @@ public abstract class AbstractModelTest {
         assertThat(mockController.onPluginAddedCounter, is(1));
     }
 
+    // TODO test all methods
+
 
 }
