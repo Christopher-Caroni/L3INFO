@@ -1,5 +1,6 @@
 package fil.coo.controller;
 
+import fil.coo.exception.PluginNotFoundException;
 import fil.coo.model.AbstractModel;
 import fil.coo.view.AbstractView;
 import org.apache.log4j.Logger;
@@ -27,7 +28,13 @@ public abstract class AbstractController {
         String original = view.getText();
         logger.debug("Original text is: \"" + original + "\"");
 
-        String result = model.applyPlugin(pluginID, original);
+        String result = null;
+        try {
+            result = model.applyPlugin(pluginID, original);
+        } catch (PluginNotFoundException e) {
+            logger.debug(e.getMessage());
+        }
+
         logger.debug("Result of transformation: " + result);
 
         view.updateText(result);

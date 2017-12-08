@@ -31,8 +31,11 @@ public abstract class AbstractModel implements PluginListener {
         pluginSupplier.start();
     }
 
-    public String applyPlugin(String pluginID, String source) {
+    public String applyPlugin(String pluginID, String source) throws PluginNotFoundException {
         Plugin plugin = pluginMap.get(pluginID);
+        if (plugin == null) {
+            throw new PluginNotFoundException("Cannot apply non-existent plugin");
+        }
         logger.debug("Applying plugin: " + plugin.getLabel());
 
         return plugin.transform(source);
