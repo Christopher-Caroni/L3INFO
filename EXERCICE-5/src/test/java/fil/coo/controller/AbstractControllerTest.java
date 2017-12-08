@@ -18,6 +18,8 @@ import static org.hamcrest.Matchers.not;
 
 public abstract class AbstractControllerTest {
 
+    protected static final Class<MockPlugin> MOCK_PLUGIN_CLASS = MockPlugin.class;
+
 
     protected MockModel model;
     protected MockView view;
@@ -34,18 +36,61 @@ public abstract class AbstractControllerTest {
 
     protected abstract AbstractController getController(AbstractModel model, AbstractView view);
 
+    protected MockPlugin getMockPluginInstance() throws IllegalAccessException, InstantiationException {
+        return MOCK_PLUGIN_CLASS.newInstance();
+    }
+
     @Test
     public void testOnPluginRequestReturnsCorrectPluginEffect() {
         this.model.onPluginAdded(new PluginEvent(MockPlugin.class));
-        assertThat(view.lastPluginID, not(""));
+        assertThat(view.lastAddedOrDeletedID, not(""));
 
         assertThat(view.getText(), is(""));
 
-        controller.onPluginRequest(view.lastPluginID);
+        controller.onPluginRequest(view.lastAddedOrDeletedID);
         assertThat(view.getText(), is(MOCK_PLUGIN_RESULT));
     }
 
-    // TODO test all methods
+    @Test
+    public void testOnPluginRequestDoesNothingWhenPluginDoesNotExist() {
+        assertThat(view.getText(), is(""));
 
+        controller.onPluginRequest(view.lastAddedOrDeletedID);
+        assertThat(view.getText(), is(""));
+    }
+
+    @Test
+    public void testNotifyPluginAddedCallsView() throws InstantiationException, IllegalAccessException {
+        String dummyID = "dummy";
+        controller.notifyPluginAdded(dummyID, getMockPluginInstance());
+        assertThat(view.lastAddedOrDeletedID, is(dummyID));
+    }
+
+    @Test(expected = RuntimeException.class)
+    public void testNotifyPluginAddedThrowsWithNullID() throws InstantiationException, IllegalAccessException {
+        controller.notifyPluginAdded(null, getMockPluginInstance());
+    }
+
+    @Test(expected = RuntimeException.class)
+    public void testNotifyPluginAddedThrowsWithEmptyID() throws InstantiationException, IllegalAccessException {
+        controller.notifyPluginAdded("", getMockPluginInstance());
+    }
+
+    @Test
+    public void testNotifyPluginRemovedCallsView() {
+        String dummyID = "dummy";
+        controller.notifyPluginRemoved(dummyID);
+        assertThat(view.lastAddedOrDeletedID, is(dummyID));
+    }
+
+    @Test(expected = RuntimeException.class)
+    public void testNotifyPluginRemovedThrowsWithNullID() {
+        controller.notifyPluginRemoved(null);
+    }
+
+    @Test(expected = RuntimeException.class)
+    public void testNotifyPluginRemovedThrowsWithEmptyID() {
+        controller.notifyPluginRemoved("");
+    }
 
 }

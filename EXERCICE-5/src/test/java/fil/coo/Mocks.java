@@ -74,13 +74,13 @@ public class Mocks {
 
     public static class MockView extends AbstractView {
 
-        public String lastPluginID;
+        public String lastAddedOrDeletedID;
 
         String contentText;
 
         public MockView() {
             contentText = "";
-            lastPluginID = "";
+            lastAddedOrDeletedID = "";
         }
 
         @Override
@@ -100,12 +100,12 @@ public class Mocks {
 
         @Override
         public void addPlugin(String pluginID, String label) {
-            lastPluginID = pluginID;
+            lastAddedOrDeletedID = pluginID;
         }
 
         @Override
         public void removePlugin(String pluginID) {
-            lastPluginID = "";
+            lastAddedOrDeletedID = pluginID;
         }
 
         @Override

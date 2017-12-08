@@ -33,20 +33,12 @@ public abstract class AbstractController {
             result = model.getPluginTransformation(pluginID, original);
         } catch (PluginNotFoundException e) {
             logger.debug(e.getMessage());
+            return;
         }
 
         logger.debug("Result of transformation: " + result);
 
         view.updateText(result);
-    }
-
-
-    public void setModel(AbstractModel model) {
-        this.model = model;
-    }
-
-    public void setView(AbstractView view) {
-        this.view = view;
     }
 
     public void notifyPluginAdded(String pluginID, Plugin plugin) {
