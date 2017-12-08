@@ -8,6 +8,7 @@ import org.junit.Test;
 import plugin.Plugin;
 
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.is;
 
 public abstract class AbstractModelTest {
 
