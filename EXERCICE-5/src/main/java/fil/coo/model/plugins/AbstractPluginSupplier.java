@@ -4,7 +4,6 @@ import fil.coo.FileChecker;
 import fil.coo.FileEvent;
 import fil.coo.FileListener;
 import fil.coo.PluginFilter;
-import fil.coo.files.CustomFileChecker;
 import org.apache.log4j.Logger;
 import plugin.Plugin;
 
@@ -40,7 +39,7 @@ public class AbstractPluginSupplier extends PluginEmitter implements FileListene
         this.dirToWatch = dirToWatch;
         pluginListeners = new ArrayList<>();
 
-        fileChecker = new CustomFileChecker(dirToWatch, new PluginFilter());
+        fileChecker = new FileChecker(dirToWatch, new PluginFilter());
         fileChecker.addFileListener(this);
     }
 
