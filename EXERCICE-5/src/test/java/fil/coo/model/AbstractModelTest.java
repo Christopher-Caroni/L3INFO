@@ -28,14 +28,68 @@ public abstract class AbstractModelTest {
     public abstract AbstractModel getSpecificModel(String repository) throws IOException;
 
     @Test
-    public void testAddPlugin() {
+    public void testOnPluginAddedNotifiesController() {
         assertThat(mockController.totalPlugin, is(0));
         assertThat(mockController.onPluginAddedCounter, is(0));
+        assertThat(mockController.onPluginRemovedCounter, is(0));
 
         model.onPluginAdded(new PluginEvent(MockPlugin.class));
         assertThat(mockController.totalPlugin, is(1));
         assertThat(mockController.onPluginAddedCounter, is(1));
+        assertThat(mockController.onPluginRemovedCounter, is(0));
     }
+
+    @Test
+    public void testOnPluginAddedDoesNothingWhenAlreadyExists() {
+        // setup
+        assertThat(mockController.totalPlugin, is(0));
+        assertThat(mockController.onPluginAddedCounter, is(0));
+        assertThat(mockController.onPluginRemovedCounter, is(0));
+
+        model.onPluginAdded(new PluginEvent(MockPlugin.class));
+        assertThat(mockController.totalPlugin, is(1));
+        assertThat(mockController.onPluginAddedCounter, is(1));
+        assertThat(mockController.onPluginRemovedCounter, is(0));
+
+        // add again and assert not notified
+        model.onPluginAdded(new PluginEvent(MockPlugin.class));
+        assertThat(mockController.totalPlugin, is(1));
+        assertThat(mockController.onPluginAddedCounter, is(1));
+        assertThat(mockController.onPluginRemovedCounter, is(0));
+    }
+
+    @Test
+    public void testOnPluginRemovedNotifiesController() {
+        // setup
+        assertThat(mockController.totalPlugin, is(0));
+        assertThat(mockController.onPluginAddedCounter, is(0));
+        assertThat(mockController.onPluginRemovedCounter, is(0));
+
+        model.onPluginAdded(new PluginEvent(MockPlugin.class));
+        assertThat(mockController.totalPlugin, is(1));
+        assertThat(mockController.onPluginAddedCounter, is(1));
+        assertThat(mockController.onPluginRemovedCounter, is(0));
+
+        // actual test
+        model.onPluginRemoved(new PluginEvent(MockPlugin.class));
+        assertThat(mockController.totalPlugin, is(0));
+        assertThat(mockController.onPluginAddedCounter, is(1));
+        assertThat(mockController.onPluginRemovedCounter, is(1));
+    }
+
+    @Test
+    public void testOnPluginRemovedDoesNothingWhenPluginNotInitiallyAdded() {
+        // setup
+        assertThat(mockController.totalPlugin, is(0));
+        assertThat(mockController.onPluginAddedCounter, is(0));
+        assertThat(mockController.onPluginRemovedCounter, is(0));
+
+        model.onPluginRemoved(new PluginEvent(MockPlugin.class));
+        assertThat(mockController.totalPlugin, is(0));
+        assertThat(mockController.onPluginAddedCounter, is(0));
+        assertThat(mockController.onPluginRemovedCounter, is(0));
+    }
+
 
     // TODO test all methods
 

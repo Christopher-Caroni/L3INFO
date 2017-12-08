@@ -30,7 +30,7 @@ public abstract class AbstractController {
 
         String result = null;
         try {
-            result = model.applyPlugin(pluginID, original);
+            result = model.getPluginTransformation(pluginID, original);
         } catch (PluginNotFoundException e) {
             logger.debug(e.getMessage());
         }
