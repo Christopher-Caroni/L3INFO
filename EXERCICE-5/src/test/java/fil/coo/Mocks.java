@@ -8,6 +8,8 @@ import fil.coo.view.AbstractView;
 import plugin.Plugin;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Mocks {
 
@@ -104,6 +106,11 @@ public class Mocks {
         @Override
         public void removePlugin(String pluginID) {
             lastPluginID = "";
+        }
+
+        @Override
+        protected List<String> getCurrentPluginIDs() {
+            return new ArrayList<>();
         }
     }
 

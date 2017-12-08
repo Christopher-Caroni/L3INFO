@@ -2,6 +2,8 @@ package fil.coo.view;
 
 import fil.coo.controller.AbstractController;
 
+import java.util.List;
+
 public abstract class AbstractView {
 
 
@@ -24,9 +26,15 @@ public abstract class AbstractView {
 
     public abstract void addPlugin(String pluginID, String label);
 
+    public abstract void removePlugin(String pluginID);
+
+    protected abstract List<String> getCurrentPluginIDs();
+
     public void setController(AbstractController controller) {
         this.controller = controller;
     }
 
-    public abstract void removePlugin(String pluginID);
+    protected AbstractController getController() {
+        return controller;
+    }
 }

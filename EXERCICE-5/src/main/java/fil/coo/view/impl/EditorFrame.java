@@ -6,6 +6,8 @@ import fil.coo.view.CustomJMenuBar;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class EditorFrame extends AbstractView {
 
@@ -17,8 +19,11 @@ public class EditorFrame extends AbstractView {
     private JScrollPane mainPanel;
     private JTextArea textArea;
 
+    private List<String> currentPlugins;
+
     public EditorFrame() {
         super();
+        this.currentPlugins = new ArrayList<>();
 
         rootFrame = new JFrame();
         setBasicProperties();
@@ -41,7 +46,6 @@ public class EditorFrame extends AbstractView {
 
     /**
      * Sets up the whole panel hierarchy
-     *
      */
     private void setupRootPanel() {
         setupJMenuBar();
@@ -92,6 +96,7 @@ public class EditorFrame extends AbstractView {
         }
 
         menuBar.addPlugin(pluginID, label);
+        this.currentPlugins.add(pluginID);
     }
 
     @Override
@@ -106,5 +111,11 @@ public class EditorFrame extends AbstractView {
             throw new RuntimeException("Cannot remove a plugin with bad ID");
         }
         this.menuBar.removePlugin(pluginID);
+        currentPlugins.remove(pluginID);
+    }
+
+    @Override
+    protected List<String> getCurrentPluginIDs() {
+        return currentPlugins;
     }
 }

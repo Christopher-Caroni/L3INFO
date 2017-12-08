@@ -11,6 +11,4 @@ public class EditorFrameTest extends AbstractViewTest {
         return new EditorFrame();
     }
 
-    // TODO test all methods
-
 }
