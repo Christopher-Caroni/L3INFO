@@ -1,5 +1,7 @@
 package fil.coo.model.plugins;
 
+import fil.coo.Mocks.MockPlugin;
+import fil.coo.Mocks.MockPluginListener;
 import org.apache.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
@@ -104,49 +106,6 @@ public abstract class AbstractPluginEmitterTest {
         pluginEmitter.firePluginAdded(MockPlugin.class);
         assertThat(mockPluginListener.onPluginAddedCounter, is(0));
         assertThat(mockPluginListener.onPluginRemovedCounter, is(1));
-    }
-
-    protected static class MockPluginListener implements PluginListener {
-
-        public int onPluginAddedCounter;
-        public int onPluginRemovedCounter;
-        public PluginEvent lastEvent;
-
-        public MockPluginListener() {
-            onPluginAddedCounter = 0;
-            onPluginRemovedCounter = 0;
-            lastEvent = null;
-        }
-
-        @Override
-        public void onPluginAdded(PluginEvent pluginEvent) {
-            onPluginAddedCounter++;
-            this.lastEvent = pluginEvent;
-        }
-
-        @Override
-        public void onPluginRemoved(PluginEvent pluginEvent) {
-            onPluginRemovedCounter++;
-            this.lastEvent = pluginEvent;
-        }
-    }
-
-    protected static class MockPlugin implements Plugin {
-
-        @Override
-        public String transform(String source) {
-            return null;
-        }
-
-        @Override
-        public String getLabel() {
-            return null;
-        }
-
-        @Override
-        public String helpMessage() {
-            return null;
-        }
     }
 
 }

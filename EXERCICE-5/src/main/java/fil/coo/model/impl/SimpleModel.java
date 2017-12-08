@@ -1,4 +1,4 @@
-package fil.coo.model.plugins.impl;
+package fil.coo.model.impl;
 
 import fil.coo.model.AbstractModel;
 
