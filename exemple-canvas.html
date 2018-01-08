@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
+
+<head>
+	<meta charset="UTF-8"/>
+	<title>exemple pour canvas</title>
+	<meta name="author" content="JC Routier"/>
+	<meta name="keywords" content="canvas"/>
+
+    <link rel="stylesheet" type="text/css" href="style/style-canvas.css"/>
+
+</head>
+
+<body>
+
+    <canvas id="dessin" width="600" height="400">
+        texte qui apparaît si le navigateur ne sait pas afficher le canvas
+    </canvas>
+
+    <script>
+        var myCanvas = document.getElementById("dessin");
+        var context = myCanvas.getContext("2d");
+
+        context.fillRect(20,80,500,100);
+
+        var timolImg = new Image();
+        timolImg.src = "images/timoleon.jpg";
+        context.drawImage(timolImg,300,20);
+
+        context.fillStyle = "rgb(200,200,255)";
+				context.fillRect(40, 200, 100, 100);
+
+        // context.clearRect(340,40,80,80);
+
+				// context.clearRect(0, 0, myCanvas.width, myCanvas.height);
+    </script>
+
+</body>
+
+</html>
