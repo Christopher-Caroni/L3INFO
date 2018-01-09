@@ -14,23 +14,18 @@ ImageSlider.prototype.init = function(){
   this.myCanvas.width = this.img1.width;
   this.myCanvas.height = this.img1.height;
 
-
   this.position = this.myCanvas.width/2;
   this.dessine();
 
   this.context.fillStyle = "rgb(255,0,0)";
-
-
   this.context.fillRect(this.position,0,5,this.myCanvas.height);
+
   this.myCanvas.addEventListener("keydown",keyAction);
 }
 
 ImageSlider.prototype.dessine = function(){
-
-    //void ctx.drawImage(image, sx, sy, sLargeur, sHauteur, dx, dy, dLargeur, dHauteur);
-
-    this.context.drawImage(this.img1, 0, 0, this.img1.width, this.img1.height);
-    this.context.drawImage(this.img2, this.position, 0, this.img2.width, this.img2.height);
+    this.context.drawImage(this.img1, 0, 0, this.position, this.img1.height, 0,0, this.img1.width-this.position, this.img1.height);
+    this.context.drawImage(this.img2, this.position, 0, this.img2.width, this.img2.height, this.position,0, this.img2.width, this.img2.height);
 }
 
 ImageSlider.prototype.initImages = function(imgAvant, imgApres){
