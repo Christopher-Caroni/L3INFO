@@ -1,0 +1,71 @@
+Auteur1: Lepretre Guillaume
+Auteur2 : Christopher Caroni
+
+Les différentes création de tables:
+
+create table articles(
+  aid serial,
+  anom text,
+  acoul text,
+  PRIMARY KEY (aid)
+);
+
+create table fournisseurs(
+  fid serial,
+  fnom text,
+  fad text,
+  PRIMARY KEY (fid)
+);
+
+create table catalogue(
+  fid integer,
+  aid integer,
+  prix real,
+  CONSTRAINT pk_catalogue PRIMARY KEY (fid, aid),
+  CONSTRAINT fk_fournisseurs FOREIGN KEY (fid)
+    REFERENCES fournisseurs(fid)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+    CONSTRAINT fk_articles FOREIGN KEY (aid)
+      REFERENCES articles(aid)
+      ON DELETE CASCADE
+      ON UPDATE CASCADE
+);
+
+Exercice 1
+Q1.1
+Lors de la remplissage des tables de boutique, les insertions dans la table "catalogue" étaient placées
+avant celles de la table "fournisseurs". Ceci violait les contraintes de la table car les insertions
+auraient référencées des 'fid's non existants.
+
+Q1.2
+"select * from information_schema.table_constraints;" permet de voir toutes les contraintes de toutes les
+tables. Ainsi, nous voyons les contraintes de clés primaires et étrangères de nos tables.
+*/
+
+-- Q1.3
+-- On a pas défini de valeur maximale pour les prix.
+
+-- Q1.4
+INSERT INTO articles VALUES (1, 'test insert', 'red');
+/*
+Cette requête déclenche l'erreur suivante:
+ERREUR:  la valeur d'une clé dupliquée rompt la contrainte unique « articles_pkey »
+DETAIL:  La clé « (aid)=(1) » existe déjà.
+*/
+
+-- Q1.5
+-- Il faut rajouter la contrainte 'CHECK (prix > 0)'
+INSERT INTO catalogue VALUES (2, 16, -5.0);
+/*
+Cette requête déclenche l'erreur suivante:
+ERREUR:  la nouvelle ligne viole la contrainte de vérification « catalogue » de la relation « catalogue_prix_check »
+DETAIL:  La ligne en échec contient (2, 16, -5)
+*/
+
+-- Q1.6
+DELETE FROM articles
+WHERE aid = 1;
+/*
+On ne peut pas tester l'erreur car notre table contient déja des contraintes de CASCADE
+*/

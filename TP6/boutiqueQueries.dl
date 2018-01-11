@@ -1,0 +1,81 @@
+% PARTIE 1
+% peut etre fait avec n'importe quel Datalog
+
+% Afficher les couleurs
+couleur(C) :- articles(_,_,C).
+
+
+% Selectionnner les articles rouges 
+art_rouge(Anom)
+  :- articles(Aid,Anom,Acoul),Acoul='rouge'.
+
+art_vert(Anom)
+  :- articles(Aid,Anom,'vert').
+
+% jointure
+% les articles, avec leurs couleurs fournisseurs et leurs prix
+tout(Anom,Acoul,Fnom,Prix)
+:- articles(Aid,Anom,Acoul),catalogue(Fid,Aid,Prix),fournisseurs(Fid,Fnom,_).
+
+% produit cartesien
+%  toutes les combinaisons de fournisseurs et articles possibles
+cart(Anom,Fnom) :- articles(_,Anom,Acoul), fournisseurs(_,Fnom,_).
+
+
+% intersection
+% articles existant en rouge et en vert
+
+rouge_et_vert(X) :- art_rouge(X), art_vert(X).
+
+
+% difference
+% les articles existant en rouge, mais pas en vert
+
+rouge_pas_vert(X) :- art_rouge(X), not(art_vert(X)).
+
+% union
+% les articles existant en rouge ou en vert
+
+
+rouge_ou_vert(X) :- art_rouge(X). 
+
+rouge_ou_vert(X) :-  art_vert(X).
+
+% quantification existentielle
+% articles offerts par un vendeur
+vendu(Aid) :- catalogue(_,Aid,_).
+% articls pas fournissables
+pas_fournissable(Aid) :- articles(Aid,_,_), not(vendu(Aid)).
+
+
+% PARTIE 2
+% specialites DES
+% articles par couleur
+coul(C,R) :- group_by(articles(A,N,C),
+	 [C],
+	 R=count
+	 ).
+
+% couleurs avec plus de 2 articles
+coul_2(C) :- group_by(articles(A,N,C),
+	 [C],
+	 R=count,R>2
+	 ).
+
+%
+
+
+%% 
+
+
+
+prixmoyen(Fid,Pmo) :- 
+      group_by(catalogue(Fid,Aid,P),
+      [Fid],
+      Pmo=avg(P)).
+
+combien_rouge(R):-count(articles(Aid,_,'rouge'),Aid,R).
+
+prix_moyen_fid(Fid,R) :- avg(catalogue(_,Fid,P),P,R).
+
+count(articles(Aid,_,_),Aid)
