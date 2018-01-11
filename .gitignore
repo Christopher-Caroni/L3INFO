@@ -1,0 +1,6 @@
+*~
+*.o
+*.a
+aleazard
+compteur-gc
+testing/genome*

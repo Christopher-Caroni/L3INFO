@@ -1,0 +1,50 @@
+image: commonci-fil:latest
+
+stages:
+- compteur-gc:compile
+- compteur-gc:run
+- tri-rapide:compile
+- tri-rapide:run
+
+compteur-gc:compile:
+  stage: compteur-gc:compile
+  script: make compteur-gc-ci
+  artifacts:
+    paths:
+    - compteur-gc
+
+compteur-gc:test:1:
+  stage: compteur-gc:run
+  script:
+    - "printf 'AAACCCGGGTTT' > adn"
+    - "./compteur-gc adn | head -n 2 | tee res"
+    - "cmp res <(printf 'Nombres de GC:   6\nTaux de GC:      0.500000\n')"
+  dependencies:
+  - compteur-gc:compile
+  allow_failure: true
+
+compteur-gc:test:2:
+  stage: compteur-gc:run
+  script:
+    - "printf 'C' > adn"
+    - "./compteur-gc adn | head -n 2 | tee res"
+    - "cmp res <(printf 'Nombres de GC:   1\nTaux de GC:      1.000000\n')"
+  dependencies:
+  - compteur-gc:compile
+  allow_failure: true
+
+tri-rapide:compile:
+  stage: tri-rapide:compile
+  script: make tri-rapide-ci
+  artifacts:
+    paths:
+    - tri-rapide
+
+tri-rapide:test:
+    stage: tri-rapide:run
+    script:
+      - "printf '10 1 3 -32' | ./tri-rapide -l 4 -t -a /dev/stdin | tee res"
+      - "cmp res <(printf -- '-32 1 3 10\n')"
+    dependencies:
+      - tri-rapide:compile
+    allow_failure: true
