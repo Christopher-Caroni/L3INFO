@@ -1,0 +1,12 @@
+digraph Automaton { 
+  rankdir = LR
+  0 [label="{transpose_{transpose_q2,transpose_q3,transpose_q0}}"];  1 [label="{transpose_{transpose_q1,transpose_q4}}"];  2 [label="{transpose_{transpose_q2,transpose_q3,transpose_q0},transpose_{transpose_q2,transpose_q3}}",peripheries=2];  start0 [style=invis]
+  start0 -> 0[color="black:white:black"]
+  0 -> 1 [label = "a" ]
+  0 -> 2 [label = "b" ]
+  1 -> 2 [label = "a" ]
+  1 -> 1 [label = "b" ]
+  2 -> 1 [label = "a" ]
+  2 -> 2 [label = "b" ]
+}
+
