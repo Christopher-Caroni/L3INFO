@@ -1,0 +1,105 @@
+set LEGUME circular;
+/* Les légumes suivent un cycle */
+
+set PARCELLE;
+/* Les différentes parcelles de l'exploitation de Bertrand. */
+
+param N = 6;
+/* Le nombre N d'années que l'on souhaite traiter. */
+
+set ANNEE := 1 .. N;
+/* Les différentes années dépendantes du paramètre N */
+
+param rendement_tonne_parcelle_an {LEGUME};
+/* le rendement de chaque legume en tonne/parcelle/an */
+
+param prix_vente_euro_kg {LEGUME};
+/* le prix de vente de chaque legume en euro/kg */
+
+param apport_richesse_an {LEGUME};
+/* l'apport en richesse du sol de chaque legume par an */
+
+param richesse_initiale {PARCELLE};
+/* la richesse initiale de chaque parcelle au début de la première année. */
+
+var kilos_engrais {PARCELLE} >= 0;
+/* Les engrais ne sont utilisés que la première année en plus des légumes */
+
+var minimum_richesse_parcelle;
+/* Richesse la plus basse parmis toutes les parcelles */
+
+var repartition_legume_parcelle {LEGUME, PARCELLE, ANNEE} binary;
+/*
+repartition_legume_parcelle[l,p,a]=1 si l est cultivé sur la parcelle p lors de l'année a et 0 sinon.
+*/
+
+var richesse_parcelle_annee {PARCELLE, ANNEE};
+/* Richesse des différentes parcelles par année. */
+
+var max_richesse {a in ANNEE} = sum {p in PARCELLE} richesse_parcelle_annee[p,a];
+/* La richesse de toutes les parcelles par années. */
+
+
+maximize minimum_richesse_parcelle_sixième_annee :
+	 minimum_richesse_parcelle;
+/* Maximiser la richesse la plus basse à la 6ième année */
+
+subject to engrais_max_premiere_annee :
+	sum { p in PARCELLE } kilos_engrais[p] <= 500;
+/* On ne dépasse pas 500 kilos d'engrais lors de la première année */
+
+subject to calcul_minimum_richesse_annee_six {p in PARCELLE}:
+	minimum_richesse_parcelle <= richesse_parcelle_annee[p, 6];
+/* Calcul de la richesse la plus basse lors de la sixième année. */
+
+subject to calcul_richesse_parcelle_avec_engrais { p in PARCELLE } :
+	richesse_parcelle_annee[p,1] =
+				     sum {l in LEGUME} (apport_richesse_an[l] * repartition_legume_parcelle[l,p,1]) + kilos_engrais[p] * 0.01
+				     + richesse_initiale[p];
+/* Calcul de la richesse des parcelles lors de la première année (avec utilisation d'engrais). */
+
+subject to calcul_richesse_parcelle_sans_engrais { p in PARCELLE, a in 2..N } :
+	richesse_parcelle_annee[p,a] =
+				     sum {l in LEGUME} (apport_richesse_an[l] * repartition_legume_parcelle[l,p,a]) + richesse_parcelle_annee[p, a-1];
+/* Calcul de la richesse des parcelles lors des autres années (sans utilisation d'engrais). */
+
+subject to richesse_positive {p in PARCELLE, a in ANNEE} :
+	richesse_parcelle_annee[p, a] >= 0;
+/* On verifie que la richesse de la parcelle est positive */
+
+subject to un_legume_par_parcelle {p in PARCELLE, a in ANNEE} :
+	sum{l in LEGUME} repartition_legume_parcelle[l,p,a] = 1;
+/* On s'assure qu'un seul legume est planté par parcelle lors d'une même année. */
+
+subject to chaque_type_legume_utilise_au_moins_une_fois {l in LEGUME, a in ANNEE} :
+	sum {p in PARCELLE} repartition_legume_parcelle[l,p,a] >= 1;
+/*Chaque type de légume doit être cultivé au moins une fois par année. */
+
+subject to peut_cultiver_legume_premiere_annee {p in PARCELLE, l in LEGUME} :
+	richesse_initiale[p] + apport_richesse_an[l] * repartition_legume_parcelle[l,p,1] + kilos_engrais[p]*0.01 >= 0;
+/* Verifie, pour chaque legume et chaque parcelle, s'il est possible de les cultiver lors de la première année */
+
+subject to peut_cultiver_legume_autres_annees {p in PARCELLE, l in LEGUME, a in 2..N} :
+	repartition_legume_parcelle[next(l),p,a] = repartition_legume_parcelle[l,p,a-1];
+/* Verifie, pour chaque legume et chaque parcelle, s'il esy possible de les cultiver lors des autres années */
+
+data;
+
+set LEGUME := fruits feuilles racines gousses engrais_verts;
+set PARCELLE := A B C D E F G;
+
+param : prix_vente_euro_kg apport_richesse_an rendement_tonne_parcelle_an :=
+fruits 4.3 -20.2 2.7
+feuilles 1.2 -10.1 2.6
+racines 2.7 -5.5 3.4
+gousses 3.3 3.5 0.5
+engrais_verts 0 25.8 0;
+
+param: richesse_initiale :=
+A 43.2
+B 12.1
+C 20.8
+D 16.8
+E 5.7
+F 16.3
+G 15.1;
