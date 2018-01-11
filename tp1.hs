@@ -15,3 +15,9 @@ mylast xs = xs !! ((length xs) - 1)
 myinit :: [a] -> a
 myinit [] = error "liste vide"
 myinit xs = head xs
+
+plus :: [a] -> [a] -> [a]
+plus [] [] = []
+plus [] ys = ys
+plus xs [] = xs
+plus (x:xs) (y:ys) = x : plus xs (y:ys)
