@@ -16,6 +16,10 @@ myinit :: [a] -> a
 myinit [] = error "liste vide"
 myinit xs = head xs
 
+get :: [a] -> Int -> a
+get (a:as) 0 = a
+get (a:as) b = get as (b - 1)
+
 plus :: [a] -> [a] -> [a]
 plus [] [] = []
 plus [] ys = ys
