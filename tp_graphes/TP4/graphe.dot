@@ -1,0 +1,22 @@
+graph {
+entree [color=RED]
+sortie [color=BLUE]
+11 [color=RED]
+12 [color=BLUE]
+13 [color=BLUE]
+21 [color=RED]
+22 [color=RED]
+23 [color=BLUE]
+31 [color=RED]
+32 [color=RED]
+33 [color=BLUE]
+ entree -- 11 
+ sortie -- 33 
+ 11 -- 21 
+ 21 -- 22 
+ 22 -- 32 
+ 32 -- 31 
+ 12 -- 13 
+ 13 -- 23 
+ 23 -- 33 
+}

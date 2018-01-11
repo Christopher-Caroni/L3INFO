@@ -1,0 +1,3 @@
+[submodule "ARO-DM"]
+	path = ARO-DM
+	url = https://gitlab-etu.fil.univ-lille1.fr/caroni/ARO-DM

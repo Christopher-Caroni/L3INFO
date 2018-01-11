@@ -1,0 +1,77 @@
+type = oriente;
+
+# les sommets représentent des villes.
+# A=Paris, ..., K=Lille
+# La valeur de chaque arc est le prix à payer pour 
+# emprunter le tronçon.
+
+# Bizarrement, il revient moins cher en péage de faire quelques arrêts,
+# que de faire le tronçon Paris-Lille (i.e. A-K) en une seule fois.
+# On peut vérifier cela avec les algorithmes de Bellman et Dijkstra
+sommets = A B C D E F G H I J K ;
+
+arcs = 
+     A B 1.3
+     A C 3.3
+     A D 4.2
+     A E 4.7
+     A F 7.0
+     A G 8.5
+     A H 10.2
+     A I 10.5
+     A J 12.2
+     A K 16.1
+
+     B C 1.4
+     B D 2.4
+     B E 3.3
+     B F 4.8
+     B G 6.1
+     B H 7.5
+     B I 7.5
+     B J 9.5
+     B K 12.8
+
+     C D 1.1
+     C E 1.8
+     C F 3.4
+     C G 4.6
+     C H 5.5
+     C I 6.0
+     C J 7.3
+     C K 10.6
+
+     D E 0.6
+     D F 2.0
+     D G 3.7
+     D H 4.6
+     D I 5.2
+     D J 6.0
+     D K 8.9
+
+     E F 1.3
+     E G 3.2
+     E H 4.1
+     E I 4.5
+     E J 5.9
+     E K 8.8
+
+     F G 1.5
+     F H 2.5
+     F I 3.3
+     F J 4.9
+     F K 7.4
+
+     G H 0.9
+     G I 1.5
+     G J 2.6
+     G K 5.1
+
+     H I 0.7
+     H J 1.7
+     H K 4.1
+
+     I J 1.3
+     I K 3.4
+
+     J K 1.8 ;
