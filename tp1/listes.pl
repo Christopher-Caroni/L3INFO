@@ -5,8 +5,8 @@
 
 /* Question 1 */
 
-longueur([],Y) :- Y is Y + 0.
-longueur([X|XS],Y) :-  !, Z is Y+1, longueur(XS,Y).
+longueur([],0).
+longueur([_|XS],Y) :- longueur(XS,N), Y is N + 1.
 
 /* Question 2 */
 
