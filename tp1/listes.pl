@@ -1,9 +1,12 @@
 /*
-  Prénom1 Nom1
-  Prénom2 Nom2
+  Guillaume Lepretre
+  Christopher Caroni
 */
 
 /* Question 1 */
+
+longueur([],Y) :- Y is Y + 0.
+longueur([X|XS],Y) :-  !, Z is Y+1, longueur(XS,Y).
 
 /* Question 2 */
 
@@ -48,4 +51,3 @@
 /* Question 20 */
 
 /* Question 21 */
-
