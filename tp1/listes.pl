@@ -52,6 +52,10 @@ retourne([Head|Tail], Vide, Res) :- ajoute_en_tete(Head, Vide, Ajoute) , retourn
 
 /* Question 9 */
 
+insert_trie(E, [], [E]) :- !.
+insert_trie(E, [X|XS], R) :- E =< X, !, ajoute_en_tete(E, [X|XS], R).
+insert_trie(E, [X|XS], [X|Y]) :- E > X, !, insert_trie(E, XS, Y).
+
 /* Question 10 */
 
 /* Question 11 */
