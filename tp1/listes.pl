@@ -20,6 +20,7 @@ membre(X, [Y|T]) :- X \= Y, membre(X, T).
 
 /* Question 4 */
 
+/* ajoute HEAD a la liste Tail et retourne dans [Head|Tail] */
 ajoute_en_tete(Head, Tail, [Head| Tail]).
 
 /* Question 5 */
@@ -29,8 +30,12 @@ ajoute_en_queue(Add,[Head|Tail], [Head|Newtail]) :- ajoute_en_queue(Add,Tail, Ne
 
 /* Question 6 */
 
+extraire_tete_v1([Head|Tail],Head,Tail).
+extraire_tete(Oldlist, Head, Tail) :- ajoute_en_tete(Head, Tail, Oldlist).
 
 /* Question 7 */
+
+
 
 /* Question 8 */
 
