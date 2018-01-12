@@ -10,11 +10,22 @@ longueur([_|XS],Y) :- longueur(XS,N), Y is N + 1.
 
 /* Question 2 */
 
+somme([],0).
+somme([X|XS],Y) :- somme(XS,N), Y is N + X.
+
 /* Question 3 */
+
+membre(X, [Y|T]) :- X = Y.
+membre(X, [Y|T]) :- X \= Y, membre(X, T).
 
 /* Question 4 */
 
+ajoute_en_tete(Head, Tail, [Head| Tail]).
+
 /* Question 5 */
+
+ajoute_en_queue(N,[],[N]).
+ajoute_en_queue(N,[H|T], [H|R]) :- ajoute_en_queue(N,T, R).
 
 /* Question 6 */
 
