@@ -35,10 +35,18 @@ extraire_tete(Oldlist, Head, Tail) :- ajoute_en_tete(Head, Tail, Oldlist).
 
 /* Question 7 */
 
+/* on ajoute les head de la 2eme liste a la fin de la 1ere liste jusqu'à ce qu'il se vide */
 concatene(Premier, [], Premier).
 concatene(Premier, [Head|Tail], Res) :- ajoute_en_queue(Head, Premier, Newlist), concatene(Newlist, Tail, Res).
 
 /* Question 8 */
+
+/* on ajoute les head de la 1ere liste a une nouvelle, en boucle jusqu'à la liste soit vide. Elle est
+alors renversé */
+
+retourne([], Vide, Vide).
+retourne([Head|Tail], Vide, Res) :- ajoute_en_tete(Head, Vide, Ajoute) , retourne(Tail, Ajoute, Res).
+
 
 /* Tris sur les listes */
 
