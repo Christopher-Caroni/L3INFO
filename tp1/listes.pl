@@ -35,7 +35,8 @@ extraire_tete(Oldlist, Head, Tail) :- ajoute_en_tete(Head, Tail, Oldlist).
 
 /* Question 7 */
 
-
+concatene(Premier, [], Premier).
+concatene(Premier, [Head|Tail], Res) :- ajoute_en_queue(Head, Premier, Newlist), concatene(Newlist, Tail, Res).
 
 /* Question 8 */
 
