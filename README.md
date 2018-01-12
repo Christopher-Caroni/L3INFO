@@ -1,6 +1,5 @@
 # TP de logique
 
-Prénom1 Nom1
+Leprêtre Guillaume
 
-Prénom2 Nom2
-
+Caroni Christopher
