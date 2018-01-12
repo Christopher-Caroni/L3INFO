@@ -24,10 +24,11 @@ ajoute_en_tete(Head, Tail, [Head| Tail]).
 
 /* Question 5 */
 
-ajoute_en_queue(N,[],[N]).
-ajoute_en_queue(N,[H|T], [H|R]) :- ajoute_en_queue(N,T, R).
+ajoute_en_queue(Add,[],[Add]).
+ajoute_en_queue(Add,[Head|Tail], [Head|Newtail]) :- ajoute_en_queue(Add,Tail, Newtail).
 
 /* Question 6 */
+
 
 /* Question 7 */
 
