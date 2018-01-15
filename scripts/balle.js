@@ -17,8 +17,8 @@ class Balle{
   init(){
     this.x = this.myCanvas.width/2;
     this.y = this.myCanvas.height/2;
-    this.deltaX = 1;
-    this.delatY = 1.25;
+    this.deltaX = 5;
+    this.delatY = 8;
 
   }
 
@@ -32,10 +32,10 @@ class Balle{
     this.x += this.deltaX;
     this.y += this.delatY;
 
-    if((y<0) ||(y>this.myCanvas.height)){
+    if((this.y<0) ||(this.y>this.myCanvas.height-this.imgBalle.height)){
       this.delatY = -this.delatY;
     }
-    if((x<0)||(this.x>this.myCanvas.width)){
+    if((this.x<0)||(this.x>this.myCanvas.width-this.imgBalle.width)){
       this.deltaX = -this.deltaX;
     }
   }
@@ -48,23 +48,21 @@ class Animation{
     this.start = 0;
 
     this.balle = new Balle(this.myCanvas);
-    this.raf = window.requestAnimationFrame(this.moveAndDraw);
   }
 
 
   moveAndDraw(){
-    console.log(this);
     this.balle.moveIt();
     this.balle.draw();
-    this.raf();
+    var raf = window.requestAnimationFrame(this.moveAndDraw.bind(this));
   }
 
   startAnimation(){
-     this.moveAndDraw();
+    var raf = window.requestAnimationFrame(this.moveAndDraw.bind(this));
   }
 
   cancelAnimation(){
-     window.cancelAnimationFrame(this.moveAndDraw);
+     window.cancelAnimationFrame(this.raf);
   }
 
   startOrStopBall(){

@@ -4,7 +4,7 @@ var setup = function() {
     let animation = new Animation(theCanvas);
 
     let stopStartBall = document.getElementById("stopStartBall");
-    stopStartBall.addEventListener("click", animation.startOrStopBall.bind(this));
+    stopStartBall.addEventListener("click", animation.startOrStopBall.bind(animation));
 }
 
 window.addEventListener("DOMContentLoaded",setup);
