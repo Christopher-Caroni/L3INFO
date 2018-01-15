@@ -37,6 +37,10 @@ class Balle{
       this.deltaX *= -1;
     }
   }
+
+  collisionWith(otherObstacle) {
+      return otherObstacle.isInside(this.x, this.y);
+  }
 }
 
 class Animation{
@@ -83,5 +87,48 @@ class Animation{
 
   addBall(){
     this.balles.push(new Balle(this.myCanvas));
+  }
+}
+
+class AnimationWithObstacle extends Animation {
+  constructor(aCanvas, anObstacle) {
+    super(aCanvas);
+    this.obstacle = anObstacle;
+    this.drawObstacle();
+  }
+
+  drawObstacle() {
+    this.context.fillStyle = "rgb(255,0,0)";
+    this.context.fillRect(this.obstacle.x, this.obstacle.y, this.obstacle.width, this.obstacle.height);
+  }
+
+  moveAndDraw() {
+    this.context.clearRect(0,0, this.myCanvas.width, this.myCanvas.height);
+
+    this.drawObstacle();
+
+    this.balles.forEach(
+      balle => {
+        balle.moveIt();
+        balle.draw();
+      }
+    );
+
+    this.balles = this.balles.filter(balle => !balle.collisionWith(this.obstacle));
+    this.raf = window.requestAnimationFrame(this.moveAndDraw.bind(this));
+  }
+}
+
+class Obstacle {
+
+  constructor(x,y, w, h) {
+      this.x = x;
+      this.y = y;
+      this.width = w;
+      this.height = h;
+  }
+
+  isInside(otherX, otherY) {
+    return (otherX >= this.x && otherX <= (this.x + this.width) && otherY >= this.y && otherY <= (this.y + this.height));
   }
 }
