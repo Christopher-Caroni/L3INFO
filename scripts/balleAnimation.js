@@ -8,6 +8,8 @@ var setup = function() {
 
     let addBall = document.getElementById("addBall");
     stopStartBall.addEventListener("click", animation.addBall.bind(animation));
+
+    window.addEventListener('keydown', animation.keyDownActionHandler.bind(animation));
 }
 
 window.addEventListener("DOMContentLoaded",setup);

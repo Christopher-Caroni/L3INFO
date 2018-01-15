@@ -1,3 +1,5 @@
+var MoveState = { LEFT : 0, RIGHT : 1, NONE : 2};
+
 class Balle{
   constructor(aCanvas){
     this.myCanvas = aCanvas;
@@ -105,6 +107,8 @@ class AnimationWithObstacle extends Animation {
   moveAndDraw() {
     this.context.clearRect(0,0, this.myCanvas.width, this.myCanvas.height);
 
+    this.obstacle.move(this.myCanvas);
+
     this.drawObstacle();
 
     this.balles.forEach(
@@ -116,6 +120,22 @@ class AnimationWithObstacle extends Animation {
 
     this.balles = this.balles.filter(balle => !balle.collisionWith(this.obstacle));
     this.raf = window.requestAnimationFrame(this.moveAndDraw.bind(this));
+  }
+
+  keyDownActionHandler(event) {
+  switch (event.key) {
+        case "ArrowLeft":
+        case "Left":
+          console.log("received left key");
+            this.obstacle.moveLeft();
+            break;
+        case "ArrowRight":
+        case "Right":
+            this.obstacle.moveRight();
+            break;
+        default: return;
+    }
+    event.preventDefault();
   }
 }
 
@@ -131,4 +151,26 @@ class Obstacle {
   isInside(otherX, otherY) {
     return (otherX >= this.x && otherX <= (this.x + this.width) && otherY >= this.y && otherY <= (this.y + this.height));
   }
+
+  moveLeft() {
+    this.shiftX = -10;
+    this.moving = MoveState.LEFT;
+  }
+
+  moveRight() {
+    this.shiftX = +10;
+    this.moving = MoveState.RIGHT;
+  }
+
+  move(canvas) {
+
+    if (this.moving === MoveState.LEFT) {
+        this.x = Math.max(0, this.x + this.shiftX);
+    }
+
+    if (this.moving === MoveState.RIGHT) {
+      this.x = Math.min(canvas.width - this.width, this.x + this.shiftX);
+    }
+  }
+
 }
