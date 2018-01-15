@@ -23,8 +23,6 @@ class Balle{
   }
 
   draw(){
-
-    this.context.clearRect(0,0, this.myCanvas.width, this.myCanvas.height);
     this.context.drawImage(this.imgBalle, this.x, this.y);
   }
 
@@ -33,10 +31,10 @@ class Balle{
     this.y += this.delatY;
 
     if((this.y<0) ||(this.y>this.myCanvas.height-this.imgBalle.height)){
-      this.delatY = -this.delatY;
+      this.delatY *= -1;
     }
     if((this.x<0)||(this.x>this.myCanvas.width-this.imgBalle.width)){
-      this.deltaX = -this.deltaX;
+      this.deltaX *= -1;
     }
   }
 }
@@ -47,18 +45,26 @@ class Animation{
     this.context = aCanvas.getContext("2d");
     this.start = 0;
 
-    this.balle = new Balle(this.myCanvas);
-  }
+    this.balles = Array();
+    this.raf = undefined;
+    }
 
 
   moveAndDraw(){
-    this.balle.moveIt();
-    this.balle.draw();
-    var raf = window.requestAnimationFrame(this.moveAndDraw.bind(this));
+
+    this.context.clearRect(0,0, this.myCanvas.width, this.myCanvas.height);
+    this.balles.forEach(
+      balle => {
+        balle.moveIt();
+        balle.draw();
+      }
+    );
+    this.raf = window.requestAnimationFrame(this.moveAndDraw.bind(this));
+
   }
 
   startAnimation(){
-    var raf = window.requestAnimationFrame(this.moveAndDraw.bind(this));
+    this.raf = window.requestAnimationFrame(this.moveAndDraw.bind(this));
   }
 
   cancelAnimation(){
@@ -66,12 +72,16 @@ class Animation{
   }
 
   startOrStopBall(){
-    if(this.start){
+    if(this.start===1){
       this.cancelAnimation();
       this.start = 0;
     }else {
       this.startAnimation();
       this.start = 1;
     }
+  }
+
+  addBall(){
+    this.balles.push(new Balle(this.myCanvas));
   }
 }
