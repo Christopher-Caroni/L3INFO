@@ -1,3 +1,4 @@
+
 var setup = function() {
     let theCanvas = document.getElementById("terrain");
     let animation = new Animation(theCanvas);

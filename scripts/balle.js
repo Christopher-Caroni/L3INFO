@@ -2,7 +2,7 @@ class Balle{
   constructor(aCanvas){
     this.myCanvas = aCanvas;
     this.context = aCanvas.getContext("2d");
-    initBalle();
+    this.initBalle();
   }
 
   initBalle(){
@@ -28,7 +28,7 @@ class Balle{
     this.context.drawImage(this.imgBalle, this.x, this.y);
   }
 
-  move(){
+  moveIt(){
     this.x += this.deltaX;
     this.y += this.delatY;
 
@@ -37,6 +37,43 @@ class Balle{
     }
     if((x<0)||(this.x>this.myCanvas.width)){
       this.deltaX = -this.deltaX;
+    }
+  }
+}
+
+class Animation{
+  constructor(aCanvas){
+    this.myCanvas = aCanvas;
+    this.context = aCanvas.getContext("2d");
+    this.start = 0;
+
+    this.balle = new Balle(this.myCanvas);
+    this.raf = window.requestAnimationFrame(this.moveAndDraw);
+  }
+
+
+  moveAndDraw(){
+    console.log(this);
+    this.balle.moveIt();
+    this.balle.draw();
+    this.raf();
+  }
+
+  startAnimation(){
+     this.moveAndDraw();
+  }
+
+  cancelAnimation(){
+     window.cancelAnimationFrame(this.moveAndDraw);
+  }
+
+  startOrStopBall(){
+    if(this.start){
+      this.cancelAnimation();
+      this.start = 0;
+    }else {
+      this.startAnimation();
+      this.start = 1;
     }
   }
 }
