@@ -1,26 +1,23 @@
 var MoveState = { LEFT : 0, RIGHT : 1, NONE : 2};
 
+var alea = function(n){
+  let signe = Math.round(Math.random());
+  return signe ? Math.floor(Math.random()*Math.floor(n))+1 : Math.floor(Math.random()*Math.floor(n))-1;
+}
 class Balle{
   constructor(aCanvas){
     this.myCanvas = aCanvas;
-    this.context = aCanvas.getContext("2d");
-    this.initBalle();
-  }
-
-  initBalle(){
-
-    this.imgBalle = new Image();
-    this.imgBalle.src = "images/balle.png";
-
-    this.imgBalle.addEventListener("load", this.init.bind(this));
-
+    this.init();
   }
 
   init(){
+    this.context = this.myCanvas.getContext("2d");
+    this.imgBalle = new Image();
+    this.imgBalle.src = "images/balle.png";
     this.x = this.myCanvas.width/2;
     this.y = this.myCanvas.height/2;
-    this.deltaX = 5;
-    this.delatY = 8;
+    this.deltaX = alea(5);
+    this.delatY = alea(5);
 
   }
 
@@ -49,7 +46,7 @@ class Animation{
   constructor(aCanvas){
     this.myCanvas = aCanvas;
     this.context = aCanvas.getContext("2d");
-    this.start = 0;
+    this.start = false;
 
     this.balles = Array();
     this.raf = undefined;
@@ -78,12 +75,12 @@ class Animation{
   }
 
   startOrStopBall(){
-    if(this.start===1){
+    if(this.start){
       this.cancelAnimation();
-      this.start = 0;
+      this.start = false;
     }else {
       this.startAnimation();
-      this.start = 1;
+      this.start = true;
     }
   }
 
