@@ -48,8 +48,5 @@ q9 fct x i = (q9 fct x (i-1)) ++ [(fctN fct x (i-1))]
 q9Iterate :: (a -> a) -> a -> Int -> [a]
 q9Iterate fct x i = take i (iterate fct x)
 
-increment :: Int -> Int
-increment x = x + 1
-
 q10 :: Int -> [Int]
-q10 n = q10 increment 0 (n+1)
+q10 n = q9 (\x -> x+1) 0 n
