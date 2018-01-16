@@ -11,8 +11,8 @@ dragonAnime a b t = Line (dragon a b !! (round t `mod` 20))
 
 pasDragon :: Path -> Path
 pasDragon [] = []
-pasDragon [xa] = [xa] -- cas d'arret n impair element n >= 3
-pasDragon [xa, xb] = xa : pointAintercaler xa xb : [xb] -- cas d'arret n pair element n >= 3
+pasDragon [xa] = [xa]
+pasDragon [xa, xb] = xa : pointAintercaler xa xb : [xb]
 pasDragon (xa : xb : xc : xs) =
     xa : pointAintercaler xa xb : xb : pointAintercaler xc xb : pasDragon (xc:xs)
 
