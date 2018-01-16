@@ -37,5 +37,19 @@ q8 :: [a] -> Int
 q8 [] = 0
 q8 xs = somme (map (\x -> 1) xs)
 
---q9 :: (a -> a) -> a -> Int
---q9 f x 0 = f x
+fctN :: (a -> a) -> a -> Int -> a
+fctN _ x 0 = x
+fctN fct x i = fctN fct (fct x) (i-1)
+
+q9 :: (a -> a) -> a -> Int -> [a]
+q9 _ _ 0 = []
+q9 fct x i = (q9 fct x (i-1)) ++ [(fctN fct x (i-1))]
+
+q9Iterate :: (a -> a) -> a -> Int -> [a]
+q9Iterate fct x i = take i (iterate fct x)
+
+increment :: Int -> Int
+increment x = x + 1
+
+q10 :: Int -> [Int]
+q10 n = q10 increment 0 (n+1)
