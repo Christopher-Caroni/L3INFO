@@ -33,12 +33,9 @@ mymap :: (a->b) -> [a] -> [b]
 mymap _ [] = []
 mymap f (x:xs) = f x : (mymap f xs)
 
-transformOne :: a -> Int
-transformOne _ = 1
-
 q8 :: [a] -> Int
 q8 [] = 0
-q8 xs = somme (mymap transformOne xs)
+q8 xs = somme (map (\x -> 1) xs)
 
-q9 :: (a -> a) -> a -> Int
-q9 f x 0 = f x
+--q9 :: (a -> a) -> a -> Int
+--q9 f x 0 = f x
