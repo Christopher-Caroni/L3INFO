@@ -16,12 +16,29 @@ myinit :: [a] -> a
 myinit [] = error "liste vide"
 myinit xs = head xs
 
-get :: [a] -> Int -> a
-get (a:as) 0 = a
-get (a:as) b = get as (b - 1)
+myget :: [a] -> Int -> a
+myget (a:as) 0 = a
+myget (a:as) b = myget as (b - 1)
 
-plus :: [a] -> [a] -> [a]
-plus [] [] = []
-plus [] ys = ys
-plus xs [] = xs
-plus (x:xs) (y:ys) = x : plus xs (y:ys)
+myplus :: [a] -> [a] -> [a]
+myplus [] l = l
+myplus l [] = l
+myplus (x:xs) (y:ys) = x : myplus xs (y:ys)
+
+myconcat :: [[a]] -> [a]
+myconcat [] = []
+myconcat (xs : xss) = myplus xs (myconcat xss)
+
+mymap :: (a->b) -> [a] -> [b]
+mymap _ [] = []
+mymap f (x:xs) = f x : (mymap f xs)
+
+transformOne :: a -> Int
+transformOne _ = 1
+
+q8 :: [a] -> Int
+q8 [] = 0
+q8 xs = somme (mymap transformOne xs)
+
+q9 :: (a -> a) -> a -> Int
+q9 f x 0 = f x
