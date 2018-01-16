@@ -1,3 +1,5 @@
+import Graphics.Gloss
+
 alterne :: [a] -> [a]
 alterne [] = []
 alterne [x] = [x]
@@ -15,3 +17,6 @@ pasPascal l = [1] ++ zipWith (+) (tail l) (init l) ++ [1]
 
 pascal :: [[Int]]
 pascal = iterate pasPascal []
+
+pointAintercaler :: Point -> Point -> Point
+pointAintercaler (xA,yA) (xB,yB) = Point( (xA + xB)/2 + (yB − yA)/2, (yA + yB)/2 + (xA − xB)/2 )
