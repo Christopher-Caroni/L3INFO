@@ -94,8 +94,14 @@ tri_rapide([X|XS], R) :- balance(X, XS, R1, R2),
 /* Opérations de base sur les ensembles */
 
 /* Question 16 */
+/* retourne vrai si et seulement si l'ensemble passé en argument est vide. */
+est_vide([]).
 
 /* Question 17 */
+/* ajoute un élément à un ensemble. L'élément n'est ajouté que s'il n'est pas déjà dans l'ensemble. */
+ajoute_ensemble(INS, [], [INS]) :- !.
+ajoute_ensemble(INS, [INS|YS], [INS|YS]) :- !.
+ajoute_ensemble(INS, [Y|YS], [Y|R]) :- ajoute_ensemble(INS, YS, R).
 
 /* Question 18 */
 
