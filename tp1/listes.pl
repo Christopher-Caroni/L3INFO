@@ -58,6 +58,9 @@ insert_trie(E, [X|XS], [X|Y]) :- E > X, !, insert_trie(E, XS, Y).
 
 /* Question 10 */
 
+tri_insert([], []) :- !.
+tri_insert([X | L1], R) :- tri_insert(L1, T), insert_trie(X, T, R).
+
 /* Question 11 */
 
 /* Question 12 */
