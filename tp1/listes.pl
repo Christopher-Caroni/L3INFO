@@ -85,6 +85,11 @@ balance(X, [Y|YS], [Y|R1], R2) :- Y < X, !, balance(X, YS, R1, R2).
 balance(X, [Y|YS], R1, [Y|R2]) :- Y >= X, !, balance(X, YS, R1, R2).
 
 /* Question 15 */
+/* trie une liste à l'aide de l'algorithme de tri rapide. */
+tri_rapide([], []) :- !.
+tri_rapide([X|XS], R) :- balance(X, XS, R1, R2),
+                          tri_rapide(R1, LT1), tri_rapide(R2, LT2),
+                          concatene(LT1, [X], RES), concatene(RES, LT2, R).
 
 /* Opérations de base sur les ensembles */
 
