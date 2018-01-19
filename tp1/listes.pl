@@ -104,9 +104,26 @@ ajoute_ensemble(INS, [INS|YS], [INS|YS]) :- !.
 ajoute_ensemble(INS, [Y|YS], [Y|R]) :- ajoute_ensemble(INS, YS, R).
 
 /* Question 18 */
+/* retourne vrai si et seulement si le premier ensemble est un sous-ensemble du second. */
+sous_ensemble([], _).
+sous_ensemble([X|XS], R) :- membre(X, R), !, sous_ensemble(XS, R).
 
 /* Question 19 */
+/* retourne l'union de deux ensembles. */
+union([], R, R) :- !.
+union(R, [], R) :- !.
+union([X|XS], Y, R) :- ajoute_ensemble(X, Y, Z) , union(XS, Z, R).
 
 /* Question 20 */
+/* retourne l'intersection de deux ensembles. */
+intersect([], _, []) :- !.
+intersect(_, [], []) :- !.
+intersect([X|XS], YS, [X|R]) :- membre(X, YS), !, intersect(XS, YS, R).
+intersect([_|XS], YS, R) :- intersect(XS, YS, R).
 
 /* Question 21 */
+/* retourne la différence de deux ensembles. */
+diff([], _, []) :- !.
+diff(_, [], []) :- !.
+diff([X|XS], YS, [X|R]) :- not(membre(X, YS)), !, diff(XS, YS, R).
+diff([_|XS], YS, R) :- diff(XS, YS, R).
