@@ -64,6 +64,7 @@ tri_insert([], []) :- !.
 tri_insert([X | L1], R) :- tri_insert(L1, T), insert_trie(X, T, R).
 
 /* Question 11 */
+/* divise une liste en deux parties égales (à un élément près) */
 
 /* Question 12 */
 
