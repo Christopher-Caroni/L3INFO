@@ -52,18 +52,20 @@ retourne([Head|Tail], Vide, Res) :- ajoute_en_tete(Head, Vide, Ajoute) , retourn
 
 /* Question 9 */
 
-/* insère un élément dans une liste à la bonne place.*/
 insert_trie(E, [], [E]) :- !.
 insert_trie(E, [X|XS], R) :- E =< X, !, ajoute_en_tete(E, [X|XS], R).
 insert_trie(E, [X|XS], [X|Y]) :- E > X, !, insert_trie(E, XS, Y).
 
 /* Question 10 */
 
-/* trie une liste en utilisant le prédicat de la question précédente. */
 tri_insert([], []) :- !.
 tri_insert([X | L1], R) :- tri_insert(L1, T), insert_trie(X, T, R).
 
 /* Question 11 */
+
+divise([], [], []).
+divise([X], [X], []).
+divise([X1,X2|XS], [X1|Y], [X2|Z]) :- divise(XS, Y, Z).
 
 /* Question 12 */
 
