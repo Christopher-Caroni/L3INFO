@@ -75,6 +75,8 @@ fusion(X, [], X).
 fusion(X, [Y|YS], R) :- insert_trie(Y, X, T), fusion(T, YS, R).
 
 /* Question 13 */
+/* trie une liste avec l'algorithme de tri fusion */
+tri_fusion(X, L) :- divise(X, Y, Z), tri_insert(Y, YRES), tri_insert(Z, ZRES), fusion(YRES, ZRES, L).
 
 /* Question 14 */
 
