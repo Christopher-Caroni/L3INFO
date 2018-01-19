@@ -22,6 +22,7 @@ printline([X|XS]):- !, write("| "), printline(XS).
 print([]).
 print([X|XS]):- printline(X), print(XS).
 /* Question 3 */
+bonnelongueur(X,Y):- length(X,Y).
 
 /* Question 4 */
 
