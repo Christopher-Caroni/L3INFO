@@ -51,6 +51,7 @@ retourne([Head|Tail], Vide, Res) :- ajoute_en_tete(Head, Vide, Ajoute) , retourn
 /* Tris sur les listes */
 
 /* Question 9 */
+/* insère un élément dans une liste à la bonne place. */
 
 insert_trie(E, [], [E]) :- !.
 insert_trie(E, [X|XS], R) :- E =< X, !, ajoute_en_tete(E, [X|XS], R).
@@ -69,6 +70,9 @@ divise([X], [X], []).
 divise([X1,X2|XS], [X1|Y], [X2|Z]) :- divise(XS, Y, Z).
 
 /* Question 12 */
+/* fusionne deux listes, en conservant l'ordre des éléments. */
+fusion(X, [], X).
+fusion(X, [Y|YS], R) :- insert_trie(Y, X, T), fusion(T, YS, R).
 
 /* Question 13 */
 
