@@ -25,6 +25,8 @@ print([X|XS]):- printline(X), print(XS).
 bonnelongueur(X,Y):- length(X,Y).
 
 /* Question 4 */
+bonnetaille([],_):- !.
+bonnetaille([X|XS],Y):- !, bonnelongueur(X,Y), bonnetaille(XS,Y).
 
 ?- use_module(library(clpfd)).
 
