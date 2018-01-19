@@ -1,6 +1,6 @@
-/*
-  Prénom1 Nom1
-  Prénom2 Nom2
+ /*
+  Guillaume Lepretre
+  Christopher Caroni
 */
 
 grille([[_,_,_,_,_,_,_,_,_],
@@ -14,9 +14,13 @@ grille([[_,_,_,_,_,_,_,_,_],
         [_,_,_,_,4,_,_,_,9]]).
 
 /* Question 1 */
+printline([]):- writeln('|').
+printline([X|XS]):- integer(X), !, write("|"), write(X), printline(XS).
+printline([X|XS]):- !, write("| "), printline(XS).
 
 /* Question 2 */
-
+print([]).
+print([X|XS]):- printline(X), print(XS).
 /* Question 3 */
 
 /* Question 4 */
@@ -36,5 +40,3 @@ grille([[_,_,_,_,_,_,_,_,_],
 /* Question 10 */
 
 /* Question 11 */
-
-
