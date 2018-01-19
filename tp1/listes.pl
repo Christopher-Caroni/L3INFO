@@ -79,6 +79,10 @@ fusion(X, [Y|YS], R) :- insert_trie(Y, X, T), fusion(T, YS, R).
 tri_fusion(X, L) :- divise(X, Y, Z), tri_insert(Y, YRES), tri_insert(Z, ZRES), fusion(YRES, ZRES, L).
 
 /* Question 14 */
+/* étant donné un élément et une liste produit deux listes, l'une contenant les élément plus grands et l'autre contenant les éléments plus petits. */
+balance(_, [], [], []) :- !.
+balance(X, [Y|YS], [Y|R1], R2) :- Y < X, !, balance(X, YS, R1, R2).
+balance(X, [Y|YS], R1, [Y|R2]) :- Y >= X, !, balance(X, YS, R1, R2).
 
 /* Question 15 */
 
