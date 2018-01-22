@@ -7,7 +7,7 @@ var setup = function() {
     stopStartBall.addEventListener("click", animation.startOrStopBall.bind(animation));
 
     let addBall = document.getElementById("addBall");
-    stopStartBall.addEventListener("click", animation.addBall.bind(animation));
+    addBall.addEventListener("click", animation.addBall.bind(animation));
 
     window.addEventListener('keydown', animation.keyDownActionHandler.bind(animation));
 }
