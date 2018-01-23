@@ -16,4 +16,29 @@ type Config = (EtatTortue -- État initial de la tortue
 
 
 etatInitial :: Config -> EtatTortue
-etatInitial (a,_,_,_,_) = a
+etatInitial (x,_,_,_,_) = x
+
+longueurPas :: Config -> Float
+etatInitial (_,x,_,_,_) = x
+
+facteurEchelle :: Config -> Float
+etatInitial (_,_,x,_,_) = x
+
+angle :: Config -> Float
+etatInitial (_,_,_,x,_) = x
+
+symbolesTortue :: Config -> [Symbole]
+etatInitial (_,_,_,_,x) = x
+
+avance :: Config -> EtatTortue -> EtatTortue
+avance conf ((x,y),a) = ((x',y'),a)
+  where x' = x + (longueurPas conf) * (cos a)
+        y' = y + (longueurPas conf) * (sin a)
+
+tourneAGauche :: Config -> EtatTortue -> EtatTortue
+tourneAGauche conf (_,cap) = (_,cap')
+  where cap' = cap + (angle conf)
+
+tourneADroite :: Config -> EtatTortue -> EtatTortue
+tourneADroite conf (_,cap) = (_,cap')
+    where cap' = cap - (angle conf)
