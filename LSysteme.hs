@@ -30,3 +30,6 @@ motSuivant' = concatMap
 
 --une liste en compréhension.
 --motSuivant'' :: Regles -> Mot -> Mot
+
+lsysteme :: Axiome -> Regles -> LSysteme
+lsysteme a r = iterate (motSuivant r) a
