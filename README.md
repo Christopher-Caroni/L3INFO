@@ -1,7 +1,7 @@
 #   Premiers contacts
 
 Ce dépôt correspond aux deux premières séances de TP de PF.
-
+Binome : Caroni Christopher et Leprêtre Guillaume
 
 ##  Instructions pour rendre votre travail avec gitlab
 
