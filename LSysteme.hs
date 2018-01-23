@@ -23,8 +23,10 @@ vonKoch 'F' = regleVonKoch
 vonKoch _ = fail ""
 -- fin Definiton
 
---une fonction bien choisie du Prelude,
---motSuivant' :: Regles -> Mot -> Mot
+--une fonction bien choisie du Prelude
+-- map tous les elements puis concatene
+motSuivant' :: Regles -> Mot -> Mot
+motSuivant' = concatMap
 
 --une liste en compréhension.
 --motSuivant'' :: Regles -> Mot -> Mot
