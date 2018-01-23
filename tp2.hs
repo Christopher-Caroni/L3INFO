@@ -1,3 +1,6 @@
+-- auteur :  Leprêtre Guillaume et Caroni Christopher
+--TP 2 : Deuxieme contact avec Haskell
+
 import Graphics.Gloss
 
 alterne :: [a] -> [a]
