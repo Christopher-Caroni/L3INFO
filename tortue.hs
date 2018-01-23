@@ -55,9 +55,15 @@ interpreteSymbole conf (etat, path) s = (etat', path ++ [fst etat'])
                 | s == '-'  = tourneADroite conf etat
                 | otherwise = error "wrong symbol"
 
-intermediareMot :: EtatDessin -> Mot -> EtatDessin
-intermediareMot etat [x] = interpreteSymbole etat x
-intermediareMot etat (x:xs) = intermediareMot (interpreteSymbole etat x) xs
+intermediareMot :: Config -> EtatDessin -> Mot -> EtatDessin
+intermediareMot conf etat [x] = interpreteSymbole conf etat x
+intermediareMot conf etat (x:xs) = intermediareMot conf (interpreteSymbole conf etat x) xs
 
 interpreteMot :: Config -> Mot -> Picture
-interpreteMot conf mot =  line snd intermediareMot ((etatInitial conf),[]) mot
+interpreteMot conf mot =  line snd intermediareMot conf ((etatInitial conf),[]) mot
+
+dessin :: Picture
+dessin = interpreteMot (((-150,0),0),100,1,pi/3,"F+-") "F+F--F+F"
+
+main :: IO()
+main = display (InWindow "L-système" (1000, 1000) (0, 0)) white dessin
