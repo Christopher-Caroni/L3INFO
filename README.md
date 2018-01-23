@@ -1,6 +1,7 @@
 #   Le L-système et la Tortue
 
 Ce dépôt correspond au TP de PF « Le L-système et la Tortue ».
+<p>Binome : Caroni Christopher et Leprêtre Guillaume </p>
 
 
 ##  Instructions pour rendre votre travail avec gitlab
