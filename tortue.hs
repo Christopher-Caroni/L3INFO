@@ -56,7 +56,6 @@ interpreteSymbole conf (etat, path) s = (etat', path ++ [fst etat'])
                 | otherwise = error "wrong symbol"
 
 intermediareMot :: EtatDessin -> Mot -> EtatDessin
-intermediareMot 
 
 interpreteMot :: Config -> Mot -> Picture
 interpreteMot conf mot =
