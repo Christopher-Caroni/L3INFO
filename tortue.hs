@@ -60,4 +60,4 @@ intermediareMot etat [x] = interpreteSymbole etat x
 intermediareMot etat (x:xs) = intermediareMot (interpreteSymbole etat x) xs
 
 interpreteMot :: Config -> Mot -> Picture
-interpreteMot conf mot =
+interpreteMot conf mot =  line snd intermediareMot ((etatInitial conf),[]) mot
