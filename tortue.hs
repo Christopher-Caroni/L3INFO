@@ -1,3 +1,5 @@
+-- auteur :  Leprêtre Guillaume et Caroni Christopher
+
 module Tortue where
 
 import Graphics.Gloss
@@ -42,3 +44,19 @@ tourneAGauche conf (_,cap) = (_,cap')
 tourneADroite :: Config -> EtatTortue -> EtatTortue
 tourneADroite conf (_,cap) = (_,cap')
     where cap' = cap - (angle conf)
+
+filtreSymbolesTortue :: Config -> Mot -> Mot
+filtreSymbolesTortue conf = filter(`elem` symbolesTortue conf)
+
+interpreteSymbole :: Config -> EtatDessin -> Symbole -> EtatDessin
+interpreteSymbole conf (etat, path) s = (etat', path ++ [fst etat'])
+    where etat' | s == 'F'  = avance conf etat
+                | s == '+'  = tourneAGauche conf etat
+                | s == '-'  = tourneADroite conf etat
+                | otherwise = error "wrong symbol"
+
+intermediareMot :: EtatDessin -> Mot -> EtatDessin
+intermediareMot 
+
+interpreteMot :: Config -> Mot -> Picture
+interpreteMot conf mot =
