@@ -38,6 +38,9 @@ verifie([]).
 verifie([X|L]) :- verifier(X), all_distinct(X), verifie(L).
 
 /* Question 6 */
+eclate([], RES, RES) :- !.
+eclate([X | XS], [], [[X] | RES]) :- !, eclate(XS, [], RES).
+eclate([X | XS], [Y | YS], [INS | RES]) :- !, eclate(XS, YS, RES), INS = [X | Y].
 
 /* Question 7 */
 
