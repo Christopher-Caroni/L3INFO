@@ -43,6 +43,8 @@ eclate([X | XS], [], [[X] | RES]) :- !, eclate(XS, [], RES).
 eclate([X | XS], [Y | YS], [INS | RES]) :- !, eclate(XS, YS, RES), INS = [X | Y].
 
 /* Question 7 */
+transp([], []) :- !.
+transp([X|XS], RES) :- transp(XS, NOUV), eclate(X, NOUV, RES).
 
 /* Question 8 */
 
