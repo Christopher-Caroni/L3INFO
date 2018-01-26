@@ -31,6 +31,11 @@ bonnetaille([X|XS],Y):- !, bonnelongueur(X,Y), bonnetaille(XS,Y).
 ?- use_module(library(clpfd)).
 
 /* Question 5 */
+verifier([]).
+verifier([X | L]) :- X >= 1, X =< 9, verifier(L).
+
+verifie([]).
+verifie([X|L]) :- verifier(X), all_distinct(X), verifie(L).
 
 /* Question 6 */
 
