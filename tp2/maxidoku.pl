@@ -1,6 +1,6 @@
 /*
-  Prénom1 Nom1
-  Prénom2 Nom2
+  Guillaume Lepretre
+  Christopher Caroni
 */
 
 grillehex([[b,2,_,7,_,_,_,f,6,e,_,_,_,3,_,d],
@@ -20,4 +20,3 @@ grillehex([[b,2,_,7,_,_,_,f,6,e,_,_,_,3,_,d],
           [f,_,4,b,_,_,_,_,_,3,_,d,1,_,_,_],
 																			             [5,_,d,_,_,_,f,e,9,_,_,_,2,_,b,4]]).
 /* Question 13 */
-
