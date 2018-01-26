@@ -1,7 +1,6 @@
 /*
-  Prénom1 Nom1
-  Prénom2 Nom2
+  Guillaume Lepretre
+  Christopher Caroni
 */
 
 /* Question 14 */
-

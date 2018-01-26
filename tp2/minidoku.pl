@@ -1,6 +1,6 @@
 /*
-  Prénom1 Nom1
-  Prénom2 Nom2
+  Guillaume Lepretre
+  Christopher Caroni
 */
 
 grillehex([[2,_,_,3],
@@ -9,4 +9,3 @@ grillehex([[2,_,_,3],
           [1,_,_,_]]).
 
 /* Question 12 */
-
