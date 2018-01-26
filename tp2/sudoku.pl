@@ -52,6 +52,8 @@ decoupe([Xa,Xb,Xc],[Ya,Yb,Yc],[Za,Zb,Zc], [Xa,Xb,Xc,Ya,Yb,Yc,Za,Zb,Zc]) :- !.
 decoupe([Xa,Xb,Xc|XS], [Ya,Yb,Yc|YS], [Za,Zb,Zc|ZS], [[Xa,Xb,Xc,Ya,Yb,Yc,Za,Zb,Zc]|RS]) :- !, decoupe(XS,YS,ZS,RS).
 
 /* Question 9 */
+carres([],_) :- !.
+carres([X,Y,Z], L) :- decoupe(X,Y,Z, L).
 
 /* Question 10 */
 
