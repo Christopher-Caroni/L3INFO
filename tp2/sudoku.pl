@@ -47,6 +47,9 @@ transp([], []) :- !.
 transp([X|XS], RES) :- transp(XS, NOUV), eclate(X, NOUV, RES).
 
 /* Question 8 */
+decoupe([], [], [], []) :- !.
+decoupe([Xa,Xb,Xc],[Ya,Yb,Yc],[Za,Zb,Zc], [Xa,Xb,Xc,Ya,Yb,Yc,Za,Zb,Zc]) :- !.
+decoupe([Xa,Xb,Xc|XS], [Ya,Yb,Yc|YS], [Za,Zb,Zc|ZS], [[Xa,Xb,Xc,Ya,Yb,Yc,Za,Zb,Zc]|RS]) :- !, decoupe(XS,YS,ZS,RS).
 
 /* Question 9 */
 
