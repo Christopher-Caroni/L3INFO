@@ -16,6 +16,8 @@ export default class Game {
 
         this.init();
         this.firstDraw = true;
+
+        this.scoreSpan = undefined;
     }
 
 
@@ -33,6 +35,7 @@ export default class Game {
 
     removeSaucer(saucer) {
         this.saucers = this.saucers.filter(e => e !== saucer);
+        this.updateScoreOnLostSaucer();
     }
 
     removeShoot(shoot) {
@@ -45,10 +48,12 @@ export default class Game {
 
     loseSaucer() {
         this.score -= 1000;
+        this.updateScoreSpan();
     }
 
-    shootDownSaucer() {
+    updateScoreOnSaucerShotDown() {
         this.score += 200;
+        this.updateScoreSpan();
     }
 
     animate() {
@@ -100,4 +105,11 @@ export default class Game {
     }
 
 
+    setHTMLScore(scoreSpan) {
+        this.scoreSpan = scoreSpan;
+    }
+
+    updateScoreSpan() {
+        this.scoreSpan.innerHTML = this.score;
+    }
 }
