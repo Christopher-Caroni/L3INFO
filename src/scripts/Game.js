@@ -1,5 +1,6 @@
 import Starship from './Starship.js';
 import Saucer from './Saucer.js';
+import Shoot from "./Shoot";
 
 
 export default class Game {
@@ -14,7 +15,6 @@ export default class Game {
         this.shoots = []
         this.score = 0;
 
-        this.init();
         this.firstDraw = true;
 
         this.scoreSpan = undefined;
@@ -26,7 +26,6 @@ export default class Game {
         let y = Math.floor(Math.random() * this.myCanvas.height);
 
         this.saucers.push(new Saucer(this.myCanvas, x, y, this));
-        console.log("added saucer");
     }
 
     infiniteSaucers() {
@@ -36,6 +35,13 @@ export default class Game {
     removeSaucer(saucer) {
         this.saucers = this.saucers.filter(e => e !== saucer);
         this.updateScoreOnLostSaucer();
+    }
+
+    addShoot() {
+        let x = this.starship.x;
+        let y = this.starship.y;
+
+        this.shoots.push(new Shoot(this.myCanvas, x, y, this));
     }
 
     removeShoot(shoot) {
@@ -70,10 +76,20 @@ export default class Game {
             singleSaucer.draw();
         }
 
+        for(let singleShoot of this.shoots){
+            singleShoot.move();
+            singleShoot.draw();
+        }
+
         this.raf = window.requestAnimationFrame(this.animate.bind(this));
     }
 
     keyDownActionHandler(event) {
+        if(event.keyCode === 32){
+            this.addShoot();
+            console.log("shoot");
+        }
+
         switch (event.key) {
             case "ArrowUp":
             case "Up":
@@ -86,11 +102,13 @@ export default class Game {
             default:
                 return;
         }
+
         event.preventDefault();
     }
 
 
     keyUpActionHandler(event) {
+
         switch (event.key) {
             case "ArrowUp":
             case "Up":
@@ -103,7 +121,6 @@ export default class Game {
         }
         event.preventDefault();
     }
-
 
     setHTMLScore(scoreSpan) {
         this.scoreSpan = scoreSpan;
