@@ -8,19 +8,16 @@ export default class Game {
         this.raf = undefined;
         this.context = this.myCanvas.getContext('2d');
 
-        this.starship = undefined;
+        this.starship = new Starship(this.myCanvas, 40, this.myCanvas.height / 2);
+
         this.saucers = [];
+        this.shoots = []
         this.score = 0;
 
         this.init();
         this.firstDraw = true;
     }
 
-    init() {
-        this.starship = new Starship(this.myCanvas, 40, this.myCanvas.height / 2);
-        this.saucers = [];
-        this.score = 0;
-    }
 
     addSaucer() {
         let x = this.myCanvas.width;
@@ -31,11 +28,15 @@ export default class Game {
     }
 
     infiniteSaucers() {
-        // nothing
+        // TODO
     }
 
     removeSaucer(saucer) {
         this.saucers = this.saucers.filter(e => e !== saucer);
+    }
+
+    removeShoot(shoot) {
+        this.shoots = this.shoots.filter(e => e !== shoot);
     }
 
     setScore(updatedScore) {
