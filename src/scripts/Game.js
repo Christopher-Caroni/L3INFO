@@ -52,7 +52,7 @@ export default class Game {
         this.score = updatedScore;
     }
 
-    loseSaucer() {
+    updateScoreOnLostSaucer() {
         this.score -= 1000;
         this.updateScoreSpan();
     }
