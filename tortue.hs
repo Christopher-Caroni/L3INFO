@@ -22,16 +22,16 @@ etatInitial :: Config -> EtatTortue
 etatInitial (x,_,_,_,_) = x
 
 longueurPas :: Config -> Float
-etatInitial (_,x,_,_,_) = x
+longueurPas (_,x,_,_,_) = x
 
 facteurEchelle :: Config -> Float
-etatInitial (_,_,x,_,_) = x
+facteurEchelle (_,_,x,_,_) = x
 
 angle :: Config -> Float
-etatInitial (_,_,_,x,_) = x
+angle (_,_,_,x,_) = x
 
 symbolesTortue :: Config -> [Symbole]
-etatInitial (_,_,_,_,x) = x
+symbolesTortue (_,_,_,_,x) = x
 
 avance :: Config -> EtatTortue -> EtatTortue
 avance conf ((x,y),a) = ((x',y'),a)
@@ -39,11 +39,11 @@ avance conf ((x,y),a) = ((x',y'),a)
         y' = y + (longueurPas conf) * (sin a)
 
 tourneAGauche :: Config -> EtatTortue -> EtatTortue
-tourneAGauche conf (_,cap) = (_,cap')
+tourneAGauche conf (point, cap) = (point, cap')
   where cap' = cap + (angle conf)
 
 tourneADroite :: Config -> EtatTortue -> EtatTortue
-tourneADroite conf (_,cap) = (_,cap')
+tourneADroite conf (point, cap) = (point, cap')
     where cap' = cap - (angle conf)
 
 filtreSymbolesTortue :: Config -> Mot -> Mot
