@@ -8,6 +8,7 @@ import LSysteme
 
 type EtatTortue = (Point, Float)
 
+-- l’état de la tortue et le chemin qu’elle a parcouru jusqu’à maintenant
 type EtatDessin = (EtatTortue, Path)
 
 type Config = (EtatTortue -- État initial de la tortue
@@ -48,6 +49,7 @@ tourneADroite conf (_,cap) = (_,cap')
 filtreSymbolesTortue :: Config -> Mot -> Mot
 filtreSymbolesTortue conf = filter(`elem` symbolesTortue conf)
 
+-- calcule le nouvel état atteint par l’exécution de l’ordre correspondant au symbole donné en partant de l’état donné
 interpreteSymbole :: Config -> EtatDessin -> Symbole -> EtatDessin
 interpreteSymbole conf (etat, path) s = (etat', path ++ [fst etat'])
     where etat' | s == 'F'  = avance conf etat
@@ -55,9 +57,8 @@ interpreteSymbole conf (etat, path) s = (etat', path ++ [fst etat'])
                 | s == '-'  = tourneADroite conf etat
                 | otherwise = error "wrong symbol"
 
-intermediareMot :: EtatDessin -> Mot -> EtatDessin
-intermediareMot etat [x] = interpreteSymbole etat x
-intermediareMot etat (x:xs) = intermediareMot (interpreteSymbole etat x) xs
-
 interpreteMot :: Config -> Mot -> Picture
-interpreteMot conf mot =  line snd intermediareMot ((etatInitial conf),[]) mot
+interpreteMot conf mot = line (snd (foldl (interpreteSymbole conf) firstEtat motsReconnus))
+    where firstPoint = fst (etatInitial conf)
+          firstEtat = (etatInitial conf, [firstPoint])
+          motsReconnus = filtreSymbolesTortue conf mot
