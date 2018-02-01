@@ -32,10 +32,10 @@ export default class Game {
     infiniteSaucers() {
         this.infiniteSaucer = !this.infiniteSaucer;
 
-        if(this.infiniteSaucer){
+        if (this.infiniteSaucer) {
             this.intervalSaucer = window.setTimeout(this.addSaucer(), 750);
             console.log("infinite saucer on");
-        }else{
+        } else {
             console.log("infinite saucer off");
             clearInterval(this.intervalSaucer);
         }
@@ -78,6 +78,7 @@ export default class Game {
     updateScoreSpan() {
         this.scoreSpan.innerHTML = this.score;
     }
+
     animate() {
         this.context.clearRect(0, 0, this.myCanvas.width, this.myCanvas.height);
 
@@ -92,16 +93,23 @@ export default class Game {
             singleSaucer.draw();
         }
 
-        for(let singleShoot of this.shoots){
+        for (let singleShoot of this.shoots) {
             singleShoot.move();
             singleShoot.draw();
         }
+        let x;
+        let y;
+        this.shoots.forEach(shoot => {
+            x = shoot.x;
+            y = shoot.y;
+            this.saucers = this.saucers.filter(saucer => !saucer.collisionWith(x, y, this));
+        });
 
         this.raf = window.requestAnimationFrame(this.animate.bind(this));
     }
 
     keyDownActionHandler(event) {
-        if(event.keyCode === 32){
+        if (event.keyCode === 32) {
             this.addShoot();
             console.log("shoot");
         }
