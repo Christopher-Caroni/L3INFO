@@ -16,7 +16,8 @@ export default class Game {
         this.score = 0;
 
         this.firstDraw = true;
-
+        this.infiniteSaucer = false;
+        this.intervalSaucer = undefined;
         this.scoreSpan = undefined;
     }
 
@@ -29,7 +30,15 @@ export default class Game {
     }
 
     infiniteSaucers() {
-        // TODO
+        this.infiniteSaucer = !this.infiniteSaucer;
+
+        if(this.infiniteSaucer){
+            this.intervalSaucer = window.setTimeout(this.addSaucer(), 750);
+            console.log("infinite saucer on");
+        }else{
+            console.log("infinite saucer off");
+            clearInterval(this.intervalSaucer);
+        }
     }
 
     removeSaucer(saucer) {
@@ -62,6 +71,13 @@ export default class Game {
         this.updateScoreSpan();
     }
 
+    setHTMLScore(scoreSpan) {
+        this.scoreSpan = scoreSpan;
+    }
+
+    updateScoreSpan() {
+        this.scoreSpan.innerHTML = this.score;
+    }
     animate() {
         this.context.clearRect(0, 0, this.myCanvas.width, this.myCanvas.height);
 
@@ -120,13 +136,5 @@ export default class Game {
                 return;
         }
         event.preventDefault();
-    }
-
-    setHTMLScore(scoreSpan) {
-        this.scoreSpan = scoreSpan;
-    }
-
-    updateScoreSpan() {
-        this.scoreSpan.innerHTML = this.score;
     }
 }
