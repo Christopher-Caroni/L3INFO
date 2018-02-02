@@ -68,8 +68,11 @@ export default class Game {
 
     rambo() {
         this.ramboActivated = !this.ramboActivated;
-        this.starshipUp = new SmallStarship(this.myCanvas, this.starship.x, this.starship.y - 30);
-        this.starshipDown = new SmallStarship(this.myCanvas, this.starship.x, this.starship.y + 30 + (this.starship.imgMobile.height / 2));
+        let upOffset = -30;
+        let downOffset = 30 + (this.starship.imgMobile.height / 2);
+
+        this.starshipUp = new SmallStarship(this.myCanvas, this.starship.x, this.starship.y, upOffset);
+        this.starshipDown = new SmallStarship(this.myCanvas, this.starship.x, this.starship.y, downOffset);
     }
 
     removeShoot(shoot) {
