@@ -12,7 +12,7 @@ export default class Game {
         this.starship = new Starship(this.myCanvas, 40, this.myCanvas.height / 2);
 
         this.saucers = [];
-        this.shoots = []
+        this.bullets = [];
         this.score = 0;
 
         this.firstDraw = true;
@@ -24,7 +24,7 @@ export default class Game {
 
     addSaucer() {
         let x = this.myCanvas.width;
-        let y = Math.floor(Math.random() * this.myCanvas.height);
+        let y = Math.floor(Math.random() * (this.myCanvas.height - 40));
 
         this.saucers.push(new Saucer(this.myCanvas, x, y, this));
     }
@@ -34,9 +34,7 @@ export default class Game {
 
         if (this.infiniteSaucer) {
             this.intervalSaucer = window.setInterval(() => this.addSaucer(), 750);
-            console.log("infinite saucer on");
         } else {
-            console.log("infinite saucer off");
             clearInterval(this.intervalSaucer);
         }
     }
@@ -46,19 +44,15 @@ export default class Game {
         this.updateScoreOnLostSaucer();
     }
 
-    addShoot() {
+    addBullet() {
         let x = this.starship.x;
         let y = this.starship.y;
 
-        this.shoots.push(new Shoot(this.myCanvas, x, y, this));
+        this.bullets.push(new Shoot(this.myCanvas, x, y, this));
     }
 
     removeShoot(shoot) {
-        this.shoots = this.shoots.filter(e => e !== shoot);
-    }
-
-    setScore(updatedScore) {
-        this.score = updatedScore;
+        this.bullets = this.bullets.filter(e => e !== shoot);
     }
 
     updateScoreOnLostSaucer() {
@@ -88,17 +82,17 @@ export default class Game {
         }
         this.starship.draw();
 
-        for (let singleSaucer of this.saucers) {
+        this.saucers.forEach(singleSaucer => {
             singleSaucer.move();
             singleSaucer.draw();
-        }
+        });
 
-        for (let singleShoot of this.shoots) {
-            singleShoot.move();
-            singleShoot.draw();
-        }
+        this.bullets.forEach(singleBullet => {
+            singleBullet.move();
+            singleBullet.draw();
+        });
 
-        this.shoots.forEach(shoot => {
+        this.bullets.forEach(shoot => {
             this.saucers = this.saucers.filter(saucer => !saucer.collisionWith(shoot, this));
         });
 
@@ -107,8 +101,7 @@ export default class Game {
 
     keyDownActionHandler(event) {
         if (event.keyCode === 32) {
-            this.addShoot();
-            console.log("shoot");
+            this.addBullet();
         }
 
         switch (event.key) {
