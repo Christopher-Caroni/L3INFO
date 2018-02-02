@@ -45,8 +45,8 @@ export default class Game {
     }
 
     addBullet() {
-        let x = this.starship.x;
-        let y = this.starship.y;
+        let x = this.starship.x + this.starship.imgMobile.width - 10;
+        let y = this.starship.y + (this.starship.imgMobile.height / 3);
 
         this.bullets.push(new Shoot(this.myCanvas, x, y, this));
     }
