@@ -33,7 +33,7 @@ export default class Game {
         this.infiniteSaucer = !this.infiniteSaucer;
 
         if (this.infiniteSaucer) {
-            this.intervalSaucer = window.setTimeout(this.addSaucer(), 750);
+            this.intervalSaucer = window.setInterval(() => this.addSaucer(), 750);
             console.log("infinite saucer on");
         } else {
             console.log("infinite saucer off");
