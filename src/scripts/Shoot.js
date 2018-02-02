@@ -2,8 +2,8 @@ import Mobile from './Mobile.js';
 import shoot from '../images/shoot.png';
 
 export default class Shoot extends Mobile {
-    constructor(aCanvas, x, y, game) {
-        super(aCanvas, shoot, x, y, 8, 0);
+    constructor(aCanvas, x, y, dx, dy, game) {
+        super(aCanvas, shoot, x, y, dx, dy);
         this.width = shoot.width;
         this.height = shoot.height;
         this.game = game;

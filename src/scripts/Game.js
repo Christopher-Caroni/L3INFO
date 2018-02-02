@@ -19,6 +19,7 @@ export default class Game {
         this.infiniteSaucer = false;
         this.intervalSaucer = undefined;
         this.scoreSpan = undefined;
+        this.ramboActivated = false;
     }
 
 
@@ -48,7 +49,15 @@ export default class Game {
         let x = this.starship.x + this.starship.imgMobile.width - 10;
         let y = this.starship.y + (this.starship.imgMobile.height / 3);
 
-        this.bullets.push(new Shoot(this.myCanvas, x, y, this));
+        this.bullets.push(new Shoot(this.myCanvas, x, y, 8, 0, this));
+        if (this.ramboActivated) {
+            this.bullets.push(new Shoot(this.myCanvas, x, y, 8, 1, this));
+            this.bullets.push(new Shoot(this.myCanvas, x, y, 8, -1, this));
+        }
+    }
+
+    rambo() {
+        this.ramboActivated = !this.ramboActivated;
     }
 
     removeShoot(shoot) {
