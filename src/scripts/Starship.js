@@ -29,6 +29,10 @@ export default class Starship extends Mobile {
     }
 
     move() {
+        if (this.moving === MoveState.NONE) {
+            return;
+        }
+
         let calcY;
         if (this.moving === MoveState.DOWN) {
             this.vy = this.ogVY;

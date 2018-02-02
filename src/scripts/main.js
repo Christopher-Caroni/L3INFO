@@ -2,7 +2,6 @@ import Game from './Game.js';
 
 import '../style/style.css';
 import saucerSrc from '../images/flyingSaucer-petit.png';
-import bulletSrc from '../images/shoot.png';
 
 
 function setupGame(theCanvas) {
@@ -30,7 +29,6 @@ function setupButtons(game) {
 
     let rambo = document.getElementById("rambo");
     rambo.addEventListener("click", game.rambo.bind(game));
-    document.getElementById("ramboButtonImg").src = bulletSrc;
 }
 
 var setup = function () {

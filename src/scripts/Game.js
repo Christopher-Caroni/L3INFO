@@ -1,4 +1,5 @@
 import Starship from './Starship.js';
+import SmallStarship from './SmallStarship.js';
 import Saucer from './Saucer.js';
 import Shoot from "./Shoot";
 
@@ -10,6 +11,8 @@ export default class Game {
         this.context = this.myCanvas.getContext('2d');
 
         this.starship = new Starship(this.myCanvas, 40, this.myCanvas.height / 2);
+        this.starshipUp = undefined;
+        this.starshipDown = undefined;
 
         this.saucers = [];
         this.bullets = [];
@@ -51,13 +54,22 @@ export default class Game {
 
         this.bullets.push(new Shoot(this.myCanvas, x, y, 8, 0, this));
         if (this.ramboActivated) {
-            this.bullets.push(new Shoot(this.myCanvas, x, y, 8, 1, this));
-            this.bullets.push(new Shoot(this.myCanvas, x, y, 8, -1, this));
+
+            let upX = this.starshipUp.x + (this.starshipUp.imgMobile.width / 2);
+            let upY = this.starshipUp.y + (this.starshipUp.imgMobile.height / 3);
+
+            let downX = this.starshipDown.x + (this.starshipDown.imgMobile.width / 2);
+            let downY = this.starshipDown.y + (this.starshipDown.imgMobile.height / 3);
+
+            this.bullets.push(new Shoot(this.myCanvas, upX, upY, 8, -1, this));
+            this.bullets.push(new Shoot(this.myCanvas, downX, downY, 8, 1, this));
         }
     }
 
     rambo() {
         this.ramboActivated = !this.ramboActivated;
+        this.starshipUp = new SmallStarship(this.myCanvas, this.starship.x, this.starship.y - 30);
+        this.starshipDown = new SmallStarship(this.myCanvas, this.starship.x, this.starship.y + 30 + (this.starship.imgMobile.height / 2));
     }
 
     removeShoot(shoot) {
@@ -91,6 +103,13 @@ export default class Game {
         }
         this.starship.draw();
 
+        if (this.ramboActivated) {
+            this.starshipDown.move(this);
+            this.starshipUp.move(this);
+            this.starshipDown.draw();
+            this.starshipUp.draw();
+        }
+
         this.saucers.forEach(singleSaucer => {
             singleSaucer.move();
             singleSaucer.draw();
@@ -117,10 +136,18 @@ export default class Game {
             case "ArrowUp":
             case "Up":
                 this.starship.moveUp();
+                if (this.ramboActivated) {
+                    this.starshipUp.moveUp();
+                    this.starshipDown.moveUp();
+                }
                 break;
             case "ArrowDown":
             case "Down":
                 this.starship.moveDown();
+                if (this.ramboActivated) {
+                    this.starshipUp.moveDown();
+                    this.starshipDown.moveDown();
+                }
                 break;
             default:
                 return;
@@ -138,6 +165,10 @@ export default class Game {
             case "ArrowDown":
             case "Down":
                 this.starship.stopMove();
+                if (this.ramboActivated) {
+                    this.starshipUp.stopMove();
+                    this.starshipDown.stopMove();
+                }
                 break;
             default:
                 return;
