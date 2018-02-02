@@ -17,7 +17,7 @@ export default class Saucer extends Mobile {
     }
 
     collisionWith(shoot, game) {
-        let isColliding = shoot.x >= this.x && shoot.x <= (this.x + this.imgMobile.width) && shoot.y >= this.y && this.y <= (this.y + this.imgMobile.height);
+        let isColliding = shoot.x >= this.x && shoot.x <= (this.x + this.imgMobile.width) && shoot.y >= this.y && shoot.y <= (this.y + this.imgMobile.height);
         if (isColliding) {
             game.removeShoot(shoot);
             game.updateScoreOnSaucerShotDown();
