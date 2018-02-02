@@ -1,7 +1,6 @@
 import Mobile from './Mobile.js';
 
 import saucerSrc from '../images/flyingSaucer-petit.png';
-import Shoot from "./Shoot";
 
 export default class Saucer extends Mobile {
     constructor(aCanvas, x, y, game) {
@@ -16,8 +15,13 @@ export default class Saucer extends Mobile {
             this.game.removeSaucer(this);
         }
     }
-    collisionWith(x, y, game) {
-        let shoot = new Shoot(this.myCanvas, x, y, game);
-        return shoot.isInside(shoot.x, shoot.y);
+
+    collisionWith(shoot, game) {
+        let isColliding = shoot.x >= this.x && shoot.x <= (this.x + this.imgMobile.width) && shoot.y >= this.y && this.y <= (this.y + this.imgMobile.height);
+        if (isColliding) {
+            game.removeShoot(shoot);
+            game.updateScoreOnSaucerShotDown();
+        }
+        return isColliding;
     }
 }

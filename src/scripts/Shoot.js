@@ -16,7 +16,4 @@ export default class Shoot extends Mobile {
             this.game.removeShoot(this);
         }
     }
-    isInside(otherX, otherY) {
-        return (otherX >= this.x && otherX <= (this.x + this.width) && otherY >= this.y && otherY <= (this.y + this.height));
-    }
 }

@@ -97,12 +97,9 @@ export default class Game {
             singleShoot.move();
             singleShoot.draw();
         }
-        let x;
-        let y;
+
         this.shoots.forEach(shoot => {
-            x = shoot.x;
-            y = shoot.y;
-            this.saucers = this.saucers.filter(saucer => !saucer.collisionWith(x, y, this));
+            this.saucers = this.saucers.filter(saucer => !saucer.collisionWith(shoot, this));
         });
 
         this.raf = window.requestAnimationFrame(this.animate.bind(this));
