@@ -4,6 +4,9 @@
 % Caroni Christopher
 
 
+:- use_module(library(clpfd)).
+
+
 grille([[_,_,_,_,_,_,_,_,_],
         [_,_,_,_,_,3,_,8,5],
         [_,_,1,_,2,_,_,_,_],
@@ -14,6 +17,7 @@ grille([[_,_,_,_,_,_,_,_,_],
         [_,_,2,_,1,_,_,_,_],
         [_,_,_,_,4,_,_,_,9]]).
 
+
 % question 1
 printline([]) :- writeln("|").
 printline([X|XS]) :- integer(X), write("|"), write(X), printline(XS).
@@ -23,17 +27,15 @@ printline([X|XS]) :- not(integer(X)), write("| "), printline(XS).
 print([]).
 print([X|XS]) :- printline(X), print(XS).
 
+
+
 % question 3
 bonnelongueur([], 0) :- !.
-bonnelongueur([_|XS], RES) :- !, bonnelongueur(XS, R), RES is R + 1.
+bonnelongueur([_|XS], L) :- !, bonnelongueur(XS, R), L is R + 1.
 
 % question 4
 bonnetaille([], _) :- !.
-bonnetaille([X|XS], RES) :- !, bonnelongueur(X, RES), bonnetaille(XS, RES).
-
-
-:- use_module(library(clpfd)).
-
+bonnetaille([X|XS], L) :- !, bonnelongueur(X, L), bonnetaille(XS, L).
 
 % question 5
 verifie([]) :- !.
@@ -63,4 +65,6 @@ carres([],_) :- !.
 carres([X,Y,Z|XS], RES) :- decoupe(X,Y,Z, HEAD), carres(XS, TAIL), concatene(HEAD, TAIL, RES).
 
 % question 10
-solution(X) :- verifie(X), transp(X,Y), verifie(Y),	carres(Y, Z), verifie(Z).
+solution(X) :- verifie(X),
+				transp(X,Y), verifie(Y),
+				carres(Y, Z), verifie(Z).
