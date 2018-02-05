@@ -1,7 +1,10 @@
 extends layout
 
-
 block content
+    script(src='/socket.io/socket.io.js')
+
+        link(rel='shortcut-icon',href='favicon.ico')
+
     h1 Client
 
     ul.messages

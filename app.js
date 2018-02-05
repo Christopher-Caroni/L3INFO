@@ -10,13 +10,16 @@ var users = require('./routes/users');
 var chat = require('./routes/chat');
 
 var app = express();
+var http = require('http');
+var server = http.createServer(app);
+var io = require('socket.io')(server);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
 // uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
@@ -24,6 +27,12 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/chat', chat);
+
+io.on('connection', function(socket){
+    console.log('a user connected');
+});
+
+server.listen(3000);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

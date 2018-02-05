@@ -5,4 +5,6 @@ var chatController = require('../controllers/chat');
 
 router.get('/', chatController.chat);
 
+
+
 module.exports = router;
