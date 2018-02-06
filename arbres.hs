@@ -47,6 +47,14 @@ peigneGauche ((x1,x2):xs) = (Noeud x1 x2 (peigneGauche xs) Feuille)
 prop_hauteurPeigne :: [(c,a)] -> Bool
 prop_hauteurPeigne xs = length xs == hauteur (peigneGauche xs)
 
+prop_taillePeigne :: [(c,a)] -> Bool
+prop_taillePeigne xs = length xs == taille (peigneGauche xs)
+
+estComplet :: Arbre c a -> Bool
+estComplet Feuille         = True
+estComplet (Noeud _ _ g d) = (hauteur g == hauteur d) && estComplet g && estComplet d
+
+
 
 
 main :: IO ()
