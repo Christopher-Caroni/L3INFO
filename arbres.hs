@@ -13,7 +13,7 @@ mapArbre _ Feuille         = Feuille
 mapArbre f (Noeud c v g d) = Noeud c (f v) (mapArbre f g) (mapArbre f d)
 
 
-hauteur :: Arbre c v -> Int
+hauteur :: Arbre c v -> Integer
 hauteur Feuille         = 0
 hauteur (Noeud _ _ g d) = if lg > ld
                          then lg
@@ -25,6 +25,16 @@ hauteur (Noeud _ _ g d) = if lg > ld
 taille :: Arbre c v -> Integer
 taille Feuille = 0
 taille (Noeud _ _ g d) = 1 + taille g + taille d
+
+foldArbre :: Integer b => (a -> b -> b -> b) -> b -> Arbre c v -> b
+foldArbre f n Feuille         = n
+foldArbre f n (Noeud _ v g d) = f v (foldArbre f n g) (foldArbre f n d)
+
+hauteur' :: Arbre c v -> Integer
+hauteur' = foldArbre (\_ g d -> 1 + max g d ) 0
+
+taille' :: Arbre c v -> Integer
+taille' = foldArbre (\_ g d -> 1 + g + d ) 0
 
 
 
