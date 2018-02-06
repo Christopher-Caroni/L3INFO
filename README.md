@@ -1,7 +1,7 @@
 #   Des arbres et des couleurs
 
 Ce dépôt correspond au TP de PF « Des arbres et des couleurs ».
-
+<p> Binome : Guillaume Leprêtre et Christopher Caroni</p>
 
 ##  Instructions pour rendre votre travail avec gitlab
 
