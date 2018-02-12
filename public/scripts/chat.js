@@ -37,10 +37,9 @@ var setup = function () {
             return;
         }
         var names = "";
-        for (var name in typers) {
-            names += name + " ";
-        }
-        document.getElementById('typingInfo').innerText = names + " is/are typing";
+        typers.forEach(singleName => names += singleName + " ");
+        document.getElementById('typingInfo').innerText = (names + " is/are typing");
+        console.log(names + " is/are typing");
     };
 
     socket.on('stoppedTyping', function (username) {
@@ -49,8 +48,11 @@ var setup = function () {
     });
 
     socket.on('isTyping', function (username) {
-        typers.push(username);
-        refreshTypingInfo();
+        if (!typers.includes(username)) {
+            typers.push(username);
+            console.log("adding typer");
+            refreshTypingInfo();
+        }
     });
 
     var lastTypedTime = new Date(0); // it's 01/01/1970
@@ -59,18 +61,17 @@ var setup = function () {
     function refreshTypingStatus() {
         if (input.value === "" || new Date().getTime() - lastTypedTime.getTime() > typingDelayMillis) {
             socket.emit("stoppedTyping", username);
-            console.log("stopped typing");
         } else {
             socket.emit("isTyping", username);
-            console.log("is typing");
         }
     }
 
     setInterval(refreshTypingStatus, 1500);
-    input.addEventListener('onkeypress', function (evt) {
+
+    input.addEventListener('keydown', function (evt) {
         console.log("update time");
         lastTypedTime = new Date();
-    })
+    });
 
 };
 
