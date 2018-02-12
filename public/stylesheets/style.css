@@ -39,6 +39,12 @@ form button {
     padding: 10px;
 }
 
+#typingInfo{
+    padding: 0px 0px 50px 0px;
+    position: fixed;
+    bottom: 0;
+}
+
 #messages {
     list-style-type: none;
     margin: 0;
