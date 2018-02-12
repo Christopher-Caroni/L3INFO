@@ -1,5 +1,13 @@
 var setup = function () {
+    var username = window.prompt("Please enter a username:");
+    if (username == null) {
+        username = "anon";
+    }
+
     var socket = io();
+    socket.emit("userConnected", username);
+
+
     var messages = document.getElementById('messages');
     var input = document.getElementById('chatInput');
 
@@ -10,7 +18,7 @@ var setup = function () {
     });
 
     document.getElementById('chatForm').addEventListener("submit", function (ev) {
-            socket.emit('chat message', input.value);
+            socket.emit('chat message', username + ": " + input.value);
             input.value = "";
 
             ev.preventDefault();

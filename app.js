@@ -35,9 +35,13 @@ io.on('connection', function(socket){
         io.emit('chat message', msg);
     });
 
+    socket.on('userConnected', function(msg){
+        io.emit('chat message', msg + " connected");
+    });
 
     socket.on('disconnect', function(){
         console.log('user disconnected');
+        io.emit('chat message', 'user disconnected');
     });
 });
 
