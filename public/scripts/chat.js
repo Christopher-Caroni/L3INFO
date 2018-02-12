@@ -11,16 +11,19 @@ var setup = function () {
     var messages = document.getElementById('messages');
     var input = document.getElementById('chatInput');
 
-    socket.on('chat message', function (msg) {
+    var appendChatMessage = function (msg) {
         var msgEntry = document.createElement('li');
         msgEntry.appendChild(document.createTextNode(msg));
         messages.appendChild(msgEntry);
-    });
+    };
+
+    socket.on('chat message', msg => appendChatMessage(msg));
 
     document.getElementById('chatForm').addEventListener("submit", function (ev) {
+        appendChatMessage(username + ": " + input.value);
             socket.emit('chat message', username + ": " + input.value);
-            input.value = "";
 
+            input.value = "";
             ev.preventDefault();
             return true;
         }
