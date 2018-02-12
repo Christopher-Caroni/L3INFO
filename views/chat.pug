@@ -2,13 +2,12 @@ extends layout
 
 block content
     script(src='/socket.io/socket.io.js')
-
-        link(rel='shortcut-icon',href='favicon.ico')
+    script(src='/scripts/chat.js')
+    link(rel='shortcut-icon',href='favicon.ico')
 
     h1 Client
 
-    ul.messages
-    form
-        ul
-        input.m
+    ul#messages
+    form#chatForm
+        input#chatInput
         button send
