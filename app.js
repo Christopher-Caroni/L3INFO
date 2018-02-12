@@ -35,6 +35,14 @@ io.on('connection', function(socket){
         socket.broadcast.emit('chat message', msg);
     });
 
+    socket.on('stoppedTyping', function(user){
+        socket.broadcast.emit('stoppedTyping', user);
+    });
+
+    socket.on('isTyping', function(user){
+        socket.broadcast.emit('isTyping', user);
+    });
+
     socket.on('userConnected', function(msg){
         io.emit('chat message', msg + " connected");
     });
