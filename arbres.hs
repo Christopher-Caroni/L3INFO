@@ -17,7 +17,7 @@ mapArbre _ Feuille         = Feuille
 mapArbre f (Noeud c v g d) = Noeud c (f v) (mapArbre f g) (mapArbre f d)
 
 
-hauteur :: Arbre c v -> Inte fonction estComplet :: Arbre c a -> Bool qui vaut vrai si et seulement si son argument est un arbre complet.
+hauteur :: Arbre c v -> Int
 hauteur Feuille         = 0
 hauteur (Noeud _ _ g d) = if lg > ld
                          then lg
@@ -45,17 +45,17 @@ peigneGauche []     = Feuille
 peigneGauche ((x1,x2):xs) = (Noeud x1 x2 (peigneGauche xs) Feuille)
 
 prop_hauteurPeigne :: [(c,a)] -> Bool
-prop_hauteurPeigne xs = length xs == hauteur (peigneGauche xs)
+prop_hauteurPeigne xs = length xs == hauteur' (peigneGauche xs)
 
 prop_taillePeigne :: [(c,a)] -> Bool
-prop_taillePeigne xs = length xs == taille (peigneGauche xs)
+prop_taillePeigne xs = length xs == taille' (peigneGauche xs)
 
 estComplet :: Arbre c a -> Bool
 estComplet Feuille         = True
-estComplet (Noeud _ _ g d) = (hauteur g == hauteur d) && estComplet g && estComplet d
+estComplet (Noeud _ _ g d) = (hauteur' g == hauteur' d) && estComplet g && estComplet d
 
-estComplet' :: Arbre c a -> Bool
-estComplet' = dimension (\_ g d -> hauteur g == hauteur d) True
+-- estComplet' :: Arbre c a -> Bool
+-- estComplet' = dimension (\_ g d -> hauteur g == hauteur d) True
 
 
 
