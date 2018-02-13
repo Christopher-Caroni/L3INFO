@@ -31,17 +31,17 @@ taille Feuille = 0
 taille (Noeud _ _ g d) = 1 + taille g + taille d
 
 -- f (valeur noeud, valeur gauche, valeur droite)
-dimension :: (a -> b -> b -> b) -> b -> Arbre c a -> b
+dimension :: (b -> b -> b) -> b -> Arbre c a -> b
 dimension f def Feuille         = def
-dimension f def (Noeud _ v g d) = f v (dimension f def g) (dimension f def d)
+dimension f def (Noeud _ v g d) = f (dimension f def g) (dimension f def d)
 
 -- hauteur max de cet arbre
 hauteur' :: Arbre c v -> Int
-hauteur' = dimension (\_ g d -> 1 + max g d ) 0
+hauteur' = dimension (\g d -> 1 + max g d ) 0
 
 -- nombre total de noeuds
 taille' :: Arbre c v -> Int
-taille' = dimension (\_ g d -> 1 + g + d ) 0
+taille' = dimension (\g d -> 1 + g + d ) 0
 
 peigneGauche :: [(c,a)] -> Arbre c a
 peigneGauche []     = Feuille
@@ -59,7 +59,9 @@ estComplet (Noeud _ _ g d) = (hauteur' g == hauteur' d) && estComplet g && estCo
 -- hauteur g == hauteur d ne suffit pas car cest la hauteur max, il faut donc rappeller estcomplet sur ce sous-arbre
 
 estComplet' :: Arbre c a -> Bool
-estComplet' arbre = snd (dimension (\_ (v1,g) (v2,d) -> (1 + max v1 v2,g == d) ) (0, True) arbre)
+estComplet' arbre = snd (dimension (\(h1,comp_g) (h2,comp_d) -> (1 + max h1 h2, h1 == h2 && comp_g && comp_d) ) (0, True) arbre)
+-- dans la paire resultat, on calcule: d'un côté on calcule l'hauteur, et de l'autre on verifie si ces hauteurs nous indique si ce noeud est complet
+-- les deux parametres sont donc arbre gauche=(hauteur, noeud complet?), arbre droit=(hauteur, noeud complet?)
 
 
 main :: IO ()
