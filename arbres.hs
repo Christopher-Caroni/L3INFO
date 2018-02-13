@@ -96,5 +96,15 @@ element :: Eq a => a -> Arbre c a -> Bool
 element _ Feuille = False
 element val (Noeud _ v g d) = (v == val) || (element val g) || (element val d)
 
+noeud :: (c -> String) -> (a -> String) -> (c,a) -> String
+noeud f g (c,val) = g val ++ f c
+
+arcs :: Arbre c a -> [(a, a)]
+arcs Feuille = []
+arcs (Noeud _ _ Feuille Feuille) = []
+arcs (Noeud _ v g Feuille) = [(v, val g)] ++ (arcs g)
+arcs (Noeud _ v Feuille d) = [(v, val d)] ++ (arcs d)
+arcs (Noeud _ v g d) = [(v, val g), (v, val d)] ++ (arcs g) ++ (arcs d)  
+
 main :: IO ()
 main = undefined
