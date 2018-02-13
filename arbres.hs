@@ -63,6 +63,34 @@ estComplet' arbre = snd (dimension (\(h1,comp_g) (h2,comp_d) -> (1 + max h1 h2, 
 -- dans la paire resultat, on calcule: d'un côté on calcule l'hauteur, et de l'autre on verifie si ces hauteurs nous indique si ce noeud est complet
 -- les deux parametres sont donc arbre gauche=(hauteur, noeud complet?), arbre droit=(hauteur, noeud complet?)
 
+complet :: Int -> [(c, a)] -> Arbre c a
+complet 0 [] = Feuille
+complet 0 _  = error ""
+complet hauteur liste  = Noeud c val (complet (hauteur-1) listeg) (complet (hauteur-1) listed)
+  where (listeg , (c, val):listed) = splitAt  (length liste `quot` 2) liste
+
+--Q12
+repeat' :: a -> [a]
+repeat' = iterate id
+
+allcharacter :: [((),Char)]
+allcharacter = foldr (\x y-> ((), x) : y) [] ['a'..]
+
+
+complet4 :: Arbre String Char
+complet4 = complet 4 [("blue", 'a'), ("blue", 'b'), ("blue", 'c'),
+                      ("blue", 'd'), ("blue", 'e'), ("blue", 'f'), ("blue", 'g'),
+                      ("blue", 'h'), ("blue", 'i'), ("blue", 'j'),
+                      ("blue", 'k'), ("blue", 'l'), ("blue", 'm'),
+                      ("blue", 'n'), ("blue", 'o')]
+
+aplatit :: Arbre c a -> [(c, a)]
+aplatit Feuille =   []
+aplatit (Noeud coul val g d) = aplatit g ++ [(coul, val)] ++ aplatit d
+
+
+prop_aplatit4 :: Bool
+prop_aplatit4 = map snd (aplatit complet4) == "abcdefghijklmno"
 
 main :: IO ()
 main = undefined
