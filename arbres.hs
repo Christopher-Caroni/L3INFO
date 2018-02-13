@@ -92,5 +92,9 @@ aplatit (Noeud coul val g d) = aplatit g ++ [(coul, val)] ++ aplatit d
 prop_aplatit4 :: Bool
 prop_aplatit4 = map snd (aplatit complet4) == "abcdefghijklmno"
 
+element :: Eq a => a -> Arbre c a -> Bool
+element _ Feuille = False
+element val (Noeud _ v g d) = (v == val) || (element val g) || (element val d)
+
 main :: IO ()
 main = undefined
