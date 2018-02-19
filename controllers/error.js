@@ -2,6 +2,7 @@
 // catch 404 and forward to error handler
 module.exports.notFound =
   (req, res, next) => {
+    console.log(req.connection.remoteAddress);
     var err = new Error('Not Found');
     err.status = 404;
     next(err);

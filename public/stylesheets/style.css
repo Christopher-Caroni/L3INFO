@@ -7,6 +7,11 @@ a {
   color: #00B7FF;
 }
 
+.titre{
+  color : red;
+  font-size: medium;
+}
+
 .example {
   background-color: #CCCCCC;
   margin : 10px;

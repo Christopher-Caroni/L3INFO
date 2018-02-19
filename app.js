@@ -29,7 +29,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 app.use('/', etudiants);
-app.use('/etudiantsRest', etudiantsRest);
+app.use('/etudiantsrest', etudiantsRest);
 
 // error handler
 app.use(error);

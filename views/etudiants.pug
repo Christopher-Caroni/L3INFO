@@ -4,21 +4,33 @@ block content
 
     script(src='/javascripts/etudiantsRest.js')
 
-    table.etuList
+    table.etuListtr.etuList
+        tr.etudiant
+            td.titre="Nom"
+            td.titre= "prenom"
+            td.titre= "groupe"
+
         each etudiant in etudiantsData
             tr.etudiant
                 td.nom= etudiant.nom
                 td.prenom= etudiant.prenom
                 td.groupe= etudiant.groupe
                 td
-                    button.get(data-etuid= etudiant._id)  read
+                    button.get(data-etudiantid= etudiant._id)  read
                 td
-                    button.put(data-etuid= etudiant._id, data-etu= etudiant)  update
+                    button.put(data-etudiantid= etudiant._id, data-etu= etudiant)  update
                 td
-                    button.delete(data-etuid= etudiant._id)  delete
-        tr.etuList
-            td.nom
-            td.prenom
-            td.groupe
+                    button.delete(data-etudiantid= etudiant._id)  delete
+
+
+        tr.etudiant
+            td
+                input#nom(placeholder="nom")
+            td
+                input#prenom(placeholder="prenom")
+            td
+                input#groupe(placeholder="groupe")
+            td
+                button#createbutton create
 
 
