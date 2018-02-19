@@ -53,8 +53,6 @@ io.on('connection', function(socket){
     });
 });
 
-server.listen(3000);
-
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
     var err = new Error('Not Found');
@@ -72,5 +70,7 @@ app.use(function (err, req, res, next) {
     res.status(err.status || 500);
     res.render('error');
 });
+
+server.listen(3000);
 
 module.exports = app;
