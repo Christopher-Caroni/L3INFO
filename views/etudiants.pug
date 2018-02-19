@@ -1,6 +1,9 @@
 extends layout
 
 block content
+
+    script(src='/javascripts/etudiantsRest.js')
+
     table.etuList
         each etudiant in etudiantsData
             tr.etudiant
