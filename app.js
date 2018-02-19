@@ -43,8 +43,8 @@ io.on('connection', function(socket){
         socket.broadcast.emit('isTyping', user);
     });
 
-    socket.on('userConnected', function(msg){
-        io.emit('chat message', msg + " connected");
+    socket.on('userConnected', function(user){
+        io.emit('chat message', user + " connected");
     });
 
     socket.on('disconnect', function(){

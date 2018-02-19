@@ -32,7 +32,7 @@ var setup = function () {
 
     var typers = [];
     var refreshTypingInfo = function () {
-        if (typers.length == 0) {
+        if (typers.length === 0) {
             document.getElementById('typingInfo').innerText = "";
             return;
         }
@@ -43,7 +43,7 @@ var setup = function () {
     };
 
     socket.on('stoppedTyping', function (username) {
-        typers = typers.filter(name => name != username);
+        typers = typers.filter(name => name !== username);
         refreshTypingInfo();
     });
 
