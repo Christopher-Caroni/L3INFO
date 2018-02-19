@@ -1,0 +1,9 @@
+extends layout
+
+block content
+    table.etuList
+        each etudiant in etudiants
+            tr.etudiant
+                td.nom = etudiant.nom
+                td.prenom = etudiant.prenom
+                td.groupe = etudiant.groupe

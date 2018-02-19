@@ -9,10 +9,8 @@ const bodyParser = require('body-parser');
 var dbConnection = require('./controllers/db.js');
 
 // routes
-var index = require('./routes/index');
-var books = require('./routes/books');
+var etudiantsRouter = require('./routes/etudiants');
 var error = require('./routes/error');
-var bookrest = require('./routes/bookrest');
 
 var app = express();
 
@@ -29,9 +27,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 
-app.use('/', index);
-app.use('/books', books);
-app.use('/bookrest', bookrest);
+app.use('/', etudiantsRouter);
 
 // error handler
 app.use(error);
