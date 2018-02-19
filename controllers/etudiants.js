@@ -6,7 +6,7 @@ var etudiants =
             .then(allEtudiants => res.render("etudiants",
                 {
                     title : 'Liste d\'étudiants',
-                    etudiants : allEtudiants
+                    etudiantsData : allEtudiants
                 }));
 
 module.exports = etudiants;

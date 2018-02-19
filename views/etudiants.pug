@@ -2,8 +2,20 @@ extends layout
 
 block content
     table.etuList
-        each etudiant in etudiants
+        each etudiant in etudiantsData
             tr.etudiant
-                td.nom = etudiant.nom
-                td.prenom = etudiant.prenom
-                td.groupe = etudiant.groupe
+                td.nom= etudiant.nom
+                td.prenom= etudiant.prenom
+                td.groupe= etudiant.groupe
+                td
+                    button.get(data-etuid= etudiant._id)  read
+                td
+                    button.put(data-etuid= etudiant._id, data-etu= etudiant)  update
+                td
+                    button.delete(data-etuid= etudiant._id)  delete
+        tr.etuList
+            td.nom
+            td.prenom
+            td.groupe
+
+

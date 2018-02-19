@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 
-var dbURI = 'mongodb://localhost/dbetudiants';
+var dbURI = 'mongodb://localhost/etudiants';
 var dbConnection = mongoose.createConnection(dbURI);
 
 
