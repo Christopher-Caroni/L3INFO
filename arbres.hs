@@ -152,5 +152,7 @@ insert arbr val               | elementR arbr val = arbr
 insert (Noeud _ v g d) val    | val < v           = equilibre (Noeud Noir v (insert g val) d)
                               | val > v           = equilibre (Noeud Noir v g (insert d val))
 
+
+
 main :: IO ()
 main = undefined
