@@ -149,8 +149,8 @@ equilibre abr                                         = abr
 insert :: Ord a => ArbreRN a -> a -> ArbreRN a
 insert Feuille val            = Noeud Rouge val Feuille Feuille
 insert arbr val               | elementR arbr val = arbr
-insert (Noeud coul v g d) val | val < v           = (Noeud coul v (insert g val) d)
-                              | val > v           = (Noeud coul v g (insert d val))
+insert (Noeud _ v g d) val    | val < v           = equilibre (Noeud Noir v (insert g val) d)
+                              | val > v           = equilibre (Noeud Noir v g (insert d val))
 
 main :: IO ()
 main = undefined
