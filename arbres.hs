@@ -127,6 +127,7 @@ elementR (Noeud _ v g d) r  | r == v = True
 
 data Couleur = Rouge
               | Noir
+              deriving(Show, Eq)
 
 
 type ArbreRN a = Arbre Couleur a
@@ -151,6 +152,15 @@ insert Feuille val            = Noeud Rouge val Feuille Feuille
 insert arbr val               | elementR arbr val = arbr
 insert (Noeud _ v g d) val    | val < v           = equilibre (Noeud Noir v (insert g val) d)
                               | val > v           = equilibre (Noeud Noir v g (insert d val))
+
+-- Tous les chemins de la racine à une feuille ont le même nombre de nœuds noirs.
+-- Un nœud rouge n’a pas de fils rouge.
+-- La racine est noire.
+prop_arbrern :: ArbreRN a -> Bool
+prop_arbrern Feuille         = True
+prop_arbrern (Noeud Noir v g d) = True
+prop_arbrern (Noeud Rouge v g d) = coul g /= Rouge && coul d /= Rouge
+
 
 main :: IO ()
 main = undefined
