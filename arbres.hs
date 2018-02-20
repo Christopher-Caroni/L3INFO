@@ -110,11 +110,20 @@ arcs (Noeud _ v g d) = [(v, val g), (v, val d)] ++ (arcs g) ++ (arcs d)
 arc :: (a -> String) -> (a,a) -> String
 arc f (n1,n2) = f n1 ++ " -> " ++ f n2
 
+-- header
+-- noeuds
+-- arcs
 dotise :: String -> (c -> String) -> (a -> String) -> Arbre c a -> String
 dotise nom fcoul fval abr = unlines (header ++ map (noeud fcoul fval) (aplatit abr) ++ dotArcs ++ footer)
   where header = ["digraph \"" ++ nom ++ "\" {", "node [fontname=\"DejaVu-Sans\", shape=circle]"]
         dotArcs  = map (arc fval) (arcs abr)
         footer = ["}"]
+
+elementR :: Ord a => Arbre c a -> a -> Bool
+elementR Feuille r          = False
+elementR (Noeud _ v g d) r  | r == v = True
+                            | r < v  = elementR g r
+                            | r > v  = elementR d r
 
 
 main :: IO ()
