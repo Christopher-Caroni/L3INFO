@@ -1,5 +1,5 @@
 import Test.QuickCheck
-
+import Control.Concurrent (threadDelay)
 
 
 data Arbre coul val =  Noeud {
@@ -139,7 +139,7 @@ equilibre (Noeud _ z (Noeud Rouge y (Noeud Rouge x a b) c) d) = Noeud Rouge y (N
 equilibre (Noeud _ z (Noeud Rouge x a (Noeud Rouge y b c)) d) = Noeud Rouge y (Noeud Noir x a b) (Noeud Noir z c d)
 equilibre (Noeud _ x a (Noeud Rouge z (Noeud Rouge y b c) d)) = Noeud Rouge y (Noeud Noir x a b) (Noeud Noir z c d)
 equilibre (Noeud _ x a (Noeud Rouge y b (Noeud Rouge z c d))) = Noeud Rouge y (Noeud Noir x a b) (Noeud Noir z c d)
-equilibre abr                                         = abr
+equilibre abr                                                 = abr
 
 
 -- si la valeur est déjà dans l’arbre, elle n’est pas ajoutée ;
@@ -149,9 +149,9 @@ equilibre abr                                         = abr
 -- enfin l’insertion d’une valeur se termine en coloriant la racine du nouvel arbre en noir, pour préserver la 3e propriété des arbres rouges et noirs.
 insert :: Ord a => ArbreRN a -> a -> ArbreRN a
 insert Feuille val            = Noeud Rouge val Feuille Feuille
-insert arbr val               | elementR arbr val = arbr
 insert (Noeud _ v g d) val    | val < v           = equilibre (Noeud Noir v (insert g val) d)
-
+                              | val > v           = equilibre (Noeud Noir v g (insert d val))
+insert arbr val               | elementR arbr val = arbr
 
 -- Tous les chemins de la racine à une feuille ont le même nombre de nœuds noirs.
 -- Un nœud rouge n’a pas de fils rouge.
@@ -161,6 +161,18 @@ prop_arbrern Feuille         = True
 prop_arbrern (Noeud Noir v g d) = True
 prop_arbrern (Noeud Rouge v g d) = coul g /= Rouge && coul d /= Rouge
 
+couleurToString :: Couleur -> String
+couleurToString Rouge = "red"
+couleurToString Noir = "black"
+
+arbresDot :: String -> [String]
+arbresDot chaine  = f chaine Feuille
+  where f "" _       = []
+        f (x:xs) abr = dotise "Arbre" couleurToString id newAbr : f xs newAbr
+          where newAbr = insert abr [x]
 
 main :: IO ()
-main = undefined
+main = mapM_ ecrit arbres
+    where ecrit a = do writeFile "arbre.dot" a
+                       threadDelay 3000000
+          arbres  = arbresDot "gcfxieqzrujlmdoywnbakhpvst"
