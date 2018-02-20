@@ -141,6 +141,16 @@ equilibre (Noeud _ x a (Noeud Rouge y b (Noeud Rouge z c d))) = Noeud Rouge y (N
 equilibre abr                                         = abr
 
 
+-- si la valeur est déjà dans l’arbre, elle n’est pas ajoutée ;
+-- si l’arbre est vide, l’arbre résultat contient un seul nœud, rouge, portant la valeur ;
+-- si la valeur est inférieure à la racine de l’arbre, elle est ajoutée (récursivement) à gauche ; si elle est supérieure à la racine,
+--    elle est ajoutée à droite ; l’arbre résultant est ensuite rééquilibré ;
+-- enfin l’insertion d’une valeur se termine en coloriant la racine du nouvel arbre en noir, pour préserver la 3e propriété des arbres rouges et noirs.
+insert :: Ord a => ArbreRN a -> a -> ArbreRN a
+insert Feuille val            = Noeud Rouge val Feuille Feuille
+insert arbr val               | elementR arbr val = arbr
+insert (Noeud coul v g d) val | val < v           = (Noeud coul v (insert g val) d)
+                              | val > v           = (Noeud coul v g (insert d val))
 
 main :: IO ()
 main = undefined
