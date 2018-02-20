@@ -153,6 +153,19 @@ insert (Noeud _ v g d) val    | val < v           = equilibre (Noeud Noir v (ins
                               | val > v           = equilibre (Noeud Noir v g (insert d val))
 insert arbr val               | elementR arbr val = arbr
 
+
+racineToujoursNoir :: ArbreRN a -> ArbreRN a
+racineToujoursNoir Feuille         = Feuille
+racineToujoursNoir (Noeud _ r g d) = Noeud Noir r g d
+
+insertion :: Ord a => ArbreRN a -> a -> ArbreRN a
+insertion arbre valeur = racineToujoursNoir (ins valeur arbre)
+  where ins v Feuille         = Noeud Rouge v Feuille Feuille     -- inserted
+        ins v (Noeud c r g d) | elementR v (Noeud c r g d) = (Noeud c r g d)       -- already exists
+                              | v < r                      = equilibre (Noeud c r (ins v g) d) -- left insert
+                              | v > r                      = equilibre (Noeud c r g (ins v d)) -- right insert
+
+
 -- Tous les chemins de la racine à une feuille ont le même nombre de nœuds noirs.
 -- Un nœud rouge n’a pas de fils rouge.
 -- La racine est noire.
@@ -169,7 +182,7 @@ arbresDot :: String -> [String]
 arbresDot chaine  = f chaine Feuille
   where f "" _       = []
         f (x:xs) abr = dotise "Arbre" couleurToString id newAbr : f xs newAbr
-          where newAbr = insert abr [x]
+          where newAbr = insertion abr [x]
 
 main :: IO ()
 main = mapM_ ecrit arbres
