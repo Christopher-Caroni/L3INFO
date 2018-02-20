@@ -125,6 +125,12 @@ elementR (Noeud _ v g d) r  | r == v = True
                             | r < v  = elementR g r
                             | r > v  = elementR d r
 
+data Couleur = Rouge
+              | Noir
+
+
+type ArbreRN a = Arbre Couleur a
+
 
 main :: IO ()
 main = undefined
