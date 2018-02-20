@@ -131,6 +131,16 @@ data Couleur = Rouge
 
 type ArbreRN a = Arbre Couleur a
 
+-- les 4 cas possibles et leurs rééquilibrages
+-- sinon on ne change rien
+equilibre :: Arbre Couleur a -> Arbre Couleur a
+equilibre (Noeud _ z (Noeud Rouge y (Noeud Rouge x a b) c) d) = Noeud Rouge y (Noeud Noir x a b) (Noeud Noir z c d)
+equilibre (Noeud _ z (Noeud Rouge x a (Noeud Rouge y b c)) d) = Noeud Rouge y (Noeud Noir x a b) (Noeud Noir z c d)
+equilibre (Noeud _ x a (Noeud Rouge z (Noeud Rouge y b c) d)) = Noeud Rouge y (Noeud Noir x a b) (Noeud Noir z c d)
+equilibre (Noeud _ x a (Noeud Rouge y b (Noeud Rouge z c d))) = Noeud Rouge y (Noeud Noir x a b) (Noeud Noir z c d)
+equilibre abr                                         = abr
+
+
 
 main :: IO ()
 main = undefined
