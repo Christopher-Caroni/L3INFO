@@ -97,7 +97,7 @@ element _ Feuille = False
 element val (Noeud _ v g d) = (v == val) || (element val g) || (element val d)
 
 noeud :: (c -> String) -> (a -> String) -> (c,a) -> String
-noeud f g (c,val) = g val ++ "[color=" f c ++ ", fontcolor=" ++ f c ++ "]"
+noeud f g (c,val) = g val ++ " [color=" ++ f c ++ ", fontcolor=" ++ f c ++ "]"
 
 arcs :: Arbre c a -> [(a, a)]
 arcs Feuille = []
@@ -108,11 +108,11 @@ arcs (Noeud _ v g d) = [(v, val g), (v, val d)] ++ (arcs g) ++ (arcs d)
 
 -- (noeud,noeud)
 arc :: (a -> String) -> (a,a) -> String
-arc f (n1,n2) = f n1 ++ "->" ++ f n2
+arc f (n1,n2) = f n1 ++ " -> " ++ f n2
 
 dotise :: String -> (c -> String) -> (a -> String) -> Arbre c a -> String
 dotise nom fcoul fval abr = unlines (header ++ map (noeud fcoul fval) (aplatit abr) ++ dotArcs ++ footer)
-  where header = ["digraph \"" ++ n ++ "\" {", "node [fontname=\"DejaVu-Sans\", shape=circle]"]
+  where header = ["digraph \"" ++ nom ++ "\" {", "node [fontname=\"DejaVu-Sans\", shape=circle]"]
         dotArcs  = map (arc fval) (arcs abr)
         footer = ["}"]
 
