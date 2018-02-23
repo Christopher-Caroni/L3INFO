@@ -1,27 +1,59 @@
+Lemma exemple (A : Prop) :  A -> A.
+Proof.
+intro a.
+exact a.
+Show Proof.
+Qed.
+
 Lemma hilbertS (A B C : Prop) :  (A -> B -> C) -> (A -> B) -> A -> C.
 Proof.
+intros abc ab a.
+apply abc.
+exact a.
+apply ab.
+exact a.
+Show Proof.
 Qed.
 
 Lemma q2 (A B : Prop) :  A -> (B -> A).
 Proof.
+intros a b.
+exact a.
+Show Proof.
 Qed.
 
 Lemma q3 (A B : Prop) :  A -> (~A -> B).
 Proof.
+intros a na.
+destruct na.
+exact a.
+Show Proof.
 Qed.
 
 Lemma q4 (A B C : Prop) :  (A -> B) -> ((B -> C) -> (A -> C)).
 Proof.
+intros ab bc a.
+apply bc.
+apply ab.
+exact a.
+Show Proof.
 Qed.
 
 Lemma q5 (A B : Prop) :  (A -> B) -> (~B -> ~A).
 Proof.
+intros ab nb.
+intro na.
+destruct nb.
+apply ab.
+exact na.
+Show Proof.
 Qed.
 
 Require Import Classical.
 
 Lemma tiersexclus (A : Prop) : A \/ ~A.
 Proof.
+
 Qed.
 
 Lemma bottom_c (A : Prop) : (~A -> False) -> A.
