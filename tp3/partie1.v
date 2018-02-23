@@ -51,29 +51,83 @@ Qed.
 
 Require Import Classical.
 
-Lemma tiersexclus (A : Prop) : A \/ ~A.
-Proof.
-
-Qed.
-
 Lemma bottom_c (A : Prop) : (~A -> False) -> A.
 Proof.
+intro na.
+apply NNPP.
+intros nna.
+apply na.
+exact nna.
 Qed.
+
+
+Lemma tiersexclus (A : Prop) : A \/ ~A.
+Proof.
+apply bottom_c.
+intro naa.
+apply naa.
+left.
+apply NNPP.
+intro nna.
+apply naa.
+right.
+exact nna.
+Show Proof.
+Qed.
+
 
 Lemma q8 (A B : Prop) : (~B -> ~A) -> (A -> B).
 Proof.
+intros nbna a.
+apply NNPP.
+intro nnb.
+apply nbna.
+exact nnb.
+exact a.
+Show Proof.
 Qed.
 
 Lemma q9 (A : Prop) : ~~A <-> A.
 Proof.
+split.
+intro nna.
+apply NNPP.
+exact nna.
+intro a.
+intro nna'.
+apply nna'.
+exact a.
 Qed.
 
 Lemma q10 (A : Prop) :  (A /\ ~A) <-> False.
 Proof.
+split.
+intro ana.
+destruct ana.
+apply H0.
+exact H.
+intro f.
+split.
+destruct f.
+destruct f.
+Show Proof.
 Qed.
 
 Lemma q11 (A B : Prop) :  (A \/ B) <-> ~(~A /\ ~B).
 Proof.
+split.
+intro ab.
+intro nnanb.
+destruct nnanb.
+destruct ab.
+apply H.
+exact H1.
+apply H0.
+exact H1.
+intro nnab.
+right.
+destruct nnab.
+split.
 Qed.
 
 Lemma q12 (A : Prop) :  ~A <-> (A -> False).
