@@ -22,6 +22,16 @@ var setupListeners =
 
         changeTd();
 
+        disabledInputs();
+
+    };
+
+var disabledInputs =
+    () => {
+        let inputs = document.getElementsByTagName("input");
+        for (let i = 0; i < inputs.length - 3; i++) {
+            inputs[i].disabled = true;
+        }
     };
 
 
@@ -37,17 +47,9 @@ var changeTd =
 
 var switchToInput =
     (theTd) => {
-
-        if (theTd.firstChild.nodeType !== 3) {
-            return;
+        if (theTd.children[0].disabled) {
+            theTd.children[0].disabled = !theTd.children[0].disabled;
         }
-
-        var docFrag = document.createDocumentFragment();
-        var input = document.createElement('input');
-        input.value = theTd.textContent;
-        theTd.removeChild(theTd.firstChild);
-        docFrag.appendChild(input);
-        theTd.appendChild(docFrag);
     }
 
 
@@ -76,8 +78,8 @@ var updateEtudiant =
 
         let requestOptions = {method: 'PUT', headers: {"Content-Type": "application/json"}, body: body};
         fetch(`http://127.0.0.1:3000/etudiantsrest/${etudiant._id}`, requestOptions)
-            .then(response => response.json());
-            // .then(() => window.setTimeout(() => window.location.reload(), 200));
+            .then(response => response.json())
+            .then(() => window.setTimeout(() => window.location.reload(), 200));
     }
 
 var deleteEtudiant =
