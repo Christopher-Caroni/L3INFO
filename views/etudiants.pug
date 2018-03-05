@@ -11,16 +11,14 @@ block content
             td.titre= "groupe"
 
         each etudiant in etudiantsData
-            tr.etudiant
+            tr.etudiant(name=etudiant._id)
                 td.nom= etudiant.nom
                 td.prenom= etudiant.prenom
                 td.groupe= etudiant.groupe
                 td
-                    button.get(data-etudiantid= etudiant._id)  modifier
+                    button.put(data-etudiantid=etudiant._id, data-etudiant=etudiant)  valider
                 td
-                    button.put(data-etudiantid= etudiant._id, data-etu= etudiant)  valider
-                td
-                    button.delete(data-etudiantid= etudiant._id)  delete
+                    button.delete(data-etudiantid=etudiant._id)  delete
 
 
         tr.etudiant

@@ -24,28 +24,30 @@ var setupListeners =
 
     };
 
+
 var changeTd =
     () => {
         let tds = document.getElementsByTagName('td');
 
-        for(var i=0; i<tds.length; i++) {
-            tds[i].addEventListener('click', change.bind(td[i]), false);
+        for (let i = 0; i < tds.length; i++) {
+            tds[i].addEventListener('click', () => switchToInput(tds[i]), false);
         }
     }
 
 
-var change =
-    () => {
-        if (this.firstChild.nodeType !== 3) {
+var switchToInput =
+    (theTd) => {
+
+        if (theTd.firstChild.nodeType !== 3) {
             return;
         }
 
         var docFrag = document.createDocumentFragment();
         var input = document.createElement('input');
-        input.value = this.textContent;
-        this.removeChild(this.firstChild);
+        input.value = theTd.textContent;
+        theTd.removeChild(theTd.firstChild);
         docFrag.appendChild(input);
-        this.appendChild(docFrag);
+        theTd.appendChild(docFrag);
     }
 
 
@@ -60,11 +62,22 @@ var getEtudiant =
 
 var updateEtudiant =
     etudiant => {
-        let newEtudiant = {...etudiant, title: etudiant.title + '*'};
+
+        let tr = document.getElementsByName(etudiant._id);
+        let nom = tr[0].children[0].children[0].value;
+        let prenom = tr[0].children[1].children[0].value;
+        let groupe = tr[0].children[2].children[0].value;
+
+        let newEtudiant = {nom, prenom, groupe};
+
+        console.dir(newEtudiant);
+
         let body = JSON.stringify(newEtudiant);
+
         let requestOptions = {method: 'PUT', headers: {"Content-Type": "application/json"}, body: body};
         fetch(`http://127.0.0.1:3000/etudiantsrest/${etudiant._id}`, requestOptions)
             .then(response => response.json());
+            // .then(() => window.setTimeout(() => window.location.reload(), 200));
     }
 
 var deleteEtudiant =
