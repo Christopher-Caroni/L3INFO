@@ -57,18 +57,24 @@ lambdaP = do chaine "\\"
 
 -- une Lam ou une Var
 exprP' :: Parser Expression
-exprP' = do lambdaP <|> exprP
+exprP' = do exprP <|> lambdaP
 
 
--- des Var ou des Lam entre parantheses
+-- des Var ou des Lam entre parantheses et consomme les espaces apres
 exprParentheseeP :: Parser Expression
 exprParentheseeP = do car '('
                       res <- exprsP <|> exprP'
                       car ')'
+                      espacesP
                       pure res
-
+-- Expression finale
 exprP'' :: Parser Expression
 exprP'' = do exprP' <|> exprParentheseeP
+
+-- Expressions finale 
+exprsP' :: Parser Expression
+exprsP' = do exprs <- some exprP''
+             pure (applique exprs)
 
 
 
