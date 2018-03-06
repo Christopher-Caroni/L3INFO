@@ -71,10 +71,18 @@ exprParentheseeP = do car '('
 exprP'' :: Parser Expression
 exprP'' = do exprP' <|> exprParentheseeP
 
--- Expressions finale 
+-- Expressions finale
 exprsP' :: Parser Expression
 exprsP' = do exprs <- some exprP''
              pure (applique exprs)
+
+stringToDigit :: String -> Int
+stringToDigit xs = xs -- char to digit
+
+nombreP :: Parser Expression
+nombreP = do some carQuand isDigit
+
+             pure(Lit (Entier ))
 
 
 
