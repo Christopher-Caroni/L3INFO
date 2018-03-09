@@ -183,10 +183,40 @@ Qed.
 
 Lemma q15 (A B C : Prop) :  (C -> A)\/ (C -> B) <-> (C -> A \/ B).
 Proof.
+split.
+intros cacb c.
+destruct cacb.
+left.
+apply H.
+exact c.
+right.
+apply H.
+exact c.
+
+
+intro cab.
+apply NNPP.
+intro nncab.
+apply nncab.
+right.
+intro c.
+destruct cab.
+exact c.
+apply bottom_c.
+intro nb.
+apply nncab.
+left.
+intro c2.
+exact H.
+exact H. 
 Qed.
 
-Lemma q16 (X : Type) (A B : X -> Prop) : ((forall x, A x) \/ (forall x, B x)) -> forall x, A x \/ B x.
+Lemma q16 (X : Type) (A B : X -> Prop) :
+  ((forall x, A x) \/ (forall x, B x)) -> forall x, A x \/ B x.
 Proof.
+intro .
+intro .
+
 Qed.
 
 Lemma q17 (X : Type) (A B : X -> Prop) : (exists x, A x /\ B x) -> ((exists x, A x) /\ (exists x, B x)).
