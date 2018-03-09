@@ -119,27 +119,66 @@ split.
 intro ab.
 intro nnanb.
 destruct nnanb.
+destruct H.
 destruct ab.
-apply H.
-exact H1.
-apply H0.
-exact H1.
-intro nnab.
-right.
-destruct nnab.
+exact H.
+destruct H0.
+exact H.
+intro nnanb.
+apply bottom_c.
+intro nab.
+apply nnanb.
 split.
+intro na.
+apply nab.
+left.
+exact na.
+intro na.
+apply nab.
+right.
+exact na.
+
 Qed.
 
 Lemma q12 (A : Prop) :  ~A <-> (A -> False).
 Proof.
+split.
+intros na a.
+destruct na.
+exact a.
+intros af a.
+apply af.
+exact a.
 Qed.
 
 Lemma q13 (A B : Prop) :  (A <-> B) <-> (A -> B) /\ (B -> A).
 Proof.
+split.
+intro aeb.
+split.
+intro a.
+apply aeb.
+exact a.
+apply aeb.
+intro abeba.
+split.
+apply abeba.
+apply abeba.
 Qed.
 
 Lemma q14 (A B C : Prop) :  (A /\ B -> C) <-> (A -> B -> C).
 Proof.
+split.
+intros abc a b.
+apply abc.
+split.
+exact a.
+exact b.
+intro abc.
+intro ab.
+apply abc.
+apply ab.
+apply ab.
 Qed.
 
 Lemma q15 (A B C : Prop) :  (C -> A)\/ (C -> B) <-> (C -> A \/ B).
