@@ -3,19 +3,19 @@ import ReactDOM from 'react-dom';
 
 import EtudiantList from '../components/etudiantList.js';
 
-
-var Etudiants = require('../models/etudiants').model;
-
-var etudiants = Etudiants.find();
-
-var bootstrapReact =
-  () =>
-    {
-      console.log("guigui suce des bites a decathlon");
+var renderTable =
+() =>
+  {
+    let requestOptions = {method: 'GET'};
+    fetch(`http://127.0.0.1:3000/etudiantsrest/`, requestOptions)
+    .then( response => response.json() )
+    .then( etu => {
+      console.log("fetch : " + etu)
       ReactDOM.render(
-        <EtudiantList etudiants = {etudiants}/>,
+        <EtudiantList etudiants = {etu}/>,
         document.getElementById('insertReactHere')
       );
-    }
-//
-window.addEventListener('DOMContentLoaded', bootstrapReact );
+    })
+  }
+
+window.addEventListener('DOMContentLoaded', () => renderTable() );

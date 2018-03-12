@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Book from '../components/etudiant.js';
+import Etudiant from '../components/etudiant.js';
 
 export default class EtudiantList extends React.Component {
   constructor(props) {
@@ -28,8 +28,10 @@ export default class EtudiantList extends React.Component {
         <div className="etudiants">
           <p>Voici la liste des étudiants : </p>
           <table>
-          <tr><td>Nom</td><td>Prenom</td><td>Groupe</td></tr>
-          {allEtudiant}
+            <tbody>
+              <tr><td>Nom</td><td>Prenom</td><td>Groupe</td></tr>
+              {allEtudiant}
+            </tbody>
           </table>
         </div>
         );

@@ -4,9 +4,7 @@ var Etudiants = require('../models/etudiants').model;
 var home =
     (req,res) =>
         Etudiants.find()
-            .then( allEtudiants => res.render('etudiantrest',
-                { title : 'Etudiant REST test',
-                    etudiants : allEtudiants } ) );
+            .then( allEtu => res.status(200).json(allEtu) );
 
 var getEtudiant =
     (req,res) =>

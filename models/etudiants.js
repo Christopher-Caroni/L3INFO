@@ -9,8 +9,6 @@ var etudiantSchema = new mongoose.Schema(
     }
 );
 
-module.exports = etudiantSchema;
-
 
 var Etudiants = dbConnection.model('Etudiants',etudiantSchema,"etudiants");
 module.exports.schema = etudiantSchema;
