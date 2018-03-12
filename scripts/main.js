@@ -10,7 +10,6 @@ var renderTable =
     fetch(`http://127.0.0.1:3000/etudiantsrest/`, requestOptions)
     .then( response => response.json() )
     .then( etu => {
-      console.log("fetch : " + etu)
       ReactDOM.render(
         <EtudiantList etudiants = {etu}/>,
         document.getElementById('insertReactHere')
