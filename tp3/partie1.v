@@ -208,30 +208,63 @@ apply nncab.
 left.
 intro c2.
 exact H.
-exact H. 
+exact H.
 Qed.
 
-Lemma q16 (X : Type) (A B : X -> Prop) :
-  ((forall x, A x) \/ (forall x, B x)) -> forall x, A x \/ B x.
+Lemma q16 (X : Type) (A B : X -> Prop) : ((forall x, A x) \/ (forall x, B x)) -> forall x, A x \/ B x.
 Proof.
-intro .
-intro .
-
+intros f x.
+destruct f.
+-left.
+ apply H.
+-right.
+ apply H.
 Qed.
 
 Lemma q17 (X : Type) (A B : X -> Prop) : (exists x, A x /\ B x) -> ((exists x, A x) /\ (exists x, B x)).
 Proof.
+intros a.
+destruct a.
+destruct H.
+split.
++exists x.
+ exact H.
++exists x.
+ exact H0.
 Qed.
 
 Lemma q18 (A B : Prop) : ~ (A /\ B) -> (~ A \/ ~ B).
 Proof.
+intros n_a_or_b.
+apply NNPP.
+intros x.
+destruct n_a_or_b.
+split.
+-apply NNPP.
+ intro a.
+ apply a.
+ destruct x.
+ left.
+ exact a.
+-apply NNPP.
+ intro b.
+ apply b.
+ destruct x.
+ right.
+ exact b.
 Qed.
 
 Lemma q19 (X : Type) : forall (x1 x2 : X), x1 = x2 -> x2 = x1.
 Proof.
+intros a b c.
+rewrite c.
+reflexivity.
 Qed.
 
 Lemma q20 (X : Type) : forall (x1 x2 x3 : X), x1 = x2 /\ x2 = x3 -> x1 = x3.
 Proof.
+intros a b c d.
+destruct d as [ab bc].
+rewrite ab.
+exact bc.
 Qed.
-
