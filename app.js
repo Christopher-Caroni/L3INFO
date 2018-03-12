@@ -13,7 +13,6 @@ var etudiants = require('./routes/etudiants');
 var etudiantsRest = require('./routes/etudiantsrest');
 var error = require('./routes/error');
 
-const cors = require('cors');
 var app = express();
 
 // view engine setup
