@@ -8,6 +8,13 @@ export default class Etudiant extends React.Component {
   }
 
 
+  modifyEtu(event) {
+    this.props.modifyEtu(this.props._id);
+  }
+
+  deleteEtu(event) {
+    this.props.deleteEtu(this.props._id);
+  }
 
   render() {
       return(
@@ -15,6 +22,12 @@ export default class Etudiant extends React.Component {
           <td className="nom">{this.props.nom}</td>
           <td className="prenom">{this.props.prenom}</td>
           <td className="groupe">{this.props.groupe}</td>
+          <td>
+            <button type="button" onClick={this.modifyEtu.bind(this)}>Modifier</button>
+          </td>
+          <td>
+            <button type="button" onClick={this.deleteEtu.bind(this)}>Supprimer</button>
+          </td>
         </tr>
       );
   }
