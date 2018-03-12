@@ -9,10 +9,13 @@ var Etudiants = require('../models/etudiants').model;
 var etudiants = Etudiants.find();
 
 var bootstrapReact =
-  () => ReactDOM.render(
-      <EtudiantList etudiants = {etudiants}/>,
-      document.getElementById('insertReactHere')
-    );
-
+  () =>
+    {
+      console.log("guigui suce des bites a decathlon");
+      ReactDOM.render(
+        <EtudiantList etudiants = {etudiants}/>,
+        document.getElementById('insertReactHere')
+      );
+    }
 //
 window.addEventListener('DOMContentLoaded', bootstrapReact );

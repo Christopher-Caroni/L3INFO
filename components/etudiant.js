@@ -21,7 +21,7 @@ export default class Etudiant extends React.Component {
 }
 
 Etudiant.propTypes = {
-  nom : PropTypes.string
-  prenom : PropTypes.string
+  nom : PropTypes.string,
+  prenom : PropTypes.string,
   groupe : PropTypes.number
 }
