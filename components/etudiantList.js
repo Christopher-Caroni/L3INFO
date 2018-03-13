@@ -16,10 +16,10 @@ export default class EtudiantList extends React.Component {
       console.log("received del req for id :" + id);
 
       /* send del req to server */
-      let newList = this.state.etudiants;
-      newList = newlist.filter(etu => etu._id != id);
+      let newlist = this.state.etudiants;
+      newList = newlist.filter(etu => etu._id !== id);
 
-      this.setState(etudiants : newList);
+      this.setState({etudiants : newList});
     }
 
   render() {
