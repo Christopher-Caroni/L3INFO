@@ -125,6 +125,34 @@ addA = VFonctionA f
                           g e = error ("Expected an Integer, received, \"" ++ (show e))
              f e = error ("Expected an Integer, received, \"" ++ (show e))
 
+releveBinOpEntierA :: (Integer -> Integer -> Integer) -> ValeurA
+releveBinOpEntierA op = VFonctionA f
+       where f (VLitteralA (Entier x)) = VFonctionA g
+                    where g (VLitteralA (Entier y)) = VLitteralA (Entier (op x y))
+                          g e = error ("Expected an Integer, received, \"" ++ (show e))
+             f e = error ("Expected an Integer, received, \"" ++ (show e))
+
+envA :: Environnement ValeurA
+envA = [ ("neg",   negA)
+       , ("add",   releveBinOpEntierA (+))
+       , ("soust", releveBinOpEntierA (-))
+       , ("mult",  releveBinOpEntierA (*))
+       , ("quot",  releveBinOpEntierA quot) ]
+
+
+getBool :: ValeurA -> Bool
+getBool (VLitteralA (Bool b)) = b
+getBool _                        = error "cannot get boolean from a non litteral"
+
+ifthenelseA :: ValeurA
+ifthenelseA = VFonctionA (\cond -> VFonctionA
+                                  (\res_true ->
+                                      VFonctionA
+                                      (\res_false -> if getBool cond
+                                                     then res_true
+                                                     else res_false)
+                                      )
+                         )
 
 
 
