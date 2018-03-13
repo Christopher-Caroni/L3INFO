@@ -111,8 +111,19 @@ interpreteA env (App e1 e2)      = f (interpreteA env e2)
                   (VLitteralA _) -> error "first expression is not a function"
                   (VFonctionA r) -> r
 
+getInteger :: ValeurA -> Integer
+getInteger (VLitteralA (Entier i)) = i
+getInteger _                       = error "cannot get integer from non litteral"
 
+negA :: ValeurA
+negA = VFonctionA (\x -> VLitteralA (Entier (-getInteger x)))
 
+addA :: ValeurA
+addA = VFonctionA f
+       where f (VLitteralA (Entier x)) = VFonctionA g
+                    where g (VLitteralA (Entier y)) = VLitteralA (Entier (x + y))
+                          g e = error ("Expected an Integer, received, \"" ++ (show e))
+             f e = error ("Expected an Integer, received, \"" ++ (show e))
 
 
 
