@@ -1,5 +1,6 @@
 import Parser
 import Data.Char
+import Data.Maybe
 
 type Nom = String
 
@@ -45,7 +46,7 @@ exprsP = do exprs <- some exprP
 
 -- une Lam
 lambdaP :: Parser Expression
-lambdaP = do chaine "\\"
+lambdaP = do chaine "\\" <|> chaine "λ"
              espacesP
              lam <- nomP
              chaine "-> "
@@ -100,8 +101,22 @@ instance Show ValeurA where
 type Environnement a = [(Nom, a)]
 
 interpreteA :: Environnement ValeurA -> Expression -> ValeurA
-interpreteA _ (Lit l)      = VLitteralA l
-interpreteA 
+interpreteA _   (Lit l)          = VLitteralA l
+interpreteA env (Lam n e)        = VFonctionA (\x -> interpreteA ((n, x):env) e)
+interpreteA env (Var n)          = fromJust (lookup n env)
+interpreteA env (App e1 e2)      = f (interpreteA env e2)
+  where f = case interpreteA env e1 of
+                  (VLitteralA _) -> error "first expression is not a function"
+                  (VFonctionA r) -> r
+
+
+
+
+
+
+
+
+
 
 --main :: IO ()
 --main = _
