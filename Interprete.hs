@@ -97,10 +97,11 @@ instance Show ValeurA where
    show (VLitteralA (Entier e)) = show e
    show (VLitteralA (Bool b)) = show b
 
+type Environnement a = [(Nom, a)]
 
-
-
-
+interpreteA :: Environnement ValeurA -> Expression -> ValeurA
+interpreteA _ (Lit l)      = VLitteralA l
+interpreteA 
 
 --main :: IO ()
 --main = _
