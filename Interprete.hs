@@ -54,7 +54,7 @@ lambdaP = do chaine "\\"
 
 -- une Lam ou une Var
 exprP :: Parser Expression
-exprP = do lambdaP <|> exprParentheseeP <|> varP
+exprP = do lambdaP <|> exprParentheseeP <|> nombreP <|> booleenP <|> varP
 
 
 -- des Var ou des Lam entre parantheses et consomme les espaces apres
@@ -72,6 +72,12 @@ nombreP :: Parser Expression
 nombreP = do cs <- some (carQuand isDigit)
              espacesP
              pure(Lit (Entier (read cs)))
+
+
+booleenP :: Parser Expression
+booleenP = do cs <- (chaine "True" <|> chaine "False")
+              espacesP
+              pure(Lit (Bool (read cs)))
 
 
 
