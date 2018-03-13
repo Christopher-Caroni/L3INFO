@@ -37,9 +37,6 @@ applique es       = App (applique (init es)) (last es)
 applique' :: [Expression] -> Expression
 applique' = foldl1 App
 
-exprP :: Parser Expression
-exprP = varP
-
 
 -- plusieurs Var sous forme de App
 exprsP :: Parser Expression
@@ -56,33 +53,24 @@ lambdaP = do chaine "\\"
              pure (Lam lam exprs)
 
 -- une Lam ou une Var
-exprP' :: Parser Expression
-exprP' = do exprP <|> lambdaP
+exprP :: Parser Expression
+exprP = do lambdaP <|> exprParentheseeP <|> varP
 
 
 -- des Var ou des Lam entre parantheses et consomme les espaces apres
 exprParentheseeP :: Parser Expression
 exprParentheseeP = do car '('
-                      res <- exprsP <|> exprP'
+                      res <- exprsP <|> exprP
                       car ')'
                       espacesP
                       pure res
--- Expression finale
-exprP'' :: Parser Expression
-exprP'' = do exprP' <|> exprParentheseeP
-
--- Expressions finale
-exprsP' :: Parser Expression
-exprsP' = do exprs <- some exprP''
-             pure (applique exprs)
 
 stringToDigit :: String -> Int
-stringToDigit xs = xs -- char to digit
+stringToDigit xs = read xs -- char to digit
 
-nombreP :: Parser Expression
-nombreP = do some carQuand isDigit
-
-             pure(Lit (Entier ))
+--nombreP :: Parser Expression
+--nombreP = do some carQuand isDigit
+--           pure(Lit (Entier ))
 
 
 
