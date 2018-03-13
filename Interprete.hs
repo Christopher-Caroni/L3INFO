@@ -79,9 +79,14 @@ booleenP = do cs <- (chaine "True" <|> chaine "False")
               espacesP
               pure(Lit (Bool (read cs)))
 
+expressionP :: Parser Expression
+expressionP = do espacesP
+                 exprsP
 
-
-
+ras :: String -> Expression
+ras cs = case (runParser expressionP cs) of
+              Nothing   -> error "Erreur d’analyse syntaxique"
+              Just(r,_) -> r
 
 
 
