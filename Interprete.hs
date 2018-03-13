@@ -88,6 +88,15 @@ ras cs = case (runParser expressionP cs) of
               Nothing   -> error "Erreur d’analyse syntaxique"
               Just(r,_) -> r
 
+data ValeurA = VLitteralA Litteral
+             | VFonctionA (ValeurA -> ValeurA)
+
+
+instance Show ValeurA where
+   show (VFonctionA _) = "λ"
+   show (VLitteralA (Entier e)) = show e
+   show (VLitteralA (Bool b)) = show b
+
 
 
 
