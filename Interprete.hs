@@ -68,9 +68,10 @@ exprParentheseeP = do car '('
 stringToDigit :: String -> Int
 stringToDigit xs = read xs -- char to digit
 
---nombreP :: Parser Expression
---nombreP = do some carQuand isDigit
---           pure(Lit (Entier ))
+nombreP :: Parser Expression
+nombreP = do cs <- some (carQuand isDigit)
+             espacesP
+             pure(Lit (Entier (read cs)))
 
 
 
