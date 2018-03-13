@@ -103,7 +103,9 @@ type Environnement a = [(Nom, a)]
 interpreteA :: Environnement ValeurA -> Expression -> ValeurA
 interpreteA _   (Lit l)          = VLitteralA l
 interpreteA env (Lam n e)        = VFonctionA (\x -> interpreteA ((n, x):env) e)
-interpreteA env (Var n)          = fromJust (lookup n env)
+interpreteA env (Var n)          = case lookup n env of
+                                        Nothing -> error "variable is not in environnement"
+                                        Just(v) -> v
 interpreteA env (App e1 e2)      = f (interpreteA env e2)
   where f = case interpreteA env e1 of
                   (VLitteralA _) -> error "first expression is not a function"
