@@ -137,7 +137,8 @@ envA = [ ("neg",   negA)
        , ("add",   releveBinOpEntierA (+))
        , ("soust", releveBinOpEntierA (-))
        , ("mult",  releveBinOpEntierA (*))
-       , ("quot",  releveBinOpEntierA quot) ]
+       , ("quot",  releveBinOpEntierA quot)
+       , ("if", ifthenelseA) ]
 
 
 getBool :: ValeurA -> Bool
