@@ -5,8 +5,9 @@ Bienvenue sur notre TP React
 
 ----------
 <p>TP réalisé dans le cadre de l'option Javascript et son environnement par Christopher Caroni et Leprêtre Guillaume. 
-Ce projet sera évalué par notre professeur Jean Christophe Routier. 
-Dans ce tp, nous avons une gestion d'étudiants en single page développer avec React JS</p>
+Ce projet sera évalué par notre professeur Jean Christophe Routier.</p>
+
+<p>Dans ce tp, nous avons une gestion d'étudiants en single page application, développée avec `React JS`</p>
 
 # Mise en place du TP :
 
