@@ -80,6 +80,12 @@ public class DNSsimple {
             if ((i + 1) % 16 == 0)
                 System.out.println("");
         }
+        
+        
+        //
+        int length = ( (rec[10] & 0xFF) * 256) | ((rec[11] & 0xFF) );
+        System.out.println("length: " + length);
+        System.out.println("rec length: " + rec.length);
         System.out.println("");
     }
 }
