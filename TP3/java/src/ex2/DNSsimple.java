@@ -140,6 +140,9 @@ public class DNSsimple {
 		int rdLength = byteToInt(rdLengthByte);
 		System.out.println("found rdlength at bytes: " + (Integer.toHexString((rec[rdLengthOffset]) & 0xff)) + ", " + (Integer.toHexString((rec[rdLengthOffset+1]) & 0xff)));
 		System.out.println("rdlength val: " + rdLength);
+		
+		// type = 5 donc le premier reponse contient une chaine 
+		// il faut donc chercher la 2e reponse qui a le type 1 qui contient l'IP
 	}
 
 	private static int singleByteToInt(byte rec) {
