@@ -11,7 +11,7 @@ var renderTable =
     .then( response => response.json() )
     .then( etu => {
       ReactDOM.render(
-        <EtudiantList etudiants = {etu}/>,
+        <EtudiantList alletudiants = {etu}/>,
         document.getElementById('insertReactHere')
       );
     })
