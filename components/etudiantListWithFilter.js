@@ -23,25 +23,13 @@ export default class etudiantListWithFilter extends React.Component {
 
         if (filterText === "") {
             console.log("returning all");
-            console.log(list);
             return list;
         }
 
-        console.log("filter state");
-        console.log(list);
 
-
-        let newList = list.filter(etudiant => {
-            let containsFilter = etudiant.nom.toLowerCase().includes(filterText) || etudiant.prenom.toLowerCase().includes(filterText);
-            console.log(etudiant.prenom + " with filter " + filterText + " is included: " + containsFilter);
-
-            return containsFilter;
+        return list.filter(etudiant => {
+            return etudiant.nom.toLowerCase().includes(filterText) || etudiant.prenom.toLowerCase().includes(filterText);
         });
-
-        console.log("filter:");
-        console.log(newList);
-
-        return newList;
     }
 
     render() {

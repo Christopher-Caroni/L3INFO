@@ -54,15 +54,9 @@ export default class EtudiantList extends React.Component {
             .catch(error => window.alert("delete failed"));
     }
 
-    componentDidUpdate(prevProps, prevState) {
-        console.log("props: ");
-        console.log(prevProps);
-        console.log("state: ");
-        console.log(prevState);
-    }
-
     componentWillReceiveProps(nextProps) {
-        this.setState({etudiants: this.props.alletudiants});
+        this.setState({etudiants: nextProps.alletudiants});
+
     }
 
     render() {
