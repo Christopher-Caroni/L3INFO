@@ -12,11 +12,22 @@ export default class EtudiantList extends React.Component {
         this.setState({etudiants: this.props.alletudiants});
     }
 
+    getEtu(etudiantId) {
+        let newNom = document.getElementById(etudiantId + "_nom").value;
+        let newPrenom = document.getElementById(etudiantId + "_prenom").value;
+        let newGroupe = document.getElementById(etudiantId + "_groupe").value;
 
-    modifyEtu(id) {
-        console.log("received modify req for id :" + id);
+        return {_id: etudiantId, nom: newNom, prenom: newPrenom, groupe: newGroupe};
+    }
 
-        let requestOptions = {method: 'PUT'};
+
+    modifyEtu(etudiantId) {
+        console.log("received modify req for id :" + etudiantId);
+
+        let newEtu = this.getEtu(etudiantId);
+
+        let body = JSON.stringify(newEtu);
+        let requestOptions = {method: 'PUT', headers: {"Content-Type": "application/json"}, body: body};
         fetch(`http://127.0.0.1:3000/etudiantsrest/${etudiantId}`, requestOptions)
             .then(response => {
                 if (!response.ok) {
