@@ -15,6 +15,15 @@ export default class EtudiantList extends React.Component {
 
     modifyEtu(id) {
         console.log("received modify req for id :" + id);
+
+        let requestOptions = {method: 'PUT'};
+        fetch(`http://127.0.0.1:3000/etudiantsrest/${etudiantId}`, requestOptions)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`update failed  : ${response.json.message}`);
+                }
+            })
+            .catch(error => window.alert("update failed"));
     }
 
     deleteEtu(etudiantId) {
@@ -23,7 +32,6 @@ export default class EtudiantList extends React.Component {
         let requestOptions = {method: 'DELETE'};
         fetch(`http://127.0.0.1:3000/etudiantsrest/${etudiantId}`, requestOptions)
             .then(response => {
-                console.log(response);
                 if (response.ok) {
                     let newList = this.state.etudiants;
                     newList = newList.filter(etudiant => etudiant._id !== etudiantId);
