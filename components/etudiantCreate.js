@@ -31,9 +31,9 @@ export default class EtudiantCreate extends React.Component {
     render() {
         return (
             <tr className="etudiant" id={this.props._id}>
-                <td className="nom"><input ref={ input => this.inputNom = input} defaultValue={this.props.nom}/></td>
-                <td className="prenom"><input ref={ input => this.inputPrenom = input} defaultValue={this.props.prenom}/></td>
-                <td className="groupe"><input ref={ input => this.inputGroupe = input} defaultValue={this.props.groupe}/></td>
+                <td className="nom"><input ref={ input => this.inputNom = input}/></td>
+                <td className="prenom"><input ref={ input => this.inputPrenom = input}/></td>
+                <td className="groupe"><input ref={ input => this.inputGroupe = input}/></td>
                 <td>
                     <button type="button" onClick={this.onClickCreate.bind(this)}>Create</button>
                 </td>

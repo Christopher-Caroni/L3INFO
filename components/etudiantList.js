@@ -21,6 +21,7 @@ export default class EtudiantList extends React.Component {
         let requestOptions = {method: 'POST', headers: {"Content-Type": "application/json"}, body: body};
         fetch(`http://127.0.0.1:3000/etudiantsrest/`, requestOptions)
             .then(response => {
+                this.etuCreate.clearValues();
                 if (!response.ok) {
                     throw new Error(`create failed  : ${response.json.message}`);
                 } else {
@@ -29,7 +30,6 @@ export default class EtudiantList extends React.Component {
                       let newList = this.state.etudiants;
                       newList.push(json);
                       this.setState({etudiants: newList});
-                      this.etuCreate.clearValues();
                     })
                 }
             })
@@ -98,7 +98,7 @@ export default class EtudiantList extends React.Component {
                       ref={etuCreate => this.etuCreate = etuCreate}
                       nom=""
                       prenom=""
-                      groupe=""
+                      groupe={0}
                       createEtu={(etudiant)=> this.createEtu(etudiant)}
                     />
                     </tbody>

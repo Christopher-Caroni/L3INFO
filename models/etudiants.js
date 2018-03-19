@@ -5,7 +5,7 @@ var etudiantSchema = new mongoose.Schema(
     {
         nom : String,
         prenom : String,
-        groupe : String
+        groupe : Number
     }
 );
 

@@ -15,7 +15,8 @@ var createEtudiant =
     (req, res) => {
         let newEtudiant = {...req.body};
         Etudiants.create(newEtudiant)
-            .then(etudiant => res.status(200).json(etudiant));
+            .then(etudiant => res.status(200).json(etudiant))
+            .catch( error => res.status(400).json(error) );
     }
 
 var updateEtudiant =
