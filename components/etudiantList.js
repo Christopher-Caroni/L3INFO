@@ -1,6 +1,8 @@
 import React from 'react';
 
 import Etudiant from '../components/etudiant.js';
+import EtudiantCreate from '../components/etudiantCreate.js';
+
 
 export default class EtudiantList extends React.Component {
     constructor(props) {
@@ -20,6 +22,19 @@ export default class EtudiantList extends React.Component {
         return {_id: etudiantId, nom: newNom, prenom: newPrenom, groupe: newGroupe};
     }
 
+
+    createEtu(newEtu) {
+
+        let body = JSON.stringify(newEtu);
+        let requestOptions = {method: 'POST', headers: {"Content-Type": "application/json"}, body: body};
+        fetch(`http://127.0.0.1:3000/etudiantsrest/`, requestOptions)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`create failed  : ${response.json.message}`);
+                }
+            })
+            .catch(error => window.alert("create failed"));
+    }
 
     modifyEtu(etudiantId) {
         console.log("received modify req for id :" + etudiantId);
@@ -49,14 +64,13 @@ export default class EtudiantList extends React.Component {
                     this.setState({etudiants: newList});
                 } else {
                     throw new Error(` delete failed  : ${response.json.message}`);
-                }
+                }createEtu
             })
             .catch(error => window.alert("delete failed"));
     }
 
     componentWillReceiveProps(nextProps) {
         this.setState({etudiants: nextProps.alletudiants});
-
     }
 
     render() {
@@ -82,6 +96,12 @@ export default class EtudiantList extends React.Component {
                         <td>Groupe</td>
                     </tr>
                     {allEtudiant}
+                    <EtudiantCreate
+                      nom=""
+                      prenom=""
+                      groupe=""
+                      createEtu={(etudiant)=> this.createEtu(etudiant)}
+                    />
                     </tbody>
                 </table>
             </div>
