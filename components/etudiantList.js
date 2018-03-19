@@ -32,8 +32,11 @@ export default class EtudiantList extends React.Component {
                 if (!response.ok) {
                     throw new Error(`create failed  : ${response.json.message}`);
                 }
+                let newList = this.state.etudiants;
+                newList.push(newEtu);
+                this.setState({etudiants: newList});
             })
-            .catch(error => window.alert("create failed"));
+            .catch(error => window.alert(error.message));
     }
 
     modifyEtu(etudiantId) {
@@ -74,6 +77,7 @@ export default class EtudiantList extends React.Component {
     }
 
     render() {
+        console.dir(this.state.etudiants);
         let allEtudiant = this.state.etudiants.map(
             etudiant =>
                 <Etudiant
