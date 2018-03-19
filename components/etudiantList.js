@@ -72,7 +72,17 @@ export default class EtudiantList extends React.Component {
     }
 
     render() {
-        let allEtudiant = this.state.etudiants.map(
+
+        let allEtudiant = this.state.etudiants;
+        allEtudiant.sort( (a, b) => {
+          let res = a.nom.localeCompare(b.nom);
+          if (res === 0) {
+            return a.groupe > b.groupe
+          }
+          return res;
+        })
+
+        allEtudiant = allEtudiant.map(
             etudiant =>
                 <Etudiant
                     {...etudiant}
