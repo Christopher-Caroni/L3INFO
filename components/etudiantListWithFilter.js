@@ -40,9 +40,10 @@ export default class etudiantListWithFilter extends React.Component {
             <div className="center-block">
 
                 <h1>Liste des étudiants</h1>
-                
-                <p>Filtre (nom, prenom, groupe) :</p>
+
+                <h3>Filtre :</h3>
                  <input
+                 placeholder="nom, prénom ou groupe"
                   value={this.state.filterText}
                   onChange={this.changeFilter.bind(this)}
                   ref={input => this.filterInput = input}

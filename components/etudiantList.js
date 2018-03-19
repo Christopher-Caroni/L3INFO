@@ -99,7 +99,7 @@ export default class EtudiantList extends React.Component {
             <div>
 
             <div  id="groupeCount">
-            <p> Nombre de étudiants par groupe :</p>
+            <h3> Nombre d étudiants par groupe :</h3>
             <table className="table table-striped table-bordered table-condensed">
               <tbody>
                 <tr><th>Groupe 1</th><th>Groupe 2</th><th>Groupe 3</th><th>Groupe 4</th><th>Groupe 5</th><th>Groupe 6</th></tr>
@@ -112,8 +112,8 @@ export default class EtudiantList extends React.Component {
             </div>
 
               <div className="etudiants">
-                <p>Voici la liste des étudiants : </p>
-                <table className="table table-striped table-bordered table-condensed">
+                <h3>Voici la liste des étudiants : </h3>
+                <table className="table table-striped table-bordered table-condensed table-hover">
                     <tbody>
                     <tr className="active" >
                         <th>Nom</th>

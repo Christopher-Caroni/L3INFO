@@ -31,11 +31,11 @@ export default class EtudiantCreate extends React.Component {
     render() {
         return (
             <tr className="etudiant active" id={this.props._id}>
-                <td className="nom"><input ref={ input => this.inputNom = input}/></td>
-                <td className="prenom"><input ref={ input => this.inputPrenom = input}/></td>
-                <td className="groupe"><input ref={ input => this.inputGroupe = input}/></td>
+                <td className="nom"><input placeholder="nom" ref={ input => this.inputNom = input}/></td>
+                <td className="prenom"><input placeholder="prénom" ref={ input => this.inputPrenom = input}/></td>
+                <td className="groupe"><input placeholder="groupe" ref={ input => this.inputGroupe = input}/></td>
                 <td>
-                    <button type="button"  className="btn btn-success"  onClick={this.onClickCreate.bind(this)}>Create</button>
+                    <button type="button"  className="btn btn-success center-block"  onClick={this.onClickCreate.bind(this)}>Create</button>
                 </td>
 
             </tr>

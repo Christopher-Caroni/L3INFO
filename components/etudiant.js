@@ -30,10 +30,10 @@ export default class Etudiant extends React.Component {
                 <td className="prenom"><input ref={ input => this.inputPrenom = input} defaultValue={this.props.prenom}/></td>
                 <td className="groupe"><input ref={ input => this.inputGroupe = input} defaultValue={this.props.groupe}/></td>
                 <td>
-                    <button type="button" className="btn btn-primary" onClick={this.onClickModify.bind(this)}>Modifier</button>
+                    <button type="button" className="btn btn-primary center-block" onClick={this.onClickModify.bind(this)}>Modifier</button>
                 </td>
                 <td>
-                    <button type="button"  className="btn btn-danger" onClick={this.onClickDelete.bind(this)}>Supprimer</button>
+                    <button type="button"  className="btn btn-danger center-block" onClick={this.onClickDelete.bind(this)}>Supprimer</button>
                 </td>
             </tr>
         );
