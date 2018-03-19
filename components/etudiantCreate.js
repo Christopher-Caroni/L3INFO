@@ -20,6 +20,12 @@ export default class EtudiantCreate extends React.Component {
         this.props.createEtu(this.getEtu());
     }
 
+    clearValues() {
+      this.inputNom.value = "";
+      this.inputPrenom.value = "";
+      this.inputGroupe.value = "";
+    }
+
 
 
     render() {
