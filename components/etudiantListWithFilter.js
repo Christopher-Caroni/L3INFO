@@ -28,7 +28,7 @@ export default class etudiantListWithFilter extends React.Component {
 
 
         return list.filter(etudiant => {
-            return etudiant.nom.toLowerCase().includes(filterText) || etudiant.prenom.toLowerCase().includes(filterText);
+            return etudiant.nom.toLowerCase().includes(filterText.toLowerCase()) || etudiant.prenom.toLowerCase().includes(filterText.toLowerCase());
         });
     }
 
