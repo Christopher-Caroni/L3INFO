@@ -21,14 +21,14 @@ export default class etudiantListWithFilter extends React.Component {
         let list = this.state.etudiants;
         let filterText = this.state.filterText;
 
+
         if (filterText === "") {
-            console.log("returning all");
             return list;
         }
 
 
         return list.filter(etudiant => {
-            return etudiant.nom.toLowerCase().includes(filterText.toLowerCase()) || etudiant.prenom.toLowerCase().includes(filterText.toLowerCase());
+            return etudiant.nom.toLowerCase().includes(filterText.toLowerCase()) || etudiant.prenom.toLowerCase().includes(filterText.toLowerCase()) || etudiant.groupe == filterText;
         });
     }
 
@@ -36,7 +36,7 @@ export default class etudiantListWithFilter extends React.Component {
 
         return (
             <div>
-                Name or surname filter : <input
+                Filtre (nom, prenom, groupe) : <input
                 value={this.state.filterText}
                 onChange={this.changeFilter.bind(this)}
                 ref={input => this.filterInput = input}

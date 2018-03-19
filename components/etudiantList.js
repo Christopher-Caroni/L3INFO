@@ -82,9 +82,33 @@ export default class EtudiantList extends React.Component {
                 />
         )
 
+        let counts = [0,0,0,0,0,0];
+        this.state.etudiants.forEach( etu => {
+          counts[etu.groupe-1]++;
+        })
+
+        let groupeCount = counts.map(
+            (count, idx) =>
+              <td key={idx} ><input value={counts[idx]} disabled/></td>
+
+        )
+
 
         return (
+
+
             <div className="etudiants">
+            <p> Nombre de étudiants par groupe :</p>
+
+            <table>
+              <tbody>
+                <tr><td>groupe 1</td><td>groupe 2</td><td>groupe 3</td><td>groupe 4</td><td>groupe 5</td><td>groupe 6</td></tr>
+                <tr>
+                  {groupeCount}
+                </tr>
+              </tbody>
+            </table>
+
                 <p>Voici la liste des étudiants : </p>
                 <table>
                     <tbody>
