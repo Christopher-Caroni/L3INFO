@@ -6,4 +6,4 @@ var etudiants =
 
 module.exports =
 (req, res, next) =>
-      res.render('etudiants', {title : 'liste des etudiants'});
+      res.render('etudiants', {title : 'Liste des etudiants'});

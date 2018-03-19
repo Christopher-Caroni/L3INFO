@@ -89,33 +89,36 @@ export default class EtudiantList extends React.Component {
 
         let groupeCount = counts.map(
             (count, idx) =>
-              <td key={idx} ><input value={counts[idx]} disabled/></td>
+              <td key={idx} >{counts[idx]}</td>
 
         )
 
 
         return (
 
+            <div>
 
-            <div className="etudiants">
+            <div  id="groupeCount">
             <p> Nombre de étudiants par groupe :</p>
-
-            <table>
+            <table className="table table-striped table-bordered table-condensed">
               <tbody>
-                <tr><td>groupe 1</td><td>groupe 2</td><td>groupe 3</td><td>groupe 4</td><td>groupe 5</td><td>groupe 6</td></tr>
+                <tr><th>Groupe 1</th><th>Groupe 2</th><th>Groupe 3</th><th>Groupe 4</th><th>Groupe 5</th><th>Groupe 6</th></tr>
                 <tr>
                   {groupeCount}
                 </tr>
               </tbody>
             </table>
 
+            </div>
+
+              <div className="etudiants">
                 <p>Voici la liste des étudiants : </p>
-                <table>
+                <table className="table table-striped table-bordered table-condensed">
                     <tbody>
-                    <tr>
-                        <td>Nom</td>
-                        <td>Prenom</td>
-                        <td>Groupe</td>
+                    <tr className="active" >
+                        <th>Nom</th>
+                        <th>Prenom</th>
+                        <th>Groupe</th>
                     </tr>
                     {allEtudiant}
                     <EtudiantCreate
@@ -127,6 +130,7 @@ export default class EtudiantList extends React.Component {
                     />
                     </tbody>
                 </table>
+            </div>
             </div>
         );
     }

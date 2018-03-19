@@ -27,7 +27,15 @@ a {
   border : solid 2px #404040;
   padding : 4px;
 }
-tr.etudiant {
+p{
+  font-size: 16;
+  font-weight: bold;
+  text-decoration: underline;
+}
+table{
+  background-color: lightgrey;
+}
+tr {
   border : solid thin #404040;
   background-color : #E0E0E0;
 }
@@ -35,8 +43,22 @@ td.nom, td.prenom, td.groupe{
   padding : 2px 5px;
 }
 
-td.author {
-  color  : green;
+th {
+  color  : red;
+  padding: 4px;
+}
+
+td {
+  color  : black;
+
+}
+
+input{
+  text-align: center;
+}
+
+input[disabled] {
+  background-color: grey;
 }
 
 .cover {

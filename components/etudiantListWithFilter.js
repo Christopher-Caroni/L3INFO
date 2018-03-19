@@ -35,16 +35,24 @@ export default class etudiantListWithFilter extends React.Component {
     render() {
 
         return (
-            <div>
-                Filtre (nom, prenom, groupe) : <input
-                value={this.state.filterText}
-                onChange={this.changeFilter.bind(this)}
-                ref={input => this.filterInput = input}
-            />
+            <div className="container">
+            <div className="row">
+            <div className="center-block">
+
+                <h1>Liste des étudiants</h1>
+                
+                <p>Filtre (nom, prenom, groupe) :</p>
+                 <input
+                  value={this.state.filterText}
+                  onChange={this.changeFilter.bind(this)}
+                  ref={input => this.filterInput = input}
+                  />
                 <EtudiantList
                     alletudiants={this.filterList()}
                 />
             </div>
+            </div>
+        </div>
         );
     }
 }
