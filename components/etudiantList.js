@@ -14,14 +14,6 @@ export default class EtudiantList extends React.Component {
         this.setState({etudiants: this.props.alletudiants});
     }
 
-    getEtu(etudiantId) {
-        let newNom = document.getElementById(etudiantId + "_nom").value;
-        let newPrenom = document.getElementById(etudiantId + "_prenom").value;
-        let newGroupe = document.getElementById(etudiantId + "_groupe").value;
-
-        return {_id: etudiantId, nom: newNom, prenom: newPrenom, groupe: newGroupe};
-    }
-
 
     createEtu(newEtu) {
 
@@ -44,20 +36,18 @@ export default class EtudiantList extends React.Component {
             .catch(error => window.alert(error.message));
     }
 
-    modifyEtu(etudiantId) {
-        console.log("received modify req for id :" + etudiantId);
+    modifyEtu(etu) {
+        console.log("received modify req for id :" + etu._id);
 
-        let newEtu = this.getEtu(etudiantId);
-
-        let body = JSON.stringify(newEtu);
+        let body = JSON.stringify(etu);
         let requestOptions = {method: 'PUT', headers: {"Content-Type": "application/json"}, body: body};
-        fetch(`http://127.0.0.1:3000/etudiantsrest/${etudiantId}`, requestOptions)
+        fetch(`http://127.0.0.1:3000/etudiantsrest/${etu._id}`, requestOptions)
             .then(response => {
                 if (!response.ok) {
                     throw new Error(`update failed  : ${response.json.message}`);
                 }
             })
-            .catch(error => window.alert("update failed"));
+            .catch(error => window.alert(error.message));
     }
 
     deleteEtu(etudiantId) {
@@ -74,7 +64,7 @@ export default class EtudiantList extends React.Component {
                     throw new Error(` delete failed  : ${response.json.message}`);
                 }
             })
-            .catch(error => window.alert("delete failed"));
+            .catch(error => window.alert(error.message));
     }
 
     componentWillReceiveProps(nextProps) {

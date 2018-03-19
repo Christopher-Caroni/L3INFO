@@ -7,9 +7,16 @@ export default class Etudiant extends React.Component {
         super(props);
     }
 
+    getEtu() {
+        let newNom = this.inputNom.value;
+        let newPrenom = this.inputPrenom.value;
+        let newGroupe = this.inputGroupe.value;
+
+        return {_id: this.props._id, nom: newNom, prenom: newPrenom, groupe: newGroupe};
+    }
 
     onClickModify(event) {
-        this.props.modifyEtu(this.props._id);
+        this.props.modifyEtu(this.getEtu());
     }
 
     onClickDelete(event) {
@@ -19,9 +26,9 @@ export default class Etudiant extends React.Component {
     render() {
         return (
             <tr className="etudiant" id={this.props._id}>
-                <td className="nom"><input id={this.props._id + "_nom"} defaultValue={this.props.nom}/></td>
-                <td className="prenom"><input id={this.props._id + "_prenom"} defaultValue={this.props.prenom}/></td>
-                <td className="groupe"><input id={this.props._id + "_groupe"} defaultValue={this.props.groupe}/></td>
+                <td className="nom"><input ref={ input => this.inputNom = input} defaultValue={this.props.nom}/></td>
+                <td className="prenom"><input ref={ input => this.inputPrenom = input} defaultValue={this.props.prenom}/></td>
+                <td className="groupe"><input ref={ input => this.inputGroupe = input} defaultValue={this.props.groupe}/></td>
                 <td>
                     <button type="button" onClick={this.onClickModify.bind(this)}>Modifier</button>
                 </td>
