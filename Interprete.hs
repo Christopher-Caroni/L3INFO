@@ -166,7 +166,7 @@ type MsgErreur = String
 type ErrValB   = Either MsgErreur ValeurB
 
 instance Show ValeurB where
-   show (VFonctionB _)          = "λ "
+   show (VFonctionB _)          = "λ"
    show (VLitteralB (Entier n)) = show n
    show (VLitteralB (Bool n))   = show n
 
@@ -211,7 +211,30 @@ quotB =  VFonctionB f
                          g e = Left (messErrInteger e)
             f e = Left (messErrInteger e)
 
+-------------- Interprete traçant --------------
 
+data ValeurC = VLitteralC Litteral
+             | VFonctionC (ValeurC -> OutValC)
+
+type Trace   = String
+type OutValC = (Trace, ValeurC)
+
+instance Show ValeurC where
+    show (VFonctionC _)          = "λ"
+    show (VLitteralC (Entier n)) = show n
+    show (VLitteralC (Bool n))   = show n
+
+interpreteC :: Environnement ValeurC -> Expression -> OutValC
+interpreteC _   (Lit l)          = ("",VLitteralC l)
+interpreteC env (Lam n e)        = ("",(VFonctionC (\x -> interpreteC ((n, x):env) e)))
+interpreteC env (Var n)          = ("", fromJust (lookup n env))
+interpreteC env (App x y) = case interpreteC env x of
+                                    (t, (VFonctionC f)) -> ((t++"."++(fst application)), snd application)
+                                                            where application = f (snd (interpreteC env y))
+                                    e                   -> error (show e)
+
+pingC :: ValeurC
+pingC = VFonctionC (\x -> ("p", x))
 
 
 main :: IO ()
