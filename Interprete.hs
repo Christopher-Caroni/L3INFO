@@ -180,6 +180,9 @@ messErrAppLitLeft l =  (show l) ++ " n'est pas une fonction, application impossi
 messErrInteger :: ValeurB -> MsgErreur
 messErrInteger l = (show l) ++ "n'est pas un entier"
 
+messErrDivZero :: MsgErreur
+messErrDivZero = "division par zero"
+
 interpreteB :: Environnement ValeurB -> Expression -> ErrValB
 interpreteB _   (Lit l)          = Right (VLitteralB l)
 interpreteB env (Lam n e)        = Right (VFonctionB (\x -> interpreteB ((n, x):env) e))
@@ -198,6 +201,17 @@ addB =  VFonctionB f
                     where g (VLitteralB (Entier y)) = Right (VLitteralB (Entier (x + y)))
                           g e = Left (messErrInteger e)
              f e = Left (messErrInteger e)
+
+quotB :: ValeurB
+quotB =  VFonctionB f
+      where f   (VLitteralB (Entier x)) = Right (VFonctionB g)
+                   where g (VLitteralB (Entier y)) = case y of
+                                                      0 -> Left (messErrDivZero)
+                                                      e -> Right (VLitteralB (Entier (x `quot` e)))
+                         g e = Left (messErrInteger e)
+            f e = Left (messErrInteger e)
+
+
 
 
 main :: IO ()
