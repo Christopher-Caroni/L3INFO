@@ -1,6 +1,7 @@
 import Parser
 import Data.Char
 import Data.Maybe
+import System.IO
 
 type Nom = String
 
@@ -154,11 +155,12 @@ ifthenelseA = VFonctionA (\cond -> VFonctionA
                                                      else res_false)
                                       )
                          )
-
-
-
-
-
-
---main :: IO ()
---main = _
+main :: IO ()
+main = do putStr "minilang> "
+          hFlush stdout
+          fin <- isEOF
+          if fin
+              then putStrLn "bye"
+              else do cmd <- getLine
+                      print (interpreteA envA (ras cmd))
+                      main
