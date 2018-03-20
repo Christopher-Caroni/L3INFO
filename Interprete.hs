@@ -172,10 +172,13 @@ instance Show ValeurB where
 
 
 messErrVarNonDef :: Nom -> MsgErreur
-messErrVarNonDef n = "Error : variable " ++ n ++ " not defined"
+messErrVarNonDef n =  "la variable " ++ n ++ " not defined"
 
 messErrAppLitLeft :: ValeurB -> MsgErreur
-messErrAppLitLeft l = "Error : " ++ show l ++ " not a function"
+messErrAppLitLeft l =  (show l) ++ " n'est pas une fonction, application impossible"
+
+messErrInteger :: ValeurB -> MsgErreur
+messErrInteger l = (show l) ++ "n'est pas un entier"
 
 interpreteB :: Environnement ValeurB -> Expression -> ErrValB
 interpreteB _   (Lit l)          = Right (VLitteralB l)
@@ -188,8 +191,13 @@ interpreteB env (App x y) = case interpreteB env x of
                                     Right (VFonctionB f) -> case (interpreteB env y) of
                                                                     Left e  ->  Left (messErrVarNonDef e)
                                                                     Right v -> f v
-                                    Right e              -> Left (messErrAppLitLeft e)
 
+addB :: ValeurB
+addB =  VFonctionB f
+       where f   (VLitteralB (Entier x)) = Right (VFonctionB g)
+                    where g (VLitteralB (Entier y)) = Right (VLitteralB (Entier (x + y)))
+                          g e = Left (messErrInteger e)
+             f e = Left (messErrInteger e)
 
 
 main :: IO ()
