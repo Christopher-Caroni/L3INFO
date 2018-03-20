@@ -177,8 +177,18 @@ messErrVarNonDef n = "Error : variable " ++ n ++ " not defined"
 messErrAppLitLeft :: Litteral -> MsgErreur
 messErrAppLitLeft l = "Error : " ++ show l ++ " not a function"
 
---interpreteB :: Environnement ValeurB -> Expression -> Maybe ValeurB
---interpreteB =
+interpreteB :: Environnement ValeurB -> Expression -> ErrValB
+interpreteB _   (Lit l)          = Right (VLitteralB l)
+interpreteB env (Lam n e)        = Right (VFonctionB (\x -> interpreteB ((n, x):env) e))
+interpreteB env (Var n)          = case lookup n env of
+                                        Nothing -> Left (n ++ " is not defined")
+                                        Just(v) -> Right v
+interpreteB env (App x y) = case interpreteB env x of
+                                    Left e               -> Left e
+                                    Right (VFonctionB f) -> case (interpreteB env y) of
+                                                                    Left e  ->  Left e
+                                                                    Right v -> f v
+                                    Right e              -> Left ((show e) ++ " n'est pas une fonction")
 
 
 
