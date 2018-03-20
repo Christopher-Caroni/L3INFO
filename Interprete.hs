@@ -155,6 +155,33 @@ ifthenelseA = VFonctionA (\cond -> VFonctionA
                                                      else res_false)
                                       )
                          )
+
+
+-------------- Interprete avec erreurs --------------
+
+data ValeurB = VLitteralB Litteral
+            | VFonctionB (ValeurB -> ErrValB)
+
+type MsgErreur = String
+type ErrValB   = Either MsgErreur ValeurB
+
+instance Show ValeurB where
+   show (VFonctionB _)          = "λ "
+   show (VLitteralB (Entier n)) = show n
+   show (VLitteralB (Bool n))   = show n
+
+
+messErrVarNonDef :: Nom -> MsgErreur
+messErrVarNonDef n = "Error : variable " ++ n ++ " not defined"
+
+messErrAppLitLeft :: Litteral -> MsgErreur
+messErrAppLitLeft l = "Error : " ++ show l ++ " not a function"
+
+--interpreteB :: Environnement ValeurB -> Expression -> Maybe ValeurB
+--interpreteB =
+
+
+
 main :: IO ()
 main = do putStr "minilang> "
           hFlush stdout
