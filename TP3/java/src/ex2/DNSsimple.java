@@ -105,7 +105,7 @@ public class DNSsimple {
 		byte[] rdata = readAnswer(rec, answerStart);
 
 		// we now have the IPv4 @ in a 4 byte array
-		System.out.print("Address is : ");
+		System.out.print("\nAddress is : ");
 		for (int i = 0; i < rdata.length; i++) {
 			int dec = singleByteToInt(rdata[i]);
 			System.out.print(dec + " ");
@@ -127,26 +127,26 @@ public class DNSsimple {
 				answerStart = i + 4;
 			}
 		}
-		System.out.println("\nANSWER OFFSET: " + answerStart);
 		// System.out.println(Integer.toHexString((rec[answerStart]) & 0xff));
 		return answerStart;
 	}
 
 	static boolean foundType1 = false;
-	static int tries = 0;
 
 	private static byte[] readAnswer(byte[] rec, int answerStart) {
 		// il faut donc chercher la 2e reponse qui a le type 1 qui contient l'IP
 
 		int offset = answerStart;
-		while (!foundType1 && tries < 2) {
+		while (!foundType1) {
 			offset = getType1DataOffset(rec, offset);
-			tries++;
 		}
 		return Arrays.copyOfRange(rec, offset, offset + 4);
 	}
 
 	private static int getType1DataOffset(byte[] rec, int answerStart) {
+		System.out.println("\nANSWER OFFSET: " + answerStart);
+		
+		
 		int i = answerStart;
 		int type = -1;
 		boolean foundEndName = false;
@@ -156,13 +156,14 @@ public class DNSsimple {
 			byte[] ptr = Arrays.copyOfRange(rec, i, i + 2);
 			if (byteToInt(ptr) < 192) { // end of string
 				foundEndName = true;
+				continue;
 			}
 			i++;
 		}
 		// i is now at end of name
 
 		type = byteToInt(Arrays.copyOfRange(rec, i, i + 2));
-		rdLengthOffset = i + 7;
+		rdLengthOffset = i + 8;
 
 		System.out.println(
 				"TYPE: " + (Integer.toHexString((rec[i]) & 0xff)) + ", " + (Integer.toHexString((rec[i + 1]) & 0xff)));
