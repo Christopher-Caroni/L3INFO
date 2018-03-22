@@ -97,9 +97,6 @@ public class Q4 {
 		System.out.println();
 
 		
-		/* DEPLACER TOUT CELA DANS Q4 */
-		System.err.println("a deplacer dans q4");
-		
 		// QDCOUNT starts at offset 4
 		System.out.println("QDCOUNT: " + getTwoByteAtOffsetAsString(rec, 4));
 		System.out.println("ANCOUNT: " + getTwoByteAtOffsetAsString(rec, 6));
@@ -118,18 +115,11 @@ public class Q4 {
 
 	public static int skipQuestion(byte[] rec) {
 		// header size = 12, so Question starts at offset 12
-		int answerStart = -1;
-		boolean foundEndQname = false;
-		int i = 12;
+		int HEADER_SIZE = 12;
 
-		while (!foundEndQname) {
-			int singleValue = singleByteToInt(rec[i]);
-			i++;
-			if (singleValue == 0) {
-				foundEndQname = true;
-				answerStart = i + 4;
-			}
-		}
+		int answerStart = getOffsetEndString(rec, HEADER_SIZE);
+		answerStart += 4; // skip QTYPE & QCLASS
+		
 		// System.out.println(Integer.toHexString((rec[answerStart]) & 0xff));
 		return answerStart;
 	}
@@ -141,7 +131,12 @@ public class Q4 {
 
 		int offset = answerStart;
 		while (!foundType1) {
+			try {
 			offset = getType1DataOffset(rec, offset);
+			} catch (ArrayIndexOutOfBoundsException e) {
+				System.err.println("Reached end of response and did not find answer");
+				System.exit(1);
+			}
 		}
 		return Arrays.copyOfRange(rec, offset, offset + 4);
 	}
@@ -150,42 +145,22 @@ public class Q4 {
 		System.out.println("\nANSWER OFFSET: " + answerStart);
 		
 		
-		int i = answerStart;
 		int type = -1;
-		boolean foundEndName = false;
 		int rdLengthOffset = -1;
 		
+		int nameEndOffset = getOffsetEndString(rec, answerStart);
 
-		byte[] ptr = Arrays.copyOfRange(rec, i, i + 2);
-		int dec = byteToInt(ptr);
-		boolean firstIsPointer = dec >= 192;
-		boolean prevIsPointer = false;
-
-		while (!foundEndName) {
-			ptr = Arrays.copyOfRange(rec, i, i + 2);
-			dec = byteToInt(ptr);
-			if (prevIsPointer && dec < 192) {
-				foundEndName = true;
-				continue;
-			} else if (dec >= 192) {
-				prevIsPointer = true;
-			} else if (firstIsPointer && dec == 00) {
-				foundEndName = true;
-				continue;
-			}
-			i++;
-		}
 		// i is now at end of name
 
-		type = byteToInt(Arrays.copyOfRange(rec, i, i + 2));
-		rdLengthOffset = i + 8; // type, class and ttl have combined length of 8
+		type = doubleByteToInt(Arrays.copyOfRange(rec, nameEndOffset, nameEndOffset + 2));
+		rdLengthOffset = nameEndOffset + 8; // type, class and ttl have combined length of 8
 
 		byte[] rdLengthByte = Arrays.copyOfRange(rec, rdLengthOffset, rdLengthOffset + 2);
 
 		System.out.println(
-				"TYPE: " + (Integer.toHexString((rec[i]) & 0xff)) + ", " + (Integer.toHexString((rec[i + 1]) & 0xff)));
-		System.out.println("CLASS: " + (Integer.toHexString((rec[i + 2]) & 0xff)) + ", "
-				+ (Integer.toHexString((rec[i + 3]) & 0xff)));
+				"TYPE: " + (Integer.toHexString((rec[nameEndOffset]) & 0xff)) + ", " + (Integer.toHexString((rec[nameEndOffset + 1]) & 0xff)));
+		System.out.println("CLASS: " + (Integer.toHexString((rec[nameEndOffset + 2]) & 0xff)) + ", "
+				+ (Integer.toHexString((rec[nameEndOffset + 3]) & 0xff)));
 
 
 		System.out.println("RDLENGTH: " + (Integer.toHexString((rec[rdLengthOffset]) & 0xff)) + ", "
@@ -202,7 +177,7 @@ public class Q4 {
 		return rec & 0xFF;
 	}
 
-	public static int byteToInt(byte[] rec) {
+	public static int doubleByteToInt(byte[] rec) {
 		return ((rec[0] & 0xFF) * 256) | ((rec[1] & 0xFF));
 	}
 
@@ -212,5 +187,33 @@ public class Q4 {
 
 	public static String getTwoByteAtOffsetAsString(byte[] rec, int offset) {
 		return Integer.toHexString((rec[offset]) & 0xff) + ", " + Integer.toHexString((rec[offset + 1]) & 0xff);
+	}
+	
+	public static int getOffsetEndString(byte[] rec, int startOffset) {
+		int i = startOffset;
+		boolean foundEndName = false;
+		
+		
+		byte[] ptr = Arrays.copyOfRange(rec, i, i + 2);
+		int dec = doubleByteToInt(ptr);
+		boolean firstIsPointer = dec >= 192;
+		boolean prevIsPointer = false;
+
+		while (!foundEndName) {
+			ptr = Arrays.copyOfRange(rec, i, i + 2);
+			dec = doubleByteToInt(ptr);
+			if (prevIsPointer && dec < 192) {
+				foundEndName = true;
+				continue;
+			} else if (dec >= 192) {
+				prevIsPointer = true;
+			} else if (firstIsPointer && dec == 00) {
+				foundEndName = true;
+				continue;
+			}
+			i++;
+		}
+		
+		return i;
 	}
 }

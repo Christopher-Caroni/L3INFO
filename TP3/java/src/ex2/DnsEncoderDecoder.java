@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class DnsEncoderDecoder {
@@ -84,7 +85,16 @@ public class DnsEncoderDecoder {
 	private static void decode(byte[] rec) {
 		// QDCOUNT starts at offset 4
 		System.out.println("QDCOUNT: " + Q4.getTwoByteAtOffsetAsString(rec, 4));
-		System.out.println("ANCOUNT: " + Q4.getTwoByteAtOffsetAsString(rec, 6));
+		
+		int ancount = Q4.doubleByteToInt(Arrays.copyOfRange(rec, 6, 9));
+		System.out.println("ANCOUNT: " + ancount);
+		
+		if (ancount == 0) {
+			System.err.println("Can not decode ip address: did not receive any DNS answers");
+			System.exit(1);
+		}
+		
+		
 
 		int answerStart = Q4.skipQuestion(rec);
 		byte[] rdata = Q4.readAnswer(rec, answerStart);
