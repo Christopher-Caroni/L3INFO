@@ -151,10 +151,22 @@ public class DNSsimple {
 		int type = -1;
 		boolean foundEndName = false;
 		int rdLengthOffset = -1;
+		
+
+		byte[] ptr = Arrays.copyOfRange(rec, i, i + 2);
+		int dec = byteToInt(ptr);
+		boolean firstIsPointer = dec >= 192;
+		boolean prevIsPointer = false;
 
 		while (!foundEndName) {
-			byte[] ptr = Arrays.copyOfRange(rec, i, i + 2);
-			if (byteToInt(ptr) < 192) { // end of string
+			ptr = Arrays.copyOfRange(rec, i, i + 2);
+			dec = byteToInt(ptr);
+			if (prevIsPointer && dec < 192) {
+				foundEndName = true;
+				continue;
+			} else if (dec >= 192) {
+				prevIsPointer = true;
+			} else if (firstIsPointer && dec == 00) {
 				foundEndName = true;
 				continue;
 			}
