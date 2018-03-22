@@ -97,20 +97,34 @@ public class Q4 {
 		System.out.println();
 
 		
+		decode(rec);
+	}
+	
+	public static void decode(byte[] rec) {
 		// QDCOUNT starts at offset 4
-		System.out.println("QDCOUNT: " + getTwoByteAtOffsetAsString(rec, 4));
-		System.out.println("ANCOUNT: " + getTwoByteAtOffsetAsString(rec, 6));
+		int qdcount = Q4.doubleByteToInt(Arrays.copyOfRange(rec, 4, 7));
+		int ancount = Q4.doubleByteToInt(Arrays.copyOfRange(rec, 6, 9));
 
-		int answerStart = skipQuestion(rec);
-		byte[] rdata = readAnswer(rec, answerStart);
+		System.out.println("QDCOUNT: " + qdcount);
+		System.out.println("ANCOUNT: " + ancount);
+		
+		if (ancount == 0) {
+			System.err.println("Can not decode ip address: did not receive any answers");
+			System.exit(1);
+		}
+		
+		
+
+		int answerStart = Q4.skipQuestion(rec);
+		byte[] rdata = Q4.readAnswer(rec, answerStart);
 
 		// we now have the IPv4 @ in a 4 byte array
 		System.out.print("\nAddress is : ");
 		for (int i = 0; i < rdata.length; i++) {
-			int dec = singleByteToInt(rdata[i]);
+			int dec = Q4.singleByteToInt(rdata[i]);
 			System.out.print(dec + " ");
 		}
-
+		
 	}
 
 	public static int skipQuestion(byte[] rec) {

@@ -78,33 +78,7 @@ public class DnsEncoderDecoder {
 		}
 		System.out.println();
 		
-		decode(dp.getData());
-		
-	}
-
-	private static void decode(byte[] rec) {
-		// QDCOUNT starts at offset 4
-		System.out.println("QDCOUNT: " + Q4.getTwoByteAtOffsetAsString(rec, 4));
-		
-		int ancount = Q4.doubleByteToInt(Arrays.copyOfRange(rec, 6, 9));
-		System.out.println("ANCOUNT: " + ancount);
-		
-		if (ancount == 0) {
-			System.err.println("Can not decode ip address: did not receive any DNS answers");
-			System.exit(1);
-		}
-		
-		
-
-		int answerStart = Q4.skipQuestion(rec);
-		byte[] rdata = Q4.readAnswer(rec, answerStart);
-
-		// we now have the IPv4 @ in a 4 byte array
-		System.out.print("\nAddress is : ");
-		for (int i = 0; i < rdata.length; i++) {
-			int dec = Q4.singleByteToInt(rdata[i]);
-			System.out.print(dec + " ");
-		}
+		Q4.decode(dp.getData());
 		
 	}
 }
