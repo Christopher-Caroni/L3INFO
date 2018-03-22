@@ -15,8 +15,8 @@ public class DNSsimple {
 	public static void main(String[] args) {
 		byte[] message = { (byte) 0x08, (byte) 0xbb, (byte) 0x01,
 				(byte) 0x00, /*
-								 * a) 12 octets d'entete : identifiant de requete
-								 * parametres [RFC1035, 4.1.1]
+								 * a) 12 octets d'entete : identifiant de
+								 * requete parametres [RFC1035, 4.1.1]
 								 */
 				(byte) 0x00, (byte) 0x01, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00,
 				(byte) 0x03, (byte) 0x77, (byte) 0x77,
@@ -25,7 +25,8 @@ public class DNSsimple {
 				(byte) 0x66, /* b.1) QNAME : "3www4lifl2fr0" [RFC1035, 3.1] */
 				(byte) 0x6c, (byte) 0x02, (byte) 0x66, (byte) 0x72, (byte) 0x00, (byte) 0x00,
 				(byte) 0x01, /*
-								 * b.2) QTYPE : A (a host address) [RFC1035, 3.2.3]
+								 * b.2) QTYPE : A (a host address) [RFC1035,
+								 * 3.2.3]
 								 */
 				(byte) 0x00, (byte) 0x01 }; /*
 											 * b.3) QCLASS : IN (the Internet)
@@ -99,9 +100,21 @@ public class DNSsimple {
 		// QDCOUNT starts at offset 4
 		System.out.println("QDCOUNT: " + getTwoByteAtOffsetAsString(rec, 4));
 		System.out.println("ANCOUNT: " + getTwoByteAtOffsetAsString(rec, 6));
-		
 
-		// Question starts at offset 12
+		int answerStart = skipQuestion(rec);
+		byte[] rdata = readAnswer(rec, answerStart);
+
+		// we now have the IPv4 @ in a 4 byte array
+		System.out.print("Address is : ");
+		for (int i = 0; i < rdata.length; i++) {
+			int dec = singleByteToInt(rdata[i]);
+			System.out.print(dec + " ");
+		}
+
+	}
+
+	private static int skipQuestion(byte[] rec) {
+		// header size = 12, so Question starts at offset 12
 		int answerStart = -1;
 		boolean foundEndQname = false;
 		int i = 12;
@@ -115,34 +128,58 @@ public class DNSsimple {
 			}
 		}
 		System.out.println("\nANSWER OFFSET: " + answerStart);
-		//System.out.println(Integer.toHexString((rec[answerStart]) & 0xff));
+		// System.out.println(Integer.toHexString((rec[answerStart]) & 0xff));
+		return answerStart;
+	}
 
-		i = answerStart;
-		boolean foundEndRepName = false;
+	static boolean foundType1 = false;
+	static int tries = 0;
+
+	private static byte[] readAnswer(byte[] rec, int answerStart) {
+		// il faut donc chercher la 2e reponse qui a le type 1 qui contient l'IP
+
+		int offset = answerStart;
+		while (!foundType1 && tries < 2) {
+			offset = getType1DataOffset(rec, offset);
+			tries++;
+		}
+		return Arrays.copyOfRange(rec, offset, offset + 4);
+	}
+
+	private static int getType1DataOffset(byte[] rec, int answerStart) {
+		int i = answerStart;
+		int type = -1;
+		boolean foundEndName = false;
 		int rdLengthOffset = -1;
-		while (!foundEndRepName) {
+
+		while (!foundEndName) {
 			byte[] ptr = Arrays.copyOfRange(rec, i, i + 2);
-			int dblByteValue = byteToInt(ptr);
-			if (dblByteValue < 192) {
-				int type = byteToInt(Arrays.copyOfRange(rec, i, i+2));
-				int classr = byteToInt(Arrays.copyOfRange(rec, i+2, i+4));
-				System.out.println("TYPE: " + (Integer.toHexString((rec[i]) & 0xff)) + ", "+ (Integer.toHexString((rec[i+1]) & 0xff)));
-				System.out.println("CLASS: " + (Integer.toHexString((rec[i+2]) & 0xff)) + ", "+ (Integer.toHexString((rec[i+3]) & 0xff)));
-				
-				
-				foundEndRepName = true;
-				rdLengthOffset = i + 8;
+			if (byteToInt(ptr) < 192) { // end of string
+				foundEndName = true;
 			}
 			i++;
 		}
-		
-		byte[] rdLengthByte = Arrays.copyOfRange(rec, rdLengthOffset, rdLengthOffset+2);
+		// i is now at end of name
+
+		type = byteToInt(Arrays.copyOfRange(rec, i, i + 2));
+		rdLengthOffset = i + 7;
+
+		System.out.println(
+				"TYPE: " + (Integer.toHexString((rec[i]) & 0xff)) + ", " + (Integer.toHexString((rec[i + 1]) & 0xff)));
+		System.out.println("CLASS: " + (Integer.toHexString((rec[i + 2]) & 0xff)) + ", "
+				+ (Integer.toHexString((rec[i + 3]) & 0xff)));
+
+		byte[] rdLengthByte = Arrays.copyOfRange(rec, rdLengthOffset, rdLengthOffset + 2);
 		int rdLength = byteToInt(rdLengthByte);
-		System.out.println("found rdlength at bytes: " + (Integer.toHexString((rec[rdLengthOffset]) & 0xff)) + ", " + (Integer.toHexString((rec[rdLengthOffset+1]) & 0xff)));
+
+		System.out.println("found rdlength at bytes: " + (Integer.toHexString((rec[rdLengthOffset]) & 0xff)) + ", "
+				+ (Integer.toHexString((rec[rdLengthOffset + 1]) & 0xff)));
 		System.out.println("rdlength val: " + rdLength);
-		
-		// type = 5 donc le premier reponse contient une chaine 
-		// il faut donc chercher la 2e reponse qui a le type 1 qui contient l'IP
+
+		if (type == 1) {
+			foundType1 = true;
+		}
+		return rdLengthOffset +2;
 	}
 
 	private static int singleByteToInt(byte rec) {
@@ -152,8 +189,12 @@ public class DNSsimple {
 	private static int byteToInt(byte[] rec) {
 		return ((rec[0] & 0xFF) * 256) | ((rec[1] & 0xFF));
 	}
-	
+
+	private static String getByteAtOffsetAsString(byte rec) {
+		return Integer.toHexString((rec) & 0xff);
+	}
+
 	private static String getTwoByteAtOffsetAsString(byte[] rec, int offset) {
-		return Integer.toHexString((rec[offset]) & 0xff) + ", " + Integer.toHexString((rec[offset+1]) & 0xff);
+		return Integer.toHexString((rec[offset]) & 0xff) + ", " + Integer.toHexString((rec[offset + 1]) & 0xff);
 	}
 }

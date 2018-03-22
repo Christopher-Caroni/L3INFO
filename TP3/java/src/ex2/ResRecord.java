@@ -3,19 +3,24 @@ package ex2;
 public class ResRecord {
 	
 	private byte[] data;
+	int type;
 	
-	public ResRecord(byte[] data) {
+	public ResRecord(byte[] data, int type) {
 		this.data = data;
-		getLength();
+		this.type = type;
 	}
 	
-	private void getLength() {
-		// TODO
-	}
 	
 	public byte[] getRData() {
-		return null;
+		return this.data;
 	}
+
+
+	public int getType() {
+		return type;
+	}
+	
+	
 	
 
 }
