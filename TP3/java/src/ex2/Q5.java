@@ -11,22 +11,21 @@ public class Q5 {
 
 		Scanner sc = new Scanner(System.in);
 
-		while (true) {
-			System.out.println("\n-----------------------------------------------------------");
-			System.out.println("Saisissez une adresse symbolique : (\"stop\" pour terminer) ");
-			System.out.println("-----------------------------------------------------------");
-			String domain = sc.nextLine();
-			if (domain.equalsIgnoreCase("stop")) {
-				System.out.println("bye");
-				break;
-			}
-			printDatagram(domain);
-		}
+		typeAddress(sc);
 		sc.close();
 
 	}
 
-	private static void printDatagram(String domain) throws IOException {
+	public static byte[] typeAddress(Scanner sc) throws IOException {
+			System.out.println("\n-----------------------------------------------------------");
+			System.out.println("Saisissez une adresse symbolique : ");
+			System.out.println("-----------------------------------------------------------");
+			String domain = sc.nextLine();
+			
+			return printDatagram(domain);
+	}
+
+	public static byte[] printDatagram(String domain) throws IOException {
 
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		DataOutputStream dos = new DataOutputStream(baos);
@@ -94,7 +93,8 @@ public class Q5 {
 		for (int i = 0; i < dnsFrame.length; i++) {
 			System.out.print("0x" + String.format("%x", dnsFrame[i]) + " ");
 		}
-
+		
+		return dnsFrame;
 	}
 
 }
