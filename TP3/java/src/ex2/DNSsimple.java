@@ -163,20 +163,20 @@ public class DNSsimple {
 		// i is now at end of name
 
 		type = byteToInt(Arrays.copyOfRange(rec, i, i + 2));
-		rdLengthOffset = i + 8;
+		rdLengthOffset = i + 8; // type, class and ttl have combined length of 8
+
+		byte[] rdLengthByte = Arrays.copyOfRange(rec, rdLengthOffset, rdLengthOffset + 2);
 
 		System.out.println(
 				"TYPE: " + (Integer.toHexString((rec[i]) & 0xff)) + ", " + (Integer.toHexString((rec[i + 1]) & 0xff)));
 		System.out.println("CLASS: " + (Integer.toHexString((rec[i + 2]) & 0xff)) + ", "
 				+ (Integer.toHexString((rec[i + 3]) & 0xff)));
 
-		byte[] rdLengthByte = Arrays.copyOfRange(rec, rdLengthOffset, rdLengthOffset + 2);
-		int rdLength = byteToInt(rdLengthByte);
 
-		System.out.println("found rdlength at bytes: " + (Integer.toHexString((rec[rdLengthOffset]) & 0xff)) + ", "
+		System.out.println("RDLENGTH: " + (Integer.toHexString((rec[rdLengthOffset]) & 0xff)) + ", "
 				+ (Integer.toHexString((rec[rdLengthOffset + 1]) & 0xff)));
-		System.out.println("rdlength val: " + rdLength);
 
+		
 		if (type == 1) {
 			foundType1 = true;
 		}
