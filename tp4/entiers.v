@@ -101,6 +101,13 @@ Qed.
 
 Lemma multsn (n m : entier) : mult n (S m) = plus n (mult n m).
 Proof.
+induction n.
+ - simpl.
+   reflexivity.
+ - simpl.
+   rewrite IHn.
+   rewrite assoc2.
+   reflexivity.
 Qed.
 
 Theorem symetriemult (n m : entier) : mult n m = mult m n.
