@@ -90,6 +90,13 @@ Qed.
 
 Lemma assoc2 (n m p : entier) : plus n (plus m p) = plus m (plus n p).
 Proof.
+induction n.
+-simpl.
+ reflexivity.
+-simpl.
+ rewrite IHn.
+ rewrite plusS.
+ reflexivity.
 Qed.
 
 Lemma multsn (n m : entier) : mult n (S m) = plus n (mult n m).
