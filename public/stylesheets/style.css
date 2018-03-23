@@ -1,0 +1,111 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+
+.titre{
+  color : red;
+  font-size: medium;
+}
+
+.example {
+  background-color: #CCCCCC;
+  margin : 10px;
+}
+
+#otherexample {
+  border : solid thin #BBBBBB;
+  margin : 10px;
+  padding : 3px;
+}
+
+.etuList {
+  border : solid 2px #404040;
+  padding : 4px;
+}
+tr.etudiant {
+  border : solid thin #404040;
+  background-color : #E0E0E0;
+}
+td.nom, td.prenom, td.groupe{
+  padding : 2px 5px;
+}
+
+td.author {
+  color  : green;
+}
+
+.cover {
+  width : 200px;
+  padding  : 5px;
+  background-color: rgba(100,155,100,0.5);
+}
+
+.cover img {
+  width : 100%;
+}
+
+h2.title {
+  margin-bottom : 5px;
+}
+div.author {
+  font-style:italic;
+  color : #A0A0A0;
+  margin-left : 20px;
+}
+
+footer {
+  border-top : solid thin #BBBBBB;
+  margin-top : 10px;
+  padding : 5px;
+}
+
+#details, #details2 {
+  position : absolute;
+  top : 200px;
+  width : 200px;
+  border : solid thin #CCC;
+  padding : 5px;
+}
+
+#details {
+  left : 400px;
+}
+#details2 {
+  left : 600px;
+}
+
+
+
+#details .cover {
+  float : right;
+}
+
+div input {
+  display : block;
+}
+
+#result {
+  padding : 5px;
+  border : solid thin #DDDDDD;
+  margin : 5px 0px;
+  color : brown;
+  background-color: #EEEEEE;
+  width : 50%;
+}
+td {
+  text-align : center;
+}
+td.delete a {
+  color : red;
+  font-weight : bold;
+  text-decoration : none;
+}
+
+span.deleted {
+  color : #888888;
+}

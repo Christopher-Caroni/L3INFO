@@ -1,0 +1,37 @@
+extends layout
+
+block content
+
+    script(src='/javascripts/etudiantsRest.js')
+
+    table.etuListtr.etuList
+        tr.etudiant
+            td.titre="Nom"
+            td.titre= "prenom"
+            td.titre= "groupe"
+
+        each etudiant in etudiantsData
+            tr.etudiant(name=etudiant._id)
+                td.nom
+                    input(value= etudiant.nom)
+                td.prenom
+                    input(value= etudiant.prenom)
+                td.groupe
+                    input(value= etudiant.groupe)
+                td
+                    button.put(data-etudiantid=etudiant._id, data-etudiant=etudiant)  modifier
+                td
+                    button.delete(data-etudiantid=etudiant._id)  delete
+
+
+        tr.etudiant
+            td
+                input#nom(placeholder="nom")
+            td
+                input#prenom(placeholder="prenom")
+            td
+                input#groupe(placeholder="groupe")
+            td
+                button#createbutton create
+
+
