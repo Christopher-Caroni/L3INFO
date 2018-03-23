@@ -1,0 +1,9 @@
+entete 12 octets
+    rfc 4.1.1
+question 1
+    rfc 4.1.2
+reponse 2
+    rfc 4.1.3
+
+si la valeur de l'octet est inferieur a 192 =>
+si >= 192 cest un pointeur et il faut lire deux octets
