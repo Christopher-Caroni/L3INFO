@@ -1,0 +1,14 @@
+extends layout
+
+block content
+    script(src='/socket.io/socket.io.js')
+    script(src='/scripts/chat.js')
+    link(rel='shortcut-icon',href='favicon.ico')
+
+    h1 Client
+
+    ul#messages
+    div#typingInfo
+    form#chatForm
+        input#chatInput
+        button send
