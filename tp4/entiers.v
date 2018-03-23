@@ -124,8 +124,24 @@ Qed.
 
 Theorem distributivite (n m p : entier) : mult (plus n m) p = plus (mult n p) (mult m p).
 Proof.
+induction n.
+- simpl.
+  reflexivity.
+- simpl.
+  symmetry.
+  rewrite IHn.
+  rewrite associativite.
+  reflexivity.
 Qed.
 
 Theorem associativitemult (n m p : entier) : mult n (mult m p) = mult (mult n m) p.
 Proof.
+induction n.
+-simpl.
+ reflexivity.
+-simpl.
+ rewrite IHn.
+ symmetry.
+ rewrite distributivite.
+ reflexivity.
 Qed.
