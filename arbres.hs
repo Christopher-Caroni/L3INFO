@@ -161,7 +161,7 @@ racineToujoursNoir (Noeud _ r g d) = Noeud Noir r g d
 insertion :: Ord a => ArbreRN a -> a -> ArbreRN a
 insertion arbre valeur = racineToujoursNoir (ins valeur arbre)
   where ins v Feuille         = Noeud Rouge v Feuille Feuille     -- inserted
-        ins v (Noeud c r g d) | elementR v (Noeud c r g d) = (Noeud c r g d)       -- already exists
+        ins v (Noeud c r g d) | elementR (Noeud c r g d) v = (Noeud c r g d)       -- already exists
                               | v < r                      = equilibre (Noeud c r (ins v g) d) -- left insert
                               | v > r                      = equilibre (Noeud c r g (ins v d)) -- right insert
 
