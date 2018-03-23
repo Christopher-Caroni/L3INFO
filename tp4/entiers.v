@@ -51,6 +51,7 @@ Qed.
 
 Lemma egalS (n m : entier) : n = m <-> S n = S m.
 Proof.
+split.
  - intro a.
    rewrite a .
    reflexivity.
@@ -62,6 +63,12 @@ Qed.
 
 Theorem simplification (a n m : entier) : plus a n = plus a m <-> n = m.
 Proof.
+split.
+ - induction a; simpl; intros; trivial.
+   apply IHa.
+   apply egalS.
+   exact H.
+ - intro Eq; rewrite Eq; reflexivity.
 Qed.
 
 Lemma multO (n : entier) : mult n O = O.
