@@ -1,9 +1,0 @@
-package ex2;
-
-public class DnsEncoderDecoder {
-	public static void main(String[] args) {
-		
-		Q5 encoder = new Q5();
-		
-	}
-}

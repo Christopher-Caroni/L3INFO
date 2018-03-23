@@ -1,7 +1,0 @@
-package ex2;
-
-public class DnsEncoderDecoder {
- public static void main(String[] args) {
-	
-}
-}
