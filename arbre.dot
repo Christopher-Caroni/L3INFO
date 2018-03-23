@@ -1,0 +1,10 @@
+digraph "Arbre" {
+node [fontname="DejaVu-Sans", shape=circle]
+c [color=black, fontcolor=black]
+f [color=red, fontcolor=red]
+g [color=black, fontcolor=black]
+x [color=red, fontcolor=red]
+g -> c
+g -> x
+c -> f
+}
