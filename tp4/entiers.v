@@ -112,6 +112,14 @@ Qed.
 
 Theorem symetriemult (n m : entier) : mult n m = mult m n.
 Proof.
+induction n.
+ -simpl.
+  rewrite multO.
+  reflexivity.
+ -rewrite multsn.
+  simpl.
+  rewrite IHn.
+  reflexivity.
 Qed.
 
 Theorem distributivite (n m p : entier) : mult (plus n m) p = plus (mult n p) (mult m p).
