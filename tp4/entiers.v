@@ -39,10 +39,25 @@ Qed.
 
 Theorem symetrie (n m : entier) : plus n m = plus m n.
 Proof.
+induction n.
+ - simpl.
+   rewrite plus0.
+   reflexivity.
+ - rewrite plusS.
+   simpl.
+   rewrite IHn.
+   reflexivity.    
 Qed.
 
 Lemma egalS (n m : entier) : n = m <-> S n = S m.
 Proof.
+ - intro a.
+   rewrite a .
+   reflexivity.
+ - intro a.
+   injection a.
+   intro b.
+   apply b.
 Qed.
 
 Theorem simplification (a n m : entier) : plus a n = plus a m <-> n = m.
