@@ -71,8 +71,21 @@ split.
  - intro Eq; rewrite Eq; reflexivity.
 Qed.
 
+
+Fixpoint mult (n m : entier) : entier := 
+  match n with 
+  | O => O 
+  | S n' => plus m (mult n' m) 
+  end.
+
 Lemma multO (n : entier) : mult n O = O.
 Proof.
+induction n.
+- simpl.
+  reflexivity.
+- simpl.
+  rewrite IHn.
+  reflexivity.
 Qed.
 
 Lemma assoc2 (n m p : entier) : plus n (plus m p) = plus m (plus n p).
