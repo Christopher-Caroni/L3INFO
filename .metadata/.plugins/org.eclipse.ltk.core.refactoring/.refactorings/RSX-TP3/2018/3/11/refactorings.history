@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename method &apos;ex2.Q5.lookup(...)&apos; to &apos;adressToIP&apos;&#x0A;- Original project: &apos;RSX-TP3&apos;&#x0A;- Original element: &apos;ex2.Q5.lookup(...)&apos;&#x0A;- Renamed element: &apos;ex2.Q5.adressToIP(...)&apos;&#x0A;- Update references to refactored element" delegate="false" deprecate="false" description="Rename method &apos;lookup&apos;" flags="589830" id="org.eclipse.jdt.ui.rename.method" input="/src&lt;ex2{Q5.java[Q5~lookup~QString;" name="adressToIP" references="true" stamp="1521103481465" version="1.0"/>
+</session>

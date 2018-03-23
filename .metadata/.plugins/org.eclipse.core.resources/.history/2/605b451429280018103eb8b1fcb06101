@@ -1,0 +1,17 @@
+package ex2;
+
+public class Q5 {
+	public static void main(String[] args) {
+		
+		
+		
+	}
+	private static int adressToInt(String adress){
+		adress = "."+adress+".";
+		
+		String tab[] = adress.split(".");
+		
+		return 0;
+	}
+
+}

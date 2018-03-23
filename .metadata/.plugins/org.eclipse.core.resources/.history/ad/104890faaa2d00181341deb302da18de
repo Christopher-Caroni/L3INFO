@@ -1,0 +1,14 @@
+package ex2;
+
+import java.io.IOException;
+import java.util.Scanner;
+
+public class DnsEncoderDecoder {
+	public static void main(String[] args) throws IOException {
+		
+		Scanner sc = new Scanner(System.in);
+		Q5 encoder = new Q5();
+		encoder.typeAddress(sc);
+		
+	}
+}
